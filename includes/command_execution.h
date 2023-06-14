@@ -1,19 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   command_execution.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:43:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/14 17:02:21 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/06/14 15:49:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-
-
-t_token	*tokenize(char *line);
-
-#endif
