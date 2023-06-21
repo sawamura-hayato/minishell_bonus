@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/15 20:42:00 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/21 20:06:24 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 enum e_redirect_type
 {
-	REDIRECTING_INPUT,
-	REDIRECTING_OUTPUT,
-	APPENDING_OUTPUT,
-	FILE,
-	HERE_DOCUMENTS,
-	DELIMITER,
+	REDIRECTING_INPUT, // <
+	REDIRECTING_OUTPUT,// >
+	APPENDING_OUTPUT,// >>
+	FILE,// redirect file
+	HERE_DOCUMENTS, // <<
+	DELIMITER, // << delimitter
 };
 
 enum e_ast_type
@@ -47,20 +47,74 @@ typedef struct s_redirect
 typedef struct s_ast
 {
 	e_ast_type		type;
-	t_command		*command_list;
-	t_redirect		*redirect_list;
+	t_command		*command_list;// cat infile
+	t_redirect		*input_redirect_list;//<< eof < Makefile
+	t_redirect		*output_redirect_list;// > out >> apend
 	struct s_ast	*left_hand;
 	struct s_ast	*right_hand;
 }	t_ast;
 
 
-bool		is_syntax_error(t_token *token);
-bool		is_quotation_closed(t_token *token);
-t_ast		*ast_new_node(e_ast_type type, t_ast *left_hand, t_ast *right_hand);
+typedef struct s_ast
+{
+	e_ast_type		type;
+	// ↓tokenを並び替えるデータ構造にする
+	t_token			*command_list;// cat infile
+	t_token			*input_redirect_list;//<< eof < Makefile
+	t_token			*output_redirect_list;// > out >> apend
+	struct s_ast	*left_hand;
+	struct s_ast	*right_hand;
+}	t_ast;
+
+
+cat infile << eof <Makefile > out >> apend | ls
+
+
+cat
+infiile
+|
+ls
+
+------------------------
+
+a || (b && ls)
+
+	&&
+a		||
+	b		ls
+------------------------
+
+------------------------
+(a || b) && ls
+
+		||
+	&&		ls
+a		b
+------------------------
+
+
+					|
+				|		command4
+		  |			comamnd3
+command1	command2
+
+
+		  |			comamnd3
+command1	command2
+
+
+		  |
+command1	command2
+
+
+
+		  |
+command1	command2
+					comamnd3
+						command4
+
+t_ast		*ast_new_node_ope(e_ast_type type, t_ast *left_hand, t_ast *right_hand);
 t_ast		*ast_new_node_command(t_command *command, t_redirect *redirect);
-t_token		*consume(t_node *token);
-t_command	*make_command_list(t_token *token);
-t_command	*make_redirect_list(t_token *token);
-
-
+t_command	*ast_make_command_list(t_token *token);
+t_command	*ast_make_redirect_list(t_token *token);
 #endif
