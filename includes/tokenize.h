@@ -21,7 +21,7 @@ enum e_token_type {
 };
 
 typedef struct s_token {
-	char			*token;//wordの方がbetter?
+	char			*word;
 	e_token_type	type;
 	struct s_token	*next;
 }	t_token;
@@ -33,9 +33,15 @@ typedef struct s_token {
 // ||||
 // cat
 
-t_token	*token_newtoken(t_token **head);
+t_token	*tokenize(const char *line);
+t_token	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
 void	token_set_token_type(t_token *token);
+// void	token_set_token_type(t_token **head, t_token *token); tokeninzeで細かくするなら、headも必要
 void	token_addback(t_token **head, t_token *new_token);
-bool	token_is_meta_char(char c);
+void	token_lasttoken(t_token **head);
+// void	token_remove_token(t_token **head, t_token *target);
+void	token_free_all_tokens(t_token **head);
+bool	token_is_meta_char(char c);// tokenの区切り文字
+bool	token_is_space(char c);//space＆tabは飛ばす 例）'     ls  | cat'
 
 #endif
