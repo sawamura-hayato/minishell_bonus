@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/21 20:06:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/28 13:49:33 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum e_ast_type
 typedef struct s_command
 {
 	char				*word;
+	// char				*expanded_word;
 	struct s_command	*next;
 }	t_command;
 
@@ -47,11 +48,14 @@ typedef struct s_redirect
 typedef struct s_ast
 {
 	e_ast_type		type;
-	t_command		*command_list;// cat infile
-	t_redirect		*input_redirect_list;//<< eof < Makefile
-	t_redirect		*output_redirect_list;// > out >> apend
+	t_command		*command_list;// cat infile echo a
+	// t_redirect		*input_redirect_list;//<< eof < Makefile
+	// t_redirect		*output_redirect_list;// > out >> apend
+	t_redirect		*redirect_list;
 	struct s_ast	*left_hand;
 	struct s_ast	*right_hand;
+	int				fd;
+	pid_t			pid;
 }	t_ast;
 
 
@@ -77,11 +81,19 @@ ls
 
 ------------------------
 
-a || (b && ls)
+cmd1 | cmd2 || cmd3 | cmd4
+				|
+			||		cmd4
+		|		cmd3
+	cmd1	cmd2
+------------------------
 
-	&&
-a		||
-	b		ls
+cmd1 | (cmd2 || cmd3) | cmd4
+
+		|
+	cmd1	|
+		||	   cmd4
+	cmd2  cmd3
 ------------------------
 
 ------------------------
