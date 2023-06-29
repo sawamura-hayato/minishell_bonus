@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/28 13:49:33 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/29 17:34:07 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ typedef struct s_ast
 {
 	e_ast_type		type;
 	t_command		*command_list;// cat infile echo a
-	// t_redirect		*input_redirect_list;//<< eof < Makefile
-	// t_redirect		*output_redirect_list;// > out >> apend
 	t_redirect		*redirect_list;
 	struct s_ast	*left_hand;
 	struct s_ast	*right_hand;
@@ -71,7 +69,10 @@ typedef struct s_ast
 }	t_ast;
 
 
-cat infile << eof <Makefile > out >> apend | ls
+ls infile << eof <Makefile > out >> apend a b | ls
+
+ls infile a b
+<< eof <Makefile > out >> apend
 
 
 cat
@@ -82,6 +83,7 @@ ls
 ------------------------
 
 cmd1 | cmd2 || cmd3 | cmd4
+
 				|
 			||		cmd4
 		|		cmd3
@@ -99,8 +101,8 @@ cmd1 | (cmd2 || cmd3) | cmd4
 ------------------------
 (a || b) && ls
 
-		||
-	&&		ls
+		&&
+	||		ls
 a		b
 ------------------------
 

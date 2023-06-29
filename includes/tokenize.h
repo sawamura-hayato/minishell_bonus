@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/28 17:28:53 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/28 17:32:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	token_newtoken(t_token **head, const char *line, size_t start, size_t end)
 	return (0);
 }
 
-t_token	*token(const char *line)
+t_token	*tokenize(const char *line)
 {
 	t_token *head;
 
