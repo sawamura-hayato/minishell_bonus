@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/28 17:32:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:47:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_token {
 // cat
 
 t_token	*tokenize(const char *line);
-int		token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
+t_tokne	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
 void	token_set_token_type(t_token *token);
 // void	token_set_token_type(t_token **head, t_token *token); tokeninzeで細かくするなら、headも必要
 void	token_addback(t_token **head, t_token *new_token);
@@ -43,19 +43,34 @@ void	token_lasttoken(t_token **head);
 void	token_free_all_tokens(t_token **head);
 bool	token_is_meta_char(char c);// tokenの区切り文字
 bool	token_is_space(char c);//space＆tabは飛ばす 例）'     ls  | cat'
+bool	token_is_quotation(char c);
 
-int	token_newtoken(t_token **head, const char *line, size_t start, size_t end)
+// int	token_newtoken(t_token **head, const char *line, size_t start, size_t end)
+// {
+// 	t_token *newtoken;
+
+// 	if (start == end && line[i] == '\0')
+// 		return (1);
+// 	newtoken = malloc_x(sizeof(t_token));
+// 	newtoken->next = NULL;
+// 	newtoken->word = substr_x(line, start, (end - start));
+// 	token_set_token_type(token);
+// 	token_addback(head, token);
+// 	return (0);
+// }
+
+t_token	*token_newtoken(t_token **head, const char *line, size_t start, size_t end)
 {
 	t_token *newtoken;
 
 	if (start == end && line[i] == '\0')
-		return (1);
+		return (NULL);
 	newtoken = malloc_x(sizeof(t_token));
 	newtoken->next = NULL;
 	newtoken->word = substr_x(line, start, (end - start));
 	token_set_token_type(token);
 	token_addback(head, token);
-	return (0);
+	return (newtoken);
 }
 
 t_token	*tokenize(const char *line)
@@ -65,15 +80,20 @@ t_token	*tokenize(const char *line)
 	head = NULL;
 	size_t	start = 0;
 	size_t	i = 0;
+	bool	quotation = false;
 	while (line[i] != '\0')
 	{
-		while (token_is_space(line[i]))
+		while (token_is_space(line[i]) && line[i] != '\0')
 			i++;
 		i = start;
-		while (!token_is_meta_char(line[i]))
+		while (!token_is_meta_char(line[i]) && quotation == false && line[i] != '\0')
+		{
+			if (token_is_quotation(line[i]))
+				quotation = !quotation;
 			i++;
-		if (token_newtoken(&head, line, start, i))
-			break ;
+		}
+		t_token *token =  token_newtoken(&head, line, start, i)
+		token_addback(head, token);
 	}
 	return (head);
 }

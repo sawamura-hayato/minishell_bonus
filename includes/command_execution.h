@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/29 17:34:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/06/30 14:26:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 
 enum	e_operator
 {
-	HEAD,
-	STDOUT,
+	START,
+	END,
 	PIPE,
 	LOGICAL_AND,
 	LOGICAL_OR,
 };
 
 int		command_execution(t_ast *node, enum e_operator operator);
-// int		do_input_redirection(t_redirect **input_redirect_list);
-// int		do_output_redirection(t_redirect **output_redirect_list);
 int		do_redirection(t_ast *node);
 void	execute_fork(t_ast *node);
 void	execute_pipe(t_ast *node);
@@ -43,8 +41,8 @@ int	command_execution(t_ast *node, enum	e_operator operator)
 		return ;
 	if (node->type == LOGICAL_AND || node->type == LOGICAL_OR)
 		;
-	else if (operator == HEAD && node->right_hand != NULL)
-		command_execution(node->right_hand, STDOUT);
+	else if (operator == START && node->right_hand != NULL)
+		command_execution(node->right_hand, END);
 	else if (node->right_hand != NULL)
 		command_execution(node->right_hand, operator);
 	if (node->type == COMMAND)
@@ -69,7 +67,7 @@ int	command_execution(t_ast *node, enum	e_operator operator)
 		else
 			execute_fork(node);
 	}
-	if (operator == HEAD)
+	if (operator == START)
 		wait_child_process(*node);
 }
 
