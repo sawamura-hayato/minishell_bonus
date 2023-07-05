@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/07/01 13:28:53 by tterao           ###   ########.fr       */
+/*   Created: 2023/07/05 12:42:06 by tterao            #+#    #+#             */
+/*   Updated: 2023/07/05 13:03:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-typedef struct s_envs
-{
-	char			*key;
-	char			*value;
-	struct s_envs	*next;
-}	t_envs;
-
-t_envs	*envs_init(const char **environ);
-t_envs	*envs_newnode(char *_key, char *_value);
-void	envs_addback(t_envs **head);
+int		do_builtin(t_ast *node);
+void	builtin_echo(t_ast *node);
+void	builtin_cd(t_ast *node);
+void	builtin_pwd(t_ast *node);
+void	builtin_export(t_ast *node);
+void	builtin_unset(t_ast *node);
+void	builtin_env(t_ast *node);
+void	builtin_exit(t_ast *node);
 
 #endif

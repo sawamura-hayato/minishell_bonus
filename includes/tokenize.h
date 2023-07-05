@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/30 14:47:06 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/04 15:08:39 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,6 @@ bool	token_is_meta_char(char c);// tokenの区切り文字
 bool	token_is_space(char c);//space＆tabは飛ばす 例）'     ls  | cat'
 bool	token_is_quotation(char c);
 
-// int	token_newtoken(t_token **head, const char *line, size_t start, size_t end)
-// {
-// 	t_token *newtoken;
-
-// 	if (start == end && line[i] == '\0')
-// 		return (1);
-// 	newtoken = malloc_x(sizeof(t_token));
-// 	newtoken->next = NULL;
-// 	newtoken->word = substr_x(line, start, (end - start));
-// 	token_set_token_type(token);
-// 	token_addback(head, token);
-// 	return (0);
-// }
-
 t_token	*token_newtoken(t_token **head, const char *line, size_t start, size_t end)
 {
 	t_token *newtoken;
@@ -68,8 +54,8 @@ t_token	*token_newtoken(t_token **head, const char *line, size_t start, size_t e
 	newtoken = malloc_x(sizeof(t_token));
 	newtoken->next = NULL;
 	newtoken->word = substr_x(line, start, (end - start));
-	token_set_token_type(token);
-	token_addback(head, token);
+	token_set_token_type(newtoken);
+	token_addback(head, newtoken);
 	return (newtoken);
 }
 
@@ -81,6 +67,7 @@ t_token	*tokenize(const char *line)
 	size_t	start = 0;
 	size_t	i = 0;
 	bool	quotation = false;
+	char	target;
 	while (line[i] != '\0')
 	{
 		while (token_is_space(line[i]) && line[i] != '\0')
@@ -88,8 +75,12 @@ t_token	*tokenize(const char *line)
 		i = start;
 		while (!token_is_meta_char(line[i]) && quotation == false && line[i] != '\0')
 		{
-			if (token_is_quotation(line[i]))
+			if (token_is_quotation(line[i]) && line[i] == target)
+			{
+				if (!quotation)
+					target = line[i];
 				quotation = !quotation;
+			}
 			i++;
 		}
 		t_token *token =  token_newtoken(&head, line, start, i)

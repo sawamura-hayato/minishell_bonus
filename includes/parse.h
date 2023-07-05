@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/29 17:34:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/05 17:38:30 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,32 +48,37 @@ typedef struct s_redirect
 typedef struct s_ast
 {
 	e_ast_type		type;
-	t_command		*command_list;// cat infile echo a
-	t_redirect		*redirect_list;
+	t_command		*command_list;// ls infile a b
+	t_redirect		*redirect_list;//<< eof <Makefile > out >> apend
 	struct s_ast	*left_hand;
 	struct s_ast	*right_hand;
-	int				fd;
+	int				fd;//出力先のfd
 	pid_t			pid;
 }	t_ast;
 
-
-typedef struct s_ast
-{
-	e_ast_type		type;
-	// ↓tokenを並び替えるデータ構造にする
-	t_token			*command_list;// cat infile
-	t_token			*input_redirect_list;//<< eof < Makefile
-	t_token			*output_redirect_list;// > out >> apend
-	struct s_ast	*left_hand;
-	struct s_ast	*right_hand;
-}	t_ast;
+// typedef struct s_ast
+// {
+// 	e_ast_type		type;
+// 	// ↓tokenを並び替えるデータ構造にする
+// 	t_token			*command_list;// cat infile
+// 	t_token			*redirect_list;//<< eof < Makefile
+// 	struct s_ast	*left_hand;
+// 	struct s_ast	*right_hand;
+// }	t_ast;
 
 
-ls infile << eof <Makefile > out >> apend a b | ls
+ls infileC a b | ls
 
-ls infile a b
-<< eof <Makefile > out >> apend
+ls infile a b << eof <Makefile > out >> apend | ls a b c d
 
+"this\nis\ntest"
+
+fd = open("minishelltmpfile", )
+write(fd, "this\nis\ntest", strlen());
+
+dup2(stdin, fd);
+lslst();
+close(fd);
 
 cat
 infiile
@@ -120,6 +125,7 @@ command1	command2
 		  |
 command1	command2
 
+<infile
 
 
 		  |
