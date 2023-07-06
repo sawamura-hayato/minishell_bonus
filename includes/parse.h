@@ -21,6 +21,7 @@ enum e_redirect_type
 	FILE,// redirect file
 	HERE_DOCUMENTS, // <<
 	DELIMITER, // << delimitter
+	QUOTED_DELIMITER, // << delimitter
 };
 
 enum e_ast_type
