@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/01 13:25:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/06 17:36:29 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_redirect	*redirect_add_node(t_redirect **head, t_redirect *where, t_redirect *
 
 //heredoc
 void		do_heredoc(t_ast *node);//heredocを実行し、文字列を取得
-void		expand_heredoc(t_ast *node, const t_envs **envs);//delimitterにクオテーションがない場合、環境変数を展開
+void		expand_heredoc(t_ast *node, const t_envs **envs);//delimiterにクオテーションがない場合、環境変数を展開
 
 void	expansion(t_ast *node)
 {

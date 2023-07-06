@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/05 17:36:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/06 20:03:34 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,22 @@ bool	is_builtin(t_ast *node);
 int	command_execution(t_ast *node, enum	e_operator operator, t_envs **envs)
 {
 	if (node->left_hand != NULL)
-		int ret = command_execution(node->left_hand, node->type, envs);
-	if (ret == )
-		return ;
+		command_execution(node->left_hand, node->type, envs);
 	if (node->type == LOGICAL_AND || node->type == LOGICAL_OR)
 		;
-	else if (operator == START && node->right_hand != NULL)
-		command_execution(node->right_hand, END, envs);
 	else if (node->right_hand != NULL)
 		command_execution(node->right_hand, operator, envs);
+	else if (operator == START && node->right_hand != NULL)
+		command_execution(node->right_hand, END, envs);
 	if (node->type == COMMAND)
 	{
 		int rt = do_redirection(node);
 		if (rt == )
 		{
 			//エラー処理
+			//redirectionが失敗したらこのノードのコマンドを実行しない
+			//open readが失敗したときなど
+			return;
 		}
 		if (operator == PIPE)
 			execute_pipe(node);
@@ -65,7 +66,7 @@ int	command_execution(t_ast *node, enum	e_operator operator, t_envs **envs)
 			if (execute_l_or(node));
 				command_execution(node->right_hand, operator, envs);
 		}
-		else if (operator == HEAD && is_builtin(node))
+		else if (operator == START && is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
 			return (do_builtin(node, envs));
 		else
 			execute_fork(node);

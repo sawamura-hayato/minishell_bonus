@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/04 15:08:39 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/06 13:34:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	token_is_meta_char(char c);// tokenの区切り文字
 bool	token_is_space(char c);//space＆tabは飛ばす 例）'     ls  | cat'
 bool	token_is_quotation(char c);
 
-t_token	*token_newtoken(t_token **head, const char *line, size_t start, size_t end)
+t_token	*token_newtoken(const char *line, size_t start, size_t end)
 {
 	t_token *newtoken;
 
@@ -55,7 +55,6 @@ t_token	*token_newtoken(t_token **head, const char *line, size_t start, size_t e
 	newtoken->next = NULL;
 	newtoken->word = substr_x(line, start, (end - start));
 	token_set_token_type(newtoken);
-	token_addback(head, newtoken);
 	return (newtoken);
 }
 
@@ -83,7 +82,7 @@ t_token	*tokenize(const char *line)
 			}
 			i++;
 		}
-		t_token *token =  token_newtoken(&head, line, start, i)
+		t_token *token =  token_newtoken(line, start, i)
 		token_addback(head, token);
 	}
 	return (head);

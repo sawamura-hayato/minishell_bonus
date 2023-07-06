@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:43:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/06/21 18:46:02 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/06 13:33:43 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define MINISHELL_H
 
 
-t_token	*tokenize(char *line);
+t_token	*tokenize(const char *line);
 
 #endif

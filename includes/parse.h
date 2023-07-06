@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/05 17:38:30 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/06 17:43:48 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ enum e_redirect_type
 	FILE,// redirect file
 	HERE_DOCUMENTS, // <<
 	DELIMITER, // << delimitter
+	QUOTE_DELIMITER, // << delimitter
 };
 
 enum e_ast_type
@@ -71,14 +72,6 @@ ls infileC a b | ls
 
 ls infile a b << eof <Makefile > out >> apend | ls a b c d
 
-"this\nis\ntest"
-
-fd = open("minishelltmpfile", )
-write(fd, "this\nis\ntest", strlen());
-
-dup2(stdin, fd);
-lslst();
-close(fd);
 
 cat
 infiile
