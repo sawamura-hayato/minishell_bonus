@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/06 13:34:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/07/06 21:37:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_token {
 t_token	*tokenize(const char *line);
 t_tokne	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
 void	token_set_token_type(t_token *token);
-// void	token_set_token_type(t_token **head, t_token *token); tokeninzeで細かくするなら、headも必要
 void	token_addback(t_token **head, t_token *new_token);
 void	token_lasttoken(t_token **head);
 // void	token_remove_token(t_token **head, t_token *target);
