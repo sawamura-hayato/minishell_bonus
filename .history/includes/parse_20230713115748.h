@@ -6,21 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/13 12:01:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:57:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-#include "tokenize.h"
-
-enum e_word_type {
-	DEFALUT,
-	SINGL_QUOTE,
-	DOBULE_QUOTE
-}
-
+#include ""
 enum e_redirect_type
 {
 	REDIRECTING_INPUT, // <
@@ -42,22 +35,16 @@ enum e_ast_type
 
 typedef struct s_word
 {
-    char			*word;
-	e_word_type		type;
-}	t_word;  
-
-typedef struct s_word_list
-{
-	s_word				*word;
-	struct s_word_list	*next;
-}	t_word_list;
+    char                *word;
+    struct s_word_list    *next;
+}t_word;  
 
 typedef struct s_redirect
 {
-	s_word				*word;
+	char				*word;
 	struct s_redirect	*next;
 	e_redirect_type		type;
-}	t_redirect;
+}t_redirect;
 
 typedef struct s_command
 {

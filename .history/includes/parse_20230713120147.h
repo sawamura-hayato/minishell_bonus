@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/13 12:01:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:01:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_redirect
 	s_word				*word;
 	struct s_redirect	*next;
 	e_redirect_type		type;
-}	t_redirect;
+}t_redirect;
 
 typedef struct s_command
 {
