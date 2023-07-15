@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/13 11:09:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/06 21:37:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,8 @@ enum e_token_type {
 	PIPE,
 };
 
-enum e_word_type {
-	DEFAULT,
-	SINGL_QUOTE,
-	DOUBLE_QUOTE
-};
-
-typedef struct s_word {
-	char		*word;
-	e_word_type	type;
-}	t_word;
-
 typedef struct s_token {
-	struct s_word	*word;
+	char			*word;
 	e_token_type	type;
 	struct s_token	*next;
 }	t_token;

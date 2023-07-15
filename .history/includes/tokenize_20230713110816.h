@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/13 11:09:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:08:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ enum e_token_type {
 	PIPE,
 };
 
-enum e_word_type {
-	DEFAULT,
-	SINGL_QUOTE,
-	DOUBLE_QUOTE
-};
+enum 
 
 typedef struct s_word {
 	char		*word;
