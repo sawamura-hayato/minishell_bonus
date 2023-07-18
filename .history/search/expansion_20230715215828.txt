@@ -1,0 +1,32 @@
+
+シェル変数が単体の場合
+結果　
+通常とダブルクウォートの場合は展開される
+シングルクウォートの場合は変数展開しない
+bash-3.2$ SP=A
+bash-3.2$ >$SP
+bash-3.2$ ls
+A               expansion.txt
+bash-3.2$ >"$SP"
+bash-3.2$ ls
+A               expansion.txt
+bash-3.2$ >'$SP'
+bash-3.2$ ls
+$SP             A               expansion.txt
+
+シェル変数が複数単語の場合
+結果　
+通常の場合はリダイレクトエラー
+ダブルクウォートの場合は一つの単語として認識される。
+シングルクウォートの場合は変数展開しない
+bash-3.2$ SP="out ls"
+bash-3.2$ >$SP
+bash: $SP: ambiguous redirect
+bash-3.2$ >"$SP"
+bash-3.2$ ls
+$SP             A               expansion.txt   out ls
+bash-3.2$ >'$SP'
+bash-3.2$ ls
+$SP             A               expansion.txt   out ls
+
+ファイルの名前outがありかつシェル変数が

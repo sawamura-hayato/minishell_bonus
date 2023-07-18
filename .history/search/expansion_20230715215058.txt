@@ -1,0 +1,3 @@
+
+bash-3.2$ SP=A
+bash-3.2$ >$SP
