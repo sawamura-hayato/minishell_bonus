@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+contact_links:
+  - name: minishell_bonus
+    about: made by config.yml
+    # edit {username} and {repo} for your environment
+    url: https://github.com/s1-haya/minishell_bonus/issues/new?template=custom.md&projects=minishell_bon%2FToDo%2F1&labels=ToDo
