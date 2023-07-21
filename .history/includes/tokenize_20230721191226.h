@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/21 19:15:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:12:26 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_word {
 
 typedef struct s_token {
 	struct s_word		*word;
-	e_opereator_type	operator;
+	e_opereator_type	op;
 	sizeof				n_token;
 	struct s_token		*next;
 }	t_token;

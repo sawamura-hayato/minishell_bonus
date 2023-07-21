@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/21 19:15:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:15:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,8 @@ typedef struct s_word_list
 typedef struct s_redirect
 {
 	s_word				*word;
-	sizeof				n_token;
-	e_redirect_type		type;
 	struct s_redirect	*next;
+	e_redirect_type		type;
 }	t_redirect;
 
 typedef struct s_command
@@ -67,7 +66,7 @@ typedef struct s_command
 	t_redirect *t_redirect_list;
 	int fd;
 	pid_t pid;
-}	t_command;
+}t_command;
 
 typedef struct s_ast
 {
