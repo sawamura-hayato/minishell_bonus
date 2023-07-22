@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:10:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:10:09 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ enum e_ast_type
 typedef struct s_word
 {
     char			*word;
-	t_word_type		type;
+	e_word_type		type;
 }	t_word;  
 
 typedef struct s_word_list
