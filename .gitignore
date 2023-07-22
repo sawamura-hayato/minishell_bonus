@@ -10,3 +10,4 @@ infile
 .DS_Store
 .DS_Store?
 *.dSYM
+.history/*

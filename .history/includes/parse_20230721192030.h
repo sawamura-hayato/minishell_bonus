@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:10:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:20:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define PARSE_H
 
 #include "tokenize.h"
+
+enum e_word_type {
+	DEFALUT,
+	ONLY_SINGL_QUOTE,
+	DOBULE_QUOTE
+}
 
 enum e_redirect_type
 {
@@ -37,7 +43,7 @@ enum e_ast_type
 typedef struct s_word
 {
     char			*word;
-	t_word_type		type;
+	e_word_type		type;
 }	t_word;  
 
 typedef struct s_word_list

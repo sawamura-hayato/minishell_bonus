@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:28:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:06:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,7 @@
 # define TOKENIZE_H
 
 # include <stdio.h>
-
-typedef enum e_word_type {
-	DEFAULT,
-	ODD_SINGL_QUOTE,
-	ODD_DOBULE_QUOTE
-}	t_word_type;
-
-typedef enum e_opereator_type {
-	WORD,
-	LOGICAL_OR,
-	LOGICAL_AND,
-	PIPE,
-}	t_operator_type;
-
-typedef struct s_word {
-	char		*word;
-	t_word_type	type;
-}	t_word;
-
-typedef struct s_token {
-	struct s_word		*word;
-	t_operator_type		operator;
-	size_t				n_token;
-	struct s_token		*next;
-}	t_token;
+・
 
 // t_token	*tokenize(const char *line);
 // t_tokne	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
@@ -93,5 +69,6 @@ typedef struct s_token {
 // 	}
 // 	return (head);
 // }
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:28:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:08:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 # include <stdio.h>
 
-typedef enum e_word_type {
-	DEFAULT,
-	ODD_SINGL_QUOTE,
-	ODD_DOBULE_QUOTE
-}	t_word_type;
-
-typedef enum e_opereator_type {
+enum e_opereator_type {
 	WORD,
 	LOGICAL_OR,
 	LOGICAL_AND,
 	PIPE,
 }	t_operator_type;
+
+enum e_word_type {
+	DEFAULT,
+	SINGL_QUOTE,
+	DOUBLE_QUOTE
+}	t_word_type;
 
 typedef struct s_word {
 	char		*word;
@@ -93,5 +93,6 @@ typedef struct s_token {
 // 	}
 // 	return (head);
 // }
+
 
 #endif

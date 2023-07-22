@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:28:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/22 12:11:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 
 typedef enum e_word_type {
-	DEFAULT,
+	DEFALUT,
 	ODD_SINGL_QUOTE,
 	ODD_DOBULE_QUOTE
 }	t_word_type;
