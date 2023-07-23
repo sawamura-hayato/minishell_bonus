@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 18:44:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/23 18:26:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 typedef enum e_word_type {
 	DEFAULT,
-	ODD_SINGL_QUOTE,
-	ODD_DOBULE_QUOTE
+	SINGL_QUOTE,
+	DOBULE_QUOTE
 }	t_word_type;
 
 typedef enum e_opereator_type {
