@@ -1,0 +1,23 @@
+readline - get a line from a user with editing
+
+調査内容
+> "aaa"ddd'bb'
+word            ["aaa"ddd'bb']
+word type       [0]
+token operator  [0]
+token n         [0]
+> "aaa b dd  " 'dd'
+word            ["aaa b dd  " 'dd']
+word type       [0]
+token operator  [0]
+token n         [0]
+> $A
+word            [$A]
+word type       [0]
+token operator  [0]
+token n         [0]
+> $A "$A" '$A'
+word            [$A "$A" '$A']
+word type       [0]
+token operator  [0]
+token n         [0]
