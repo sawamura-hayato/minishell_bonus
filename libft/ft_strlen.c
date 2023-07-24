@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:43:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/24 18:12:08 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/01/12 21:10:52 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/01/23 16:34:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-#define NULL_CHAR ('\0')
-// #define SINGLE_QUOTE (')
-// #define DOUBLE_QUOTE (")
-#define PROMPT ("minishell$ ")
-// t_token	*tokenize(const char *line);
-void	read_eval_print_loop();
-#endif
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
