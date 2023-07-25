@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:43:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/24 18:12:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:08:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 // #define SINGLE_QUOTE (')
 // #define DOUBLE_QUOTE (")
 #define PROMPT ("minishell$ ")
+
+#include <stdio.h>
 // t_token	*tokenize(const char *line);
 void	read_eval_print_loop();
 #endif

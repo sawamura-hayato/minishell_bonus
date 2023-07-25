@@ -5,46 +5,58 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/07/25 14:28:08 by hsawamur         ###   ########.fr        #
+#    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
+#    Updated: 2023/07/25 14:31:36 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = minishell
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-ARFLAGS = -r
+
+RL_DIR = $(shell brew --prefix readline)
+RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
-SRCS = $(SRCS_DIR)/ft_strlen.c \
-			$(SRCS_DIR)/ft_strdup.c \
-			$(SRCS_DIR)/ft_substr.c \
-			$(SRCS_DIR)/ft_strtrim.c
+SRCS = $(SRCS_DIR)/main.c \
+		$(SRCS_DIR)/repl.c
 
-# the writing below converts only operator using the pattern match(%) in this code.
-# OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
-# src/*.c->objs/src/*.o
+TOKENIZE_DIR = tokenize
+SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/create_token.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/create_word.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
+
+PARSE_DIR = parse
+
+LIBFT_DIR = libft
+LIBFT_AFILE = $(LIBFT_DIR)/libft.a
+
 OBJS_DIR = objs
 OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 
 INCLUDES_DIR = includes
-INCLUDES = -I$(INCLUDES_DIR)
+INCLUDES = -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
+
+$(NAME): $(OBJS) $(LIBFT_AFILE)
+	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR) 
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJS) 
-	$(AR) $(ARFLAGS) $@ $(OBJS)
+$(LIBFT_AFILE):
+	$(MAKE) -C $(LIBFT_DIR)
 
 all: $(NAME)
 
 clean:
-	$(RM) -r $(OBJS_DIR)
- 
+	$(RM) -r $(OBJS_DIR) $(LIBFT_DIR)/$(OBJS_DIR)
+
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(LIBFT_AFILE)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
