@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/07/25 14:28:08 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/07/26 16:58:32 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/ft_strdup.c \
 			$(SRCS_DIR)/ft_substr.c \
-			$(SRCS_DIR)/ft_strtrim.c
+			$(SRCS_DIR)/ft_strtrim.c \
+			$(SRCS_DIR)/ft_is_operator.c \
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
