@@ -6,22 +6,23 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:52:52 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/24 15:04:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:19:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-static char	*ft_substred(const char *s, unsigned int start, size_t len)
+static char	*ft_substred(const char *s, unsigned int start, size_t end)
 {
 	char	*res;
 	size_t	i;
 
-	res = (char *)malloc(sizeof(char) * (len + 1));
+	res = (char *)malloc(sizeof(char) * ((end - start) + 1));
 	if (res == NULL)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	while (i + start < end)
 	{
 		res[i] = s[i + start];
 		i++;
@@ -30,20 +31,20 @@ static char	*ft_substred(const char *s, unsigned int start, size_t len)
 	return (res);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t end)
 {
 	size_t	s_len;
-	size_t	diff_len;
+	// size_t	diff_len;
 
 	if (s == NULL)
 		return (NULL);
 	s_len = ft_strlen(s);
-	if ((size_t) start >= s_len || len <= 0)
+	if ((size_t) start >= s_len || end == 0)
 		return (ft_strdup(""));
-	diff_len = s_len - start;
-	if (diff_len <= len)
-		return (ft_substred(s, start, diff_len));
-	return (ft_substred(s, start, len));
+	// diff_len = s_len - start;
+	// if (diff_len <= end)
+	// 	return (ft_substred(s, start, diff_len));
+	return (ft_substred(s, start, end));
 }
 
 // #include "stdio.h"

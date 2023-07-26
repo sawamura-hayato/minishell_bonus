@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/25 14:29:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:32:00 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	main(void)
 {
 	// (void)argc;
 	// (void)argv;
-	printf("a");
 	read_eval_print_loop();
 	return (0);
 }

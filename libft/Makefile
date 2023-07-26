@@ -21,6 +21,7 @@ SRCS = $(SRCS_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/ft_substr.c \
 			$(SRCS_DIR)/ft_strtrim.c \
 			$(SRCS_DIR)/ft_is_operator.c \
+			$(SRCS_DIR)/ft_isspace.c \
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

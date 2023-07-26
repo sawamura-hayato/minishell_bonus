@@ -6,18 +6,17 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/25 14:04:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:31:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// #include "libft.h"
+#include "tokenize.h"
+#include "libft.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 static void	add_line_history(char *line)
 {
@@ -46,6 +45,7 @@ void	read_eval_print_loop()
 		line = read_line();
 		if (line == NULL)
 			break ;
+		debug_print_token(tokenize(line));
 		// printf("line          %s\n", line);
 		// printf("start 0 end 3 %s\n", ft_substr(line, -1, 3));
 		// printf("start 2 end 7 %s\n", ft_substr(line, 2, 7));
