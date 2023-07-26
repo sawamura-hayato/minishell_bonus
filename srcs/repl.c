@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 13:07:24 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:31:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	read_eval_print_loop()
 		line = read_line();
 		if (line == NULL)
 			break ;
-		tokenize(line);
+		debug_print_token(tokenize(line));
 		// printf("line          %s\n", line);
 		// printf("start 0 end 3 %s\n", ft_substr(line, -1, 3));
 		// printf("start 2 end 7 %s\n", ft_substr(line, 2, 7));
