@@ -6,14 +6,15 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 11:46:16 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 12:22:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:22:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenize.h"
+#include "libft.h"
 
-t_token	*tokenize(char *line)
+t_token	*tokenize(const char *line)
 {
 	t_token	*token_head;
 	// t_token	*token;
@@ -24,8 +25,14 @@ t_token	*tokenize(char *line)
 	i = 0;
 	while (line[i] != NULL_CHAR)
 	{
-		// while (ft_isspace(line[i]) || line[i] != NULL_CHAR)
-		// 	i++;
+		while (ft_isspace(line[i]) && line[i] != NULL_CHAR)
+			i++;
+		register_n_token()
+		printf("char %c\n", line[i]);
+		if (line[i] == SINGLE_QUOTE)
+			printf("ok singl\n");
+		else if (line[i] == DOUBLE_QUOTE)
+			printf("ok double\n");
 		//クウォートがある場合
 		//クウォート判定(start)
 		//判定したクウォート探索する関数(end)

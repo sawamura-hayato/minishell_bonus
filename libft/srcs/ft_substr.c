@@ -6,10 +6,11 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:52:52 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/24 15:04:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:46:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 static char	*ft_substred(const char *s, unsigned int start, size_t len)

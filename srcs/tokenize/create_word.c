@@ -6,11 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 11:46:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 17:39:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:58:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
+
+t_word	init_word(void)
+{
+	t_word	word;
+
+	word.word = NULL;
+	word.type = DEFAULT;
+	return (word);
+}
 
 t_word	create_word(char *new_word, t_word_type type)
 {
