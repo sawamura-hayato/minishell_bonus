@@ -1,13 +1,21 @@
+# executable file
 a.out
-.vscode
 minishell
-test
-out
-outfile
-infile
-*.o
 *.a
+
+# search directory
+search/
+
+# .txt file
+*.txt
+test
+
+# objs file
+*.o
+
+# other directory or file
 .DS_Store
 .DS_Store?
 *.dSYM
+.vscode
 .history
