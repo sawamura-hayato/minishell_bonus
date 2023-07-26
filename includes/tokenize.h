@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/23 18:26:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:21:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TOKENIZE_H
 
 # include <stdio.h>
+# define SINGLE_QUOTE '\''
+# define DOUBLE_QUOTE '\"'
 
 typedef enum e_word_type {
 	DEFAULT,
@@ -40,9 +42,12 @@ typedef struct s_token {
 	struct s_token		*next;
 }	t_token;
 
+t_word	init_word(void);
+t_word	create_word(char *new_word, t_word_type type);
+t_token	*init_token(size_t n_token);
 t_token	*create_token(t_word word, t_operator_type operator, size_t n_token);
 void	debug_print_token(t_token *token_list);
-t_word	create_word(char *new_word, t_word_type type);
+t_token	*tokenize(const char *line);
 // t_token	*tokenize(const char *line);
 // t_tokne	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
 // void	token_set_token_type(t_token *token);

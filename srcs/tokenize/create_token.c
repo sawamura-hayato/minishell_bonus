@@ -6,18 +6,34 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:48:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 18:15:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:59:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include <stdlib.h>
 
+t_token	*init_token(size_t n_token)
+{
+	t_token	*token;
+
+	token = (t_token *)malloc(sizeof(t_token));
+	if (token == NULL)
+		return (NULL);
+	token->word = init_word();
+	token->operator = WORD;
+	token->n_token = n_token;
+	token->next = NULL;
+	return (token);
+}
+
 t_token	*create_token(t_word word, t_operator_type operator, size_t n_token)
 {
 	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
+	if (token == NULL)
+		return (NULL);
 	token->word = word;
 	token->operator = operator;
 	token->n_token = n_token;

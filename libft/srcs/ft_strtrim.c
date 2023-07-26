@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:27:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/01/21 13:38:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:46:35 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
 static int	is_char_in_str(const char *s, int c)
