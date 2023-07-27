@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:10:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:21:20 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,60 +15,55 @@
 
 #include "tokenize.h"
 
-enum e_redirect_type
+typedef enum e_redirect_type
 {
 	REDIRECTING_INPUT, // <
 	REDIRECTING_OUTPUT,// >
 	APPENDING_OUTPUT,// >>
-	FILE,// redirect file
+	FILE,// redirect fil
 	HERE_DOCUMENTS, // <<
-	DELIMITER, // << delimitter
-	QUOTE_DELIMITER, // << delimitter
-};
+	DELIMITER, // << delimitter(クウォートがない場合)
+	QUOTE_DELIMITER, // << delimitter(クウォートがある場合)
+}	t_redirect_type;
 
-enum e_ast_type
+typedef enum e_ast_type
 {
 	PIPE,
 	LOGICAL_AND,
 	LOGICAL_OR,
 	COMMAND,
-};
-
-typedef struct s_word
-{
-    char			*word;
-	t_word_type		type;
-}	t_word;  
+}	t_ast;
 
 typedef struct s_word_list
 {
-	s_word				*word;
-	sizeof				n_token;
+	char				*word;
+	size_t				index;
+	t_token_type		type;
 	struct s_word_list	*next;
 }	t_word_list;
 
 typedef struct s_redirect
 {
-	s_word				*word;
-	sizeof				n_token;
-	e_redirect_type		type;
+	char				*word;
+	size_t				index;
+	t_redirect_type		type;
 	struct s_redirect	*next;
 }	t_redirect;
 
 typedef struct s_command
 {
-	t_word_list *word_list;
-	t_redirect *t_redirect_list;
-	int fd;
-	pid_t pid;
+	t_word_list	*word_list;
+	t_redirect	*redirect_list;
+	int			fd;
+	pid_t		pid;
 }	t_command;
 
 typedef struct s_ast
 {
-	e_ast_type		type;
-	struct t_command *command_list;
-	struct s_ast	*left_hand;
-	struct s_ast	*right_hand;
+	t_ast_type			type;
+	struct s_command	*command_list;
+	struct s_ast		*left_hand;
+	struct s_ast		*right_hand;
 }	t_ast;
 
 
@@ -78,7 +73,7 @@ bool is_operator(e_ast_type type);
 t_ast *ast_make_ast_ope(e_ast_type,t_ast *left_hand,t_ast *right_hand);
 
 void* try_malloc(size_t size);
-void ast_expect(t_token **token,char op); 
+void ast_expect(t_token **token,char op);
 void ast_make_command_list(t_ast *node,t_token **token);
 
 void ast_make_redirect_list(t_redirect redirect_list, t_token **token_address);
