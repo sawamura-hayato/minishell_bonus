@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 11:46:16 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 16:39:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:35:35 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "tokenize.h"
 #include "libft.h"
 #include <stdlib.h>
+
+typedef enum e_quote {
+	DEFAULT,
+	SINGLE_QUOTE_FLAG,
+	DOUBLE_QUOTE_FLAG
+}	t_quote
 
 t_token	*register_n_token(const char *line, size_t n_token, size_t start, size_t end)
 {
@@ -43,6 +49,60 @@ size_t	last_index_of_current_token(const char *line, size_t start)
 	while (!ft_isspace(line[end]) && line[end] != '\0')
 		end++;
 	return (end);
+}
+
+t_quote	set_flag_quote(char quote)
+{
+	if (SINGLE_QUOTE == quote)
+		return (SINGLE_QUOTE_FLAG);
+	else if (DOUBLE_QUOTE == quote)
+		return (DOUBLE_QUOTE_FLAG);
+	return (DEFAULT);
+}
+
+t_opereator_type	set_flag_operator(char *line, size_t i)
+{
+	char	or;
+	char	and;
+
+	or = '|';
+	and = '&';
+	if (line[i] == '\0')
+		return (WORD)
+	else if (line[i] == or && line[i + 1] == or)
+		return (LOGICAL_OR);
+	else if (line[i] == and && line[i + 1] == and)
+		return (LOGICAL_AND)
+	else if (line[i] == or)
+		return (PIPE)
+	return (WORD)
+	
+}
+
+size_t	last_index(const char *line)
+{
+	size_t				i;
+	t_quote				quote_flag;
+	t_opereator_type	opereator_flag;
+	t_redirect_type		redirect_flag;
+
+	i = 0;
+	quote_flag = DEFAULT;
+	while (line[i] != '\0')
+	{
+		opereator_flag = set_flag_operator(line, i);
+		redirect_flag = set_flag_redirect(line, i);
+		if (quote_flag == DEFAULT && \
+				(SINGLE_QUOTE == line[i] || DOUBLE_QUOTE == line[i]))
+			quote_flag = set_flag_quote(line[i]);
+		else if (quote_flag == set_flag_quote(line[i]))
+			break ;
+		else if (quote_flag == DEFAULT && line[i] == '|' || line[i] == '&')
+			return ();
+		else if (quote_flag == DEFAULT && line[i] == '>' || line[i] == '<')
+		i++;
+	}
+	return (i);
 }
 
 t_token	*tokenize(const char *line)

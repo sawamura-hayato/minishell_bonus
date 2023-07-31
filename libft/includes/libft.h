@@ -6,12 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 17:00:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:37:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+#include <stdbool.h>
 
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);

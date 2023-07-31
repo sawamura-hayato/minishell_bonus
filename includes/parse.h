@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/22 12:10:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:28:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ ls infileC a b | ls
 
 ls infile a b << eof <Makefile > out >> apend | ls a b c d
 
+1 ls 2 infile 3> 4a 5b 6<< 7eof <Makefile | ls
+1ls 2infile 5b 
+3> 4a << eof <Makefile
 
 cat
 infiile
