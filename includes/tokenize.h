@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/31 18:23:40 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:32:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ typedef enum e_opereator_type {
 	PIPE,
 }	t_operator_type;
 
+typedef enum e_quote_type {
+	DEFAULT,
+	F_SINGL_QUOTE,
+	F_DOUBLE_QUOTE,
+}
+
 typedef struct s_word {
 	char		*word;
 	t_word_type	type;
@@ -38,7 +44,7 @@ typedef struct s_word {
 typedef struct s_token {
 	struct s_word		word;
 	t_operator_type		operator;
-	size_t				n_token;
+	size_t				index;
 	struct s_token		*next;
 }	t_token;
 
@@ -50,42 +56,69 @@ typedef struct s_token {
 // 定義
 // word     : 単語（BNF記法の単語の定義）
 // operator : 分割するために必要な特殊文字
-// n_token  : トークンを識別するための番号
+// index  : トークンを識別するための番号
 // 特殊文字　制御文字とリダイレクト文字
 
 // 基本の流れ
-// 1. 構造体token作成(先頭ポインタが空白、タブ、改行、特殊文字の場合かつクウォートフラグがない場合によってindex発行)
-// 2. 入力プロンプトから分割したい文字列のサイズを出力する関数
-// 3. 分割した文字列を出力する関数
-// 4. 分割した文字列を単方向リストに入れる関数
-// 5. 1,2,3,4を繰り返す（入力プロンプトの先頭ポインタは1で出力したサイズを加える）
+// 入力プロンプトの先頭を見てクウォートかどうか判定する
+// 構造体token作成(先頭ポインタが空白、タブ、改行、特殊文字の場合かつクウォートフラグがない場合によってindex発行)
+// 入力プロンプトから分割したい文字列のサイズを出力する関数
+// 3のサイズを使用して分割した文字列を出力する関数
+// 分割した文字列を単方向リストに入れる関数
+// 1,2,3,4を繰り返す（入力プロンプトの先頭ポインタは3で出力したサイズを加える）
 
-// 1の流れ（char *new_prompt, t_quote f_quote）
-// 入力プロンプトの文字列を一つずつ判定する。以下はどのような場合にのみ単語のサイズが出力されるのかを記述する
-// クウォートのフラグがある場合　空白、タブ、改行、特殊文字などはただの文字列になる。
-// - 終端文字→エラー判定（* parseで行うかどうかは議論が必要）
-// - 同じタイプのクウォートを発見した場合、出力
-// クウォートのフラグがない場合
-// - 特殊文字
-// - 空白文字、改行など
-// - 終端文字
+t_token	*tokenize(const char *prompt);
+bool	is_quote(char c);
+bool	token_can_get_quote_token(t_token **token, const char *prompt, t_quote f_quote);
+t_token	*init_token(size_t index);
+t_token	*create_token(t_word word, t_operator_type operator, size_t index);
+size_t	token_can_next_token_index(const char *prompt, t_quote f_quote, size index);
+size_t	token_get_current_word_size(char *prompt, t_quote f_quote);
+char	*token_get_current_word(char *prompt, size_t size);
+t_token	*token_get_current_token(char **prompt, t_quote f_quote);
+t_token	*token_addback(t_token **head, t_token *new_token);
+t_operator_type	get_operator_type(char *word);
 
-//* parseで行うかどうかは議論が必要
-//特殊文字が連続で来た場合と同じときにエラー処理をするのか。その場合は全体をフリーかつexit_status、またhistoryも必要になってくる。
 
-// main（4）で入力プロンプトの先頭を見てf_quoteかどうか判定する。
-// - 
-// "kk"dd 'ee'
-// " -> kk -> " -> dd  -> ' -> ee -> '
-// クウォートフラグはenumで定義し、判定する。（シングルかダブルかを判定するため）
-
-t_word	init_word(void);
-t_word	create_word(char *new_word, t_word_type type);
-t_token	*init_token(size_t n_token);
-t_token	*create_token(t_word word, t_operator_type operator, size_t n_token);
 void	debug_print_token(t_token *token_list);
-t_token	*tokenize(const char *line);
-// t_token	*tokenize(const char *line);
+
+t_token	*token_get_current_token(char **prompt, t_quote f_quote)
+{
+	t_token	*current_token;
+	size_t	index;
+	size_t	size;
+	char	*word;
+	t_operator_type	operator;
+
+	//構造体token作成(先頭ポインタが空白、タブ、改行、特殊文字の場合かつクウォートフラグがない場合によってindex発行)
+	index = token_can_next_token_index(const char *prompt, t_quote f_quote, size index);
+	//入力プロンプトから分割したい文字列のサイズを出力する関数
+	size = token_get_current_word_size(char *prompt, t_quote f_quote);
+	//3のサイズを使用して分割した文字列を出力する関数
+	word = token_get_current_word(char *prompt, size_t word_size);
+	operator = get_operator_type(word);
+	current_token = create_token(word, operator, index);
+	prompt += size;
+	return (current_token);
+}
+
+t_token	*tokenize(const char *prompt)
+{
+	t_token	*head;
+	t_token	*token;
+	t_quote	f_quote;
+
+	f_quote = DEFAULT;
+	while (*prompt != '\0')
+	{
+		if (token_can_get_quote_token(head, prompt, f_quote))
+			continue ;
+		token = token_get_current_token(prompt, f_quote);
+		token_addback(head, token);
+	}
+	return (head);
+}
+
 // t_tokne	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
 // void	token_set_token_type(t_token *token);
 // void	token_addback(t_token **head, t_token *new_token);
