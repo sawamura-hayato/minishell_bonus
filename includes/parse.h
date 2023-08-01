@@ -6,14 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/27 20:21:20 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/01 13:39:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-#include "tokenize.h"
+# include "tokenize.h"
+# include <unistd.h>
 
 typedef enum e_redirect_type
 {
@@ -26,13 +27,13 @@ typedef enum e_redirect_type
 	QUOTE_DELIMITER, // << delimitter(クウォートがある場合)
 }	t_redirect_type;
 
-typedef enum e_ast_type
+typedef enum e_ast_node_type
 {
 	PIPE,
 	LOGICAL_AND,
 	LOGICAL_OR,
 	COMMAND,
-}	t_ast;
+}	t_ast_node_type;
 
 typedef struct s_word_list
 {
@@ -60,17 +61,17 @@ typedef struct s_command
 
 typedef struct s_ast
 {
-	t_ast_type			type;
+	t_ast_node_type		type;
 	struct s_command	*command_list;
 	struct s_ast		*left_hand;
 	struct s_ast		*right_hand;
 }	t_ast;
 
 
-t_ast *ast_parse(t_token **token_adress);
+t_ast *ast_parse(t_token **token_address);
 t_ast *ast_command(t_token *token);
-bool is_operator(e_ast_type type);
-t_ast *ast_make_ast_ope(e_ast_type,t_ast *left_hand,t_ast *right_hand);
+bool is_operator(e_ast_node_type type);
+t_ast *ast_make_ast_ope(e_ast_node_type,t_ast *left_hand,t_ast *right_hand);
 
 void* try_malloc(size_t size);
 void ast_expect(t_token **token,char op);
@@ -94,7 +95,7 @@ void * syntax_error(t_ast *left_node,t_ast *right_node)
 
 // typedef struct s_ast
 // {
-// 	e_ast_type		type;
+// 	e_ast_node_type		type;
 // 	// ↓tokenを並び替えるデータ構造にする
 // 	t_token			*command_list;// cat infile
 // 	t_token			*redirect_list;//<< eof < Makefile
@@ -161,7 +162,7 @@ command1	command2
 					comamnd3
 						command4
 
-t_ast		*ast_new_node_ope(e_ast_type type, t_ast *left_hand, t_ast *right_hand);
+t_ast		*ast_new_node_ope(e_ast_node_type type, t_ast *left_hand, t_ast *right_hand);
 t_ast		*ast_new_node_command(t_command *command, t_redirect *redirect);
 t_command	*ast_make_command_list(t_token *token);
 t_command	*ast_make_redirect_list(t_token *token);

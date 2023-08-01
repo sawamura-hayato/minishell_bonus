@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/27 19:58:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/01 13:32:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ typedef enum e_token_type {
 typedef struct s_token {
 	char				*word;
 	t_token_type		type;
-	size_t				n_token;
+	size_t				index;
 	struct s_token		*next;
 }	t_token;
 
 
 // t_word	init_word(void);
 // t_word	create_word(char *new_word, t_word_type type);
-// t_token	*init_token(size_t n_token);
-// t_token	*create_token(t_word word, t_operator_type operator, size_t n_token);
+// t_token	*init_token(size_t index);
+// t_token	*create_token(t_word word, t_operator_type operator, size_t index);
 // void	debug_print_token(t_token *token_list);
 // t_token	*tokenize(const char *line);
 // t_token	*tokenize(const char *line);
