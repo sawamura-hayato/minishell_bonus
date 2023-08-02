@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/01 19:32:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/02 10:50:50 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_token {
 
 t_token	*tokenize(const char *prompt);
 bool	is_quote(char c);
-bool	token_can_get_quote_token(t_token **token, const char *prompt, t_quote f_quote);
+bool	token_can_get_quote_token(t_token **token, const char **prompt, t_quote f_quote);
 t_token	*init_token(size_t index);
 t_token	*create_token(t_word word, t_operator_type operator, size_t index);
 size_t	token_can_next_token_index(const char *prompt, t_quote f_quote, size index);
@@ -91,11 +91,11 @@ t_token	*token_get_current_token(char **prompt, t_quote f_quote)
 	t_operator_type	operator;
 
 	//構造体token作成(先頭ポインタが空白、タブ、改行、特殊文字の場合かつクウォートフラグがない場合によってindex発行)
-	index = token_can_next_token_index(const char *prompt, t_quote f_quote, size index);
+	index = token_can_next_token_index(*prompt, f_quote, index);
 	//入力プロンプトから分割したい文字列のサイズを出力する関数
-	size = token_get_current_word_size(char *prompt, t_quote f_quote);
+	size = token_get_current_word_size(*prompt, f_quote);
 	//3のサイズを使用して分割した文字列を出力する関数
-	word = token_get_current_word(char *prompt, size_t word_size);
+	word = token_get_current_word(*prompt, size);
 	operator = get_operator_type(word);
 	current_token = create_token(word, operator, index);
 	prompt += size;
@@ -111,65 +111,12 @@ t_token	*tokenize(const char *prompt)
 	f_quote = DEFAULT;
 	while (*prompt != '\0')
 	{
-		if (token_can_get_quote_token(head, prompt, f_quote))
+		if (token_can_get_quote_token(&head, &prompt, f_quote))
 			continue ;
-		token = token_get_current_token(prompt, f_quote);
-		token_addback(head, token);
+		token = token_get_current_token(&prompt, f_quote);
+		token_addback(&head, token);
 	}
 	return (head);
 }
-
-// t_tokne	*token_newtoken(t_token **head, const char *line, size_t start, size_t end);// substr使うなら、startとendのindexが必要
-// void	token_set_token_type(t_token *token);
-// void	token_addback(t_token **head, t_token *new_token);
-// void	token_lasttoken(t_token **head);
-// // void	token_remove_token(t_token **head, t_token *target);
-// void	token_free_all_tokens(t_token **head);
-// bool	token_is_meta_char(char c);// tokenの区切り文字
-// bool	token_is_space(char c);//space＆tabは飛ばす 例）'     ls  | cat'
-// bool	token_is_quotation(char c);
-
-// t_token	*token_newtoken(const char *line, size_t start, size_t end)
-// {
-// 	t_token *newtoken;
-
-// 	if (start == end && line[i] == '\0')
-// 		return (NULL);
-// 	newtoken = malloc_x(sizeof(t_token));
-// 	newtoken->next = NULL;
-// 	newtoken->word = substr_x(line, start, (end - start));
-// 	token_set_token_type(newtoken);
-// 	return (newtoken);
-// }
-
-// t_token	*tokenize(const char *line)
-// {
-// 	t_token *head;
-
-// 	head = NULL;
-// 	size_t	start = 0;
-// 	size_t	i = 0;
-// 	bool	quotation = false;
-// 	char	target;
-// 	while (line[i] != '\0')
-// 	{
-// 		while (token_is_space(line[i]) && line[i] != '\0')
-// 			i++;
-// 		i = start;
-// 		while (!token_is_meta_char(line[i]) && quotation == false && line[i] != '\0')
-// 		{
-// 			if (token_is_quotation(line[i]) && line[i] == target)
-// 			{
-// 				if (!quotation)
-// 					target = line[i];
-// 				quotation = !quotation;
-// 			}
-// 			i++;
-// 		}
-// 		t_token *token =  token_newtoken(line, start, i)
-// 		token_addback(head, token);
-// 	}
-// 	return (head);
-// }
 
 #endif
