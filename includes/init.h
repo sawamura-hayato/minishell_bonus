@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/07/01 13:28:53 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/01 13:13:34 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@ typedef struct s_envs
 	char			*value;
 	struct s_envs	*next;
 }	t_envs;
+
+typedef struct s_data
+{
+	t_envs	*envs;
+	int		exit_status;
+}	t_data;
+
+
 
 t_envs	*envs_init(const char **environ);
 t_envs	*envs_newnode(char *_key, char *_value);
