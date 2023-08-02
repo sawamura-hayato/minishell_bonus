@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
 /*   Updated: 2023/08/02 10:50:50 by hsawamur         ###   ########.fr       */
@@ -17,37 +17,27 @@
 # define SINGLE_QUOTE '\''
 # define DOUBLE_QUOTE '\"'
 
-typedef enum e_word_type {
-	DEFAULT,
-	SINGL_QUOTE,
-	DOBULE_QUOTE
-}	t_word_type;
-
-typedef enum e_opereator_type {
-	WORD,
-	LOGICAL_OR,
-	LOGICAL_AND,
-	PIPE,
-}	t_operator_type;
-
 typedef enum e_quote_type {
 	DEFAULT,
 	F_SINGL_QUOTE,
 	F_DOUBLE_QUOTE,
 }
 
-typedef struct s_word {
-	char		*word;
-	t_word_type	type;
-}	t_word;
+typedef enum e_token_type {
+	WORD,
+	SINGL_QUOTE,
+	DOBULE_QUOTE,
+	LOGICAL_OR,
+	LOGICAL_AND,
+	PIPE,
+}	t_token_type;
 
 typedef struct s_token {
-	struct s_word		word;
-	t_operator_type		operator;
+	char				*word;
+	t_token_type		type
 	size_t				index;
 	struct s_token		*next;
 }	t_token;
-
 
 // 入力　入力プロンプト（文字列）
 // 出力　構造体token（単方向リスト）
