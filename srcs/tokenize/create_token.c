@@ -6,28 +6,29 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:48:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 12:59:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/02 12:09:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-t_token	*init_token(size_t n_token)
+t_token	*init_token(size_t index)
 {
 	t_token	*token;
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (token == NULL)
 		return (NULL);
-	token->word = init_word();
+	token->word = NULL;
 	token->operator = WORD;
-	token->n_token = n_token;
+	token->index = index;
 	token->next = NULL;
 	return (token);
 }
 
-t_token	*create_token(t_word word, t_operator_type operator, size_t n_token)
+t_token	*create_token(char *word, t_operator_type operator, size_t index)
 {
 	t_token	*token;
 
@@ -36,7 +37,7 @@ t_token	*create_token(t_word word, t_operator_type operator, size_t n_token)
 		return (NULL);
 	token->word = word;
 	token->operator = operator;
-	token->n_token = n_token;
+	token->index = index;
 	token->next = NULL;
 	return (token);
 }
@@ -45,10 +46,9 @@ void	debug_print_token(t_token *token_list)
 {
 	while (token_list != NULL)
 	{
-		printf("word            [%s]\n", token_list->word.word);
-		printf("word type       [%d]\n", token_list->word.type);
+		printf("word            [%s]\n", token_list->word);
 		printf("token operator  [%d]\n", token_list->operator);
-		printf("token n         [%zu]\n", token_list->n_token);
+		printf("token n         [%zu]\n", token_list->index);
 		token_list = token_list->next;
 	}
 }

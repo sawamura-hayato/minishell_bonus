@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/07/25 14:31:36 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/02 12:04:42 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS = $(SRCS_DIR)/main.c \
 
 TOKENIZE_DIR = tokenize
 SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/create_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/create_word.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
 PARSE_DIR = parse
