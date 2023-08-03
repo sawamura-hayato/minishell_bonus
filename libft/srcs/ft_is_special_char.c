@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_meta_char.c                                  :+:      :+:    :+:   */
+/*   ft_is_special_char.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 17:54:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 17:57:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:09:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #define	REDIRECTING_INPUT '<'
 #define	REDIRECTING_OUTPUT '>'
 
-bool	ft_is_meta_char(char c)
+bool	ft_is_special_char(char c)
 {
 	if (c == LOGICAL_OR || c == LOGICAL_AND || \
 			c == REDIRECTING_INPUT || c == REDIRECTING_INPUT )
