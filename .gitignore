@@ -18,4 +18,4 @@ test
 .DS_Store?
 *.dSYM
 .vscode
-.history
+.history/*

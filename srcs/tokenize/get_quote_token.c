@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:34:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/02 12:18:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:31:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,27 @@ char	*get_quote_token(t_quote f_quote)
 	return (NULL);
 }
 
-bool	token_can_get_quote_token(t_token **token, const char **prompt, \
+bool	token_can_get_quote_token(t_token **token, char **line, \
 										t_quote *f_quote, size_t index)
 {
 	t_quote	first_char;
 	// t_token *quote_token;
 
-	first_char = set_flag_quote(*prompt[0]);
+	first_char = set_flag_quote(*line[0]);
 	(void)token;
 	(void)index;
 	if (*f_quote != DEFAULT && *f_quote == first_char)
 	{
 		*f_quote = DEFAULT;
-		(*prompt)++;
-		// quote_token = create_token(get_quote_token(f_quote), WORD, index);
+		(*line)++;
+		// quote_token = create_token(get_quote_token(f_quote), set_token_type(line), index);
 		// token_addback(&head, quote_token);
 		return (true);
 	}
-	else if (first_char != DEFAULT)
+	else if (*f_quote == DEFAULT && first_char != DEFAULT)
 	{
 		*f_quote = first_char;
-		(*prompt)++;
+		(*line)++;
 		// quote_token = create_token(get_quote_token(f_quote), WORD, index);
 		// token_addback(&head, quote_token);
 		return (true);

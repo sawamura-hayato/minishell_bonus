@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:48:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/02 12:09:02 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:03:29 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ t_token	*init_token(size_t index)
 	if (token == NULL)
 		return (NULL);
 	token->word = NULL;
-	token->operator = WORD;
+	token->type = WORD;
 	token->index = index;
 	token->next = NULL;
 	return (token);
 }
 
-t_token	*create_token(char *word, t_operator_type operator, size_t index)
+t_token	*create_token(char *word, t_token_type token_type, size_t index)
 {
 	t_token	*token;
 
@@ -36,7 +36,7 @@ t_token	*create_token(char *word, t_operator_type operator, size_t index)
 	if (token == NULL)
 		return (NULL);
 	token->word = word;
-	token->operator = operator;
+	token->type = token_type;
 	token->index = index;
 	token->next = NULL;
 	return (token);
@@ -47,7 +47,7 @@ void	debug_print_token(t_token *token_list)
 	while (token_list != NULL)
 	{
 		printf("word            [%s]\n", token_list->word);
-		printf("token operator  [%d]\n", token_list->operator);
+		printf("token token_type  [%d]\n", token_list->type);
 		printf("token n         [%zu]\n", token_list->index);
 		token_list = token_list->next;
 	}
