@@ -6,23 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 15:24:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:47:00 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZE_H
 # define TOKENIZE_H
 
-# define SINGLE_QUOTE '\''
-# define DOUBLE_QUOTE '\"'
-
 # include <stdbool.h>
 # include <stddef.h>
  
 typedef enum e_token_type {
 	WORD,
-	SINGL_QUOTE,
-	DOBULE_QUOTE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
 	LOGICAL_OR,
 	LOGICAL_AND,
 	PIPE,
@@ -65,12 +62,13 @@ bool	token_can_get_quote_token(t_token **token, char **line, \
 									t_quote *f_quote, size_t index);
 t_token	*init_token(size_t index);
 t_token	*create_token(char *word, t_token_type token_type, size_t index);
+t_quote	set_flag_quote(char quote);
+t_token_type	set_flag_token(char *line);
 // size_t	token_can_next_token_index(const char *line, t_quote f_quote, size_t index);
 // size_t	token_get_current_word_size(char *line, t_quote f_quote);
 // char	*token_get_current_word(char *line, size_t size);
 // t_token	*token_get_current_token(char **line, t_quote f_quote, size_t *index);
 // t_token	*token_addback(t_token **head, t_token *new_token);
-// t_token_type	get_token_type(char *word);
 
 
 void	debug_print_token(t_token *token_list);

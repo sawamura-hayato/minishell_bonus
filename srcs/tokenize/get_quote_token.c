@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:34:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 15:31:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:45:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@
 // そのまま2を実行する
 // 現在のクウォートのフラグがfalseかつ先頭がfalseの場合
 // そのまま2を実行する
-
-t_quote	set_flag_quote(char quote)
-{
-	if (SINGLE_QUOTE == quote)
-		return (SINGLE_QUOTE_FLAG);
-	else if (DOUBLE_QUOTE == quote)
-		return (DOUBLE_QUOTE_FLAG);
-	return (DEFAULT);
-}
 
 char	*get_quote_token(t_quote f_quote)
 {
