@@ -108,6 +108,9 @@ ls infileC a b | ls
 
 ls infile a b << eof <Makefile > out >> apend | ls a b c d
 
+1 ls 2 infile 3> 4a 5b 6<< 7eof <Makefile | ls
+1ls 2infile 5b 
+3> 4a << eof <Makefile
 
 cat
 infiile
