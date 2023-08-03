@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 18:24:55 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/03 18:20:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "init.h"
+#include <stdio.h>
 
-#include <stdbool.h>
+void	envs_init(const char **environ, t_data d)
+{
+	while (*environ)
+	{
+		printf("%s\n", *environ);
+		*environ++;
+	}
+}
 
-void	*try_malloc(size_t size);
-char	*ft_strdup(const char *s1);
-size_t	ft_strlen(const char *str);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strtrim(char const *s1, char const *set);
-bool	ft_is_operator(char c);
-int		ft_isspace(char c);
-#endif
+int	main()
+{
+	t_data	d;
+
+	extern char	**environ;
+	envs_init(environ, d);
+}

@@ -6,12 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 16:57:34 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/03 19:07:43 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_H
 # define INIT_H
+
+# include <unistd.h>
+# include <stdbool.h>
 
 typedef struct s_envs
 {
