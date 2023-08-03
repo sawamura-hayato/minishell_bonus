@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/02 12:08:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:54:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_token {
 
 // 定義
 // word     : 単語（BNF記法の単語の定義）
-// operator : 分割するために必要な特殊文字
+// token_type : 分割するために必要な特殊文字
 // index  : トークンを識別するための番号
 // 特殊文字　制御文字とリダイレクト文字
 
@@ -63,49 +63,49 @@ t_token	*tokenize(const char *line);
 bool	is_quote(char c);
 bool	token_can_get_quote_token(t_token **token, const char **line, t_quote f_quote);
 t_token	*init_token(size_t index);
-t_token	*create_token(t_word word, t_operator_type operator, size_t index);
-size_t	token_can_next_token_index(const char *line, t_quote f_quote, size index);
+t_token	*create_token(char *word, t_token_type token_type, size_t index);
+size_t	token_can_next_token_index(const char *line, t_quote f_quote, size_t index);
 size_t	token_get_current_word_size(char *line, t_quote f_quote);
 char	*token_get_current_word(char *line, size_t size);
-t_token	*token_get_current_token(char **line, t_quote f_quote);
+t_token	*token_get_current_token(char **line, t_quote f_quote, size_t index);
 t_token	*token_addback(t_token **head, t_token *new_token);
 t_token_type	get_token_type(char *word);
 
 
 void	debug_print_token(t_token *token_list);
 
-t_token	*token_get_current_token(char **line, t_quote f_quote)
+t_token	*token_get_current_token(char **line, t_quote f_quote, size_t *index)
 {
-	t_token	*current_token;
-	size_t	index;
-	size_t	size;
-	char	*word;
-	t_token_type	token;
+	t_token		*current_token;
+	size_t		size;
+	char		*word;
+	t_token_type	token_type;
 
 	//構造体token作成(先頭ポインタが空白、タブ、改行、特殊文字の場合かつクウォートフラグがない場合によってindex発行)
-	index = token_can_next_token_index(*line, f_quote, index);
+	*index = token_can_next_token_index(*line, f_quote, *index);
 	//入力プロンプトから分割したい文字列のサイズを出力する関数
 	size = token_get_current_word_size(*line, f_quote);
 	//3のサイズを使用して分割した文字列を出力する関数
 	word = token_get_current_word(*line, size);
 	token_type = get_token_type(word);
-	current_token = create_token(word, token, index);
-	prompt += size;
+	current_token = create_token(word, token_type, *index);
+	line += size;
 	return (current_token);
 }
 
-t_token	*tokenize(const char *line)
+t_token	*tokenize(char *line)
 {
 	t_token	*head;
 	t_token	*token;
 	t_quote	f_quote;
+	size_t	index;
 
 	f_quote = DEFAULT;
-	while (*prompt != '\0')
+	while (*line != '\0')
 	{
 		if (token_can_get_quote_token(&head, &line, f_quote))
 			continue ;
-		token = token_get_current_token(&line, f_quote);
+		token = token_get_current_token(&line, f_quote, &index);
 		token_addback(&head, token);
 	}
 	return (head);
