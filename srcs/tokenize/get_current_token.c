@@ -6,9 +6,11 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 15:18:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:57:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "tokenize.h"
 
 // t_token	*token_get_current_token(char **line, t_quote f_quote, size_t *index)
 // {

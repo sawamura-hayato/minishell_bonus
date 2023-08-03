@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/03 15:47:55 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/03 16:04:45 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = $(SRCS_DIR)/main.c \
 TOKENIZE_DIR = tokenize
 SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/create_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 17:48:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 15:03:29 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:31:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,13 @@ void	free_token(t_token *token_list)
 {
 	t_token	*tmp_token;
 
-	tmp_token = token_list->next;
+	tmp_token = NULL;
 	while (token_list != NULL)
 	{
+		// printf("word            [%s]\n", token_list->word);
 		free(token_list);
-		token_list = tmp_token;
 		tmp_token = token_list->next;
+		token_list = tmp_token;
 	}
 }
 
