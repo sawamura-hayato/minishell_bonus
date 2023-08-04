@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:45:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 15:51:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/04 16:28:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ t_quote	set_flag_quote(char quote)
 	return (DEFAULT);
 }
 
-t_token_type	set_flag_token(char *line)
+t_token_type	set_flag_token(char *line, t_quote f_quote)
 {
-	if ('\'' == line[0])
+	if (ft_strlen(line) > 2 || f_quote != DEFAULT)
+		return (WORD);
+	else if ('\'' == line[0])
 		return (SINGLE_QUOTE);
 	else if ('\"' == line[0])
 		return (DOUBLE_QUOTE);

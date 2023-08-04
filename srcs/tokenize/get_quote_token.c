@@ -6,12 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:34:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 17:43:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:05:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 // 1. 入力プロンプトの先頭を見てクウォートかどうか判定する
 // 現在のクウォートのフラグによって以下の場合わけがある
@@ -34,6 +35,18 @@ char	*get_quote_token(t_quote f_quote)
 	return (NULL);
 }
 
+char	*skip_space_line(char *line)
+{
+	while (ft_isspace(*line))
+	{
+		printf("space %s\n", line);
+		line++;
+	}
+	printf("space %s\n", line);
+	return (line);
+	// printf("space %c\n", *line);
+}
+
 bool	token_can_get_quote_token(t_token **head, char **line, \
 										t_quote *f_quote, size_t index)
 {
@@ -45,7 +58,7 @@ bool	token_can_get_quote_token(t_token **head, char **line, \
 	{
 		*f_quote = DEFAULT;
 		quote_token = create_token(get_quote_token(first_char), \
-										set_flag_token(*line), index);
+										set_flag_token(*line, DEFAULT), index);
 		token_addback(head, quote_token);
 		(*line)++;
 		return (true);
@@ -54,10 +67,12 @@ bool	token_can_get_quote_token(t_token **head, char **line, \
 	{
 		*f_quote = first_char;
 		quote_token = create_token(get_quote_token(first_char), \
-										set_flag_token(*line), index);
+										set_flag_token(*line, DEFAULT), index);
 		token_addback(head, quote_token);
 		(*line)++;
 		return (true);
 	}
+	else if (**line == '\0')
+		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:57:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/03 17:31:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/04 18:26:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@ t_token	*token_end(void)
 {
 	return (NULL);
 }
+t_token_type	token_last_token_type(t_token *head)
+{
+	t_token	*ite;
+
+	ite = head;
+	if (ite == token_end())
+		return (WORD);
+	else
+	{
+		while (ite->next != token_end())
+			ite = ite->next;
+	}
+	return (ite->type);
+}
 
 void	token_addback(t_token **head, t_token *new_token)
 {
@@ -23,7 +37,7 @@ void	token_addback(t_token **head, t_token *new_token)
 
 	ite = *head;
 	if (ite == token_end())
-		ite = new_token;
+		*head = new_token;
 	else
 	{
 		while (ite->next != token_end())
@@ -39,7 +53,7 @@ void	token_addback(t_token **head, t_token *new_token)
 // 	t_token	*token;
 
 	
-// 	head = create_token("WORD", WORD, 0);
+// 	head = NULL;
 // 	token = create_token("get", WORD, 1);
 // 	token_addback(&head, token);
 // 	token = create_token("good", WORD, 2);
