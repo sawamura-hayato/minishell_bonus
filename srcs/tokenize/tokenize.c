@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 11:46:16 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/02 12:20:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:54:39 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenize.h"
-#include "libft.h"
+#include "library.h"
 #include <stdlib.h>
 
 t_token	*tokenize(const char *prompt)
@@ -32,7 +32,7 @@ t_token	*tokenize(const char *prompt)
 		else
 		{
 			printf("KO\n") ;
-			prompt++;		
+			prompt++;
 		}
 		// token = token_get_current_token(&prompt, f_quote);
 		// token_addback(&head, token);
