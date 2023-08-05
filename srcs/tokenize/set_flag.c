@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:45:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/04 16:28:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/05 19:07:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_token_type	set_flag_token(char *line, t_quote f_quote)
 	else if ('&' == line[0] && '&' == line[1])
 		return (LOGICAL_AND);
 	return (WORD);
-	
 }
 
 // #include <stdio.h>
