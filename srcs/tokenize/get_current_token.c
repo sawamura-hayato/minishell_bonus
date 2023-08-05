@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/04 18:35:37 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/05 18:10:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ size_t	token_get_current_word_size(char *line, t_quote f_quote)
 	size_t	size;
 
 	size = token_get_special_word_size(line);
-	if (size)
-		return (size);
 	if (f_quote != DEFAULT)
 	{
 		while (f_quote != set_flag_quote(line[size]) && line[size] != '\0')
@@ -123,7 +121,7 @@ void	token_get_current_token(t_token **head, char **line, \
 	//構造体token作成(先頭ポインタが空白、タブ、改行、特殊文字の場合かつクウォートフラグがない場合によってindex発行)
 	//入力プロンプトから分割したい文字列のサイズを出力する関数
 	size = token_get_current_word_size(*line, f_quote);
-	printf("current line %s, size %zu\n", *line, size);
+	// printf("current line %s, size %zu\n", *line, size);
 	//3のサイズを使用して分割した文字列を出力する関数
 	word = token_get_current_word(*line, size);
 	current_token_type = set_flag_token(word, f_quote);
@@ -131,3 +129,5 @@ void	token_get_current_token(t_token **head, char **line, \
 	token_addback(head, current_token);
 	*line += size;
 }
+
+//echo "|| &&" 
