@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:25:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 20:14:54 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/05 19:08:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ void	*try_malloc(size_t size)
 		perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-
 	return (ptr);
 }
