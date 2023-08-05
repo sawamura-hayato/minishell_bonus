@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/04 21:10:18 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/05 17:56:32 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "library.h"
 #include <stdio.h>
 
-static char	*get_key(char *str)
+static char	*get_key(const char *str)
 {
 	return (
 		try_substr(
@@ -24,43 +24,47 @@ static char	*get_key(char *str)
 		));
 }
 
-static char	*get_value(char *str)
+static char	*get_value(const char *str)
 {
 	return (try_strdup((char *)ft_memchr(str, '=', ft_strlen(str)) + 1));
 }
 
-static t_envs	*insert_node(t_envs *new_node, t_envs **envs_hashmap)
+size_t	get_hashmap_index(char alpha)
+{
+	size_t	index;
+
+	if (ft_isupper(alpha))
+		index = alpha - 'A';
+	else if (ft_islower(alpha))
+		index = alpha - 'a';
+	else
+		index = 26;
+	return (index);
+}
+
+static void	insert_node(t_envs *new_node, t_envs **envs_hashmap)
 {
 	size_t	index;
 	t_envs	*node;
-	t_envs	*prev_node;
 
-	if (ft_isupper(new_node->key[0]))
-		index = new_node->key[0] - 'A';
-	else if (ft_islower(new_node->key[0]))
-		index = new_node->key[0] - 'a';
-	else
-		index = 26;
+	index = get_hashmap_index(new_node->key[0]);
 	if (envs_hashmap[index] == NULL
-		|| ft_strcmp(new_node->key, envs_hashmap[index] < 0))
+		|| ft_strcmp(new_node->key, envs_hashmap[index]->key) < 0)
 	{
 		new_node->next = envs_hashmap[index];
 		envs_hashmap[index] = new_node;
+		return ;
 	}
 	node = envs_hashmap[index];
-	while (node)
+	while (node->next != NULL)
 	{
-		if (ft_strcmp(new_node->key, node->next) < 0)
+		if (ft_strcmp(new_node->key, node->next->key) < 0)
+			break ;
 		node = node->next;
 	}
-
+	new_node->next = node->next;
+	node->next = new_node;
 }
-
-// A ABC ACC
-
-// ABB
-// envs_hashmap[0] = node;
-
 
 void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap)
 {
@@ -71,16 +75,15 @@ void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap)
 	node->key = _key;
 	node->value = _value;
 	insert_node(node, envs_hashmap);
-
 }
 
-void	envs_init(const char **environ, t_data d)
+void	envs_init(const char **environ, t_data *d)
 {
-	d.envs_hashmap = try_calloc(27, sizeof(t_envs));
+	d->envs_hashmap = try_calloc(HASHMAP_SIZE, sizeof(t_envs *));
 	while (*environ)
 	{
-		envs_newnode(get_key(*environ), get_value(*environ), d.envs_hashmap);
-		printf("%s, %s, %s-\n", *environ, get_key(*environ), get_value(*environ));
+		envs_newnode(get_key(*environ), get_value(*environ), d->envs_hashmap);
+		// printf("%s, %s, %s-\n", *environ, get_key(*environ), get_value(*environ));
 		*environ++;
 	}
 }
@@ -90,5 +93,17 @@ int	main()
 	t_data	d;
 
 	extern char	**environ;
-	envs_init(environ, d);
+	envs_init(environ, &d);
+	size_t	i = 0;
+	t_envs	*node;
+	while (i < HASHMAP_SIZE)
+	{
+		node = d.envs_hashmap[i];
+		while (node)
+		{
+			printf("%s=%s\n", node->key, node->value);
+			node = node->next;
+		}
+		i++;
+	}
 }

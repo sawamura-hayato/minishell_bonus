@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/04 16:07:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/05 17:20:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include <unistd.h>
 # include <stdbool.h>
+
+enum
+{
+	HASHMAP_SIZE = 27,
+};
 
 typedef struct s_envs
 {
@@ -29,16 +34,16 @@ typedef struct s_data
 	int		exit_status;
 }	t_data;
 
-void	envs_init(const char **environ, t_data d);
-void	*envs_newnode(char *_key, char *_value, t_envs **envs_hashmap);
+void	envs_init(const char **environ, t_data *d);
+void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap);
 void	*envs_modify(char *_key, char *new_value, t_envs **envs_hashmap);
 void	*envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap);
 void	*envs_delete(char *_key, t_envs **envs_hashmap);
 bool	is_top(char alpha, char *_key);
 t_envs	*get_node(char *_key);
-int		get_hashmap_index(char alpha);
+size_t	get_hashmap_index(char alpha);
 int		ft_strcmp(const char *s1, const char *s2);
-int		ft_isupper(char c);
-int		ft_islower(char c);
+// int		ft_isupper(char c);
+// int		ft_islower(char c);
 
 #endif
