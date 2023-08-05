@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:52:52 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 16:19:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:55:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "library.h"
 
 static char	*ft_substred(const char *s, unsigned int start, size_t end)
 {
@@ -40,7 +40,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t end)
 		return (NULL);
 	s_len = ft_strlen(s);
 	if ((size_t) start >= s_len || end == 0)
-		return (ft_strdup(""));
+		return (try_strdup(""));
 	// diff_len = s_len - start;
 	// if (diff_len <= end)
 	// 	return (ft_substred(s, start, diff_len));

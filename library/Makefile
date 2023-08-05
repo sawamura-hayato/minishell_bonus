@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/07/26 16:58:32 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/04 15:55:49 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ ARFLAGS = -r
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/ft_strlen.c \
-			$(SRCS_DIR)/ft_strdup.c \
+			$(SRCS_DIR)/try_strdup.c \
 			$(SRCS_DIR)/ft_substr.c \
 			$(SRCS_DIR)/ft_strtrim.c \
 			$(SRCS_DIR)/ft_is_operator.c \
@@ -33,17 +33,17 @@ INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR) 
+	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(NAME): $(OBJS) 
+$(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
 
 all: $(NAME)
 
 clean:
 	$(RM) -r $(OBJS_DIR)
- 
+
 fclean: clean
 	$(RM) $(NAME)
 
