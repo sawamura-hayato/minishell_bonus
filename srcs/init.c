@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/05 17:56:32 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/05 19:50:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*get_value(const char *str)
 	return (try_strdup((char *)ft_memchr(str, '=', ft_strlen(str)) + 1));
 }
 
-size_t	get_hashmap_index(char alpha)
+size_t	envs_get_hashmap_index(char alpha)
 {
 	size_t	index;
 
@@ -38,7 +38,7 @@ size_t	get_hashmap_index(char alpha)
 	else if (ft_islower(alpha))
 		index = alpha - 'a';
 	else
-		index = 26;
+		index = UNDERLINE;
 	return (index);
 }
 
@@ -47,7 +47,7 @@ static void	insert_node(t_envs *new_node, t_envs **envs_hashmap)
 	size_t	index;
 	t_envs	*node;
 
-	index = get_hashmap_index(new_node->key[0]);
+	index = envs_get_hashmap_index(new_node->key[0]);
 	if (envs_hashmap[index] == NULL
 		|| ft_strcmp(new_node->key, envs_hashmap[index]->key) < 0)
 	{
