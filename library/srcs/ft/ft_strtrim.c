@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 18:27:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 12:46:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/04 15:55:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "libft.h"
+#include "library.h"
 
 static int	is_char_in_str(const char *s, int c)
 {
@@ -51,15 +51,15 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	end;
 
 	if (s1 == NULL || s1[0] == '\0')
-		return (ft_strdup(""));
+		return (try_strdup(""));
 	if (set == NULL)
-		return (ft_strdup(s1));
+		return (try_strdup(s1));
 	while (is_char_in_str(set, *s1))
 		s1++;
 	len_s1 = ft_strlen(s1);
 	end = 0;
 	if (len_s1 == end)
-		return (ft_strdup(""));
+		return (try_strdup(""));
 	while (is_char_in_str(set, s1[len_s1 - end - 1]))
 		end++;
 	return (ft_trimed_str(s1, len_s1 - end));

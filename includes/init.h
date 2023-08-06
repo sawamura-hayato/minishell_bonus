@@ -6,12 +6,21 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/01 13:13:34 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/05 19:50:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_H
 # define INIT_H
+
+# include <unistd.h>
+# include <stdbool.h>
+
+enum
+{
+	UNDERLINE = 26,
+	HASHMAP_SIZE = 27,
+};
 
 typedef struct s_envs
 {
@@ -22,14 +31,20 @@ typedef struct s_envs
 
 typedef struct s_data
 {
-	t_envs	*envs;
+	t_envs	**envs_hashmap;
 	int		exit_status;
 }	t_data;
 
-
-
-t_envs	*envs_init(const char **environ);
-t_envs	*envs_newnode(char *_key, char *_value);
-void	envs_addback(t_envs **head);
+void	envs_init(const char **environ, t_data *d);
+void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap);
+void	*envs_modify(char *_key, char *new_value, t_envs **envs_hashmap);
+void	*envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap);
+void	*envs_delete(char *_key, t_envs **envs_hashmap);
+bool	envs_is_top(char alpha, char *_key);
+t_envs	*envs_get_node(char *_key);
+size_t	envs_get_hashmap_index(char alpha);
+// int		ft_strcmp(const char *s1, const char *s2);
+// int		ft_isupper(char c);
+// int		ft_islower(char c);
 
 #endif

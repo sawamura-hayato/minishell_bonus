@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/05 18:29:01 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/06 13:23:57 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 
 PARSE_DIR = parse
 
-LIBFT_DIR = libft
-LIBFT_AFILE = $(LIBFT_DIR)/libft.a
+LIBFT_DIR = library
+LIBFT_AFILE = $(LIBFT_DIR)/library.a
 
 OBJS_DIR = objs
 OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
