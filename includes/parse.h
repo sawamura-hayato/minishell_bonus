@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/01 13:39:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/06 21:50:35 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ typedef struct s_command
 {
 	t_word_list	*word_list;
 	t_redirect	*redirect_list;
-	int			fd;
-	pid_t		pid;
+	int			fd;//どこにコマンドを出力するか(初期値はSTD OUT FILNE NUMBER)
+	e_???		fd_type;//(STD OUT)
+	pid_t		pid;//子プロセスのIDを管理(初期値は-1)
 }	t_command;
 
 typedef struct s_ast

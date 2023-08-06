@@ -6,13 +6,13 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/07/10 21:44:52 by tyamauch         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2023/08/06 21:50:32 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
+/*                                                                            */
 #include "parse.h"
 
-t_ast *ast_parse(t_token **token_adress) 
+t_ast *ast_parse(t_token **token_adress, t_data *d) 
 {
 	t_token *token = *token_adress;
  	t_ast *left_node = ast_command(token);
@@ -24,9 +24,9 @@ t_ast *ast_parse(t_token **token_adress)
     	if (token != NULL && is_operator(token->type))
 		{
 			type = token -> type;
-			token = token ->next;
+			token = token ->next;//operatarのtoken
       		left_node = ast_make_ast_ope(type, left_node, ast_command(token));
-	  		token = token ->next; 
+	  		token = token ->next;// 
 		}
     	else
       		return left_node;
@@ -36,15 +36,15 @@ t_ast *ast_parse(t_token **token_adress)
 t_ast *ast_command(t_token **token) 
 {
 	t_ast *command_node;
-  if (token->word[0] == '(') 
+  if (token->word[0] == '(')//怪しい 
   {
     t_ast *node = ast_parse(token);
     expect(token,')');
     return node;
   }
   if (*token == NULL || is_opereter(*token))
-	syntax_error();
-  return ast_make_command_node(token); 
+	syntax_error();//他ではない
+  return ast_make_command_list(command_node,token); 
 }
 
 bool is_opereter(e_ast_type type)
@@ -58,19 +58,12 @@ t_ast * ast_make_ast_ope(e_ast_type type,t_ast *left_hand,t_ast *right_hand )
 
 	if(right_hand== NULL)
 		return(syntax_error(left_hand,right_hand));//left_hand free
-	ast_ope = try_malloc(sizeof(t_ast)*1);
+	ast_ope = try_calloc(1,sizeof(t_ast));
 	ast_ope -> type = type;
 	ast_ope -> command_list = NULL;
 	ast_ope -> left_hand = left_hand;
 	ast_ope -> right_hand = right_hand;
 	return (ast_ope);
-}
-
-void* try_malloc(size_t size)
-{
-	malloc();
-	if()
-	   ;	
 }
 
 void ast_expect(t_token **token,char op) {
@@ -83,9 +76,14 @@ void ast_make_command_list(t_ast *node,t_token **token_adress)
 {
 	token = *token_adress;
 
-	while(token == NULL || is_opereter(token -> type) )
+	while(token != NULL && !is_opereter(token -> type) )
 	{
-		if(is_redirect(token))
+		node->command_list->fd = STDOUT_FINENO;
+		node->command_list->fd_type = STDOUT;
+		node->command_list->pid = -1;
+		//tokenの中身を実際に見てリダイレクトがあれば次のトークン
+		//とリダレクトリストを作る
+		if(is_redirect(token->type))
 			ast_make_ridirect_list(&(node -> redirect_list),token);
 		else
 			ast_make_word_list(&(node -> command_list),token);
@@ -99,17 +97,32 @@ void ast_make_redirect_list(t_redirect **redirect_list, t_token **token_address)
 	t_token	*token = *token_address;
 	t_redirect *node;
 
-	node = try_malloc(sizeof(t_redirect)*1);
 	ast_init_redirect_node(node);
+	add_back_redirect_list(redirect_list,node);
+	token = token -> next;
+	if(token == NULL || is_operetor(token))
+		syntax_error();
+	ast_init_redirect_word_node(node);
 	add_back_redirect_list(redirect_list,node);
 	token = token -> next;
 	if(token == NULL || is_operetor(token))
 		syntax_error();
 }
 
+//redirectのnode(<)
 t_word ast_init_redirect_node(t_redirect *node);
 {
-	;
+	node = try_calloc(1,sizeof(t_redirect));
+	//t_redirectとtokenをstrcmpなどで比較する必要がある
+	set_redirect_type(token);//redirectタイプをsetする関数
+}
+
+//redirectのnode(word)
+t_word ast_init_redirect_word_node(t_redirect *node);
+{
+	node = try_calloc(1,sizeof(t_redirect));
+	set_word(node->word);
+	set_redirect_type(token);//redirectタイプをsetする関数
 }
 
 void ast_add_back_redirect_list(t_redirect **head,t_redirect *node)
@@ -120,16 +133,19 @@ void ast_add_back_redirect_list(t_redirect **head,t_redirect *node)
 void ast_make_word_list(t_command **command_list, t_token token)
 {
 	t_command *node;
-	
-	ast_init_word_node(node);
-	node = mallocx(sizeof(t_command)*1);
+	node = ast_init_word_word_node(node);
 	add_back_word_list(command_list,node);
 }
 
-t_word ast_init_word_node(t_word *word);
+t_command *ast_init_word_word_node(t_command *node,t_token *token)
 {
-	;
+	node = try_calloc(1,sizeof(t_word_list));
+	node->word = try_strdup(token_>word);
+	node->index = token->index;
+	node->type = token->type;
+	return(node);
 }
+
 void add_back_word_list(t_word **head,t_word *node);
 {
 	;
