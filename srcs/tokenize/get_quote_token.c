@@ -6,14 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 11:34:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/05 19:07:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:00:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 #include <stdbool.h>
 
-char	*get_quote_token(t_quote f_quote)
+char *get_quote_token(t_quote f_quote)
 {
 	if (SINGLE_QUOTE_FLAG == f_quote)
 		return ("\'");
@@ -22,18 +22,18 @@ char	*get_quote_token(t_quote f_quote)
 	return (NULL);
 }
 
-bool	token_can_get_quote_token(t_token **head, char **line, \
-										t_quote *f_quote, size_t index)
+bool token_can_get_quote_token(t_token **head, char **line,
+							   t_quote *f_quote, size_t index)
 {
-	t_quote	first_char;
-	t_token	*quote_token;
+	t_quote first_char;
+	t_token *quote_token;
 
-	first_char = set_flag_quote(*line[0]);
+	first_char = token_set_flag_quote(*line[0]);
 	if (*f_quote != DEFAULT && *f_quote == first_char)
 	{
 		*f_quote = DEFAULT;
-		quote_token = create_token(get_quote_token(first_char), \
-										set_flag_token(*line, DEFAULT), index);
+		quote_token = create_token(get_quote_token(first_char),
+								   token_set_flag_token(*line, DEFAULT), index);
 		token_addback(head, quote_token);
 		(*line)++;
 		return (true);
@@ -41,8 +41,8 @@ bool	token_can_get_quote_token(t_token **head, char **line, \
 	else if (*f_quote == DEFAULT && first_char != DEFAULT)
 	{
 		*f_quote = first_char;
-		quote_token = create_token(get_quote_token(first_char), \
-										set_flag_token(*line, DEFAULT), index);
+		quote_token = create_token(get_quote_token(first_char),
+								   token_set_flag_token(*line, DEFAULT), index);
 		token_addback(head, quote_token);
 		(*line)++;
 		return (true);

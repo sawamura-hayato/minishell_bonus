@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/05 19:06:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:00:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,37 +42,37 @@ typedef struct s_token
 } t_token;
 
 // tokenize.c
-t_token 		*tokenize(const char *line);
+t_token *tokenize(const char *line);
 
 // get_next_token_index.c
-size_t			token_can_get_next_token_index(t_token *head, \
-							char **line, t_quote f_quote, size_t index);
-bool			token_is_a_control_char(t_token_type token_type);
-t_token_type	token_get_last_token_type(t_token *head);
+size_t token_can_get_next_token_index(t_token *head,
+									  char **line, t_quote f_quote, size_t index);
+bool token_is_a_control_char(t_token_type token_type);
+t_token_type token_get_last_token_type(t_token *head);
 
 // get_quote_token.c
-bool			token_can_get_quote_token(t_token **token, char **line,
+bool token_can_get_quote_token(t_token **token, char **line,
 							   t_quote *f_quote, size_t index);
 
 // get_current_token.c
-size_t			token_get_current_word_size(char *line, t_quote f_quote);
-char			*token_get_current_word(char *line, size_t size);
-void			token_get_current_token(t_token **head, char **line, t_quote f_quote, size_t *index);
+size_t token_get_current_word_size(char *line, t_quote f_quote);
+char *token_get_current_word(char *line, size_t size);
+void token_get_current_token(t_token **head, char **line, t_quote f_quote, size_t *index);
 
 // set_flag.c
-t_quote			set_flag_quote(char quote);
-t_token_type	set_flag_token(char *line, t_quote f_flag);
+t_quote token_set_flag_quote(char quote);
+t_token_type token_set_flag_token(char *line, t_quote f_flag);
 
 // linear_linked_token.c
-t_token			*create_token(char *word, t_token_type token_type, size_t index);
-void			token_addback(t_token **head, t_token *new_token);
-t_token			*token_end(void);
-void			free_token(t_token *token_list);
-void			debug_print_token(t_token *token_list);
+t_token *create_token(char *word, t_token_type token_type, size_t index);
+void token_addback(t_token **head, t_token *new_token);
+t_token *token_end(void);
+void free_token(t_token *token_list);
+void debug_print_token(t_token *token_list);
 
 // library
-int				ft_isspace(char c);
-bool			ft_is_special_char(char c);
-size_t			ft_strlen(const char *str);
+int ft_isspace(char c);
+bool ft_is_special_char(char c);
+size_t ft_strlen(const char *str);
 
 #endif
