@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/01 13:39:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/06 16:33:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef enum e_ast_node_type
 	COMMAND,
 }	t_ast_node_type;
 
+typedef enum e_fd_type
+{
+	STDOUT,
+	APPEND,
+	OUTPUT,
+}	t_fd_type;
+
 typedef struct s_word_list
 {
 	char				*word;
@@ -56,6 +63,7 @@ typedef struct s_command
 	t_word_list	*word_list;
 	t_redirect	*redirect_list;
 	int			fd;
+	t_fd_type	fd_type;
 	pid_t		pid;
 }	t_command;
 
@@ -109,7 +117,7 @@ ls infileC a b | ls
 ls infile a b << eof <Makefile > out >> apend | ls a b c d
 
 1 ls 2 infile 3> 4a 5b 6<< 7eof <Makefile | ls
-1ls 2infile 5b 
+1ls 2infile 5b
 3> 4a << eof <Makefile
 
 cat
