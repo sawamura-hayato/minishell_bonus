@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_token.c                                     :+:      :+:    :+:   */
+/*   linear_linked_token.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/22 17:48:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/02 12:09:02 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/03 15:57:20 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/06 13:43:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,33 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-t_token	*init_token(size_t index)
+t_token	*token_end(void)
 {
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->word = NULL;
-	token->operator = WORD;
-	token->index = index;
-	token->next = NULL;
-	return (token);
+	return (NULL);
 }
 
-t_token	*create_token(char *word, t_operator_type operator, size_t index)
+void	token_addback(t_token **head, t_token *new_token)
+{
+	t_token	*ite;
+
+	ite = *head;
+	if (ite == token_end())
+		*head = new_token;
+	else
+	{
+		while (ite->next != token_end())
+			ite = ite->next;
+		ite->next = new_token;
+	}
+}
+
+t_token	*create_token(char *word, t_token_type token_type, size_t index)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
+	token = try_malloc(sizeof(t_token));
 	token->word = word;
-	token->operator = operator;
+	token->type = token_type;
 	token->index = index;
 	token->next = NULL;
 	return (token);
@@ -47,7 +51,7 @@ void	debug_print_token(t_token *token_list)
 	while (token_list != NULL)
 	{
 		printf("word            [%s]\n", token_list->word);
-		printf("token operator  [%d]\n", token_list->operator);
+		printf("token token_type  [%d]\n", token_list->type);
 		printf("token n         [%zu]\n", token_list->index);
 		token_list = token_list->next;
 	}
@@ -57,20 +61,32 @@ void	free_token(t_token *token_list)
 {
 	t_token	*tmp_token;
 
-	tmp_token = token_list->next;
+	tmp_token = NULL;
 	while (token_list != NULL)
 	{
 		free(token_list);
-		token_list = tmp_token;
 		tmp_token = token_list->next;
+		token_list = tmp_token;
 	}
 }
 
-// int main(int argc, char *argv[])
+// void	free_token(t_token *token_list);
+// int main()
 // {
-// 	t_token *token;
-
-// 	token = create_token(create_word(argv[1], DEFAULT), WORD, 0);
-// 	debug_print_token(token);
+// 	t_token	*head;
+// 	t_token	*token;
+// 	head = NULL;
+// 	token = create_token("get", WORD, 1);
+// 	token_addback(&head, token);
+// 	token = create_token("good", WORD, 2);
+// 	token_addback(&head, token);
+// 	debug_print_token(head);
+// 	free_token(head);
 // 	return (0);
+// }
+
+// #include <libc.h>
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q minishell");
 // }
