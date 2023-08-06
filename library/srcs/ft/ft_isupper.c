@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:48:43 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/05 16:50:06 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/06 13:34:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include <stdbool.h>
 
 bool	ft_isupper(char c)
 {

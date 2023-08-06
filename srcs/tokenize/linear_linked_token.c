@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:57:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/05 18:39:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:43:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ t_token	*create_token(char *word, t_token_type token_type, size_t index)
 {
 	t_token	*token;
 
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
+	token = try_malloc(sizeof(t_token));
 	token->word = word;
 	token->type = token_type;
 	token->index = index;

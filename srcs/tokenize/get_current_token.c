@@ -6,13 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/06 13:00:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/06 13:41:09 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "tokenize.h"
+#include "library.h"
 
 size_t token_get_special_word_size(char *line)
 {
@@ -66,16 +67,13 @@ char *token_get_current_word(char *line, size_t size)
 	size_t i;
 	char *word;
 
-	word = (char *)malloc(sizeof(char) * (size + 1));
-	if (word == NULL)
-		return (NULL);
+	word = try_calloc(0, sizeof(char) * (size + 1));
 	i = 0;
 	while (i < size)
 	{
 		word[i] = line[i];
 		i++;
 	}
-	word[i] = '\0';
 	return (word);
 }
 
