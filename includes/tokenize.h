@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/06 13:00:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/07 23:00:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef enum e_token_type
 	LOGICAL_OR,
 	LOGICAL_AND,
 	PIPE,
+	REDIRECT
 } t_token_type;
 
 typedef enum e_quote
@@ -54,6 +55,12 @@ t_token_type token_get_last_token_type(t_token *head);
 bool token_can_get_quote_token(t_token **token, char **line,
 							   t_quote *f_quote, size_t index);
 
+// get_current_word_size.c
+size_t	token_get_current_word_size(char *line, t_quote f_quote);
+size_t	token_get_operator_size(char *line);
+size_t	token_get_redirect_size(char *line);
+size_t	token_get_special_word_size(char *line);
+
 // get_current_token.c
 size_t token_get_current_word_size(char *line, t_quote f_quote);
 char *token_get_current_word(char *line, size_t size);
@@ -71,8 +78,10 @@ void free_token(t_token *token_list);
 void debug_print_token(t_token *token_list);
 
 // library
-int ft_isspace(char c);
-bool ft_is_special_char(char c);
-size_t ft_strlen(const char *str);
+int		ft_isspace(char c);
+bool	ft_is_special_char(char c);
+size_t	ft_strlen(const char *str);
+void	*try_malloc(size_t size);
+void	*try_calloc(size_t count, size_t size);
 
 #endif
