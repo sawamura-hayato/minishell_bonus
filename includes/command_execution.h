@@ -52,10 +52,11 @@ void	command_execution(t_ast *node, enum e_operator operator, t_data *d);
  * inputの場合、fileをopenし、readした文字列を標準入力に設定する
  *
  * @param node 構文木のnode
+ * @param d 環境変数と終了ステータス
  * @return true すべてのredirectionが問題なく成功した場合、trueを返す
  * @return false redirectionを失敗したタイミングで、この関数の処理を終了し、falseを返す
  */
-bool	exec_do_redirection(t_ast *node);
+bool	exec_do_redirection(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -149,7 +150,7 @@ char	**exec_make_command_array(t_ast *node);
  *
  * @param node 構文木のnode
  */
-void	exec_wait_child_process(t_ast *node);
+void	exec_wait_child_process(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -157,6 +158,7 @@ void	exec_wait_child_process(t_ast *node);
  * node->command_list->word_listがbuiltinか判定する。
  *
  * @param node 構文木のnode
+ * @param d 環境変数と終了ステータス
  * @return true builtinの場合、trueを返す
  * @return false builtinde出ない場合、falseを返す
  */
@@ -174,14 +176,20 @@ void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
 		command_execution(node->right_hand, END, &d);
 	if (node->type == COMMAND)
 	{
-		if (do_redirection(node) == false)
+		bool	ret = do_redirection(node, &d);
+		if (ret == false && operator != LOGICAL_OR)
 		{
 			//エラー処理
 			//redirectionが失敗したらこのノードのコマンドを実行しない
 			//open readが失敗したときなど
 			return;
 		}
-		if (operator == PIPE)
+		else if (ret == false && operator == LOGICAL_OR)//operator=LOGICAL_ORの場合、次のコマンドを実行
+		{
+			exec_wait_child_process(node);
+			command_execution(node->right_hand, operator, &d);
+		}
+		else if (operator == PIPE)
 			exec_pipe(node);
 		else if (operator == LOGICAL_AND)
 		{
@@ -199,7 +207,7 @@ void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
 			do_fork(node);
 	}
 	if (operator == START)
-		exec_wait_child_process(node);
+		exec_wait_child_process(node, &d);
 }
 
 #endif
