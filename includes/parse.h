@@ -35,13 +35,6 @@ typedef enum e_ast_node_type
 	COMMAND,
 }	t_ast_node_type;
 
-typedef enum e_fd_type
-{
-	STDOUT,
-	APPEND,
-	OUTPUT,
-}	t_fd_type;
-
 typedef struct s_word_list
 {
 	char				*word;
@@ -63,7 +56,6 @@ typedef struct s_command
 	t_word_list	*word_list;
 	t_redirect	*redirect_list;
 	int			fd;
-	t_fd_type	fd_type;
 	pid_t		pid;
 }	t_command;
 

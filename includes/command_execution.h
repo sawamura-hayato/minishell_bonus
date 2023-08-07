@@ -22,6 +22,12 @@ typedef enum e_operator
 	LOGICAL_OR,
 }	t_operator;
 
+enum e_pipefd
+{
+	R = 0,//read用fd
+	W = 1,//write用fd
+};
+
 /**
  * @brief この関数はコマンドを実行する
  *
@@ -59,7 +65,7 @@ bool	exec_do_redirection(t_ast *node);
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
-void	exec_execute_fork(t_ast *node, t_data *d);
+void	exec_fork(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。親プロセスは子プロセスの実行結果を受け取る。
@@ -72,12 +78,12 @@ void	exec_execute_fork(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
-void	exec_execute_pipe(t_ast *node, t_data *d);
+void	exec_pipe(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
  *
- * exec_execute_fork()を実行する。
+ * exec_fork()を実行する。
  * exec_wait_child_process()で終了ステータスを取得する。
  * 終了ステータスが0（正常終了）の場合、trueを返す。
  *
@@ -86,12 +92,12 @@ void	exec_execute_pipe(t_ast *node, t_data *d);
  * @return true コマンドを実行した結果、終了ステータスが0の場合、trueを返す
  * @return false コマンドを実行した結果、終了ステータスが0以外の場合、falseを返す
  */
-bool	exec_execute_l_and(t_ast *node, t_data *d);
+bool	exec_l_and(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
  *
- * exec_execute_fork()を実行する。
+ * exec_fork()を実行する。
  * exec_wait_child_process()で終了ステータスを取得する。
  * 終了ステータスが0（正常終了）以外の場合、trueを返す。
  *
@@ -100,7 +106,7 @@ bool	exec_execute_l_and(t_ast *node, t_data *d);
  * @return true コマンドを実行した結果、終了ステータスが0以外の場合、trueを返す
  * @return false コマンドを実行した結果、終了ステータスが0の場合、falseを返す
  */
-bool	exec_execute_l_or(t_ast *node, t_data *d);
+bool	exec_l_or(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は子プロセス内でコマンドを実行する。
@@ -148,13 +154,13 @@ void	exec_wait_child_process(t_ast *node);
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
  *
- * argv[0]がbuiltinか判定する
+ * node->command_list->word_listがbuiltinか判定する。
  *
- * @param argv コマンドの二次元配列
+ * @param node 構文木のnode
  * @return true builtinの場合、trueを返す
  * @return false builtinde出ない場合、falseを返す
  */
-bool	exec_is_builtin(char **argv);
+bool	exec_is_builtin(t_ast *node);
 
 void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
 {
@@ -163,9 +169,9 @@ void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
 	if (node->type == LOGICAL_AND || node->type == LOGICAL_OR)
 		;
 	else if (node->right_hand != NULL)
-		command_execution(node->right_hand, operator, envs);
+		command_execution(node->right_hand, operator, &d);
 	else if (operator == START && node->right_hand != NULL)
-		command_execution(node->right_hand, END, envs);
+		command_execution(node->right_hand, END, &d);
 	if (node->type == COMMAND)
 	{
 		if (do_redirection(node) == false)
@@ -176,24 +182,24 @@ void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
 			return;
 		}
 		if (operator == PIPE)
-			execute_pipe(node);
+			exec_pipe(node);
 		else if (operator == LOGICAL_AND)
 		{
-			if (execute_l_and(node))
+			if (exec_l_and(node))
 				command_execution(node->right_hand, operator, &d);
 		}
 		else if (operator == LOGICAL_OR)
 		{
-			if (execute_l_or(node));
+			if (exec_l_or(node));
 				command_execution(node->right_hand, operator, &d);
 		}
-		else if (operator == START && is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
-			return (do_builtin(node, &d));
+		else if (operator == START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
+			return (do_builtin(node, NULL, &d));//builtin.hの関数
 		else
-			execute_fork(node);
+			do_fork(node);
 	}
 	if (operator == START)
-		wait_child_process(node);
+		exec_wait_child_process(node);
 }
 
 #endif
