@@ -40,7 +40,7 @@ void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap);
 void	*envs_modify(char *_key, char *new_value, t_envs **envs_hashmap);
 void	*envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap);
 void	*envs_delete(char *_key, t_envs **envs_hashmap);
-bool	envs_make_envp(t_envs **envs_hashmap);
+char	**envs_make_envp(t_envs **envs_hashmap);
 bool	envs_is_top(char alpha, char *_key);
 t_envs	*envs_get_node(char *_key);
 size_t	envs_get_hashmap_index(char alpha);
