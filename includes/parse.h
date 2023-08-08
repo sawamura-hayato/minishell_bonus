@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/01 13:39:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/06 16:33:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ ls infileC a b | ls
 ls infile a b << eof <Makefile > out >> apend | ls a b c d
 
 1 ls 2 infile 3> 4a 5b 6<< 7eof <Makefile | ls
-1ls 2infile 5b 
+1ls 2infile 5b
 3> 4a << eof <Makefile
 
 cat
