@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 12:42:06 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/08 20:49:55 by tatyu            ###   ########.fr       */
+/*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
+/*   Updated: 2023/08/08 18:55:32 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
-
-void	builtin(t_ast *node, int *pipefd, t_data *d);
-void	builtin_echo(char **argv, t_data *d);
-void	builtin_cd(char **argv, t_data *d);
-void	builtin_pwd(char **argv, t_data *d);
-void	builtin_export(char **argv, t_data *d);
-void	builtin_unset(char **argv, t_data *d);
-void	builtin_env(char **argv, t_data *d);
-void	builtin_exit(char **argv, t_data *d);
+#include "builtins.h"
+#include "parse.h"
+#include "init.h"
 
 void	builtin(t_ast *node, int *pipefd, t_data *d)
 {
@@ -56,5 +48,3 @@ void	builtin(t_ast *node, int *pipefd, t_data *d)
 		exit(d->exit_status);
 	}
 }
-
-#endif

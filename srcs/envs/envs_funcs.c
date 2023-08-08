@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/08 18:07:14 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/08 20:46:02 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,16 @@ void	envs_delete(char *_key, t_envs **envs_hashmap)
 		}
 		node = node->next;
 	}
+}
+
+char	*envs_get_value(char *_key, t_envs **envs_hashmap)
+{
+	t_envs	*target;
+
+	target = envs_get_node(_key, envs_hashmap);
+	if (target == NULL)
+		return (NULL);
+	return (try_strdup(target->value));
 }
 
 void	envs_free_node(t_envs *node)

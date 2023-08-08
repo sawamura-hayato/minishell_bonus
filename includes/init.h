@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/08 16:10:05 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/08 19:49:38 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	envs_delete(char *_key, t_envs **envs_hashmap);
 char	**envs_make_envp(t_envs **envs_hashmap);
 void	envs_free_node(t_envs *node);
 t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap);
+char	*envs_get_value(char *_key, t_envs **envs_hashmap);
 size_t	envs_get_hashmap_index(char alpha);
 // int		ft_strcmp(const char *s1, const char *s2);
 // int		ft_isupper(char c);

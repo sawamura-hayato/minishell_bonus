@@ -6,13 +6,12 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/08 18:28:22 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/08 18:42:17 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "library.h"
-#include <stdio.h>
 
 static char	*get_key(const char *str)
 {
@@ -62,11 +61,11 @@ void	envs_init(const char **environ, t_data *d)
 	while (*environ != NULL)
 	{
 		envs_newnode(get_key(*environ), get_value(*environ), d->envs_hashmap);
-		// printf("%s, %s, %s-\n", *environ, get_key(*environ), get_value(*environ));
 		environ++;
 	}
 }
 
+#include <stdio.h>
 static void	debug_hashmap(t_envs **envs_hashmap)
 {
 	size_t	i = 0;
