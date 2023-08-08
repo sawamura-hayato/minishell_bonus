@@ -6,13 +6,13 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/08 16:35:40 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/08 17:13:20 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = library.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 AR = ar
 ARFLAGS = -r
 RM = rm -rf
@@ -26,12 +26,17 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_is_operator.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_is_special_char.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_isspace.c \
+			$(SRCS_DIR)/$(FT_DIR)/ft_islower.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_isupper.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_memchr.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c
 	
 TRY_DIR = try
 SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_calloc.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_malloc.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_substr.c \
+			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin.c
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

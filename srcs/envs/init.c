@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/08 16:59:11 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/08 18:28:22 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,39 @@ t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap)
 void	envs_init(const char **environ, t_data *d)
 {
 	d->envs_hashmap = try_calloc(HASHMAP_SIZE, sizeof(t_envs *));
-	while (*environ)
+	while (*environ != NULL)
 	{
 		envs_newnode(get_key(*environ), get_value(*environ), d->envs_hashmap);
 		// printf("%s, %s, %s-\n", *environ, get_key(*environ), get_value(*environ));
-		(*environ)++;
+		environ++;
 	}
+}
+
+static void	debug_hashmap(t_envs **envs_hashmap)
+{
+	size_t	i = 0;
+	t_envs	*node;
+	while (i < HASHMAP_SIZE)
+	{
+		node = envs_hashmap[i];
+		while (node)
+		{
+			printf("%s=%s\n", node->key, node->value);
+			node = node->next;
+		}
+		i++;
+	}
+	printf("---------------------------------\n");
+}
+
+static void	debug_envp(char **envp)
+{
+	while (*envp != NULL)
+	{
+		printf("%s\n", *envp);
+		envp++;
+	}
+	printf("---------------------------------\n");
 }
 
 int	main()
@@ -73,17 +100,17 @@ int	main()
 
 	extern const char	**environ;
 	envs_init(environ, &d);
-	size_t	i = 0;
-	t_envs	*node;
-	while (i < HASHMAP_SIZE)
-	{
-		node = d.envs_hashmap[i];
-		while (node)
-		{
-			printf("%s=%s\n", node->key, node->value);
-			node = node->next;
-		}
-		i++;
-	}
+	debug_hashmap(d.envs_hashmap);
+	envs_addstr("test", "test", d.envs_hashmap);
+	envs_addstr("test", "test", d.envs_hashmap);
+	envs_modify("test", "テスト", d.envs_hashmap);
+	envs_modify("t", "tachu", d.envs_hashmap);
+	// debug_hashmap(d.envs_hashmap);
+	envs_delete("test", d.envs_hashmap);
+	envs_delete("noexit", d.envs_hashmap);
+	envs_delete("tachu", d.envs_hashmap);
+	envs_delete("A", d.envs_hashmap);
+	// debug_hashmap(d.envs_hashmap);
+	debug_envp(envs_make_envp(d.envs_hashmap));
 	return (0);
 }

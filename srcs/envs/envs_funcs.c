@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/08 16:50:32 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/08 18:07:14 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap)
 void	envs_delete(char *_key, t_envs **envs_hashmap)
 {
 	t_envs	*node;
+	t_envs	*target;
 
 	node = envs_hashmap[envs_get_hashmap_index(_key[0])];
 	if (node == NULL || ft_strcmp(node->key, _key) == 0)
@@ -55,12 +56,14 @@ void	envs_delete(char *_key, t_envs **envs_hashmap)
 		envs_free_node(node);
 		return ;
 	}
-	while (node->next)
+	while (node->next != NULL)
 	{
-		if (ft_strcmp(node->next->key, _key) == 0)
+		if (ft_strcmp((node->next)->key, _key) == 0)
 		{
-			node->next = (node->next)->next;
-			envs_free_node(node->next);
+			target = node->next;
+			node->next = target->next;
+			envs_free_node(target);
+			break ;
 		}
 		node = node->next;
 	}
@@ -68,6 +71,8 @@ void	envs_delete(char *_key, t_envs **envs_hashmap)
 
 void	envs_free_node(t_envs *node)
 {
+	if (node == NULL)
+		return ;
 	free(node->key);
 	free(node->value);
 	free(node);
