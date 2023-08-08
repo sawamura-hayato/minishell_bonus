@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 16:22:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:28:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	expand_token_word_list(t_word_list *token, t_data *d)
 	token->word = expand_word;
 }
 
-void	expand_token_redirect_list(t_redirect_list *token, t_data *d)
+void	expand_token_redirect_list(t_redirect *token, t_data *d)
 {
 	char	*expand_word;
 
@@ -80,9 +80,9 @@ void	expand_variable_word_list(t_word_list *head, t_data *d)
 	}
 }
 
-void	expand_variable_redirect_list(t_redirect_list *head, t_data *d)
+void	expand_variable_redirect_list(t_redirect *head, t_data *d)
 {
-	t_redirect_list		*ite;
+	t_redirect		*ite;
 
 	ite = head;
 	while (ite != NULL)
