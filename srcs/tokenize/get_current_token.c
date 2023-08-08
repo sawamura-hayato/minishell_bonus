@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/07 22:58:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:01:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*token_get_current_word(char *line, size_t	size)
 	size_t	i;
 	char	*word;
 
-	word = try_calloc(0, sizeof(char) * (size + 1));
+	word = try_calloc(size + 1, sizeof(char));
 	i = 0;
 	while (i < size)
 	{
