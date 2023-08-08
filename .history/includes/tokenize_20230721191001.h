@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenize.h                                         :+:      :+:    :+:   */
+/*   tokenize_20230721191001.h                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/21 19:10:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/03 15:00:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_word {
 
 typedef struct s_token {
 	struct s_word	*word;
-	e_token_type	type;
-	e_token_type	token_type;
+	t_token_type	type;
+	size_t	index;
 	struct s_token	*next;
 }	t_token;
 

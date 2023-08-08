@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_is_special_char.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/04 16:16:48 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/03 17:54:08 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/03 18:09:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdbool.h>
 
-int	main(void)
+#define LOGICAL_OR '|'
+#define LOGICAL_AND '&'
+#define	REDIRECTING_INPUT '<'
+#define	REDIRECTING_OUTPUT '>'
+
+bool	ft_is_special_char(char c)
 {
-	// (void)argc;
-	// (void)argv;
-	read_eval_print_loop();
-	return (0);
+	if (c == LOGICAL_OR || c == LOGICAL_AND || \
+			c == REDIRECTING_INPUT || c == REDIRECTING_INPUT )
+		return (true);
+	return (false);
 }

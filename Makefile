@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/02 12:04:42 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/06 13:23:57 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,17 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/repl.c
 
 TOKENIZE_DIR = tokenize
-SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/create_token.c \
+SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
 PARSE_DIR = parse
 
-LIBFT_DIR = libft
-LIBFT_AFILE = $(LIBFT_DIR)/libft.a
+LIBFT_DIR = library
+LIBFT_AFILE = $(LIBFT_DIR)/library.a
 
 OBJS_DIR = objs
 OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))

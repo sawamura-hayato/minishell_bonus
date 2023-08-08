@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   try_substr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:20:02 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/04 15:53:39 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/06 13:24:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#include "stdlib.h"
+#include <stdlib.h>
 
 char	*try_substr(char const *s, size_t start, size_t len)
 {
