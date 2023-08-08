@@ -3,17 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/06 13:39:12 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/08 16:35:40 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = library.a
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
+AR = ar
 ARFLAGS = -r
+RM = rm -rf
 
 SRCS_DIR = srcs
 
@@ -50,7 +52,7 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 clean:
-	$(RM) -r $(OBJS_DIR)
+	$(RM) $(OBJS_DIR)
 
 fclean: clean
 	$(RM) $(NAME)
