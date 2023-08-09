@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/08 18:42:17 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/09 21:46:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "library.h"
+#include <stdlib.h>
 
 static char	*get_key(const char *str)
 {
@@ -41,26 +42,43 @@ size_t	envs_get_hashmap_index(char alpha)
 	return (index);
 }
 
-t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap)
+static char	*get_shlvl_value(char *value)
 {
-	t_envs	*node;
+	const char	*msg = "warning: shell level (1000) too high, resetting to 1\n";
+	int			shlvl;
 
-	node = envs_hashmap[envs_get_hashmap_index(_key[0])];
-	while (node)
+	shlvl = ft_atoi(value);
+	free(value);
+	if (shlvl == 999)
 	{
-		if (ft_strcmp(node->key, _key) == 0)
-			return (node);
-		node = node->next;
+		try_write(STDOUT_FILENO, msg, ft_strlen(msg));
+		return (ft_itoa(1));
 	}
-	return (NULL);
+	else
+		return (ft_itoa(++shlvl));
+
 }
 
 void	envs_init(const char **environ, t_data *d)
 {
+	char		*key;
+	char		*value;
+
 	d->envs_hashmap = try_calloc(HASHMAP_SIZE, sizeof(t_envs *));
+	if (*environ == NULL)
+	{
+		envs_newnode(try_strdup("OLDPWD"), NULL, d->envs_hashmap);
+		envs_newnode(try_strdup("PWD"), getcwd(NULL, 0), d->envs_hashmap);
+		envs_newnode(try_strdup("SHLVL"), try_strdup("1"), d->envs_hashmap);
+		return ;
+	}
 	while (*environ != NULL)
 	{
-		envs_newnode(get_key(*environ), get_value(*environ), d->envs_hashmap);
+		key = get_key(*environ);
+		value = get_value(*environ);
+		if (ft_strcmp(key, "SHLVL") == 0)
+			value = get_shlvl_value(value);
+		envs_newnode(key, value, d->envs_hashmap);
 		environ++;
 	}
 }
