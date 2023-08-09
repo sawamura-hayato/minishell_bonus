@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 15:45:40 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/09 18:52:51 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ void	*ft_memchr(const void *s, int c, size_t n);
 bool	ft_isupper(char c);
 bool	ft_islower(char c);
 int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp_ignorecase(const char *s1, const char *s2);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/08 17:13:20 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/09 18:53:28 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,9 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_islower.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_isupper.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_memchr.c	\
-			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c
-	
+			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp_ignorecase.c
+
 TRY_DIR = try
 SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_calloc.c \
