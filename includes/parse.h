@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 18:43:33 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:50:35 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ typedef struct s_word_list
 	struct s_word_list	*next;
 }	t_word_list;
 
-typedef struct s_redirect
+typedef struct s_redirect_list
 {
 	char				*word;
 	size_t				index;
 	t_redirect_type		type;
 	bool 	is_ambiguas_error;//初期値はfalse
 	struct s_redirect	*next;
-}	t_redirect;
+}	t_redirect_list;
 
 typedef struct s_command
 {
@@ -71,24 +71,24 @@ typedef struct s_ast
 
 
 //t_ast関連
-t_ast *parse(t_token **token_address, t_data *d);
+t_ast *ast_parse(t_token **token_address, t_data *d);
 t_ast *ast_command(t_token *token,t_data *d);
 t_ast *ast_make_command_list(t_ast *node,t_token **token);
-t_ast *ast_operator(e_ast_node_type,t_ast *left_hand,t_ast *right_hand);
-t_ast *ast_init_node(t_token **token_adress)
-void ast_add_back_ast_node(t_ast **head, t_ast *new_node);
+t_ast *ast_make_ast_ope(e_ast_node_type,t_ast *left_hand,t_ast *right_hand);
+t_ast *ast_init_node()
+void ast_addback(t_ast **head, t_ast *new_node);
 
 //t_command関連
 void ast_make_word_list(t_command command_list, t_token token);
 void ast_make_redirect_list(t_redirect redirect_list, t_token **token_address,t_data *d);
 
 //t_word_list関連
-t_word_list *ast_init_word_node(t_word_list *word);
-void *ast_add_back_word_list(t_word_list **head,t_word *node);
+t_word_list *ast_init_word_node(t_token *token);
+void *word_list_addback(t_word_list **head,t_word *node);
 
 //t_redirect関連
-t_redirect *ast_init_redirect_node(t_redirect *node);
-void *ast_add_back_redirect_list(t_redirect **head,t_redirect *node);
+t_redirect *ast_init_redirect_node(t_token *token);
+void *redirect_list_addback(t_redirect **head,t_redirect *node);
 
 //error関連
 bool is_operator(e_ast_node_type type);
@@ -96,7 +96,7 @@ bool is_quotation_closed(t_token *token_adress);
 void ast_expect(t_token **token,char op);
 t_token	*ast_token_next(t_token **token_address);
 void ast_free_all_nodes(t_ast *node);
-void * ast_syntax_error(t_ast *left_node,t_ast *right_node)
+void * syntax_error(t_ast *left_node,t_ast *right_node)
 
 /* void* try_calloc(size_t nmemb,size_t size); */
 
