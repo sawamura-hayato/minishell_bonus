@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/09 17:12:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/09 17:20:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ bool	heredoc_read_loop(t_redirect *delimiter)
 		tmp = str;
 		str = try_strjoin(str, buff);
 		free(buff);
-		free(str);
+		free(tmp);
 	}
 	return (true);
 }
