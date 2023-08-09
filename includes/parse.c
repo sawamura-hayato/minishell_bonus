@@ -6,13 +6,13 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/06 21:50:32 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/09 21:52:11 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
 /*                                                                            */
 #include "parse.h"
 
-t_ast *ast_parse(t_token **current_token, t_data *d) 
+t_ast *parse(t_token **current_token, t_data *d) 
 {
 	t_token *token = *current_token;
  	t_ast *left_node = ast_command(token,d);
@@ -47,7 +47,7 @@ t_ast *ast_command(t_token **current_token,t_data *d)
   return ast_make_command_list(command_node,current_token); 
 }
 
-t_ast * ast_make_command_list(t_ast *node,t_token **current_token)
+t_ast * ast_command_list(t_ast *node,t_token **current_token)
 {
 	token = *current_token;
 
@@ -59,16 +59,16 @@ t_ast * ast_make_command_list(t_ast *node,t_token **current_token)
 		//tokenの中身を実際に見てリダイレクトがあれば次のトークン
 		//とリダレクトリストを作る
 		if(is_redirect(current_token->type))
-			ast_make_ridirect_list(&(node -> redirect_list),current_token);
+			ridirect_list(&(node -> redirect_list),current_token);
 		else
-			ast_make_word_list(&(node -> command_list),current_token);
+			command_word_list(&(node -> command_list),current_token);
 		if (!token_next(&current_token))
 			return (NULL);
 	}
 	return(node);
 }
 
-t_ast * ast_make_ast_ope(e_ast_type type,t_ast *left_hand,t_ast *right_hand )
+t_ast * ast_operator(e_ast_type type,t_ast *left_hand,t_ast *right_hand )
 {
 	t_ast * ast_ope;
 
