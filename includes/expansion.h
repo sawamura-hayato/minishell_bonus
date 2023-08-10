@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 16:25:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/10 19:20:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,19 @@ void	expand_token_redirect_list(t_redirect *token, t_data *d);
 void	expand_variable_word_list(t_word_list *head, t_data *d);
 void	expand_variable_redirect_list(t_redirect *head, t_data *d);
 
-//
-void		expand_word_splitting(t_ast *node);//IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
+//expand_word_splitting.c
+void	expand_word_splitting(t_ast *node);//IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
+char	*expand_get_splitting_word(char **word)
+void	expand_get_splitting_word_list(t_word_list **word_list)
+void	expand_splitting_word_list(t_word_list *word_list, t_envs *ifs)
+void	expand_splitting_redirect_list(t_redirect *redirect_list, t_envs *ifs)
+void	expand_word_splitting(t_ast *node, t_data *d)
+
 void		expand_filename(t_ast *node);//＊の展開 + 線形リストのトークンを追加
 void		expand_quotation(t_ast *node);//クオテーションの削除
 char		*get_env_x(char *target, const t_data **d);
 t_command	*command_split_node(t_command *node);//word splittingでノードを分割
 t_redirect	*redirect_add_node(t_redirect *node);//word splittingでノードを分割
-
-//heredoc
-void		do_heredoc(t_ast *node);//heredocを実行し、文字列を取得
-void		expand_heredoc(t_ast *node, const t_data **d);//delimiterにクオテーションがない場合、環境変数を展開
-
 
 t_command	*command_split_node(t_command *node)
 {
