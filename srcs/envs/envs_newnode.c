@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:43:48 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/09 20:31:25 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/10 17:58:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap)
 		node = node->next;
 	}
 	return (NULL);
+}
+
+size_t	envs_get_hashmap_index(char alpha)
+{
+	size_t	index;
+
+	if (ft_isupper(alpha))
+		index = alpha - 'A';
+	else if (ft_islower(alpha))
+		index = alpha - 'a';
+	else
+		index = UNDERLINE;
+	return (index);
 }
 
 static void	insert_node(t_envs *new_node, t_envs **envs_hashmap)
