@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/09 21:25:10 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/10 17:47:10 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*try_strdup(const char *s1);
 char	*try_substr(char const *s, size_t start, size_t len);
 char	*try_strjoin(char const *s1, char const *s2);
 void	try_write(int fildes, const void *buf, size_t nbyte);
+char	*try_itoa(int n);
 
 // ft
 size_t	ft_strlen(const char *str);
@@ -36,5 +37,6 @@ bool	ft_isupper(char c);
 bool	ft_islower(char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strcmp_ignorecase(const char *s1, const char *s2);
+int		ft_atoi(const char *str);
 
 #endif
