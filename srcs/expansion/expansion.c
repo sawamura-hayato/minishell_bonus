@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 16:21:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/10 19:57:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,5 @@ int	expansion(t_ast *node, t_data **d)
 	expand_word_splitting(node, d);
 	expand_filename(node);
 	expand_quotation(node);
-	if (do_heredoc(node))
-	{
-		//signalの対応
-		return (1);
-	}
-	expand_heredoc(node);
 	return (0);
 }
