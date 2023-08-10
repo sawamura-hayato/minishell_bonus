@@ -12,7 +12,7 @@
 /*                                                                            */
 #include "parse.h"
 
-t_ast *parse(t_token **current_token, t_data *d) 
+t_ast *parse(t_token **current_token, t_data *d) /*{{{*/
 {
 	t_token *token = *current_token;
  	t_ast *left_node = ast_command(token,d);
@@ -21,44 +21,44 @@ t_ast *parse(t_token **current_token, t_data *d)
 		ast_free_all_nodes(left_node);
   	while (true)
   	{
-    	if (token != NULL && is_operator(token->type))
-		{
-			type = token -> type;
-			token = token ->next;//operatarのtoken
-      		left_node = ast_make_ast_ope(type, left_node, ast_command(token));
+    	if (token != NULL && ast_is_operator(token->type))
+			{
+				type = token -> type;
+				token = token ->next;//operatarのtoken
+      	left_node = ast_operator(type, left_node, ast_command(token));
 	  		token = token ->next;// 
-		}
-    	else
+				}
+    		else
       		return left_node;
-	}
+		}
 }
-
-t_ast *ast_command(t_token **current_token,t_data *d) 
+/*}}}*/
+t_ast *ast_command(t_token **current_token,t_data *d) /*{{{*/
 {
 	t_ast *command_node;
-  if (current_token->word[0] == '(')//怪しい 
+	t_token *token = *current_token; 	
+  if (token->word[0] == '(')//怪しい 
   {
     t_ast *node = ast_parse(current_token);
-    expect(current_token,')');
+    expect(token,')');
     return node;
   }
-  if (*current_token == NULL || is_opereter(*current_token))
+  if (token == NULL || ast_is_opereter(token))
 		syntax_error(d);//他ではない
-  return ast_make_command_list(command_node,current_token); 
+  return ast_command_list(command_node,current_token); 
 }
-
+/*}}}*/
 t_ast * ast_command_list(t_ast *node,t_token **current_token)
 {
 	token = *current_token;
 
-	while(current_token != NULL && !is_opereter(current_token -> type) )
+	while(token != NULL && !ast_is_opereter(token -> type) )
 	{
 		node->command_list->fd = STDOUT_FINENO;
-		node->command_list->fd_type = STDOUT;
 		node->command_list->pid = -1;
 		//tokenの中身を実際に見てリダイレクトがあれば次のトークン
 		//とリダレクトリストを作る
-		if(is_redirect(current_token->type))
+		if(ast_is_redirect(token->type))
 			ridirect_list(&(node -> redirect_list),current_token);
 		else
 			command_word_list(&(node -> command_list),current_token);

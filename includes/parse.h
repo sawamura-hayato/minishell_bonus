@@ -71,9 +71,9 @@ typedef struct s_ast
 
 
 //t_ast関連
-t_ast *parse(t_token **token_address, t_data *d);
+t_ast *parse(t_token **current_token, t_data *d);
 t_ast *ast_command(t_token *token,t_data *d);
-t_ast *ast_command_list(t_ast *node,t_token **token);
+t_ast *ast_command_list(t_ast *node,t_token **current_token);
 t_ast *ast_operator(e_ast_node_type,t_ast *left_hand,t_ast *right_hand);
 t_ast *ast_init_node()
 void ast_addback(t_ast **head, t_ast *new_node);
@@ -91,7 +91,8 @@ t_redirect *redirect_init(t_token *token);
 void *redirect_list_addback(t_redirect **head,t_redirect *node);
 
 //error関連
-bool is_operator(e_ast_node_type type);
+bool ast_is_operator(e_ast_node_type type);
+bool ast_is_redirect(t_token type);
 bool is_quotation_closed(t_token *token_adress);
 void ast_expect(t_token **token,char op);
 t_token	*ast_token_next(t_token **token_address);
