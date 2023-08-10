@@ -6,18 +6,19 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/09 21:52:11 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:03:38 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
 /*                                                                            */
 #include "parse.h"
 
-t_ast *parse(t_token **current_token, t_data *d) /*{{{*/
+t_ast *parse(t_token **current_token, t_data *d) 
 {
 	t_token *token = *current_token;
  	t_ast *left_node = ast_command(token,d);
-	e_ast_type type;
-	if(left_node== NULL	)
+	t_ast_node_type type;
+
+	if(left_node == NULL)
 		ast_free_all_nodes(left_node);
   	while (true)
   	{
@@ -25,29 +26,29 @@ t_ast *parse(t_token **current_token, t_data *d) /*{{{*/
 			{
 				type = token -> type;
 				token = token ->next;//operatarのtoken
-      	left_node = ast_operator(type, left_node, ast_command(token));
+      	left_node = ast_operator(type, left_node, ast_command(token,d));
 	  		token = token ->next;// 
 				}
     		else
       		return left_node;
 		}
 }
-/*}}}*/
-t_ast *ast_command(t_token **current_token,t_data *d) /*{{{*/
+
+t_ast *ast_command(t_token **current_token,t_data *d) 
 {
 	t_ast *command_node;
 	t_token *token = *current_token; 	
-  if (token->word[0] == '(')//怪しい 
+  if (token->word[0] == '(') 
   {
-    t_ast *node = ast_parse(current_token);
+    t_ast *node = parse(current_token,d);
     expect(token,')');
     return node;
   }
-  if (token == NULL || ast_is_opereter(token))
-		syntax_error(d);//他ではない
+  if (token == null || ast_is_opereter(token))
+		ast_syntax_error(d);
   return ast_command_list(command_node,current_token); 
 }
-/*}}}*/
+
 t_ast * ast_command_list(t_ast *node,t_token **current_token)
 {
 	token = *current_token;
@@ -56,9 +57,7 @@ t_ast * ast_command_list(t_ast *node,t_token **current_token)
 	{
 		node->command_list->fd = STDOUT_FINENO;
 		node->command_list->pid = -1;
-		//tokenの中身を実際に見てリダイレクトがあれば次のトークン
-		//とリダレクトリストを作る
-		if(ast_is_redirect(token->type))
+		if(ast_is_redirect(token))
 			ridirect_list(&(node -> redirect_list),current_token);
 		else
 			command_word_list(&(node -> command_list),current_token);
@@ -73,10 +72,9 @@ t_ast * ast_operator(e_ast_type type,t_ast *left_hand,t_ast *right_hand )
 	t_ast * ast_ope;
 
 	if(right_hand== NULL)
-		return(syntax_error(left_hand,right_hand));//left_hand free
+		return(syntax_error(d));//left_hand free
 	ast_ope = try_calloc(1,sizeof(t_ast));
 	ast_ope -> type = type;
-	ast_ope -> command_list = NULL;
 	ast_ope -> left_hand = left_hand;
 	ast_ope -> right_hand = right_hand;
 	return (ast_ope);
@@ -85,11 +83,7 @@ t_ast * ast_operator(e_ast_type type,t_ast *left_hand,t_ast *right_hand )
 t_ast *ast_init_node()
 {
 	t_ast *node;
-	node = (t_ast*)malloc(sizeof(t_ast)*1);
-	node ->type = command;
-	node ->command_list = NULL;// cat infile
-	node -> left_hand = NULL;
-	node -> right_hand = NULL; 
+	node = try_calloc(1,sizeof(t_ast));
 	return(node); 
 }
 
@@ -119,14 +113,14 @@ void ast_addback(t_ast **head, t_ast *new_node)
 	}
 }
 
-void ast_make_word_list(t_command **command_list, t_token *token)
+void ast_word_list(t_command **command_list, t_token *token)
 {
 	t_command *node;
 	node = ast_init_word_node(token);
 	add_back_word_list(command_list,node);
 }
 
-void ast_make_redirect_list(t_redirect **redirect_list, t_token **current_token, t_data *d)
+void ast_redirect_list(t_redirect **redirect_list, t_token **current_token, t_data *d)
 {
 	t_token	*token = *current_token;
 	t_redirect *node;
@@ -185,7 +179,7 @@ void redirect_list_addback(t_redirect **head,t_redirect *node)
 }
 
 //token のindexを使う処理に変更するかも
-t_token	*ast_token_next(t_token **current_token)
+t_token	*token_next(t_token **current_token)
 {
 	t_token	*token = *current_token->next;
 	if (token != NULL && is_quotation_closed(token) == false)
@@ -211,7 +205,8 @@ void	*ast_free_all_nodes(t_ast *node)
 	free(node);
 	return (NULL);
 }
-bool is_opereter(e_ast_type type)
+
+bool ast_is_opereter(e_ast_type type)
 {
 	;
 }
