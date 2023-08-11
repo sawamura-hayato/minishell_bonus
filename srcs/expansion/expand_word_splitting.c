@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word_splitting.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 17:54:42 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/10 19:20:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 char *expand_get_splitting_word(char **word)
 {
-	
+// "    aa bbbb"     aa
+// " bbbb"           bbbb
+// " ddd  ee  c  "   ddd
+// "  ee  c  "       ee
+// "  c  "           c
+// "  "              NULL
 	while (*word)
 	{
 		while(ft_isspace(*word))
@@ -24,18 +29,23 @@ char *expand_get_splitting_word(char **word)
 	return (word);
 }
 
-void expand_splitting_word_list(t_word_list **word_list)
+void expand_get_splitting_word_list(t_word_list **word_list)
 {
-	t_word_list *new_word_list;
-	char *tmp_word;
+	t_word_list	*new_word_list;
+	char		*tmp_word;
+	char		*splitting_word;
 
 	tmp_word = (*word_list)->word;
 	(*word_list)->word = expand_get_splitting_word(&tmp_word);
 	while (*tmp_word)
 	{
-		new_word_list = ast_init_word_node(expand_get_splitting_word(&tmp_word));
-		(*word_list)->next = new_word_list;
-		word_list = (*word_list)->next;
+		splitting_word = expand_get_splitting_word(&tmp_word);
+		if (splitting_word != NULL)
+		{
+			new_word_list = ast_init_word_node();
+			(*word_list)->next = new_word_list;
+			*word_list = (*word_list)->next;
+		}
 	}
 	free(tmp_word);
 }
@@ -64,7 +74,7 @@ void expand_splitting_word_list(t_word_list *word_list, t_envs *ifs)
 			if (expand_is_check_space_word(word_list))
 			{
 				tmp_word_list = word_list->next;
-				expand_splitting_word_list(&word_list);
+				expand_get_splitting_word_list(&word_list);
 				word_list->next = tmp_word_list;
 			}
 		}
@@ -88,6 +98,12 @@ void expand_word_splitting(t_ast *node, t_data *d)
 	t_envs *ifs;
 
 	ifs = ft_get_env_target_value(d->envs_hashmap, "IFS");
-	expand_splitting_word_list(&node->command_list->word_list, ifs);
-	expand_splitting_redirect_list(&(node->command_list->redirect_list), ifs);
+	// クウォートがある場合、IFS の値が空文字列の場合（IFS=, IFS='', IFS=""）
+	if (!expand_check_quote(&node->command_list->word_list) && \
+		!expand_check_quote(&node->command_list->word_list)&& 
+		!expand_is_empty_str(ifs->value))
+	{
+		expand_splitting_word_list(&node->command_list->word_list, ifs);
+		expand_splitting_redirect_list(&(node->command_list->redirect_list), ifs);
+	}
 }
