@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/10 18:19:10 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/11 15:23:02 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,35 @@ void	envs_init(const char **environ, t_data *d)
 	init_three_envs(d);
 }
 
-#include <stdio.h>
-static void	debug_hashmap(t_envs **envs_hashmap)
-{
-	size_t	i = 0;
-	t_envs	*node;
-	while (i < HASHMAP_SIZE)
-	{
-		node = envs_hashmap[i];
-		while (node)
-		{
-			printf("%s=%s\n", node->key, node->value);
-			node = node->next;
-		}
-		i++;
-	}
-	printf("---------------------------------\n");
-}
+// #include <stdio.h>
+// static void	debug_hashmap(t_envs **envs_hashmap)
+// {
+// 	size_t	i = 0;
+// 	t_envs	*node;
+// 	while (i < HASHMAP_SIZE)
+// 	{
+// 		node = envs_hashmap[i];
+// 		while (node)
+// 		{
+// 			printf("%s=%s\n", node->key, node->value);
+// 			node = node->next;
+// 		}
+// 		i++;
+// 	}
+// 	printf("---------------------------------\n");
+// }
 
-static void	debug_envp(char **envp)
-{
-	while (*envp != NULL)
-	{
-		printf("%s\n", *envp);
-		envp++;
-	}
-	printf("---------------------------------\n");
-}
+// static void	debug_envp(char **envp)
+// {
+// 	while (*envp != NULL)
+// 	{
+// 		printf("%s\n", *envp);
+// 		envp++;
+// 	}
+// 	printf("---------------------------------\n");
+// }
+
+#include "builtins.h"
 
 int	main()
 {
@@ -108,7 +110,7 @@ int	main()
 
 	extern const char	**environ;
 	envs_init(environ, &d);
-	debug_hashmap(d.envs_hashmap);
+	// debug_hashmap(d.envs_hashmap);
 	// envs_addstr("test", "test", d.envs_hashmap);
 	// envs_addstr("test", "test", d.envs_hashmap);
 	// envs_modify("test", "テスト", d.envs_hashmap);
@@ -119,6 +121,8 @@ int	main()
 	// envs_delete("tachu", d.envs_hashmap);
 	// envs_delete("A", d.envs_hashmap);
 	// debug_hashmap(d.envs_hashmap);
-	debug_envp(envs_make_envp(d.envs_hashmap));
+	// debug_envp(envs_make_envp(d.envs_hashmap));
+	char *argv[] = {"export", NULL};
+	builtin_export(argv, &d);
 	return (0);
 }

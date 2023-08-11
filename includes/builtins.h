@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:42:06 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/09 19:57:28 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/11 15:02:54 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define BUILTINS_H
 
 # include "init.h"
-# include "parse.h"
+// # include "parse.h"
 
-void	builtin(t_ast *node, int *pipefd, t_data *d);
+// void	builtin(t_ast *node, int *pipefd, t_data *d);
 void	builtin_echo(char **argv, t_data *d);
 void	builtin_cd(char **argv, t_data *d);
 void	builtin_pwd(char **argv, t_data *d);

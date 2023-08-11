@@ -6,7 +6,7 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/08 18:31:32 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/11 15:22:52 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+# CFLAGS = -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
@@ -39,6 +40,11 @@ SRCS += $(ENVS_DIR)/init.c	\
 		$(ENVS_DIR)/envs_newnode.c	\
 		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
+		
+BUILTIN_DIR = $(SRCS_DIR)/builtin
+SRCS += $(BUILTIN_DIR)/export/export.c	\
+	   $(BUILTIN_DIR)/export/export_show.c
+		
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
