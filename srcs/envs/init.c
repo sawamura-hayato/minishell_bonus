@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 20:20:17 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/12 20:21:28 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,28 +102,28 @@ void	envs_init(const char **environ, t_data *d)
 // 	printf("---------------------------------\n");
 // }
 
-#include "builtins.h"
-#include <stdio.h>
+// #include "builtins.h"
+// #include <stdio.h>
 
-int	main()
-{
-	t_data	d;
+// int	main()
+// {
+// 	t_data	d;
 
-	extern const char	**environ;
-	envs_init(environ, &d);
-	builtin_export((char *[]){"export", NULL}, &d);
-	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	builtin_export((char *[]){"export", "test=test", "a=abc", NULL}, &d);
-	builtin_export((char *[]){"export", NULL}, &d);
-	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+// 	extern const char	**environ;
+// 	envs_init(environ, &d);
+// 	builtin_export((char *[]){"export", NULL}, &d);
+// 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+// 	builtin_export((char *[]){"export", "test=test", "a=abc", NULL}, &d);
+// 	builtin_export((char *[]){"export", NULL}, &d);
+// 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
 
-	builtin_export((char *[]){"export", "test+=", "a+=", "*fea", "b", "a", NULL}, &d);
-	// builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
-	builtin_export((char *[]){"export", NULL}, &d);
-	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
-	builtin_export((char *[]){"export", NULL}, &d);
+// 	builtin_export((char *[]){"export", "test+=", "a+=", "*fea", "b", "a", NULL}, &d);
+// 	// builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
+// 	builtin_export((char *[]){"export", NULL}, &d);
+// 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+// 	builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
+// 	builtin_export((char *[]){"export", NULL}, &d);
 
 
-	return (0);
-}
+// 	return (0);
+// }
