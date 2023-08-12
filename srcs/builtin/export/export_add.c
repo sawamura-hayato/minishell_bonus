@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:08:49 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 19:23:21 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/12 21:13:14 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ static t_export_operator	export_get_operator(char *str)
 static char	*export_get_key(const char *str, t_export_operator op)
 {
 	char	c;
+	char	*op_ptr;
+	size_t	len;
 
 	if (op == NEW)
 		c = '=';
 	else
 		c = '+';
-	return (
-		try_substr(
-			str,
-			0,
-			(char *)ft_memchr(str, c, ft_strlen(str)) - &str[0]
-		));
+	op_ptr = (char *)ft_memchr(str, c, ft_strlen(str));
+	if (op_ptr == NULL)
+		len = ft_strlen(str);
+	else
+		len = op_ptr - &str[0];
+	return (try_substr(str, 0, len));
 }
 
 static char	*export_get_value(const char *str)
@@ -61,19 +63,39 @@ static char	*export_get_value(const char *str)
 	return (try_strdup(op_ptr + 1));
 }
 
+static bool	is_underline(char *key)
+{
+	if (ft_strcmp(key, "_") == 0)
+	{
+		free(key);
+		return (true);
+	}
+	return (false);
+}
 
 bool	export_add(char *str, t_data *d)
 {
 	t_export_operator	op;
+	char				*key;
 
 	if (export_is_error(str, d))
 		return (false);
 	op = export_get_operator(str);
 	if (op == NEW)
-		envs_newnode(export_get_key(str, op), export_get_value(str),
+	{
+		key = export_get_key(str, op);
+		if (is_underline(key))
+			return (true);
+		envs_newnode(key, export_get_value(str),
 			d->envs_hashmap);
+	}
 	else if (op == ADD)
+	{
+		key = export_get_key(str, op);
+		if (is_underline(key))
+			return (true);
 		envs_addstr(export_get_key(str, op), export_get_value(str),
 			d->envs_hashmap);
+	}
 	return (true);
 }

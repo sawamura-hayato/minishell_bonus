@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 20:21:28 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/12 21:25:21 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,11 @@ void	envs_init(const char **environ, t_data *d)
 // 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
 
 // 	builtin_export((char *[]){"export", "test+=", "a+=", "*fea", "b", "a", NULL}, &d);
-// 	// builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
+// 	builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
 // 	builtin_export((char *[]){"export", NULL}, &d);
 // 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
 // 	builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
+// 	builtin_export((char *[]){"export", "_=", "_B+=b", "_A", "c", "d", "e", "f", "g", NULL}, &d);
 // 	builtin_export((char *[]){"export", NULL}, &d);
 
 
