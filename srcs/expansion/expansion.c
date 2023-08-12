@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 15:57:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:33:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	expansion(t_ast *node, t_data **d)
 	expand_variable(node, *d);
 	expand_word_splitting(node, d);
 	expand_filename(node);
-	expand_quotation(node);
+	expand_delete_quotation(node);
 	return (0);
 }
