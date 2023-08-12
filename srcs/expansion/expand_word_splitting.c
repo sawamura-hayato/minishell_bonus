@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word_splitting.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/10 19:20:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/11 15:02:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void expand_get_splitting_word_list(t_word_list **word_list)
 		splitting_word = expand_get_splitting_word(&tmp_word);
 		if (splitting_word != NULL)
 		{
-			new_word_list = ast_init_word_node();
+			new_word_list = ast_init_word_node(splitting_word);
 			(*word_list)->next = new_word_list;
 			*word_list = (*word_list)->next;
 		}
