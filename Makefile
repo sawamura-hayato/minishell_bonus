@@ -13,8 +13,8 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-# CFLAGS = -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
@@ -30,6 +30,7 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
