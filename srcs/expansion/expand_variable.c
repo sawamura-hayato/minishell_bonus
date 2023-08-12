@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 15:57:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:34:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*expand_convert_doller_word(char **word, t_data *d)
 	char	*expand_word;
 
 	(*word)++;
-	if (word == '?')
+	if (*word == '?')
 		expand_word = expand_get_exist_status(word, d->exit_status);
 	else
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
@@ -74,20 +74,20 @@ void	expand_token_redirect_list(t_redirect *token, t_data *d, t_token_type is_qu
 
 void	expand_variable_word_list(t_word_list *head, t_data *d)
 {
-	t_word_list		*ite;
+	t_word_list		*node;
 
-	ite = head;
-	while (ite != NULL)
+	node = head;
+	while (node != NULL)
 	{
-		if (ite->type == SINGLE_QUOTE)
+		if (node->type == SINGLE_QUOTE)
 		{
-			ite = ite->next;
-			while (ite->type != SINGLE_QUOTE)
-				ite = ite->next;
+			node = node->next;
+			while (node->type != SINGLE_QUOTE)
+				node = node->next;
 		}
-		if (ite->type == WORD && ft_strchr(ite->word, '$'))
-			expand_token_word_list(ite, d);
-		ite = ite->next;
+		if (node->type == WORD && ft_strchr(node->word, '$'))
+			expand_token_word_list(node, d);
+		node = node->next;
 	}
 }
 

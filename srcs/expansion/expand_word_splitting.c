@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/11 15:02:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 18:39:26 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ char *expand_get_splitting_word(char **word)
 // "  ee  c  "       ee
 // "  c  "           c
 // "  "              NULL
-	while (*word)
-	{
-		while(ft_isspace(*word))
-			word++;
-		
-	}
-	return (word);
 }
 
 void expand_get_splitting_word_list(t_word_list **word_list)
@@ -60,7 +53,9 @@ void expand_splitting_word_list(t_word_list *word_list, t_envs *ifs)
 	new_word_list = NULL;
 	head = word_list;
 	// IFSがデフォルトの場合
-	if (expand_is_ifs_default(ifs->value) || ft_strchr(ifs->value, ' '))
+	if (expand_is_ifs_default(ifs->value) || \
+		ft_strchr(ifs->value, ' ') || \
+		ft_strchr(ifs->value, '\t'))
 	{
 		// 通常の変数展開後の場合空白、タブ、改行があったらトークンを分ける。
 		while (word_list != NULL)
