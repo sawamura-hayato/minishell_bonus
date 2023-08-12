@@ -53,7 +53,7 @@ typedef struct s_redirect_list
 	char				*word;
 	size_t				index;
 	t_redirect_type		type;
-	bool is_ambiguas_error; //初期値はfalse
+	bool is_ambiguous_error; //初期値はfalse
 	struct s_redirect	*next;
 }						t_redirect_list;
 
@@ -75,18 +75,18 @@ typedef struct s_ast
 
 //t_ast関連
 t_ast					*parse(t_token **current_token, t_data *d);
-t_ast					*ast_command_node(t_token *token, t_data *d);
-t_ast					*ast_command_list(t_ast *node, t_token **current_token);
-t_ast					*ast_operator_node(e_ast_node_type, t_ast *left_hand,
+t_ast					*ast_command_node(t_token **current_token, t_data *d);
+t_ast					*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data *d);
+t_ast					*ast_operator_node(e_ast_node_type type t_ast *left_hand,
 							t_ast *right_hand);
 t_ast					*ast_init_node();
 void					ast_addback(t_ast **head, t_ast *new_node);
 void					ast_free_all_nodes(t_ast *node);
 
 //t_command関連
-void	command_word_list(t_command command_list,
+void	command_word_list(t_word_list** word_list,
 						t_token **current_token);
-void	command_redirect_list(t_command command_list,
+void	command_redirect_list(t_redirect_list** redirect_list,
 							t_token **current_token,
 							t_data *d);
 bool					command_is_redirect(t_token type);
@@ -103,10 +103,10 @@ void	*redirect_list_addback(t_redirect **head,
 void	redirect_set_type(t_ridirect_list *node ,t_token *token); //redirectタイプをsetする関数
 //error関連
 bool					ast_is_operator(t_token_type type);
-bool					is_quotation_closed(t_token *token_adress);
-void					ast_expect(t_token **token, char op);
-t_token					*token_next(t_token **token_address);
-void	*ast_syntax_error(t_ast *left_node, t_ast *right_node)
+bool					token_is_quotation_closed(t_token *token);
+void					ast_expect(t_token **current_token, char op,t_data *d);
+t_token					*token_next(t_token **current_token,t_data *d);
+void	ast_syntax_error(t_data *d);
 
 		/* void* try_calloc(size_t nmemb,size_t size); */
 

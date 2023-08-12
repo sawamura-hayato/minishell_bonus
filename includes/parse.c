@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/12 15:34:23 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/12 20:53:43 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
 /*                                                                            */
@@ -22,16 +22,17 @@ t_ast	*parse(t_token **current_token, t_data *d)
 	token = *current_token;
 	left_node = ast_command_node(token, d);
 	if (left_node == null)
-		ast_free_all_nodes(left_node);
+		ast_syntax_error(d);
 	while (true)
 	{
 		if (token != null && ast_is_operator(token->type))
 		{
+			if(d->syntax_flag == 1)
+				return (left_node);
 			type = token->type;
 			token = token->next; //operatarのtoken
 			left_node = ast_operator_node(type, left_node,
 					ast_command_node(token, d));
-			token = token->next; //
 		}
 		else
 			return (left_node);
@@ -50,15 +51,15 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	if (token->word[0] == '(')
 	{
 		node = parse(current_token, d);
-		expect(*token, ')');
+		expect(current_token, ')',d);
 		return (node);
 	}
 	if (token == null || ast_is_opereter(token->type))
 		ast_syntax_error(d);
-	return (ast_command_list(ast_command_node, current_token));
+	return (ast_command_list(ast_command_node, current_token,d));
 }
 
-t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token)
+t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data *d)
 {
 	token = *current_token;
 	while (token != NULL && !ast_is_opereter(token->type))
@@ -66,12 +67,12 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token)
 		ast_command_node->command_list->fd = STDOUT_FINENO;
 		ast_command_node->command_list->pid = -1;
 		if (command_is_redirect(token->type))
-			command_ridirect_list(&(command_node->command_list->redirect_list),
+			command_redirect_list(&(command_node->command_list->redirect_list,d),
 									current_token);
 		else
 			command_word_list(&(command_node->command_list->word_list),
 								current_token);
-		if (!token_next(&current_token))
+		if (!token_next(&current_token,d))
 			return (NULL);
 	}
 	return (command_node);
@@ -123,12 +124,14 @@ void	ast_addback(t_ast **head, t_ast *new_node)
 	}
 }
 
-void	command_word_list(t_word_list *word_list, t_token *token)
+void	command_word_list(t_word_list **head, t_token **current_token)
 {
 	t_word_list	*word_node;
+	t_token *token;
 
+	token = *current_token;
 	word_node = word_list_init_node(token);
-	word_list_addback(word_list, node);
+	word_list_addback(head, node);
 }
 
 t_word_list	*word_init_node(t_token *token)
@@ -139,7 +142,7 @@ t_word_list	*word_init_node(t_token *token)
 	node->word = try_strdup(token->word);
 	node->index = token->index;
 	node->type = token->type;
-	return (node);
+	retur (node);
 }
 
 void			word_list_addback(t_word **head, t_word *node);
@@ -147,7 +150,7 @@ void			word_list_addback(t_word **head, t_word *node);
 	;
 }
 
-void	command_redirect_list(t_redirect **redirect_list,
+void	command_redirect_list(t_redirect **head,
 							t_token **current_token,
 							t_data *d)
 {
@@ -156,15 +159,15 @@ void	command_redirect_list(t_redirect **redirect_list,
 
 	token = *current_token;
 	node = redirect_init_node(token);
-	redirect_list_addback(redirect_list, node);
+	redirect_list_addback(head, node);
 	token = token->next;
 	if (token == NULL || is_operetor(token))
-		syntax_error();
+		syntax_error(d);
 	node = redirect_init_node(token);
-	redirect_list_addback(redirect_list, node);
+	redirect_list_addback(head, node);
 	token = token->next;
 	if (token == NULL || is_operetor(token))
-		syntax_error();
+		syntax_error(d);
 }
 
 //redirectのnode(<)
@@ -183,27 +186,24 @@ void	redirect_list_addback(t_redirect **head, t_redirect *node)
 }
 
 //token のindexを使う処理に変更するかも
-t_token	*token_next(t_token **current_token)
+t_token	*token_next(t_token **current_token,t_data *d)
 {
 	t_token	*token;
 
 	token = *current_token->next;
-	if (token != NULL && is_quotation_closed(token) == false)
+	if (token != NULL && token_is_quotation_closed(token) == false)
 	{
-		syntax_error();
+		syntax_error(d);
 		return (NULL);
 	}
 	return (token);
 }
 
-void	*syntax_error(t_ast *left_node, t_ast *right_node, t_data *d)
+void	ast_syntax_error(t_data *d)
 {
 	put_error("syntax_error");
 	d->exit_status = hogehoge;
 	d->syntax_flag = 1;
-	call_heardoc();
-	*ast_free_all_nodes(t_ast * left_hanf);
-	*ast_free_all_nodes(t_ast * right_right);
 }
 
 void	*ast_free_all_nodes(t_ast *node)
@@ -226,9 +226,12 @@ bool	command_is_redirect(t_token_type type)
 	;
 }
 
-void	ast_expect(t_token **current_token, char op)
+void	ast_expect(t_token **current_token, char op,t_data *d)
 {
-	if (current_token->kind != WORD || current_token->word[0] != op)
-		error("'%c'ではありません", op);
-	current_token = current_token->next;
+	t_token *token;
+
+	token = *current_token;
+	if (token->kind != WORD || token->word[0] != op)
+		syntax_error(d);
+	token = token->next;
 }
