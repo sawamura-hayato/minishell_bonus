@@ -92,14 +92,15 @@ void	command_redirect_list(t_command command_list,
 bool					command_is_redirect(t_token type);
 
 //t_word_list関連
-t_word_list				*word_list_init(t_token *token);
+t_word_list				*word_list_init_node(t_token *token);
 void					*word_list_addback(t_word_list **head, t_word *node);
 
 //t_redirect関連
-t_redirect				*redirect_init(t_token *token);
+t_redirect				*redirect_init_node(t_token *token);
 void	*redirect_list_addback(t_redirect **head,
 							t_redirect *node);
 
+void	redirect_set_type(t_ridirect_list *node ,t_token *token); //redirectタイプをsetする関数
 //error関連
 bool					ast_is_operator(t_token_type type);
 bool					is_quotation_closed(t_token *token_adress);
