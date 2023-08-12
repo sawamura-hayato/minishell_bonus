@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:44:04 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 14:35:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:36:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@
 // 2. 展開する（1.でtrueの場合はtokenは分割する。理由はcdコマンドの時にパス名展開された先頭の文字列に対して実行されているから）
 
 // 展開しない場合
-// - そもそもワイルドカードがない場合をチェックする関数
-// - ファイル名が展開できるかどうかをチェックする関数
 // - クウォートがワイルドカードをカッコっている場合をチェックする関数
 bool		expand_is_wildcard(char *word);
+// - ファイル名が展開できるかどうかをチェックする関数
 bool		expand_is_filename_word(char *word, char *target);
-// t_filename	*new_filename(char *str);
-// void		filename_addback(t_filename **head, t_filename *pDirent);
-
+// 展開後のトークンが複数になる場合、途中で割り込む関数
+void		word_list_insert_taget(t_word_list *word_list, char *taget);
 // 1.展開するかどうかチェックする関数
 bool	expand_is_filename_word(char *word, char *target)
 {
@@ -79,6 +77,8 @@ size_t	expand_filename_word_list_size(t_word_list *word_list)
 void	expand_can_get_filename_word_list(t_word_list *word_list)
 {
 	struct dirent 	*pDirent;
+	char			*filename;
+	char			*before_expand_word;
 	DIR				*pDir;
 	char			*word_arr;
 	size_t			size;
@@ -90,15 +90,24 @@ void	expand_can_get_filename_word_list(t_word_list *word_list)
 	word_arr = try_calloc(size, sizeof(char *));
 	i = 0;
 	try_opendir("./");
+	before_expand_word = word_list->word;
+	filename = NULL;
 	while ((pDirent = try_readdir(pDir)) != NULL)
 	{
-		if (expand_is_filename_word(word_list->word, pDirent))
+		if (expand_is_filename_word(before_expand_word, pDirent->d_name))
 		{
 			// 2.新しくfilenameの構造体を作成する関数
-			if (word_list->filename == NULL)
-				word_list->filename = new_filename(pDirent);
+			if (filename == NULL)
+			{
+				free(before_expand_word);
+				filename = pDirent->d_name;
+				word_list->word = filename;
+			}
 			else
-				filename_addback(word_list->filename, new_filename(pDirent));
+			{
+				word_list_insert_taget(word_list, filename);
+				filename = pDirent->d_name;
+			}
 		}
 		
 	}
@@ -114,7 +123,6 @@ void	expand_filename_word_list(t_word_list *word_list)
 			expand_can_get_filename_word_list(word_list);
 		word_list = word_list->next;
 	}
-	if (expand_is_filename_word_list(word_list))
 }
 
 void	expand_filename(t_ast *node)
