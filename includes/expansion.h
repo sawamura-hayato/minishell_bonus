@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/10 19:20:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 17:27:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 #include <stdlib.h>
 
 //expansion.c
-int			expansion(t_ast *node, const t_data **d);
+int			expansion(t_ast *node, t_data **d);
 
 //expand_variable.c
-void	expand_variable(t_ast *node, const t_data *d);
+void	expand_variable(t_ast *node, t_data *d);
 char	*expand_convert_doller_word(char **word, t_data *d);
 char	*expand_get_expanded_token_word(char *token_word, t_data *d);
 void	expand_token_word_list(t_word_list *token, t_data *d);
@@ -37,37 +37,22 @@ void	expand_splitting_word_list(t_word_list *word_list, t_envs *ifs)
 void	expand_splitting_redirect_list(t_redirect *redirect_list, t_envs *ifs)
 void	expand_word_splitting(t_ast *node, t_data *d)
 
-void		expand_filename(t_ast *node);//＊の展開 + 線形リストのトークンを追加
-void		expand_quotation(t_ast *node);//クオテーションの削除
-char		*get_env_x(char *target, const t_data **d);
-t_command	*command_split_node(t_command *node);//word splittingでノードを分割
-t_redirect	*redirect_add_node(t_redirect *node);//word splittingでノードを分割
+// expand_filename.c
+void	expand_filename(t_ast *node);
+void	expand_filename_word_list(t_word_list *word_list);
+void	expand_filename_redirect_list(t_redirect redirect_list);
+bool	expand_is_wildcard(char *word);
+bool	expand_is_filename_word(char *word, char *target);
+void	word_list_insert_target(t_word_list *word_list, char *taget);
+bool	expand_is_filename_word(char *word, char *target);
+size_t	expand_filename_word_list_size(t_word_list *word_list);
+void	expand_can_get_filename_word_list(t_word_list *word_list);
 
-t_command	*command_split_node(t_command *node)
-{
-
-	t_command	*next = node->next;
-	//一番最初はnode->wordだけ変更する
-	if (is_ifs(node->word, try_get_env("IFS", d)))
-	{
-		//[testa   b   c+test] -> [testa] [b   c+test]
-		char	*tmp = node->word;
-		node->word = try_substr(node->word, 0, strchr(node->word, try_get_env("IFS", d)) - node->word[0]);
-		t_command	*newnode = try_strdup(strchr(node->word, try_get_env("IFS", d)));
-		free(tmp);
-	}
-	//ifs区切り文字がある限りloop
-	//[testa] [b   c  test] -> [b] [c+test]
-	//final result = [a] [b] [c+test]
-	while (is_ifs(node->word, try_get_env("IFS", d)))
-	{
-		//ifs区切り文字がwordにあった場合、その文字アドレスを取得
-		//command_newnodeの中で、strchrの返り値のアドレスをstrdupする
-		t_command	*tmp = node;
-		newnode = command_newnode(strchr(is_ifs(node->word, try_get_env("IFS", d))));
-		tmp->next = newnode;
-	}
-	newnode->next = next;
-}
+//expand_delete_quote.c
+void	expand_delete_quotation(t_ast *node);
+void	word_list_delete_target_type(t_word_list *word_list, t_token_type taget);
+void	redirect_list_delete_target_type(t_word_list *word_list, t_token_type taget);
+void	expandion_delete_quotation_word_list(t_word_list *word_list);
+void	expandion_delete_quotation_redirect_list(t_redirect *redirect_list);
 
 #endif
