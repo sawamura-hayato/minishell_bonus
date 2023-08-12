@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 16:55:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:57:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	expand_variable_word_list(t_word_list *head, t_data *d)
 		}
 		if (ite->type == WORD && ft_strchr(ite->word, '$'))
 			expand_token_word_list(ite, d);
-		ite = ite->next
+		ite = ite->next;
 	}
 }
 
@@ -106,7 +106,7 @@ void	expand_variable_redirect_list(t_redirect *head, t_data *d)
 		}
 		if (ite->type != SINGLE_QUOTE && ft_strchr(ite->word, '$'))
 			expand_token_redirect_list(ite, d, ite->type);
-		ite = ite->next
+		ite = ite->next;
 	}
 	
 }
