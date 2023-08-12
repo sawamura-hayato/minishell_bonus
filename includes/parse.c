@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/12 03:31:32 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:34:23 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
 /*                                                                            */
@@ -83,7 +83,7 @@ t_ast	*ast_operator_node(e_ast_type type, t_ast *left_hand, t_ast *right_hand)
 
 	if (right_hand == NULL)
 		return (syntax_error(d)); //left_hand free
-	ast_operator_node = try_calloc(1, sizeof(t_ast));
+	ast_operator_node = ast_init_node();
 	ast_operator_node->type = type;
 	ast_operator_node->left_hand = left_hand;
 	ast_operator_node->right_hand = right_hand;
@@ -123,12 +123,12 @@ void	ast_addback(t_ast **head, t_ast *new_node)
 	}
 }
 
-void	command_word_list(t_command **command_list, t_token *token)
+void	command_word_list(t_word_list *word_list, t_token *token)
 {
-	t_command	*word_node;
+	t_word_list	*word_node;
 
-	word_node = word_init_node(token);
-	add_back_word_list(command_list, node);
+	word_node = word_list_init_node(token);
+	word_list_addback(word_list, node);
 }
 
 t_word_list	*word_init_node(t_token *token)
@@ -156,12 +156,12 @@ void	command_redirect_list(t_redirect **redirect_list,
 
 	token = *current_token;
 	node = redirect_init_node(token);
-	add_back_redirect_list(redirect_list, node);
+	redirect_list_addback(redirect_list, node);
 	token = token->next;
 	if (token == NULL || is_operetor(token))
 		syntax_error();
-	node = ast_init_redirect_node(token);
-	add_back_redirect_list(redirect_list, node);
+	node = redirect_init_node(token);
+	redirect_list_addback(redirect_list, node);
 	token = token->next;
 	if (token == NULL || is_operetor(token))
 		syntax_error();
@@ -173,24 +173,13 @@ t_redirect_list	*redirect_init_node(t_token *token);
 	t_redirect_list *node;
 	node = try_calloc(1, sizeof(t_redirect));
 	//t_redirectとtokenをstrcmpなどで比較する必要がある
-	set_redirect_type(token); //redirectタイプをsetする関数
+	redirect_set_type(node,token); //redirectタイプをsetする関数
 	return (node);
 }
 
 void	redirect_list_addback(t_redirect **head, t_redirect *node)
 {
 	;
-}
-
-//redirectのnode(word)
-//これってなんだっけ？
-t_redirect_list	*ast_init_redirect_word_node(t_redirect *node);
-{
-	t_redirect_list *node;
-	node = try_calloc(1, sizeof(t_redirect));
-	set_word(node->word);
-	set_redirect_type(token); //redirectタイプをsetする関数
-	return (node);
 }
 
 //token のindexを使う処理に変更するかも
