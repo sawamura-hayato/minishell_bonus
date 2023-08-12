@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:44:04 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 15:36:14 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/12 15:52:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ bool		expand_is_wildcard(char *word);
 // - ファイル名が展開できるかどうかをチェックする関数
 bool		expand_is_filename_word(char *word, char *target);
 // 展開後のトークンが複数になる場合、途中で割り込む関数
-void		word_list_insert_taget(t_word_list *word_list, char *taget);
+void		word_list_insert_target(t_word_list *word_list, char *taget);
+
 // 1.展開するかどうかチェックする関数
 bool	expand_is_filename_word(char *word, char *target)
 {
@@ -105,8 +106,8 @@ void	expand_can_get_filename_word_list(t_word_list *word_list)
 			}
 			else
 			{
-				word_list_insert_taget(word_list, filename);
-				filename = pDirent->d_name;
+				word_list_insert_target(word_list, filename);
+				filename = pDirent-r>d_name;
 			}
 		}
 		
@@ -116,9 +117,17 @@ void	expand_can_get_filename_word_list(t_word_list *word_list)
 
 void	expand_filename_word_list(t_word_list *word_list)
 {
+	t_token	f_quote;
 
+	f_quote = word_list->type;
 	while (word_list != NULL)
 	{
+		if (f_quote == SINGLE_QUOTE || f_quote == DOUBLE_QUOTE)
+		{
+			word_list = word_list->next;
+			while (f_quote != word_list->type)
+				word_list = word_list->next;
+		}
 		if (expand_is_filename_word_list(word_list))
 			expand_can_get_filename_word_list(word_list);
 		word_list = word_list->next;
