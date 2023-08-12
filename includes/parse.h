@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/01 13:39:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/12 13:12:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef enum e_ast_node_type
 	LOGICAL_OR,
 	COMMAND,
 }	t_ast_node_type;
+
+typedef struct s_filename_list
+{
+	char					*filename;
+	struct s_filename_list	*next;
+}
 
 typedef struct s_word_list
 {
