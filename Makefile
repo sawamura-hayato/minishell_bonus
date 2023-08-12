@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/11 15:22:52 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/12 19:05:59 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,14 @@ SRCS += $(ENVS_DIR)/init.c	\
 		$(ENVS_DIR)/envs_newnode.c	\
 		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
-		
+
 BUILTIN_DIR = $(SRCS_DIR)/builtin
 SRCS += $(BUILTIN_DIR)/export/export.c	\
-	   $(BUILTIN_DIR)/export/export_show.c
-		
+	    $(BUILTIN_DIR)/export/export_show.c	\
+	    $(BUILTIN_DIR)/export/export_add.c	\
+	    $(BUILTIN_DIR)/export/export_is_error.c	\
+	    $(BUILTIN_DIR)/export/export_error.c
+
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
@@ -77,4 +80,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-

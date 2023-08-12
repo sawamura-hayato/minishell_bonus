@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   export_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:33:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 18:36:39 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/12 15:43:40 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/12 18:05:29 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "library.h"
+#include "init.h"
+#include <stdlib.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	export_invalid_identifier(char *str, t_data *d)
 {
-	unsigned char	*strs;
-	unsigned char	target;
-	int				diff;
+	char	*err_msg;
 
-	strs = (unsigned char *)s;
-	target = c;
-	while (n--)
-	{
-		diff = *strs - target;
-		if (diff == 0)
-			return ((void *)strs);
-		strs++;
-	}
-	return (NULL);
+	d->exit_status = EXIT_FAILURE;
+	err_msg = try_strdup("export: `");
+	err_msg = try_strjoin_free(err_msg, str);
+	err_msg = try_strjoin_free(err_msg, "\': not a valid identifier\n");
+	try_write(STDOUT_FILENO, err_msg, ft_strlen(err_msg), d);
 }

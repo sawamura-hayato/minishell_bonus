@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/08 20:46:02 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/12 18:43:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	envs_modify(char *_key, char *new_value, t_envs **envs_hashmap)
 {
 	t_envs	*node;
-	
+
 	node = envs_get_node(_key, envs_hashmap);
 	if (node != NULL)
 	{
@@ -32,11 +32,11 @@ void	envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap)
 {
 	t_envs	*node;
 	char	*new_value;
-	
+
 	node = envs_get_node(_key, envs_hashmap);
 	if (node != NULL)
 	{
-		new_value = try_strjoin(node->key, adding_value);
+		new_value = try_strjoin(node->value, adding_value);
 		free(node->value);
 		node->value = new_value;
 	}

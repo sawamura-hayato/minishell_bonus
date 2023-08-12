@@ -6,19 +6,20 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:43:48 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/10 17:58:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/12 19:57:32 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "library.h"
+#include <stdlib.h>
 
 t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap)
 {
 	t_envs	*node;
 
 	node = envs_hashmap[envs_get_hashmap_index(_key[0])];
-	while (node)
+	while (node != NULL)
 	{
 		if (ft_strcmp(node->key, _key) == 0)
 			return (node);
@@ -68,8 +69,18 @@ void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap)
 {
 	t_envs	*node;
 
-	node = try_calloc(1, sizeof(t_envs));
-	node->key = _key;
-	node->value = _value;
-	insert_node(node, envs_hashmap);
+	node = envs_get_node(_key, envs_hashmap);
+	if (node != NULL)
+	{
+		free(_key);
+		free(node->value);
+		node->value = _value;
+	}
+	else
+	{
+		node = try_calloc(1, sizeof(t_envs));
+		node->key = _key;
+		node->value = _value;
+		insert_node(node, envs_hashmap);
+	}
 }

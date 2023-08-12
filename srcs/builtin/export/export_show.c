@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_show.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:35:53 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/11 15:20:06 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/12 18:53:00 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,25 @@
 #include "library.h"
 #include <stdlib.h>
 
-static char	*export_strjoin(char *str1, const char *str2)
-{
-	char	*new_str;
-
-	new_str = try_strjoin(str1, str2);
-	free(str1);
-	return (new_str);
-}
-
 static char	*export_make_str(char *str, t_envs *node)
 {
 	char	*new_str;
-	
-	new_str = export_strjoin(str, "declare -x ");
-	new_str = export_strjoin(new_str, node->key);
+
+	new_str = try_strjoin_free(str, "declare -x ");
+	new_str = try_strjoin_free(new_str, node->key);
 	if (node->value == NULL)
-		return (export_strjoin(new_str, "\n"));
-	new_str = export_strjoin(new_str, "=\"");
-	new_str = export_strjoin(new_str, node->value);
-	return (export_strjoin(new_str, "\"\n"));
+		return (try_strjoin_free(new_str, "\n"));
+	new_str = try_strjoin_free(new_str, "=\"");
+	new_str = try_strjoin_free(new_str, node->value);
+	return (try_strjoin_free(new_str, "\"\n"));
 }
 
-static void	export_put_str(char *str)
+static void	export_put_str(char *str, t_data *d)
 {
 	if (str[0] == '\0')
-		try_write(STDOUT_FILENO, "\n", 1);
+		try_write(STDOUT_FILENO, "\n", 1, d);
 	else
-		try_write(STDOUT_FILENO, str, ft_strlen(str));
+		try_write(STDOUT_FILENO, str, ft_strlen(str), d);
 	free(str);
 }
 
@@ -82,5 +73,5 @@ void	export_show(t_data *d)
 			loop_index++;
 		}
 	}
-	export_put_str(str);
+	export_put_str(str, d);
 }

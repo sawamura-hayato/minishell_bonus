@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/09 18:54:54 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/12 18:55:32 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static void	dup_stdout_fd(t_ast *node, int *pipefd)
 {
 	if (pipefd != NULL && node->command_list->fd == STDOUT_FILENO)
 	{
-		try_close(pipefd[R]);
+		try_close(pipefd[R], d);
 		try_dup2(pipefd[W], STDOUT_FILENO);
-		try_close(STDOUT_FILENO);
+		try_close(STDOUT_FILENO, d);
 	}
 	else if (node->command_list->fd != STDOUT_FILENO)
 	{
 		try_dup2(node->command_list->fd, STDOUT_FILENO);
-		try_close(STDOUT_FILENO);
+		try_close(STDOUT_FILENO, d);
 	}
 }
 
@@ -34,7 +34,7 @@ void	builtin(t_ast *node, int *pipefd, t_data *d)
 {
 	char	**argv;
 
-	dup_stdout_fd(node, pipefd);
+	dup_stdout_fd(node, pipefd, d);
 	argv = exec_make_command_array(node);
 	if (ft_strcmp_ignorecase(argv[0], "echo") == 0)
 		builtin_echo(argv, &d);

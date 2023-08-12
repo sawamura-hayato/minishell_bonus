@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/11 15:23:02 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/12 20:20:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*get_value(const char *str)
 	return (try_strdup((char *)ft_memchr(str, '=', ft_strlen(str)) + 1));
 }
 
-static char	*get_shlvl_value(char *value)
+static char	*get_shlvl_value(char *value, t_data *d)
 {
 	const char	*msg = "warning: shell level (1000) too high, resetting to 1\n";
 	int			shlvl;
@@ -38,7 +38,7 @@ static char	*get_shlvl_value(char *value)
 	free(value);
 	if (shlvl == 999)
 	{
-		try_write(STDOUT_FILENO, msg, ft_strlen(msg));
+		try_write(STDOUT_FILENO, msg, ft_strlen(msg), d);
 		return (try_itoa(1));
 	}
 	else
@@ -67,7 +67,7 @@ void	envs_init(const char **environ, t_data *d)
 		key = get_key(*environ);
 		value = get_value(*environ);
 		if (ft_strcmp(key, "SHLVL") == 0)
-			value = get_shlvl_value(value);
+			value = get_shlvl_value(value, d);
 		envs_newnode(key, value, d->envs_hashmap);
 		environ++;
 	}
@@ -103,6 +103,7 @@ void	envs_init(const char **environ, t_data *d)
 // }
 
 #include "builtins.h"
+#include <stdio.h>
 
 int	main()
 {
@@ -110,19 +111,19 @@ int	main()
 
 	extern const char	**environ;
 	envs_init(environ, &d);
-	// debug_hashmap(d.envs_hashmap);
-	// envs_addstr("test", "test", d.envs_hashmap);
-	// envs_addstr("test", "test", d.envs_hashmap);
-	// envs_modify("test", "テスト", d.envs_hashmap);
-	// envs_modify("t", "tachu", d.envs_hashmap);
-	// debug_hashmap(d.envs_hashmap);
-	// envs_delete("test", d.envs_hashmap);
-	// envs_delete("noexit", d.envs_hashmap);
-	// envs_delete("tachu", d.envs_hashmap);
-	// envs_delete("A", d.envs_hashmap);
-	// debug_hashmap(d.envs_hashmap);
-	// debug_envp(envs_make_envp(d.envs_hashmap));
-	char *argv[] = {"export", NULL};
-	builtin_export(argv, &d);
+	builtin_export((char *[]){"export", NULL}, &d);
+	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+	builtin_export((char *[]){"export", "test=test", "a=abc", NULL}, &d);
+	builtin_export((char *[]){"export", NULL}, &d);
+	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+
+	builtin_export((char *[]){"export", "test+=", "a+=", "*fea", "b", "a", NULL}, &d);
+	// builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
+	builtin_export((char *[]){"export", NULL}, &d);
+	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+	builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
+	builtin_export((char *[]){"export", NULL}, &d);
+
+
 	return (0);
 }
