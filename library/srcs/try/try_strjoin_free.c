@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   try_strjoin_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:33:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 18:36:39 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/12 15:51:21 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/12 15:51:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "library.h"
+#include <stdlib.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+char	*try_strjoin_free(char *free_str, const char *str2)
 {
-	unsigned char	*strs;
-	unsigned char	target;
-	int				diff;
+	char	*new_str;
 
-	strs = (unsigned char *)s;
-	target = c;
-	while (n--)
-	{
-		diff = *strs - target;
-		if (diff == 0)
-			return ((void *)strs);
-		strs++;
-	}
-	return (NULL);
+	new_str = try_strjoin(free_str, str2);
+	free(free_str);
+	return (new_str);
 }

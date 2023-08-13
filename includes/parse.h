@@ -43,11 +43,18 @@ typedef struct s_word_list
 	struct s_word_list	*next;
 }	t_word_list;
 
+struct s_word_split
+{
+	char				*word;
+	struct s_word_split	*next;
+};
+
 typedef struct s_redirect
 {
 	char				*word;
 	size_t				index;
 	t_redirect_type		type;
+	struct s_word_split	*ws_node;//NEW!
 	struct s_redirect	*next;
 }	t_redirect;
 

@@ -1,48 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp_ignorecase.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/05 16:57:56 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 21:23:24 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/09 18:43:53 by ttesrao            #+#    #+#             */
+/*   Updated: 2023/08/09 18:51:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 
-static size_t	get_len(const char *s1, const char *s2)
+char	ft_tolower(char c)
 {
-	size_t	len1;
-	size_t	len2;
-
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (len1 >= len2)
-		return (len1);
+	if (ft_isupper(c))
+		return (c - ('a' - 'A'));
 	else
-		return (len2);
+		return (c);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp_ignorecase(const char *s1, const char *s2)
 {
 	const unsigned char	*casted_s1;
 	const unsigned char	*casted_s2;
-	size_t				i;
-	size_t				len;
-	int					diff;
 
 	casted_s1 = (const unsigned char *)s1;
 	casted_s2 = (const unsigned char *)s2;
-	len = get_len(s1, s2);
-	i = 0;
-	while (i < len)
+	while (ft_tolower(*casted_s1) == ft_tolower(*casted_s2))
 	{
-		diff = casted_s1[i] - casted_s2[i];
-		if (diff != 0)
-			return (diff);
-		i++;
+		if (*casted_s1 == '\0')
+			break ;
+		casted_s1++;
+		casted_s2++;
 	}
-	return (0);
+	return (ft_tolower(*casted_s1) - ft_tolower(*casted_s2));
 }

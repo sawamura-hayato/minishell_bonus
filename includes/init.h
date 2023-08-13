@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/05 19:50:06 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/08 19:49:38 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ typedef struct s_data
 
 void	envs_init(const char **environ, t_data *d);
 void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap);
-void	*envs_modify(char *_key, char *new_value, t_envs **envs_hashmap);
-void	*envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap);
-void	*envs_delete(char *_key, t_envs **envs_hashmap);
+void	envs_modify(char *_key, char *new_value, t_envs **envs_hashmap);
+void	envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap);
+void	envs_delete(char *_key, t_envs **envs_hashmap);
 char	**envs_make_envp(t_envs **envs_hashmap);
-bool	envs_is_top(char alpha, char *_key);
-t_envs	*envs_get_node(char *_key);
+void	envs_free_node(t_envs *node);
+t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap);
+char	*envs_get_value(char *_key, t_envs **envs_hashmap);
 size_t	envs_get_hashmap_index(char alpha);
 // int		ft_strcmp(const char *s1, const char *s2);
 // int		ft_isupper(char c);

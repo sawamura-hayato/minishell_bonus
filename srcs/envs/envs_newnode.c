@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   envs_newnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/05 19:50:06 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/08 14:43:48 by tatyu             #+#    #+#             */
+/*   Updated: 2023/08/12 21:23:59 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "library.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-static char	*get_key(const char *str)
+t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap)
 {
-	return (
-		try_substr(
-			str,
-			0,
-			(char *)ft_memchr(str, '=', ft_strlen(str)) - &str[0]
-		));
-}
+	t_envs	*node;
 
-static char	*get_value(const char *str)
-{
-	return (try_strdup((char *)ft_memchr(str, '=', ft_strlen(str)) + 1));
+	node = envs_hashmap[envs_get_hashmap_index(_key[0])];
+	while (node != NULL)
+	{
+		if (ft_strcmp(node->key, _key) == 0)
+			return (node);
+		node = node->next;
+	}
+	return (NULL);
 }
 
 size_t	envs_get_hashmap_index(char alpha)
@@ -69,41 +68,19 @@ static void	insert_node(t_envs *new_node, t_envs **envs_hashmap)
 void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap)
 {
 	t_envs	*node;
-	t_envs	*next_node;
 
-	node = try_calloc(1, sizeof(t_envs));
-	node->key = _key;
-	node->value = _value;
-	insert_node(node, envs_hashmap);
-}
-
-void	envs_init(const char **environ, t_data *d)
-{
-	d->envs_hashmap = try_calloc(HASHMAP_SIZE, sizeof(t_envs *));
-	while (*environ)
+	node = envs_get_node(_key, envs_hashmap);
+	if (node != NULL)
 	{
-		envs_newnode(get_key(*environ), get_value(*environ), d->envs_hashmap);
-		// printf("%s, %s, %s-\n", *environ, get_key(*environ), get_value(*environ));
-		*environ++;
+		free(_key);
+		free(node->value);
+		node->value = _value;
 	}
-}
-
-int	main()
-{
-	t_data	d;
-
-	extern char	**environ;
-	envs_init(environ, &d);
-	size_t	i = 0;
-	t_envs	*node;
-	while (i < HASHMAP_SIZE)
+	else
 	{
-		node = d.envs_hashmap[i];
-		while (node)
-		{
-			printf("%s=%s\n", node->key, node->value);
-			node = node->next;
-		}
-		i++;
+		node = try_calloc(1, sizeof(t_envs));
+		node->key = _key;
+		node->value = _value;
+		insert_node(node, envs_hashmap);
 	}
 }

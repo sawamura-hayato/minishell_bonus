@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   try_write.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:33:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 18:36:39 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/09 21:20:10 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/12 15:17:30 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "library.h"
+#include "init.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+
+void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d)
 {
-	unsigned char	*strs;
-	unsigned char	target;
-	int				diff;
-
-	strs = (unsigned char *)s;
-	target = c;
-	while (n--)
+	if (write(fildes, buf, nbyte) == -1)
 	{
-		diff = *strs - target;
-		if (diff == 0)
-			return ((void *)strs);
-		strs++;
+		d->exit_status = EXIT_FAILURE;
+		perror("write");
 	}
-	return (NULL);
 }
