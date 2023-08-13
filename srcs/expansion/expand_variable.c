@@ -6,11 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/13 18:12:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/13 20:07:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+// #include <stdio.h>
 
 char	*expand_convert_doller_word(char **word, t_data *d)
 {
@@ -48,7 +49,7 @@ void	expand_token_word_list(t_word_list *token, t_data *d)
 {
 	char	*expand_word;
 
-	expand_word = expand_get_expanded_token_word(token->word, t_data *d);
+	expand_word = expand_get_expanded_token_word(token->word, d);
 	free(token->word);
 	token->word = expand_word;
 }
@@ -63,7 +64,7 @@ void	expand_token_redirect_list(t_redirect *token, t_data *d, t_token_type is_qu
 		(expand_word == NULL || expand_is_tokens(expand_word)))
 	{
 		free(expand_word);
-		token->is_abm_error = true;
+		// token->is_abm_error = true;
 	}
 	else
 	{
@@ -95,6 +96,8 @@ void	expand_variable_redirect_list(t_redirect **head, t_data *d)
 {
 	t_redirect		*node;
 
+	printf("ok");
+	exit(0);
 	node = expand_dollar_quote_string(head);
 	while (node != NULL)
 	{
@@ -113,5 +116,5 @@ void	expand_variable_redirect_list(t_redirect **head, t_data *d)
 void	expand_variable(t_ast *node, t_data *d)
 {
 	expand_variable_word_list(&(node->command_list->word_list), d);
-	expand_variable_redirect_list(&(node->command_list->redirect_list), d);
+	// expand_variable_redirect_list(&(node->command_list->redirect_list), d);
 }
