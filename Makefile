@@ -30,6 +30,7 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
