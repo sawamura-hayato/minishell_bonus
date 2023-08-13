@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/13 16:30:47 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/13 19:19:25 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
@@ -47,7 +47,9 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_show.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
-	    $(BUILTIN_DIR)/export/export_error.c
+	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/unset/unset.c	\
+	    $(BUILTIN_DIR)/env/env.c
 
 
 LIBRARY_DIR = library

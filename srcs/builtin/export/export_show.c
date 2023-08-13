@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:35:53 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/12 18:53:00 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/13 19:09:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static char	*export_str(t_envs *node, char *str, size_t loop_index)
 {
 	if (loop_index == 0 && ft_isupper(node->key[0]))
 		str = export_make_str(str, node);
-	else if (loop_index == 1 && node->key[0] == '_')
+	else if (loop_index == 1 && ft_strcmp(node->key, "_") != 0
+		&& node->key[0] == '_')
 		str = export_make_str(str, node);
 	else if (loop_index == 2 && ft_islower(node->key[0]))
 		str = export_make_str(str, node);

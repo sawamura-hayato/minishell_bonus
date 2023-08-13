@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_error.c                                     :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 15:43:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 18:27:56 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/13 17:47:34 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/13 18:48:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "library.h"
-#include "init.h"
 #include <stdlib.h>
 
-void	export_invalid_identifier(char *str, t_data *d)
+void	builtin_unset(char **argv, t_data *d)
 {
-	char	*err_msg;
+	size_t	i;
 
-	d->exit_status = EXIT_FAILURE;
-	err_msg = try_strdup("export: `");
-	err_msg = try_strjoin_free(err_msg, str);
-	err_msg = try_strjoin_free(err_msg, "\': not a valid identifier\n");
-	try_write(STDERR_FILENO, err_msg, ft_strlen(err_msg), d);
+	d->exit_status = EXIT_SUCCESS;
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		if (ft_strcmp(argv[i], "_") != 0)
+			envs_delete(argv[i], d->envs_hashmap);
+		i++;
+	}
 }
