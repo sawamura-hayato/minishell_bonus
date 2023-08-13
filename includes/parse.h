@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 15:43:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:41:42 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,11 @@ typedef struct s_word_list
 	struct s_word_list	*next;
 }	t_word_list;
 
-struct s_word_split
-{
-	char				*word;
-	struct s_word_split	*next;
-};
-
 typedef struct s_redirect
 {
 	char				*word;
 	size_t				index;
 	t_redirect_type		type;
-	struct s_word_split	*ws_node;//NEW!
 	struct s_redirect	*next;
 }	t_redirect;
 

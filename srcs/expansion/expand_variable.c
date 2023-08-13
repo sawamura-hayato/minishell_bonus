@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 18:34:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/13 18:12:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	expand_variable_word_list(t_word_list *head, t_data *d)
 {
 	t_word_list		*node;
 
-	node = head;
+	node = expand_dollar_quote_string(head);
 	while (node != NULL)
 	{
 		if (node->type == SINGLE_QUOTE)
@@ -91,28 +91,27 @@ void	expand_variable_word_list(t_word_list *head, t_data *d)
 	}
 }
 
-void	expand_variable_redirect_list(t_redirect *head, t_data *d)
+void	expand_variable_redirect_list(t_redirect **head, t_data *d)
 {
-	t_redirect		*ite;
+	t_redirect		*node;
 
-	ite = head;
-	while (ite != NULL)
+	node = expand_dollar_quote_string(head);
+	while (node != NULL)
 	{
-		if (ite->type == SINGLE_QUOTE)
+		if (node->type == SINGLE_QUOTE)
 		{
-			ite = ite->next;
-			while (ite->type != SINGLE_QUOTE)
-				ite = ite->next;
+			node = node->next;
+			while (node->type != SINGLE_QUOTE)
+				node = node->next;
 		}
-		if (ite->type != SINGLE_QUOTE && ft_strchr(ite->word, '$'))
-			expand_token_redirect_list(ite, d, ite->type);
-		ite = ite->next;
+		if (node->type != SINGLE_QUOTE && ft_strchr(node->word, '$'))
+			expand_token_redirect_list(node, d, node->type);
+		node = node->next;
 	}
-	
 }
 
 void	expand_variable(t_ast *node, t_data *d)
 {
-	expand_variable_word_list(node->command_list->word_list, d);
-	expand_variable_redirect_list(node->command_list->redirect_list, d);
+	expand_variable_word_list(&(node->command_list->word_list), d);
+	expand_variable_redirect_list(&(node->command_list->redirect_list), d);
 }
