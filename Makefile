@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/13 16:30:47 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/13 20:36:14 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,19 @@ RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
-SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/repl.c
+# SRCS = $(SRCS_DIR)/main.c \
+# 		$(SRCS_DIR)/repl.c
 
 RM = rm -rf
 
 TOKENIZE_DIR = tokenize
-SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
+# SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
 PARSE_DIR = parse
 
@@ -47,7 +47,8 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_show.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
-	    $(BUILTIN_DIR)/export/export_error.c
+	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/pwd/pwd.c
 
 
 LIBRARY_DIR = library
