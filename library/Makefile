@@ -6,13 +6,14 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/12 19:15:50 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/13 16:30:32 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = library.a
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS += -fsanitize=address
 AR = ar
 ARFLAGS = -r
 RM = rm -rf

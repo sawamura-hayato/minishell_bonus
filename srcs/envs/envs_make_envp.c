@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:13:29 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/10 18:13:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/13 16:33:56 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,11 @@ char	**envs_make_envp(t_envs **envs_hashmap)
 		node = envs_hashmap[hm_i];
 		while (node != NULL)
 		{
-			if (node->value == NULL)
+			if (node->value != NULL)
 			{
-				node = node->next;
-				continue ;
+				envp[envp_i] = make_str_with_keyvalue(node);
+				envp_i++;
 			}
-			envp[envp_i] = make_str_with_keyvalue(node);
-			envp_i++;
 			node = node->next;
 		}
 		hm_i++;

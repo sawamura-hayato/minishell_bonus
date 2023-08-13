@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:27:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 19:11:33 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/13 16:31:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	export_invalid_identifier(char *str, t_data *d);
 
-static bool	is_symbol(char c)
+bool	export_is_symbol(char c)
 {
 	return (c == '~' || c == '`' || c == '!' || c == '@' || c == '#'
 		|| c == '$' || c == '%' || c == '^' || c == '&' || c == '*'

@@ -6,13 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 21:25:21 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/13 16:35:24 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "library.h"
 #include <stdlib.h>
+
+#define SHLVL_MAX_VALUE 999
 
 static char	*get_key(const char *str)
 {
@@ -36,7 +38,7 @@ static char	*get_shlvl_value(char *value, t_data *d)
 
 	shlvl = ft_atoi(value);
 	free(value);
-	if (shlvl == 999)
+	if (shlvl == SHLVL_MAX_VALUE)
 	{
 		try_write(STDOUT_FILENO, msg, ft_strlen(msg), d);
 		return (try_itoa(1));

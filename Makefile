@@ -6,15 +6,15 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/12 21:25:30 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/13 16:30:47 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
-# CFLAGS = -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
+# CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
