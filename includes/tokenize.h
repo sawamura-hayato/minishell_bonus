@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/07 23:00:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:57:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void debug_print_token(t_token *token_list);
 int		ft_isspace(char c);
 bool	ft_is_special_char(char c);
 size_t	ft_strlen(const char *str);
+
 void	*try_malloc(size_t size);
 void	*try_calloc(size_t count, size_t size);
 
