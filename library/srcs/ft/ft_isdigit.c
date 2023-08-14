@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:33:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 18:36:39 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/12 15:39:35 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/12 15:40:55 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "library.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+int	ft_isdigit(char c)
 {
-	unsigned char	*strs;
-	unsigned char	target;
-	int				diff;
-
-	strs = (unsigned char *)s;
-	target = c;
-	while (n--)
-	{
-		diff = *strs - target;
-		if (diff == 0)
-			return ((void *)strs);
-		strs++;
-	}
-	return (NULL);
+	return (c >= '0' && c <= '9');
 }

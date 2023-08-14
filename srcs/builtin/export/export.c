@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 15:33:39 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 18:36:39 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/09 19:54:16 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/12 18:53:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "builtins.h"
+#include "init.h"
+#include <stdlib.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	export_show(t_data *d);
+bool	export_add(char *str, t_data *d);
+
+void	builtin_export(char **argv, t_data *d)
 {
-	unsigned char	*strs;
-	unsigned char	target;
-	int				diff;
+	size_t	i;
 
-	strs = (unsigned char *)s;
-	target = c;
-	while (n--)
+	d->exit_status = EXIT_SUCCESS;
+	if (argv[1] == NULL)
+		return (export_show(d));
+	i = 1;
+	while (argv[i] != NULL)
 	{
-		diff = *strs - target;
-		if (diff == 0)
-			return ((void *)strs);
-		strs++;
+		if (export_add(argv[i], d) == false)
+			return ;
+		i++;
 	}
-	return (NULL);
 }

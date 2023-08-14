@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/06 18:37:53 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/08 20:48:49 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,9 +202,9 @@ void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
 				command_execution(node->right_hand, operator, &d);
 		}
 		else if (operator == START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
-			return (do_builtin(node, NULL, &d));//builtin.hの関数
+			return (builtin(node, NULL, &d));//builtin.hの関数
 		else
-			do_fork(node);
+			exec_fork(node, &d);
 	}
 	if (operator == START)
 		exec_wait_child_process(node, &d);
