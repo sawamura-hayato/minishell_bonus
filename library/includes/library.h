@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 19:12:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/14 19:23:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*try_strjoin(char const *s1, char const *s2);
 void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
 char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
+char	*ft_strchr(const char *s, int c);
 
 // ft
 size_t	ft_strlen(const char *str);

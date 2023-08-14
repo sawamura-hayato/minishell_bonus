@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 19:00:52 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/14 20:09:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,23 @@
 
 int printf(const char *format, ...);
 
-char *expand_convert_doller_word(char **word, t_data *d)
+void expand_token_word_list(t_word_list *word_list, t_data *d)
 {
-	// char	*expand_word;
+	// char *expand_word;
 
-	// (*word)++;
-	// if (*word == '?')
-	// 	expand_word = expand_get_exist_status(word, d->exit_status);
-	// else
-	// 	expand_word = expand_get_expand_word(word, d->envs_hashmap);
-	// return (expand_word);
+	// expand_word = expand_get_expanded_token(word_list->word, d);
+	// free(word_list->word);
+	// word_list->word = expand_word;
+	(void)word_list;
 	(void)d;
-	return (*word);
 }
 
-char *expand_get_expanded_token_word(char *token_word, t_data *d)
-{
-	// char	*expand_word;
-	// char	*join_word;
-
-	(void)d;
-	return (token_word);
-	// join_word = NULL;
-	// while (*token_word)
-	// {
-	// 	if (*token_word == '$')
-	// 	{
-	// 		expand_word = expand_convert_doller_word(&token_word, d);
-	// 		join_word = expand_extend_str(join_word, token_word);
-	// 	}
-	// 	expand_word = ft_substr(&token_word, '$');
-	// 	join_word = expand_extend_str(join_word, expand_word);
-	// 	token_word ++;
-	// }
-	// return (join_word);
-}
-
-void expand_token_word_list(t_word_list *token, t_data *d)
+void expand_token_redirect_list(t_redirect *redirect_list, t_data *d, t_redirect_type is_quote)
 {
 	char *expand_word;
 
-	expand_word = expand_get_expanded_token_word(token->word, d);
-	free(token->word);
-	token->word = expand_word;
-}
-
-void expand_token_redirect_list(t_redirect *token, t_data *d, t_redirect_type is_quote)
-{
-	char *expand_word;
-
-	// expand_word = get_expand_token_word(token->word, d);
-	(void)token;
+	// expand_word = get_expand_token_word(redirect_list->word, d);
+	(void)redirect_list;
 	(void)d;
 	(void)expand_word;
 	(void)is_quote;
@@ -177,11 +143,7 @@ void	expand_dollar_quote_string(t_word_list **head)
 		if (!ft_strcmp((*head)->next->word, "$") && \
 			((*head)->next->next->type == SINGLE_QUOTE || \
 				(*head)->next->next->type == DOUBLE_QUOTE))
-		{
 			expand_delete_dollar_quote(head, false);
-			// exit(0);
-			// *head = node;
-		}
 		*head = (*head)->next;
 	}
 	*head = node;
@@ -224,18 +186,18 @@ void expand_variable_word_list(t_word_list **head, t_data *d)
 	// 	exit(0);
 	node = expand_can_dollar_quote_string(head);
 	(void)node;
-	// while (node != NULL)
-	// {
-	// 	if (node->type == SINGLE_QUOTE)
-	// 	{
-	// 		node = node->next;
-	// 		while (node->type != SINGLE_QUOTE)
-	// 			node = node->next;
-	// 	}
-	// 	// if (node->type == WORD && ft_strchr(node->word, '$'))
-	// 	// 	expand_token_word_list(node, d);
-	// 	node = node->next;
-	// }
+	while (node != NULL)
+	{
+		if (node->type == SINGLE_QUOTE)
+		{
+			node = node->next;
+			while (node->type != SINGLE_QUOTE)
+				node = node->next;
+		}
+		if (node->type == WORD && ft_strchr(node->word, '$'))
+			expand_token_word_list(node, d);
+		node = node->next;
+	}
 }
 
 void expand_variable_redirect_list(t_redirect **head, t_data *d)

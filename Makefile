@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/14 19:01:06 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/14 20:04:36 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
@@ -45,6 +45,7 @@ EXPANSION_DELETE_QUOTE = expand_delete_quote
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_expanded_token.c \
 
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
