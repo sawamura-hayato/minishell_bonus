@@ -23,21 +23,23 @@
 
 typedef enum e_redirect_type
 {
-	REDIRECTING_INPUT,  // <
-	REDIRECTING_OUTPUT, // >
-	APPENDING_OUTPUT,   // >>
-	FILE,               // redirect fil
-	HERE_DOCUMENTS,     // <<
-	DELIMITER,          // << delimitter(クウォートがない場合)
-	QUOTE_DELIMITER,    // << delimitter(クウォートがある場合)
+	PS_REDIRECTING_INPUT,  // <
+	PS_REDIRECTING_OUTPUT, // >
+	PS_APPENDING_OUTPUT,   // >>
+	PS_FILE,               // redirect fil
+	PS_HERE_DOCUMENTS,     // <<
+	PS_DELIMITER,          // << delimitter(クウォートがない場合)
+	PS_QUOTE_DELIMITER,    // << delimitter(クウォートがある場合)
+	PS_REDIRECT_SINGLE_QUOTE, // < 'file'
+	PS_REDIRECT_DOUBLE_QUOTE // < "file" < <- " <- file <- " 
 }						t_redirect_type;
 
 typedef enum e_ast_node_type
 {
-	PIPE,
-	LOGICAL_AND,
-	LOGICAL_OR,
-	COMMAND,
+	PS_PIPE,
+	PS_LOGICAL_AND,
+	PS_LOGICAL_OR,
+	PS_COMMAND,
 }						t_ast_node_type;
 
 typedef struct s_word_list
@@ -78,7 +80,7 @@ t_ast					*parse(t_token **current_token, t_data *d);
 t_ast					*ast_command_node(t_token **current_token, t_data *d);
 t_ast					*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data *d);
 t_ast					*ast_operator_node(e_ast_node_type type t_ast *left_hand,
-							t_ast *right_hand);
+							t_ast *right_hand,t_data *d);
 t_ast					*ast_init_node();
 void					ast_addback(t_ast **head, t_ast *new_node);
 void					ast_free_all_nodes(t_ast *node);
@@ -89,7 +91,7 @@ void	command_word_list(t_word_list** word_list,
 void	command_redirect_list(t_redirect_list** redirect_list,
 							t_token **current_token,
 							t_data *d);
-bool					command_is_redirect(t_token type);
+bool					token_is_redirect(t_token type);
 
 //t_word_list関連
 t_word_list				*word_list_init_node(t_token *token);
