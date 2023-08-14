@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 20:39:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/14 16:40:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,11 @@ int	main()
 	// builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
 	// builtin_export((char *[]){"export", "_=", "_B+=b", "_A", "c", "d", "e", "f", "g", NULL}, &d);
 	// builtin_export((char *[]){"export", NULL}, &d);
-	builtin_pwd(&d);
+	// builtin_pwd(&d);
+	// builtin_echo((char *[]){"echo", NULL}, &d);
+	// builtin_echo((char *[]){"echo", "-nnnnnnnnn", "-n", "-n", "-nnnnnnnnnnnnnnnnn", "test", NULL}, &d);
+	// builtin_echo((char *[]){"echo", "-nnnnnnnnn", "", "", "", NULL}, &d);
+	builtin_echo((char *[]){"echo", "test", "-nnnnnn", "-n", "", NULL}, &d);
 
 
 	return (0);

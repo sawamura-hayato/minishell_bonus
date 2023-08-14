@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/13 20:36:14 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/14 15:42:39 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
 	    $(BUILTIN_DIR)/export/export_error.c	\
-	    $(BUILTIN_DIR)/pwd/pwd.c
+	    $(BUILTIN_DIR)/pwd/pwd.c	\
+	    $(BUILTIN_DIR)/echo/echo.c
 
 
 LIBRARY_DIR = library
