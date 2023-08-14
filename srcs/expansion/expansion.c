@@ -6,13 +6,15 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/13 20:03:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:01:29 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "parse.h"
 #include "tokenize.h"
+
+int printf(const char *format, ...);
 
 void	expansion(t_ast *node, t_data *d)
 {
@@ -26,50 +28,6 @@ void	expansion(t_ast *node, t_data *d)
 	// expand_delete_quotation(node);
 }
 
-t_redirect	*debug_new_redirect_list(char *word, size_t index, t_redirect_type type)
-{
-	t_redirect	*new_redirect_list;
-
-	new_redirect_list = try_malloc(sizeof(t_redirect));
-	new_redirect_list->word = word;
-	new_redirect_list->index = index;
-	new_redirect_list->type = type;
-	return (new_redirect_list);	
-}
-
-t_word_list	*debug_new_word_list(char *word, size_t index, t_token_type type)
-{
-	t_word_list	*new_word_list;
-
-	new_word_list = try_malloc(sizeof(t_word_list));
-	new_word_list->word = word;
-	new_word_list->index = index;
-	new_word_list->type = type;
-	return (new_word_list);	
-}
-
-t_command	*debug_new_command(t_word_list *word_list, t_redirect *redirect_list)
-{
-	t_command	*new_command;
-
-	new_command = try_malloc(sizeof(t_command));
-	new_command->word_list = word_list;
-	new_command->redirect_list = redirect_list;
-	return (new_command);	
-}
-
-t_ast	*debug_new_ast(t_command *command, t_ast_node_type type)
-{
-	t_ast	*new_ast;
-
-	new_ast = try_malloc(sizeof(t_ast));
-	new_ast->command_list = command;
-	new_ast->type = type;
-	new_ast->left_hand = NULL;
-	new_ast->right_hand = NULL;
-	return (new_ast);	
-}
-
 int main(void)
 {
 	extern const char **environ;
@@ -79,18 +37,29 @@ int main(void)
 	t_ast	*left_node;
 	t_ast	*right_node;
 
-	t_word_list	*word_list;
+	t_word_list	*word_list_left;
+	t_word_list	*word_list_right;
 	t_redirect 	*redirect_list;
 
-	word_list = debug_new_word_list("echo", 0, WORD);
-	word_list->next = debug_new_word_list("aaaa", 1, WORD);
-	// word_list = word_list->next;
+	word_list_left = debug_new_word_list("$", 0, WORD);
+	word_list_left->next = debug_new_word_list("\'", 1, SINGLE_QUOTE);
+	word_list_left->next->next = debug_new_word_list("echo", 1, WORD);
+	word_list_left->next->next->next = debug_new_word_list("\'", 1, SINGLE_QUOTE);
+	word_list_left->next->next->next->next = debug_new_word_list("aaaa", 1, WORD);
+	word_list_left->next->next->next->next->next = debug_new_word_list("bat", 1, WORD);
 
 	redirect_list = debug_new_redirect_list("<", 2, REDIRECTING_INPUT);
 	redirect_list->next = debug_new_redirect_list("out", 3, FILE);
 
-	left_node = debug_new_ast(debug_new_command(word_list, redirect_list), COMMAND);
-	right_node = debug_new_ast(debug_new_command(word_list, redirect_list), COMMAND);
+	left_node = debug_new_ast(debug_new_command(word_list_left, redirect_list), COMMAND);
+	;
+	word_list_right = debug_new_word_list("echo", 0, WORD);
+	word_list_right->next = debug_new_word_list("ok", 0, WORD);
+	word_list_right->next->next = debug_new_word_list("$", 1, WORD);
+	word_list_right->next->next->next = debug_new_word_list("\"", 2, DOUBLE_QUOTE);
+	word_list_right->next->next->next->next = debug_new_word_list("$word", 2, WORD);
+	word_list_right->next->next->next->next->next = debug_new_word_list("\"", 2, DOUBLE_QUOTE);
+	right_node = debug_new_ast(debug_new_command(word_list_right, redirect_list), COMMAND);
 	
 	node = debug_new_ast(NULL, (t_ast_node_type)PIPE);
 	node->left_hand = left_node;
@@ -99,5 +68,13 @@ int main(void)
 	data.exit_status = 0;
 	envs_init(environ, &data);
 	expansion(node, &data);
+	debug_printf_word_list(node->left_hand->command_list->word_list);
+	debug_printf_word_list(node->right_hand->command_list->word_list);
+	// if (word_list_left == NULL)
+	// 	printf("ok");
+	// printf("%s\n", node->command_list->word_list->word);
+	// debug_free_word_list(node->left_hand->command_list->word_list);
+	// debug_free_word_list(node->right_hand->command_list->word_list);
+	// debug_free_word_list(word_list_right);
 	return (0);
 }

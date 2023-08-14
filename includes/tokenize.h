@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/13 19:57:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:27:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include "library.h"
 
 typedef enum e_token_type
 {

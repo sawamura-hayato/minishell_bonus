@@ -6,26 +6,28 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/13 19:54:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/14 14:30:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
-# define PARSE_H
+#define PARSE_H
 
-# include "tokenize.h"
-# include <unistd.h>
+#include "tokenize.h"
+#include <unistd.h>
 
 typedef enum e_redirect_type
 {
-	REDIRECTING_INPUT, // <
-	REDIRECTING_OUTPUT,// >
-	APPENDING_OUTPUT,// >>
-	FILE,// redirect fil
-	HERE_DOCUMENTS, // <<
-	DELIMITER, // << delimitter(クウォートがない場合)
-	QUOTE_DELIMITER, // << delimitter(クウォートがある場合)
-}	t_redirect_type;
+	REDIRECTING_INPUT,	// <
+	REDIRECTING_OUTPUT, // >
+	APPENDING_OUTPUT,	// >>
+	FILE,				// redirect fil
+	HERE_DOCUMENTS,		// <<
+	DELIMITER,			// << delimitter(クウォートがない場合)
+	QUOTE_DELIMITER,	// << delimitter(クウォートがある場合)
+	RD_SINGLE_QUOTE,
+	RD_DOUBLE_QUOTE
+} t_redirect_type;
 
 typedef enum e_ast_node_type
 {
@@ -33,40 +35,39 @@ typedef enum e_ast_node_type
 	LOGICAL_AND,
 	LOGICAL_OR,
 	COMMAND,
-}	t_ast_node_type;
+} t_ast_node_type;
 
 typedef struct s_word_list
 {
-	char				*word;
-	size_t				index;
-	t_token_type		type;
-	struct s_word_list	*next;
-}	t_word_list;
+	char *word;
+	size_t index;
+	t_token_type type;
+	struct s_word_list *next;
+} t_word_list;
 
 typedef struct s_redirect
 {
-	char				*word;
-	size_t				index;
-	t_redirect_type		type;
-	struct s_redirect	*next;
-}	t_redirect;
+	char *word;
+	size_t index;
+	t_redirect_type type;
+	struct s_redirect *next;
+} t_redirect;
 
 typedef struct s_command
 {
-	t_word_list	*word_list;
-	t_redirect	*redirect_list;
-	int			fd;
-	pid_t		pid;
-}	t_command;
+	t_word_list *word_list;
+	t_redirect *redirect_list;
+	int fd;
+	pid_t pid;
+} t_command;
 
 typedef struct s_ast
 {
-	t_ast_node_type		type;
-	struct s_command	*command_list;
-	struct s_ast		*left_hand;
-	struct s_ast		*right_hand;
-}	t_ast;
-
+	t_ast_node_type type;
+	struct s_command *command_list;
+	struct s_ast *left_hand;
+	struct s_ast *right_hand;
+} t_ast;
 
 // t_ast *ast_parse(t_token **token_address);
 // t_ast *ast_command(t_token *token);
@@ -102,7 +103,6 @@ typedef struct s_ast
 // // 	struct s_ast	*left_hand;
 // // 	struct s_ast	*right_hand;
 // // }	t_ast;
-
 
 // ls infileC a b | ls
 
@@ -143,22 +143,18 @@ typedef struct s_ast
 // a		b
 // ------------------------
 
-
 // 					|
 // 				|		command4
 // 		  |			comamnd3
 // command1	command2
 
-
 // 		  |			comamnd3
 // command1	command2
-
 
 // 		  |
 // command1	command2
 
 // <infile
-
 
 // 		  |
 // command1	command2

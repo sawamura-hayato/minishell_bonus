@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/13 20:06:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:13:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@
 void	expansion(t_ast *node, t_data *d);
 
 //expand_variable.c
-void	expand_variable(t_ast *node, t_data *d);
-char	*expand_convert_doller_word(char **word, t_data *d);
-char	*expand_get_expanded_token_word(char *token_word, t_data *d);
-void	expand_token_word_list(t_word_list *token, t_data *d);
-void	expand_token_redirect_list(t_redirect *token, t_data *d);
-void	expand_variable_word_list(t_word_list *head, t_data *d);
-void	expand_variable_redirect_list(t_redirect *head, t_data *d);
+void		expand_variable(t_ast *node, t_data *d);
+char		*expand_convert_doller_word(char **word, t_data *d);
+char		*expand_get_expanded_token_word(char *token_word, t_data *d);
+void		expand_token_word_list(t_word_list *token, t_data *d);
+void		expand_token_redirect_list(t_redirect *token, \
+										t_data *d, \
+										t_redirect_type is_quote);
+void		expand_variable_word_list(t_word_list **head, t_data *d);
+void		expand_variable_redirect_list(t_redirect **head, t_data *d);
+void		expand_dollar_quote_string(t_word_list **head);
+t_redirect	*expand_dollar_quote_string_redirect(t_redirect **head);
 
 //expand_word_splitting.c
 //IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
@@ -56,4 +60,11 @@ void	redirect_list_delete_target_type(t_word_list *word_list, t_token_type taget
 void	expandion_delete_quotation_word_list(t_word_list *word_list);
 void	expandion_delete_quotation_redirect_list(t_redirect *redirect_list);
 
+//expand_debug.c
+void	debug_printf_word_list(t_word_list *word_list);
+t_redirect	*debug_new_redirect_list(char *word, size_t index, t_redirect_type type);
+t_word_list	*debug_new_word_list(char *word, size_t index, t_token_type type);
+t_command	*debug_new_command(t_word_list *word_list, t_redirect *redirect_list);
+t_ast	*debug_new_ast(t_command *command, t_ast_node_type type);
+void	debug_free_word_list(t_word_list *word_list);
 #endif
