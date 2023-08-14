@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 19:01:29 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/14 19:08:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int main(void)
 	// if (word_list_left == NULL)
 	// 	printf("ok");
 	// printf("%s\n", node->command_list->word_list->word);
-	// debug_free_word_list(node->left_hand->command_list->word_list);
-	// debug_free_word_list(node->right_hand->command_list->word_list);
+	debug_free_word_list(node->left_hand->command_list->word_list);
+	debug_free_word_list(node->right_hand->command_list->word_list);
 	// debug_free_word_list(word_list_right);
 	return (0);
 }

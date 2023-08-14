@@ -17,14 +17,18 @@ void	debug_free_word_list(t_word_list *word_list)
 	// (void)word_list;
 	t_word_list	*tmp_word;
 
-	tmp_word = NULL;
-	while (word_list != NULL)
+	if (word_list == NULL)
+		return ;
+	tmp_word = word_list->next;
+	while (tmp_word != NULL)
 	{
 		printf("word_list_free   %s\n", word_list->word);
 		free(word_list);
-		tmp_word = word_list->next;
 		word_list = tmp_word;
+		tmp_word = word_list->next;
 	}
+	printf("word_list_free   %s\n", word_list->word);
+	free(word_list);
 }
 
 t_redirect	*debug_new_redirect_list(char *word, size_t index, t_redirect_type type)
