@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 16:07:23 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:51:28 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_redirect_list
 typedef struct s_command
 {
 	t_word_list			*word_list;
-	t_redirect			*redirect_list;
+	t_redirect_list			*redirect_list;
 	int fd;    //どこにコマンドを出力するか(初期値はSTD OUT FILNE NO)
 	pid_t pid; //子プロセスのIDを管理(初期値は-1)
 }						t_command;
@@ -82,8 +82,7 @@ typedef struct s_ast
 t_ast					*parse(t_token **current_token, t_data *d);
 t_ast					*ast_command_node(t_token **current_token, t_data *d);
 t_ast					*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data *d);
-t_ast					*ast_operator_node(e_ast_node_type type t_ast *left_hand,
-							t_ast *right_hand,t_data *d);
+t_ast					*ast_operator_node(t_ast_node_type type ,t_ast *left_hand,t_ast *right_hand,t_data *d);
 t_ast					*ast_init_node();
 void					ast_addback(t_ast **head, t_ast *new_node);
 void					ast_free_all_nodes(t_ast *node);
@@ -98,14 +97,14 @@ bool					token_is_redirect(t_token type);
 
 //t_word_list関連
 t_word_list				*word_list_init_node(t_token *token);
-void					*word_list_addback(t_word_list **head, t_word *node);
+void					*word_list_addback(t_word_list **head, t_word_list *node);
 
 //t_redirect関連
-t_redirect				*redirect_init_node(t_token *token);
-void	*redirect_list_addback(t_redirect **head,
-							t_redirect *node);
+t_redirect_list				*redirect_init_node(t_token *token);
+void	*redirect_list_addback(t_redirect_list **head,
+							t_redirect_list *node);
 
-void	redirect_set_type(t_ridirect_list *node ,t_token *token); //redirectタイプをsetする関数
+void	redirect_set_type(t_redirect_list *node ,t_token *token); //redirectタイプをsetする関数
 //error関連
 bool					ast_is_operator(t_token_type type);
 bool					token_is_quotation_closed(t_token *token);
@@ -115,51 +114,51 @@ void	ast_syntax_error(t_data *d);
 
 		/* void* try_calloc(size_t nmemb,size_t size); */
 
-		ls infileC a b
-		| ls
+		/* ls infileC a b */
+		/* | ls */
 
-				ls infile a b
-				<< eof<Makefile> out
-			>> apend
-		| ls a b c d
+		/* 		ls infile a b */
+		/* 		<< eof<Makefile> out */
+		/* 	>> apend */
+		/* | ls a b c d */
 
-			1 ls 2 infile 3 > 4a 5b 6 << 7eof <
-			Makefile
-		| ls 1ls 2infile 5b 3 > 4a << eof < Makefile
+		/* 	1 ls 2 infile 3 > 4a 5b 6 << 7eof < */
+		/* 	Makefile */
+		/* | ls 1ls 2infile 5b 3 > 4a << eof < Makefile */
 
-			cat infiile
-		|
-		ls
+		/* 	cat infiile */
+		/* | */
+		/* ls */
 
-		-- ----------------------
+		/* -- ---------------------- */
 
-		cmd1
-		| cmd2
-	|| cmd3 | cmd4
+		/* cmd1 */
+		/* | cmd2 */
+	/* || cmd3 | cmd4 */
 
-		|
-	|| cmd4 | cmd3 cmd1 cmd2-- ----------------------
+	/* 	| */
+	/* || cmd4 | cmd3 cmd1 cmd2-- ---------------------- */
 
-		cmd1
-		| (cmd2 || cmd3) | cmd4
+	/* 	cmd1 */
+	/* 	| (cmd2 || cmd3) | cmd4 */
 
-		| cmd1 |
-	|| cmd4 cmd2 cmd3-- ----------------------
+	/* 	| cmd1 | */
+	/* || cmd4 cmd2 cmd3-- ---------------------- */
 
-		------------------------(a || b) &&
-		ls
+		/* ------------------------(a || b) && */
+		/* ls */
 
-		&&
-	|| ls a b-- ----------------------
+		/* && */
+	/* || ls a b-- ---------------------- */
 
-		| | command4 | comamnd3 command1 command2
+		/* | | command4 | comamnd3 command1 command2 */
 
-		| comamnd3 command1 command2
+		/* | comamnd3 command1 command2 */
 
-		| command1 command2
+		/* | command1 command2 */
 
-			< infile
+		/* 	< infile */
 
-		| command1 command2 comamnd3 command4
+		/* | command1 command2 comamnd3 command4 */
 
 #endif
