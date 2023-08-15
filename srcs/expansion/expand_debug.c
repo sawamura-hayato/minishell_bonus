@@ -3,6 +3,22 @@
 
 int printf(const char *format, ...);
 
+void	debug_printf_test(char *testA, char *testB)
+{
+	static size_t i = 0;
+
+	printf("[test: %zu]\n", i++);
+	if (testA != NULL && testB != NULL)
+	{
+		if (ft_strcmp(testA, testB))
+			printf("\e[0;32mok\033[0m\n");
+		else
+			printf("\e[0;31mko\033[0m\n");
+	}
+	printf("expect   %s\n", testA);
+	printf("output   %s\n", testB);
+}
+
 void	debug_printf_word_list(t_word_list *word_list)
 {
 	while (word_list != NULL)
