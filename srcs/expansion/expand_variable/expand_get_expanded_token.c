@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 11:38:25 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:30:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,6 @@ char *expand_get_expanded_token(char *token, t_data *d)
 	join_word = NULL;
 	while (*token != '\0')
 	{
-		//target envの場合はexport_is_symbol
-		//それ以外の結合文字列は
-			//先頭が＄以外だったら$までの文字列作る。
-			//先頭が＄の場合　target envに戻る
-		// printf("token %s\n", token);
 		if (*token == '$')
 		{
 			expand_word = expand_convert_dollar_word(&token, d);
@@ -134,12 +129,6 @@ char *expand_get_expanded_token(char *token, t_data *d)
 			join_word = try_strjoin_free(join_word, expand_word);
 			free(expand_word);
 		}
-		// token++;
-		// if (*token == '$')
-		// {
-		// }
-		// // printf
-		// exit(0);
 	}
 	return (join_word);
 }

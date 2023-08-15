@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 23:00:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:55:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 // expansion.c
 void expansion(t_ast *node, t_data *d);
 
-// expand_variable.c
+// expand_variable
 void expand_variable(t_ast *node, t_data *d);
 char *expand_convert_dollar_word(char **word, t_data *d);
 char *expand_get_expanded_token(char *token_word, t_data *d);
@@ -30,8 +30,20 @@ void expand_token_redirect_list(t_redirect *token,
 								t_redirect_type is_quote);
 void expand_variable_word_list(t_word_list **head, t_data *d);
 void expand_variable_redirect_list(t_redirect **head, t_data *d);
-void expand_dollar_quote_string(t_word_list **head);
-t_redirect *expand_dollar_quote_string_redirect(t_redirect **head);
+void expand_dollar_quote_string_word_list(t_word_list **head);
+t_word_list *expand_can_dollar_quote_string_word_list(t_word_list **head);
+t_redirect *expand_can_dollar_quote_string_redirect(t_redirect **head);
+// delete_word_list.c
+void word_list_free(t_word_list *word_list);
+void word_list_delete_head(t_word_list **head);
+void word_list_delete_tail(t_word_list **head);
+void word_list_delete_taget(t_word_list **head, t_word_list *target);
+
+// delete_redirect.c
+void redirect_free(t_redirect *redirect);
+void redirect_delete_head(t_redirect **head);
+void redirect_delete_tail(t_redirect **head);
+void redirect_delete_taget(t_redirect **head, t_redirect *target);
 
 // expand_word_splitting.c
 // IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
