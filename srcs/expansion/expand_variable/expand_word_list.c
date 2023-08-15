@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:51:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:53:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void expand_variable_word_list(t_word_list **head, t_data *d)
 	node = expand_can_dollar_quote_string_word_list(head);
 	while (node != NULL)
 	{
-		if (node->type == SINGLE_QUOTE)
+		if (node->type == RD_SINGLE_QUOTE)
 		{
 			node = node->next;
-			while (node->type != SINGLE_QUOTE)
+			while (node->type != RD_SINGLE_QUOTE)
 				node = node->next;
 		}
 		if (node->type == WORD && ft_strchr(node->word, '$'))

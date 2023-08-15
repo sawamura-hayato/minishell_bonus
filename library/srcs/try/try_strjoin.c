@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:31:28 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/15 11:11:52 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:38:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 static char	*try_check_null_strjoin(char const *s1, char const *s2)
 {
 	if (s1 == NULL && s2 == NULL)
-		return (try_strdup(""));
+		return (NULL);
 	else if (s1 == NULL)
 		return (try_strdup(s2));
 	else if (s2 == NULL)

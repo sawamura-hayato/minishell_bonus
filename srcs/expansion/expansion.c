@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:00:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:22:25 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,33 @@ int main(void)
 
 	t_word_list	*word_list_left;
 	t_word_list	*word_list_right;
-	t_redirect 	*redirect_list;
+
+	t_redirect 	*redirect_list_left;
+	t_redirect 	*redirect_list_right;
 
 	word_list_left = debug_new_word_list("$", 0, WORD);
-	word_list_left->next = debug_new_word_list("\'", 1, SINGLE_QUOTE);
+	word_list_left->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);
 	word_list_left->next->next = debug_new_word_list("echo", 1, WORD);
-	word_list_left->next->next->next = debug_new_word_list("\'", 1, SINGLE_QUOTE);
+	word_list_left->next->next->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);
 	word_list_left->next->next->next->next = debug_new_word_list("aaaa", 1, WORD);
 	word_list_left->next->next->next->next->next = debug_new_word_list("bat", 1, WORD);
 
-	redirect_list = debug_new_redirect_list("<", 2, REDIRECTING_INPUT);
-	redirect_list->next = debug_new_redirect_list("out", 3, FILE);
+	redirect_list_left = debug_new_redirect_list("<", 2, REDIRECTING_INPUT);
+	redirect_list_left->next = debug_new_redirect_list("$out", 3, FILE);
 
-	left_node = debug_new_ast(debug_new_command(word_list_left, redirect_list), COMMAND);
+	left_node = debug_new_ast(debug_new_command(word_list_left, redirect_list_left), COMMAND);
 	;
 	word_list_right = debug_new_word_list("echo", 0, WORD);
 	word_list_right->next = debug_new_word_list("ok", 0, WORD);
 	word_list_right->next->next = debug_new_word_list("$", 1, WORD);
-	word_list_right->next->next->next = debug_new_word_list("\"", 2, DOUBLE_QUOTE);
+	word_list_right->next->next->next = debug_new_word_list("\"", 2, TOKEN_DOUBLE_QUOTE);
 	word_list_right->next->next->next->next = debug_new_word_list("$word", 2, WORD);
-	word_list_right->next->next->next->next->next = debug_new_word_list("\"", 2, DOUBLE_QUOTE);
-	right_node = debug_new_ast(debug_new_command(word_list_right, redirect_list), COMMAND);
+	word_list_right->next->next->next->next->next = debug_new_word_list("\"", 2, TOKEN_DOUBLE_QUOTE);
+	
+	redirect_list_right = debug_new_redirect_list(">", 3, REDIRECTING_OUTPUT);
+	redirect_list_right->next = debug_new_redirect_list("$PATH", 4, FILE);
+	
+	right_node = debug_new_ast(debug_new_command(word_list_right, redirect_list_right), COMMAND);
 	
 	node = debug_new_ast(NULL, (t_ast_node_type)PIPE);
 	node->left_hand = left_node;
@@ -68,9 +74,12 @@ int main(void)
 	data.exit_status = 0;
 	envs_init(environ, &data);
 	expansion(node, &data);
-	debug_printf_redirect(node->left_hand->command_list->redirect_list);
+
 	debug_printf_word_list(node->left_hand->command_list->word_list);
 	debug_printf_word_list(node->right_hand->command_list->word_list);
+
+	debug_printf_redirect(node->left_hand->command_list->redirect_list);
+	debug_printf_redirect(node->right_hand->command_list->redirect_list);
 	// if (word_list_left == NULL)
 	// 	printf("ok");
 	// printf("%s\n", node->command_list->word_list->word);

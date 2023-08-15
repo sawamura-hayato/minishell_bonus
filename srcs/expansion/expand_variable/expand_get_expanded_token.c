@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:30:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:52:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*expand_get_str_to_dollar(char **word)
 
 	i = 0;
 	size = expand_get_str_to_dollar_size(*word);
-	str = try_calloc(size + 1, sizeof(char));
+	str = try_calloc(size, sizeof(char));
 	while (i < size)
 	{
 		str[i] = (*word)[i];
@@ -137,14 +137,19 @@ char *expand_get_expanded_token(char *token, t_data *d)
 // {
 // 	extern const char **environ;
 // 	t_data data;
+// 	//環境変数展開
+// 	//環境変数がない場合
+// 	// - "$B" \0
+// 	// - $B NULL
 
 // 	data.exit_status = 0;
 // 	envs_init(environ, &data);
 // 	//末尾に空白を入れたらokになる
-// 	debug_printf_test("", expand_get_expanded_token("$B", &data));
-// 	debug_printf_test("?llll ", expand_get_expanded_token("$ABV?llll", &data));
+// 	debug_printf_test(NULL, expand_get_expanded_token("$B", &data));
+// 	debug_printf_test("?llll", expand_get_expanded_token("?llll", &data));
+// 	debug_printf_test("?llll", expand_get_expanded_token("$ABV?llll", &data));
 // 	debug_printf_test("B+++", expand_get_expanded_token("$A+++$B", &data));
-// 	debug_printf_test("echo      B", expand_get_expanded_token("echo   $D  $A", &data));
+// 	debug_printf_test("echo     B", expand_get_expanded_token("echo   $D  $A", &data));
 // 	debug_printf_test("B", expand_get_expanded_token("$B$A", &data));
 // 	debug_printf_test("sawamurashunsawamurashun", expand_get_expanded_token("$USER$USER", &data));
 // 	debug_printf_test("/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/opt/X11/bin:/opt/homebrew/bin:/opt/homebrew/sbin", expand_get_expanded_token("$BD$PATH", &data));

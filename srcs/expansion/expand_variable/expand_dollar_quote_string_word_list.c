@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:52:03 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:51:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void expand_dollar_quote_string_word_list(t_word_list **head)
 	t_word_list *node;
 
 	if (!ft_strcmp((*head)->word, "$") &&
-		((*head)->next->type == SINGLE_QUOTE || (*head)->next->type == DOUBLE_QUOTE))
+		((*head)->next->type == TOKEN_SINGLE_QUOTE || (*head)->next->type == TOKEN_DOUBLE_QUOTE))
 		expand_delete_dollar_quote_word_list(head, true);
 	node = *head;
 	while ((*head) != NULL && (*head)->next != NULL && (*head)->next->next != NULL)
 	{
 		if (!ft_strcmp((*head)->next->word, "$") &&
-			((*head)->next->next->type == SINGLE_QUOTE ||
-			 (*head)->next->next->type == DOUBLE_QUOTE))
+			((*head)->next->next->type == TOKEN_SINGLE_QUOTE ||
+			 (*head)->next->next->type == TOKEN_DOUBLE_QUOTE))
 			expand_delete_dollar_quote_word_list(head, false);
 		*head = (*head)->next;
 	}
@@ -64,12 +64,12 @@ bool expand_is_dollar_quote_string_word_list(t_word_list *head)
 	if (node == NULL || node->next == NULL)
 		return (false);
 	if (!ft_strcmp(node->word, "$") &&
-		(node->next->type == SINGLE_QUOTE || node->next->type == DOUBLE_QUOTE))
+		(node->next->type == TOKEN_SINGLE_QUOTE || node->next->type == TOKEN_DOUBLE_QUOTE))
 		return (true);
 	while (node->next->next != NULL)
 	{
 		if (!ft_strcmp(node->next->word, "$") &&
-			(node->next->next->type == SINGLE_QUOTE || node->next->next->type == DOUBLE_QUOTE))
+			(node->next->next->type == TOKEN_SINGLE_QUOTE || node->next->next->type == TOKEN_DOUBLE_QUOTE))
 			return (true);
 		node = node->next;
 	}

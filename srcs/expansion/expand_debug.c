@@ -10,11 +10,15 @@ void	debug_printf_test(char *testA, char *testB)
 	printf("[test: %zu]\n", i++);
 	if (testA != NULL && testB != NULL)
 	{
-		if (ft_strcmp(testA, testB))
+		if (!ft_strcmp(testA, testB))
 			printf("\e[0;32mok\033[0m\n");
 		else
 			printf("\e[0;31mko\033[0m\n");
 	}
+	else if (testA == NULL && testB == NULL)
+			printf("\e[0;32mok\033[0m\n");
+	else
+		printf("\e[0;31mko\033[0m\n");
 	printf("expect   %s\n", testA);
 	printf("output   %s\n", testB);
 }
@@ -51,7 +55,7 @@ void	debug_printf_redirect(t_redirect *redirect)
 {
 	while (redirect != NULL)
 	{
-		printf("word   %s\n", redirect->word);
+		printf("redirect   %s\n", redirect->word);
 		redirect = redirect->next;
 	}
 }

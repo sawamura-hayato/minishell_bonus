@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 14:27:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:47:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 typedef enum e_token_type
 {
 	WORD,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
 	REDIRECT,
 	TOKEN_PIPE,
 	TOKEN_LOGICAL_OR,

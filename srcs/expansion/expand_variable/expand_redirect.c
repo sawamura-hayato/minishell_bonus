@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:50:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:23:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void expand_token_redirect_list(t_redirect *redirect_list, t_data *d, t_redirect
 	}
 	else
 	{
-		free(redirect_list->word);
+		// free(redirect_list->word);
 		redirect_list->word = expand_word;
 	}
 }
