@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 21:51:28 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:16:48 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_redirect_list
 	t_redirect_type		type;
 	bool is_ambiguous_error; //初期値はfalse
 	struct s_word_split	*ws_node;//NEW!
-	struct s_redirect	*next;
+	struct s_redirect_list	*next;
 }						t_redirect_list;
 
 typedef struct s_command
@@ -93,20 +93,20 @@ void	command_word_list(t_word_list** word_list,
 void	command_redirect_list(t_redirect_list** redirect_list,
 							t_token **current_token,
 							t_data *d);
-bool					token_is_redirect(t_token type);
+bool					token_is_redirect(t_token_type type);
 
 //t_word_list関連
 t_word_list				*word_list_init_node(t_token *token);
-void					*word_list_addback(t_word_list **head, t_word_list *node);
+void					word_list_addback(t_word_list **head, t_word_list *node);
 
 //t_redirect関連
 t_redirect_list				*redirect_init_node(t_token *token);
-void	*redirect_list_addback(t_redirect_list **head,
+void	redirect_list_addback(t_redirect_list **head,
 							t_redirect_list *node);
 
 void	redirect_set_type(t_redirect_list *node ,t_token *token); //redirectタイプをsetする関数
 //error関連
-bool					ast_is_operator(t_token_type type);
+bool					ast_is_opereter(t_token_type type);
 bool					token_is_quotation_closed(t_token *token);
 void					ast_expect(t_token **current_token, char op,t_data *d);
 t_token					*token_next(t_token **current_token,t_data *d);
