@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:55:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:59:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ void expandion_delete_quotation_word_list(t_word_list *word_list);
 void expandion_delete_quotation_redirect_list(t_redirect *redirect_list);
 
 // expand_debug.c
-void debug_printf_word_list(t_word_list *word_list);
 t_redirect *debug_new_redirect_list(char *word, size_t index, t_redirect_type type);
 t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type);
 t_command *debug_new_command(t_word_list *word_list, t_redirect *redirect_list);
 t_ast *debug_new_ast(t_command *command, t_ast_node_type type);
+void debug_printf_word_list(t_word_list *word_list);
 void debug_free_word_list(t_word_list *word_list);
+void	debug_printf_redirect(t_redirect *redirect);
+void	debug_free_redirect(t_redirect *redirect);
 #endif

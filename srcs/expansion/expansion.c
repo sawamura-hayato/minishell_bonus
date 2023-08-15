@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 11:39:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:00:00 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int main(void)
 	data.exit_status = 0;
 	envs_init(environ, &data);
 	expansion(node, &data);
+	debug_printf_redirect(node->left_hand->command_list->redirect_list);
 	debug_printf_word_list(node->left_hand->command_list->word_list);
 	debug_printf_word_list(node->right_hand->command_list->word_list);
 	// if (word_list_left == NULL)

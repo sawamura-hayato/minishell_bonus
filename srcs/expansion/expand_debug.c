@@ -47,6 +47,34 @@ void	debug_free_word_list(t_word_list *word_list)
 	free(word_list);
 }
 
+void	debug_printf_redirect(t_redirect *redirect)
+{
+	while (redirect != NULL)
+	{
+		printf("word   %s\n", redirect->word);
+		redirect = redirect->next;
+	}
+}
+
+void	debug_free_redirect(t_redirect *redirect)
+{
+	// (void)redirect;
+	t_redirect	*tmp_word;
+
+	if (redirect == NULL)
+		return ;
+	tmp_word = redirect->next;
+	while (tmp_word != NULL)
+	{
+		printf("redirect_free   %s\n", redirect->word);
+		free(redirect);
+		redirect = tmp_word;
+		tmp_word = redirect->next;
+	}
+	printf("redirect_free   %s\n", redirect->word);
+	free(redirect);
+}
+
 t_redirect	*debug_new_redirect_list(char *word, size_t index, t_redirect_type type)
 {
 	t_redirect	*new_redirect_list;
