@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 10:51:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 14:20:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ void	debug_printf_test(char *testA, char *testB);
 
 void expand_token_word_list(t_word_list *word_list, t_data *d)
 {
-	// char *expand_word;
+	char *expand_word;
 
-	// expand_word = expand_get_expanded_token(word_list->word, d);
+	expand_word = expand_get_expanded_token(word_list->word, d);
 	// free(word_list->word);
-	// word_list->word = expand_word;
-	(void)word_list;
-	(void)d;
+	word_list->word = expand_word;
 }
 
 void expand_token_redirect_list(t_redirect *redirect_list, t_data *d, t_redirect_type is_quote)
@@ -52,7 +50,7 @@ void expand_token_redirect_list(t_redirect *redirect_list, t_data *d, t_redirect
 
 void	word_list_free(t_word_list *word_list)
 {
-	// free(word_list->word);
+	//free(word_list->word);
 	free(word_list);
 }
 
@@ -180,13 +178,8 @@ t_word_list	*expand_can_dollar_quote_string(t_word_list **head)
 void expand_variable_word_list(t_word_list **head, t_data *d)
 {
 	t_word_list		*node;
-	(void)head;
-	(void)d;
 
-	// if (ft_strcmp((*head)->word, "ok") == 0)
-	// 	exit(0);
 	node = expand_can_dollar_quote_string(head);
-	(void)node;
 	while (node != NULL)
 	{
 		if (node->type == SINGLE_QUOTE)

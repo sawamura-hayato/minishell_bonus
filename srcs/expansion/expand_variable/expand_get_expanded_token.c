@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 11:12:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 11:38:25 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,30 +144,23 @@ char *expand_get_expanded_token(char *token, t_data *d)
 	return (join_word);
 }
 
-int main(void)
-{
-	extern const char **environ;
-	t_data data;
+// int main(void)
+// {
+// 	extern const char **environ;
+// 	t_data data;
 
-	data.exit_status = 0;
-	envs_init(environ, &data);
-	//$A+++$B
-	//$A
-	//+++
-	//$B
-
-	//$ABV?llll
-	//$ABV
-	//?llll
-
-	// printf("output   %s\n", expand_get_expanded_token("$B$A", &data));
-	// printf("output   %s\n", expand_get_expanded_token("ABBD$A", &data));
-	// printf("output   %s\n", expand_get_expanded_token("$BD$PATH", &data));
-	debug_printf_test(" ", expand_get_expanded_token("$B", &data));
-	debug_printf_test("B+++ ", expand_get_expanded_token("$A+++$B", &data));
-	debug_printf_test("echo     B  ", expand_get_expanded_token("echo   $D  $A ", &data));
-	// printf("output   %s\n", expand_get_expanded_token("$B$A$", &data));
-	// printf("output   %s\n", expand_get_expanded_token("$B$A", &data));
-	// printf("output   %s\n", expand_get_expanded_token("$B$A", &data));
-	return (0);
-}
+// 	data.exit_status = 0;
+// 	envs_init(environ, &data);
+// 	//末尾に空白を入れたらokになる
+// 	debug_printf_test("", expand_get_expanded_token("$B", &data));
+// 	debug_printf_test("?llll ", expand_get_expanded_token("$ABV?llll", &data));
+// 	debug_printf_test("B+++", expand_get_expanded_token("$A+++$B", &data));
+// 	debug_printf_test("echo      B", expand_get_expanded_token("echo   $D  $A", &data));
+// 	debug_printf_test("B", expand_get_expanded_token("$B$A", &data));
+// 	debug_printf_test("sawamurashunsawamurashun", expand_get_expanded_token("$USER$USER", &data));
+// 	debug_printf_test("/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/opt/X11/bin:/opt/homebrew/bin:/opt/homebrew/sbin", expand_get_expanded_token("$BD$PATH", &data));
+// 	// printf("output   %s\n", expand_get_expanded_token("$B$A$", &data));
+// 	// printf("output   %s\n", expand_get_expanded_token("$B$A", &data));
+// 	// printf("output   %s\n", expand_get_expanded_token("$B$A", &data));
+// 	return (0);
+// }
