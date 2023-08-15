@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:11 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/15 16:39:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 19:52:05 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exit_put_error_numeric(t_data *d, char *str);
 void	exit_put_error_too_many_args(t_data *d);
 bool	exit_isspace(char c);
 
-static bool	is_args_digit(char *str)
+static bool	is_non_digit_arg(char *str)
 {
 	if (*str == '\0')
 		return (true);
@@ -46,7 +46,7 @@ void	builtin_exit(char **argv, t_data *d)
 		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 		exit(d->exit_status);
 	}
-	if (is_args_digit(argv[1]))
+	if (is_non_digit_arg(argv[1]))
 		exit_put_error_numeric(d, argv[1]);
 	if (exit_is_overflow(argv[1]))
 		exit_put_error_numeric(d, argv[1]);

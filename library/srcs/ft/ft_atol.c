@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:30:49 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/15 16:19:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 19:57:00 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static bool	is_overflow(long long sum, long long next_num, char sign)
 
 	if (sign == SIGNED)
 	{
-		of_div = LONG_MIN / -10;
-		of_mod = LONG_MIN % -10;
+		of_div = LLONG_MIN / -10;
+		of_mod = LLONG_MIN % -10;
 		of_mod *= -1;
 	}
 	else
