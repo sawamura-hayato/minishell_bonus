@@ -6,26 +6,33 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:47:26 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/14 18:53:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 16:21:07 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include <limits.h>
 
-static bool	isspace(char c)
+void	exit_put_error_numeric(t_data *d, char *str);
+
+#define UNSIGNED '+'
+#define SIGNED '-'
+
+bool	exit_isspace(char c)
 {
 	return (c == ' ' || c == '\t');
 }
 
-static bool	is_overflow(long long sum, long long next_num, char sign)
+static bool	is_overflow_long(long long sum, long long next_num, char sign)
 {
 	long long	of_div;
 	long long	of_mod;
 
 	if (sign == SIGNED)
 	{
-		of_div = LONG_MIN / (10 * -1);
-		of_mod = LONG_MIN % (10 * -1);
+		of_div = LONG_MIN / -10;
+		of_mod = LONG_MIN % -10;
+		of_mod *= -1;
 	}
 	else
 	{
@@ -37,34 +44,32 @@ static bool	is_overflow(long long sum, long long next_num, char sign)
 	return (false);
 }
 
-static void	overflow_long(const char *str, char sign)
+static bool	overflow_long(char *str, char sign)
 {
 	long long	num;
 
 	num = 0;
 	while (*str != '\0')
 	{
-		if (is_overflow(num, *str - '0', sign))
-		{
-			try_write("exit\nbash: exit: test: numeric argument required\n");
-			exit(EXIT_NUMERIC_ARG);
-		}
+		if (is_overflow_long(num, *str - '0', sign))
+			return (true);
 		num = num * 10 + (*str - '0');
 		str++;
 	}
+	return (false);
 }
 
-void	overflow(char *str)
+bool	exit_is_overflow(char *str)
 {
 	char	sign;
 
 	sign = '+';
-	while (isspace(*str))
+	while (exit_isspace(*str))
 		str++;
 	if (*str == '+' || *str == '-')
 	{
 		sign = *str;
 		str++;
 	}
-	overflow_long(str, sign);
+	return (overflow_long(str, sign));
 }

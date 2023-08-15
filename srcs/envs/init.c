@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/14 16:40:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 16:42:43 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,16 @@ void	envs_init(const char **environ, t_data *d)
 // 	printf("---------------------------------\n");
 // }
 
-#include "builtins.h"
-#include <stdio.h>
+// #include "builtins.h"
+// #include <stdio.h>
 
-int	main()
-{
-	t_data	d;
+// int	main()
+// {
+// 	t_data	d;
 
-	extern const char	**environ;
-	envs_init(environ, &d);
+// 	extern const char	**environ;
+// 	envs_init(environ, &d);
+	// d.exit_status = 42;
 	// builtin_export((char *[]){"export", NULL}, &d);
 	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
 	// builtin_export((char *[]){"export", "test=test", "a=abc", NULL}, &d);
@@ -141,8 +142,11 @@ int	main()
 	// builtin_echo((char *[]){"echo", NULL}, &d);
 	// builtin_echo((char *[]){"echo", "-nnnnnnnnn", "-n", "-n", "-nnnnnnnnnnnnnnnnn", "test", NULL}, &d);
 	// builtin_echo((char *[]){"echo", "-nnnnnnnnn", "", "", "", NULL}, &d);
-	builtin_echo((char *[]){"echo", "test", "-nnnnnn", "-n", "", NULL}, &d);
+	// builtin_echo((char *[]){"echo", "test", "-nnnnnn", "-n", "", NULL}, &d);
+	// builtin_exit((char *[]){"exit", "", NULL}, &d);
+	// builtin_exit((char *[]){"exit", "    -9223372036854775807", NULL}, &d);
+// 	builtin_exit((char *[]){"exit", "    -9223372036854775807", "", NULL}, &d);
 
 
-	return (0);
-}
+// 	return (0);
+// }

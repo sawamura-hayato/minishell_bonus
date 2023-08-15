@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 19:12:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 15:33:48 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ bool	ft_islower(char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strcmp_ignorecase(const char *s1, const char *s2);
 int		ft_atoi(const char *str);
+long	ft_atol(const char *str);
 int		ft_isdigit(char c);
 
 #endif

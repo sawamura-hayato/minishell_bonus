@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:11 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/14 18:56:56 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 16:39:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,44 @@
 #include "init.h"
 #include <stdlib.h>
 
-void	overflow(char *str, t_data *d);
+bool	exit_is_overflow(char *str);
+void	exit_put_error_numeric(t_data *d, char *str);
+void	exit_put_error_too_many_args(t_data *d);
+bool	exit_isspace(char c);
 
-enum
+static bool	is_args_digit(char *str)
 {
-	EXIT_NUMERIC_ARG = 2,
-};
-
-static void	is_args_digit(char *str, t_data *d)
-{
-	char	*msg;
-
+	if (*str == '\0')
+		return (true);
+	while (exit_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
+		str++;
 	while (*str != '\0')
 	{
 		if (!ft_isdigit(*str))
-		{
-			msg = try_strdup("exit\nexit: ");
-			msg = try_strjoin_free(msg, str);
-			msg = try_strjoin_free(msg, ": numeric argument required\n");
-			try_write(STDOUT_FILENO, msg, ft_strlen(msg), d);
-			free(msg);
-			exit(EXIT_NUMERIC_ARG);
-		}
+			return (true);
 		str++;
 	}
+	return (false);
 }
-
 
 void	builtin_exit(char **argv, t_data *d)
 {
+	const char	*msg = "exit\n";
+
 	if (argv[1] == NULL)
+	{
+		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 		exit(d->exit_status);
-	is_args_digit(argv[1], d);
-	ioverflow(argv[1], d);
+	}
+	if (is_args_digit(argv[1]))
+		exit_put_error_numeric(d, argv[1]);
+	if (exit_is_overflow(argv[1]))
+		exit_put_error_numeric(d, argv[1]);
+	if (argv[2] != NULL)
+		return (exit_put_error_too_many_args(d));
+	d->exit_status = (int)(unsigned char)ft_atol(argv[1]);
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	exit(d->exit_status);
 }
