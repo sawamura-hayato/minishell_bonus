@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 18:01:02 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 18:36:45 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 17:10:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static void	env_put_error(char *str, t_data *d)
 {
 	char	*msg;
 
+	d->exit_status = EXIT_FAILURE;
 	msg = try_strjoin_free(try_strdup("env: `"), str);
 	msg = try_strjoin_free(msg, "\': not a valid argument\n");
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
-	d->exit_status = EXIT_FAILURE;
+	free(msg);
 }
 
 static char	*make_str(char *str, t_envs *node)
