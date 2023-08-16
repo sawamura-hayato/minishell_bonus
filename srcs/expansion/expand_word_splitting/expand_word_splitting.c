@@ -6,14 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/16 11:48:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:55:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char *envs_get_value(char *_key, t_envs **envs_hashmap);
-
+char	*envs_get_value(char *_key, t_envs **envs_hashmap);
+int		printf(const char *format, ...);
 // char *expand_get_splitting_word(char **word)
 // {
 // 	// "    aa bbbb"     aa
@@ -92,19 +92,47 @@ char *envs_get_value(char *_key, t_envs **envs_hashmap);
 
 void expand_word_splitting(t_ast *node, t_data *d)
 {
-	char *ifs;
-	bool is_empty_ifs;
-	char *check_ifs_default_char;
+	// char *ifs;
+	// bool is_empty_ifs;
+	// char *check_ifs_default_char;
 
-	ifs = envs_get_value("IFS", d->envs_hashmap);
-	is_empty_ifs = expand_is_empty_ifs(ifs);
-	check_ifs_default_char = expand_check_ifs_default_char(ifs);
+	// ifs = envs_get_value("IFS", d->envs_hashmap);
+	// is_empty_ifs = expand_is_empty_ifs(ifs);
+	// check_ifs_default_char = expand_check_ifs_default_char(ifs);
 	// クウォートがある場合、IFS の値が空文字列の場合（IFS=, IFS='', IFS=""）
-	if (expand_is_word_splitting_word_list(node->command_list->word_list, ifs) &&
-		!is_empty_ifs)
-		expand_splitting_word_list(&node->command_list->word_list, ifs, check_ifs_default_char);
+	// if (expand_is_word_splitting_word_list(node->command_list->word_list, ifs) &&
+	// 	!is_empty_ifs)
+	// 	expand_splitting_word_list(&node->command_list->word_list, ifs, check_ifs_default_char);
 	// if (expand_is_word_spliting_redirect_list(node->command_list->redirect_list) && \
 	// 	!is_empty_ifs)
 	// 	expand_splitting_redirect_list(&(node->command_list->redirect_list), ifs);
 	// free(check_ifs_default_char);
+	(void)node;
+	(void)d;
+}
+
+int main(void)
+{
+	// printf("ifs   %s\n", expand_check_ifs_default_char("aa df ae e"));
+	// printf("ifs   %s\n", expand_check_ifs_default_char("aa df ae\nne"));
+	// t_word_list	*word_list;
+
+	// quote flagがない場合
+	// word_list = debug_new_word_list("word_splitting", 1, WORD);
+	// word_list->is_expand = true;
+	// // printf("ifs   %s\n", expand_check_ifs_default_char("aa df\tae e\t"));
+	// // printf("ifs   %s\n", expand_check_ifs_default_char("aadf\taee\n"));
+	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "fa\n"), "word_splitting");
+	// debug_bool_printf_test(expand_is_word_splitting_word_list(word_list, " t "), "word_splitting");
+	// debug_bool_printf_test(expand_is_word_splitting_word_list(word_list, "_"), "word_splitting");
+	
+	// quote flagがある場合
+	// word_list = debug_new_word_list("\"", 1, TOKEN_DOUBLE_QUOTE);
+	// word_list->is_expand = true;
+	// word_list->next = debug_new_word_list("word_splitting", 1, WORD);
+	// word_list->next->next = debug_new_word_list("\"", 1, TOKEN_DOUBLE_QUOTE);
+	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "fa\n"), "word_splitting");
+	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, " t "), "word_splitting");
+	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "_"), "word_splitting");
+	return (0);
 }

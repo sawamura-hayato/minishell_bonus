@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 16:55:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:37:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@ void redirect_delete_taget(t_redirect_list **head, t_redirect_list *target);
 //  void	expand_splitting_redirect_list(t_redirect_list *redirect_list, t_envs *ifs);
 //  void	expand_word_splitting(t_ast *node, t_data *d);
 
+
+// bool	expand_is_word_splitting(char *token, char *ifs);
+bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs);
+bool	expand_is_empty_ifs(char *ifs);
+// char	*expand_set_ifs_default_char(int f_space, int f_tab, int f_new_line);
+char	*expand_check_ifs_default_char(char *ifs);
+
+
 // expand_filename.c
 void expand_filename(t_ast *node);
 void expand_filename_word_list(t_word_list *word_list);
@@ -79,6 +87,7 @@ t_command *debug_new_command(t_word_list *word_list, t_redirect_list *redirect_l
 t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type);
 t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_type type);
 
+void	debug_bool_printf_test(bool flag, char *msg);
 void debug_printf_word_list(t_word_list *word_list);
 void debug_free_word_list(t_word_list *word_list);
 void debug_printf_redirect(t_redirect_list *redirect);

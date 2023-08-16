@@ -3,6 +3,17 @@
 
 int printf(const char *format, ...);
 
+void	debug_bool_printf_test(bool flag, char *msg)
+{
+	static size_t i = 0;
+
+	printf("[test: %zu]\n", i++);
+	if (flag)
+		printf("\e[0;32mok\033[0m: %s\n", msg);
+	else
+		printf("\e[0;31mko\033[0m: %s\n", msg);
+}
+
 void debug_printf_test(char *testA, char *testB)
 {
 	static size_t i = 0;
