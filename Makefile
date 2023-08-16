@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/13 19:19:25 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/15 16:42:55 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,11 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
 	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/pwd/pwd.c	\
+	    $(BUILTIN_DIR)/echo/echo.c	\
+	    $(BUILTIN_DIR)/exit/exit.c	\
+	    $(BUILTIN_DIR)/exit/exit_error.c	\
+	    $(BUILTIN_DIR)/exit/exit_overflow.c　\
 	    $(BUILTIN_DIR)/unset/unset.c	\
 	    $(BUILTIN_DIR)/env/env.c
 
