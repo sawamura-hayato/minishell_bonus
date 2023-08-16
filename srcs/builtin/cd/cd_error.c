@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   cd_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 17:47:34 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 17:26:47 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/16 17:37:30 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/16 17:39:25 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "library.h"
+#include "init.h"
 #include <stdlib.h>
 
-void	builtin_unset(char **argv, t_data *d)
+bool	cd_iserror(char **argv)
 {
-	size_t	i;
+	size_t	size;
 
-	d->exit_status = EXIT_SUCCESS;
-	i = 1;
-	while (argv[i] != NULL)
-	{
-		if (ft_strcmp(argv[i], "_") != 0)
-			envs_delete(argv[i], d->envs_hashmap);
-		if (ft_strcmp(argv[i], "OLDPWD") == 0)
-		{
-			free(d->oldpwd);
-			d->oldpwd = NULL;
-		}
-		i++;
-	}
+	size = 0;
+	while (argv[size] != NULL)
+		size++;
+	return (size > 2);
+}
+
+void	cd_put_error_too_many_args(t_data *d)
+{
+	const char	*msg = "cd: too many arguments\n";
+
+	d->exit_status = EXIT_FAILURE;
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 }

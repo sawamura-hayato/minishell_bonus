@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 17:03:27 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/16 18:22:04 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	init_three_envs(t_data *d)
 	if (envs_get_node("SHLVL", d->envs_hashmap) == NULL)
 		envs_newnode(try_strdup("SHLVL"), try_strdup("1"), d->envs_hashmap);
 	d->pwd = cwd;
-	d->oldpwd = NULL;
+	d->oldpwd = envs_get_value("OLDPWD", d->envs_hashmap);
 }
 
 void	envs_init(const char **environ, t_data *d)

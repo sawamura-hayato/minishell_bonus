@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:21:48 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/16 15:27:50 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/16 17:48:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	try_chdir(const char *path, t_data *d)
+bool	try_chdir(const char *path, t_data *d)
 {
 	char	*msg;
 
@@ -26,5 +26,7 @@ void	try_chdir(const char *path, t_data *d)
 		msg = try_strjoin_free(msg, path);
 		perror(msg);
 		free(msg);
+		return (false);
 	}
+	return (true);
 }
