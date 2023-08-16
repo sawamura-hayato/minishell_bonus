@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:54:13 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:54:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 09:54:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void redirect_delete_head(t_redirect **head)
 	t_redirect *tmp;
 
 	node = *head;
+	if (node == NULL)
+		return;
 	tmp = node->next;
 	redirect_free(node);
 	*head = tmp;
@@ -42,7 +44,7 @@ void redirect_delete_tail(t_redirect **head)
 	node->next = NULL;
 }
 
-void redirect_delete_taget(t_redirect **head, t_redirect *target)
+void redirect_delete_target(t_redirect **head, t_redirect *target)
 {
 	t_redirect *tmp;
 	t_redirect *node;

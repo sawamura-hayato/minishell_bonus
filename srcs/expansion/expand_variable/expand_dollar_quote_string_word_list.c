@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:51:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 09:54:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ void expand_delete_dollar_quote_word_list(t_word_list **head, bool is_head_dolla
 	{
 		word_list_delete_head(head);
 		word_list_delete_head(head);
-		word_list_delete_taget(head, (*head)->next);
+		word_list_delete_target(head, (*head)->next);
 	}
 	else
 	{
 		while (ft_strcmp((*head)->next->word, "$"))
 			(*head) = (*head)->next;
-		word_list_delete_taget(head, (*head)->next);
-		word_list_delete_taget(head, (*head)->next);
+		word_list_delete_target(head, (*head)->next);
+		word_list_delete_target(head, (*head)->next);
 		if ((*head)->next->next == NULL)
 			word_list_delete_tail(head);
 		else
-			word_list_delete_taget(head, (*head)->next->next);
+			word_list_delete_target(head, (*head)->next->next);
 		(*head) = node;
 	}
 }

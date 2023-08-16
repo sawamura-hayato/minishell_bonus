@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:36:12 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 14:36:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 09:54:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void word_list_delete_head(t_word_list **head)
 	t_word_list *tmp;
 
 	node = *head;
+	if (node == NULL)
+		return;
 	tmp = node->next;
 	word_list_free(node);
 	*head = tmp;
@@ -42,7 +44,7 @@ void word_list_delete_tail(t_word_list **head)
 	node->next = NULL;
 }
 
-void word_list_delete_taget(t_word_list **head, t_word_list *target)
+void word_list_delete_target(t_word_list **head, t_word_list *target)
 {
 	t_word_list *tmp;
 	t_word_list *node;
