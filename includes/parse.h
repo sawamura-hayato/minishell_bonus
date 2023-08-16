@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 20:16:48 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/16 22:20:49 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "ft.h"
 # include "init.h"
 # include "tokenize.h"
+#include "library.h"
+#include <unistd.h>
 
 typedef enum e_redirect_type
 {
@@ -107,10 +109,13 @@ void	redirect_list_addback(t_redirect_list **head,
 void	redirect_set_type(t_redirect_list *node ,t_token *token); //redirectタイプをsetする関数
 //error関連
 bool					ast_is_opereter(t_token_type type);
+bool token_is_quotation(t_token *token);
+
 bool					token_is_quotation_closed(t_token *token);
 void					ast_expect(t_token **current_token, char op,t_data *d);
 t_token					*token_next(t_token **current_token,t_data *d);
 void	ast_syntax_error(t_data *d);
+t_command *command_list_init_node();
 
 		/* void* try_calloc(size_t nmemb,size_t size); */
 

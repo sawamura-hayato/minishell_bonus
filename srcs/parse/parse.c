@@ -6,13 +6,14 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/15 21:23:09 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/16 22:20:48 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
 /*                                                                            */
 #include "parse.h"
 #include "library.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 t_ast	*parse(t_token **current_token, t_data *d)
 {
@@ -23,19 +24,28 @@ t_ast	*parse(t_token **current_token, t_data *d)
 
 	token = *current_token;
 	left_node = ast_command_node(&token, d);
+	printf("left node:%s\n",left_node->command_list->word_list->word);
+	printf("left node p:%p\n",left_node);
+	token = token->next;
 	if (d->syntax_flag)
 		return (left_node);
 	while (true)
 	{
 		if (token != NULL && ast_is_opereter(token->type))
 		{
-			type = PS_COMMAND;
+			type = PS_PIPE;
 			token = token->next; //operatarのtoken
 			right_node = ast_command_node(&token,d);
+			printf("right node:%s\n",right_node->command_list->word_list->word);
+			printf("right node p:%p\n",right_node);
 			if(d->syntax_flag)
 				return (left_node);
 			left_node = ast_operator_node(type, left_node,
 					right_node,d);
+			printf("ope node d:%d\n",left_node->type);
+			printf("ope node p:%p\n",left_node);
+			printf("ope node left:p:%p\n",left_node->left_hand);
+			printf("ope node right:p:%p\n",left_node->right_hand);
 			if(d->syntax_flag)
 				return (left_node);
 		}
@@ -70,19 +80,25 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data *d)
 {
 	t_token *token;
+	t_command *command_list_node;
 
 	token = *current_token;
+	command_list_node = command_list_init_node();
+	ast_command_node->command_list = command_list_node;
 	while (token != NULL && !ast_is_opereter(token->type))
 	{
-		ast_command_node->command_list->fd = STDOUT_FILENO;
-		ast_command_node->command_list->pid = -1;
+		printf("token :%s\n",token->word);
 		if (token_is_redirect(token->type))
 			command_redirect_list(&(ast_command_node->command_list->redirect_list),current_token,d);
 		else
+		{
 			command_word_list(&(ast_command_node->command_list->word_list),
 								current_token);
-		if (!token_next(current_token,d) || d->syntax_flag)
-			return (NULL);
+		}
+		if (token_next(current_token,d) == NULL || d->syntax_flag)
+			break;
+		token = token->next;
+			/* return (NULL); */
 	}
 	return (ast_command_node);
 }
@@ -111,30 +127,15 @@ t_ast	*ast_init_node()
 	return (node);
 }
 
-/* void	ast_addback(t_ast **head, t_ast *new_node) */
-/* { */
-/* 	t_ast	*node; */
+t_command *command_list_init_node()
+{
+	t_command* node;
+	node = try_calloc(1, sizeof(t_command));
+	node->fd = STDOUT_FILENO;
+	node->pid = -1;
 
-/* 	node = *head; */
-/* 	while (node != NULL) */
-/* 	{ */
-/* 		if (node->next == NULL) */
-/* 			break ; */
-/* 		node = node->next; */
-/* 	} */
-/* 	if (node != NULL) */
-/* 	{ */
-/* 		node->next = new_node; */
-/* 		new_node->next = NULL; */
-/* 		new_node->prev = node; */
-/* 	} */
-/* 	else */
-/* 	{ */
-/* 		new_node->next = NULL; */
-/* 		new_node->prev = NULL; */
-/* 		*head = new_node; */
-/* 	} */
-/* } */
+	return(node);
+}
 
 void	command_word_list(t_word_list **head, t_token **current_token)
 {
@@ -251,13 +252,29 @@ t_token	*token_next(t_token **current_token,t_data *d)
 	t_token	*token;
 
 	token = *current_token;
+	if(token->next== NULL)
+		return(NULL);
 	token = token->next;
-	if (token != NULL && token_is_quotation_closed(token) == false)
+	printf("token_next:%s\n",token->word);
+	if (token != NULL && token_is_quotation(token)) 
 	{
-		ast_syntax_error(d);
-		return (NULL);
+		if(token_is_quotation_closed(token) == false)
+		{
+			ast_syntax_error(d);
+			return (NULL);
+		}
 	}
 	return (token);
+}
+
+bool token_is_quotation(t_token *token)
+{
+	if(token->type == SINGLE_QUOTE)
+		return (true);
+	else if(token->type == DOUBLE_QUOTE)
+		return (true);
+	else
+		return(false);
 }
 
 bool					token_is_quotation_closed(t_token *token)
