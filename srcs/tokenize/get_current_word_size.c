@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:58:47 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/07 23:01:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:39:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	token_get_operator_size(char *line)
 	return (size);
 }
 
-size_t	token_get_redirect_size(char *line)
+size_t	token_get_redirect_list_size(char *line)
 {
 	size_t	size;
 	size_t	redirect_input;
@@ -68,7 +68,7 @@ size_t	token_get_special_word_size(char *line)
 
 	size = 0;
 	size += token_get_operator_size(line);
-	size += token_get_redirect_size(line);
+	size += token_get_redirect_list_size(line);
 	return (size);
 }
 

@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:49:50 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:50:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 16:59:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void expand_token_redirect(t_redirect *redirect, t_data *d)
+void expand_token_redirect(t_redirect_list *redirect, t_data *d)
 {
 	char *expand_word;
 
@@ -20,9 +20,9 @@ void expand_token_redirect(t_redirect *redirect, t_data *d)
 	redirect->word = expand_word;
 }
 
-void expand_delete_dollar_quote_redirect(t_redirect **head, bool is_head_dollar)
+void expand_delete_dollar_quote_redirect(t_redirect_list **head, bool is_head_dollar)
 {
-	t_redirect *node;
+	t_redirect_list *node;
 
 	node = *head;
 	if (is_head_dollar)
@@ -45,46 +45,46 @@ void expand_delete_dollar_quote_redirect(t_redirect **head, bool is_head_dollar)
 	}
 }
 
-void expand_dollar_quote_string_redirect(t_redirect **head)
+void expand_dollar_quote_string_redirect(t_redirect_list **head)
 {
-	t_redirect *node;
+	t_redirect_list *node;
 
 	if (!ft_strcmp((*head)->word, "$") &&
-		((*head)->next->type == RD_SINGLE_QUOTE || (*head)->next->type == RD_DOUBLE_QUOTE))
+		((*head)->next->type == PS_REDIRECT_SINGLE_QUOTE || (*head)->next->type == PS_REDIRECT_DOUBLE_QUOTE))
 		expand_delete_dollar_quote_redirect(head, true);
 	node = *head;
 	while ((*head) != NULL && (*head)->next != NULL && (*head)->next->next != NULL)
 	{
 		if (!ft_strcmp((*head)->next->word, "$") &&
-			((*head)->next->next->type == RD_SINGLE_QUOTE ||
-			 (*head)->next->next->type == RD_DOUBLE_QUOTE))
+			((*head)->next->next->type == PS_REDIRECT_SINGLE_QUOTE ||
+			 (*head)->next->next->type == PS_REDIRECT_DOUBLE_QUOTE))
 			expand_delete_dollar_quote_redirect(head, false);
 		*head = (*head)->next;
 	}
 	*head = node;
 }
 
-bool expand_is_dollar_quote_string_redirect(t_redirect *head)
+bool expand_is_dollar_quote_string_redirect(t_redirect_list *head)
 {
-	t_redirect *node;
+	t_redirect_list *node;
 
 	node = head;
 	if (node == NULL || node->next == NULL)
 		return (false);
 	if (!ft_strcmp(node->word, "$") &&
-		(node->next->type == RD_SINGLE_QUOTE || node->next->type == RD_DOUBLE_QUOTE))
+		(node->next->type == PS_REDIRECT_SINGLE_QUOTE || node->next->type == PS_REDIRECT_DOUBLE_QUOTE))
 		return (true);
 	while (node->next->next != NULL)
 	{
 		if (!ft_strcmp(node->next->word, "$") &&
-			(node->next->next->type == RD_SINGLE_QUOTE || node->next->next->type == RD_DOUBLE_QUOTE))
+			(node->next->next->type == PS_REDIRECT_SINGLE_QUOTE || node->next->next->type == PS_REDIRECT_DOUBLE_QUOTE))
 			return (true);
 		node = node->next;
 	}
 	return (false);
 }
 
-t_redirect *expand_can_dollar_quote_string_redirect(t_redirect **head)
+t_redirect_list *expand_can_dollar_quote_string_redirect(t_redirect_list **head)
 {
 	if (expand_is_dollar_quote_string_redirect(*head))
 		expand_dollar_quote_string_redirect(head);

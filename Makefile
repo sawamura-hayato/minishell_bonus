@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/15 16:23:55 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/15 17:01:27 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,14 +37,14 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 PARSE_DIR = parse
 
 EXPANSION_DIR = expansion
-EXPANSION_VARI_DIR = expand_variable
-EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
 EXPANSION_FILENAME_DIR = expand_filename
 EXPANSION_DELETE_QUOTE = expand_delete_quote
 
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
+		
+EXPANSION_VARI_DIR = expand_variable
+SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_redirect.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_expanded_token.c \
@@ -52,6 +52,11 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_redirect.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_redirect.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_word_list.c \
+
+EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
+SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_splitting.c \
+
 
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
