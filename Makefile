@@ -65,6 +65,11 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
 	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/pwd/pwd.c	\
+	    $(BUILTIN_DIR)/echo/echo.c	\
+	    $(BUILTIN_DIR)/exit/exit.c	\
+	    $(BUILTIN_DIR)/exit/exit_error.c	\
+	    $(BUILTIN_DIR)/exit/exit_overflow.c　\
 	    $(BUILTIN_DIR)/unset/unset.c	\
 	    $(BUILTIN_DIR)/env/env.c
 
