@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
@@ -52,7 +52,9 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/echo/echo.c	\
 	    $(BUILTIN_DIR)/exit/exit.c	\
 	    $(BUILTIN_DIR)/exit/exit_error.c	\
-	    $(BUILTIN_DIR)/exit/exit_overflow.c
+	    $(BUILTIN_DIR)/exit/exit_overflow.c　\
+	    $(BUILTIN_DIR)/unset/unset.c	\
+	    $(BUILTIN_DIR)/env/env.c
 
 
 LIBRARY_DIR = library
