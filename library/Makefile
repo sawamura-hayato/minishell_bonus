@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/16 15:29:25 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/16 19:36:59 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,10 +31,12 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_isupper.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_memchr.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strncmp.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp_ignorecase.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_atoi.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_atol.c	\
-			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c
+			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strstr.c
 
 TRY_DIR = try
 SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \

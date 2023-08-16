@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 18:17:02 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/16 20:01:12 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 bool	cd_iserror(char **argv);
 void	cd_put_error_too_many_args(t_data *d);
+bool	cd_is_cdpath(char *path);
+void	cd_cdpath(char *path, t_data *d);
 
 static void	cd_update(t_data *d)
 {
@@ -75,10 +77,15 @@ static void	cd_oldpwd(t_data *d)
 	cd_update(d);
 }
 
+void	cd_exec(char *path, t_data *d)
+{
+	if (!try_chdir(path, d))
+		return ;
+	cd_update(d);
+}
+
 void	builtin_cd(char **argv, t_data *d)
 {
-	const char	*msg;
-
 	d->exit_status = EXIT_SUCCESS;
 	if (cd_iserror(argv))
 		return (cd_put_error_too_many_args(d));
@@ -86,5 +93,7 @@ void	builtin_cd(char **argv, t_data *d)
 		return (cd_nodir(d));
 	if (ft_strcmp(argv[1], "-") == 0)
 		return (cd_oldpwd(d));
-	try_chdir(argv[1], d);
+	if (cd_is_cdpath(argv[1]))
+		return (cd_cdpath(argv[1], d));
+	cd_exec(argv[1], d);
 }

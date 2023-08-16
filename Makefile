@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/16 17:12:30 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/16 19:57:52 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,10 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/exit/exit_error.c	\
 	    $(BUILTIN_DIR)/exit/exit_overflow.c	\
 	    $(BUILTIN_DIR)/unset/unset.c	\
-	    $(BUILTIN_DIR)/env/env.c
+	    $(BUILTIN_DIR)/env/env.c	\
+	    $(BUILTIN_DIR)/cd/cd.c	\
+	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
+	    $(BUILTIN_DIR)/cd/cd_error.c
 
 
 LIBRARY_DIR = library

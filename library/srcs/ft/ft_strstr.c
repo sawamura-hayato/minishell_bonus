@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_error.c                                         :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/16 17:37:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 20:02:33 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/16 19:23:44 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/16 21:14:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init.h"
 #include "library.h"
-#include <stdlib.h>
 
-bool	cd_iserror(char **argv)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	size_t	size;
-
-	size = 0;
-	while (argv[size] != NULL)
-		size++;
-	return (size > 2);
-}
-
-void	cd_put_error_too_many_args(t_data *d)
-{
-	const char	*msg = "cd: too many arguments\n";
-
-	d->exit_status = EXIT_FAILURE;
-	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	while (*haystack != '\0')
+	{
+		if (ft_strncmp(haystack, needle, ft_strlen(needle)) == 0)
+			return ((char *)haystack);
+		haystack++;
+	}
+	return (NULL);
 }

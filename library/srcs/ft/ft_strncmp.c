@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd_error.c                                         :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/16 17:37:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 20:02:33 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/16 19:32:14 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/16 19:33:16 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init.h"
 #include "library.h"
-#include <stdlib.h>
 
-bool	cd_iserror(char **argv)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	size;
+	unsigned char	*casted_s1;
+	unsigned char	*casted_s2;
+	int				diff;
+	size_t			i;
 
-	size = 0;
-	while (argv[size] != NULL)
-		size++;
-	return (size > 2);
-}
-
-void	cd_put_error_too_many_args(t_data *d)
-{
-	const char	*msg = "cd: too many arguments\n";
-
-	d->exit_status = EXIT_FAILURE;
-	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	casted_s1 = (unsigned char *)s1;
+	casted_s2 = (unsigned char *)s2;
+	diff = 0;
+	i = 0;
+	while (i < n)
+	{
+		diff = *casted_s1 - *casted_s2;
+		if (!*casted_s1 || !*casted_s2)
+			break ;
+		if (diff != 0)
+			return (diff);
+		casted_s1++;
+		casted_s2++;
+		i++;
+	}
+	return (diff);
 }
