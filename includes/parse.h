@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 16:57:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:54:25 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ typedef enum e_ast_node_type
 typedef struct s_word_list
 {
 	char *word;
-	size_t index; // クォートが閉じるまで更新されない
+	bool	is_expand;
+	size_t		index; // クォートが閉じるまで更新されない
 	t_token_type type;
 	struct s_word_list *next;
 } t_word_list;
@@ -49,6 +50,7 @@ typedef struct s_word_list
 typedef struct s_redirect_list
 {
 	char *word;
+	bool	is_expand;
 	size_t index;
 	t_redirect_type type;
 	bool is_ambiguous_error;	  // 初期値はfalse

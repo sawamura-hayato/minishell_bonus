@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 17:03:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/16 11:48:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char	*envs_get_value(char *_key, t_envs **envs_hashmap);
+char *envs_get_value(char *_key, t_envs **envs_hashmap);
 
 // char *expand_get_splitting_word(char **word)
 // {
@@ -55,7 +55,7 @@ char	*envs_get_value(char *_key, t_envs **envs_hashmap);
 // 	new_word_list = NULL;
 // 	head = word_list;
 // 	// IFSがデフォルトの場合
-// 	if (expand_is_ifs_default(ifs->value) ||
+// 	if (expand_check_ifs_default_char(ifs->value) ||
 // 		ft_strchr(ifs->value, ' ') ||
 // 		ft_strchr(ifs->value, '\t'))
 // 	{
@@ -93,17 +93,18 @@ char	*envs_get_value(char *_key, t_envs **envs_hashmap);
 void expand_word_splitting(t_ast *node, t_data *d)
 {
 	char *ifs;
+	bool is_empty_ifs;
+	char *check_ifs_default_char;
 
 	ifs = envs_get_value("IFS", d->envs_hashmap);
+	is_empty_ifs = expand_is_empty_ifs(ifs);
+	check_ifs_default_char = expand_check_ifs_default_char(ifs);
 	// クウォートがある場合、IFS の値が空文字列の場合（IFS=, IFS='', IFS=""）
-	// if (!expand_check_quote(&node->command_list->word_list) && \
-	// 	!expand_check_quote(&node->command_list->word_list)&&
-	// 	!expand_is_empty_str(ifs->value))
-	// {
-	// 	expand_splitting_word_list(&node->command_list->word_list, ifs);
+	if (expand_is_word_splitting_word_list(node->command_list->word_list, ifs) &&
+		!is_empty_ifs)
+		expand_splitting_word_list(&node->command_list->word_list, ifs, check_ifs_default_char);
+	// if (expand_is_word_spliting_redirect_list(node->command_list->redirect_list) && \
+	// 	!is_empty_ifs)
 	// 	expand_splitting_redirect_list(&(node->command_list->redirect_list), ifs);
-	// }
-	(void)node;
-	(void)d;
-	(void)ifs;
+	// free(check_ifs_default_char);
 }
