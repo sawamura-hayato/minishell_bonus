@@ -64,7 +64,9 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_show.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
-	    $(BUILTIN_DIR)/export/export_error.c
+	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/unset/unset.c	\
+	    $(BUILTIN_DIR)/env/env.c
 
 
 LIBRARY_DIR = library

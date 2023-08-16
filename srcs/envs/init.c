@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 16:35:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/13 19:13:33 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,15 @@ void	envs_init(const char **environ, t_data *d)
 // 	builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
 // 	builtin_export((char *[]){"export", "_=", "_B+=b", "_A", "c", "d", "e", "f", "g", NULL}, &d);
 // 	builtin_export((char *[]){"export", NULL}, &d);
+// 	builtin_env((char *[]){"export", NULL}, &d);
+// 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+// 	builtin_unset((char *[]){"unset", "SHLVL", "PWD", NULL}, &d);
+// 	builtin_unset((char *[]){"unset", "PWD","OLDPWD", "SHLVL", "_", NULL}, &d);
+// 	builtin_unset((char *[]){"unset", "$@#", "test", "1';'", NULL}, &d);
+// 	builtin_unset((char *[]){"unset", "_", NULL}, &d);
+// 	builtin_export((char *[]){"export", NULL}, &d);
+// 	printf("------------------------------------------------------------------------------------------------------------------------------------\n");
+// 	builtin_env((char *[]){"env", NULL}, &d);
 
 
 // 	return (0);
