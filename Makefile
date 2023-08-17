@@ -6,14 +6,14 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/16 19:57:52 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/17 18:41:06 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -48,6 +48,7 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
 	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/export/export_set_oldpwd.c	\
 	    $(BUILTIN_DIR)/pwd/pwd.c	\
 	    $(BUILTIN_DIR)/echo/echo.c	\
 	    $(BUILTIN_DIR)/exit/exit.c	\
@@ -57,7 +58,8 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/env/env.c	\
 	    $(BUILTIN_DIR)/cd/cd.c	\
 	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
-	    $(BUILTIN_DIR)/cd/cd_error.c
+	    $(BUILTIN_DIR)/cd/cd_error.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dot.c
 
 
 LIBRARY_DIR = library

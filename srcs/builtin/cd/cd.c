@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 20:01:12 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/17 18:44:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ bool	cd_iserror(char **argv);
 void	cd_put_error_too_many_args(t_data *d);
 bool	cd_is_cdpath(char *path);
 void	cd_cdpath(char *path, t_data *d);
+char	*cd_delete_dot_firstcomp(char *path, t_data *d);
 
 static void	cd_update(t_data *d)
 {
@@ -86,6 +87,8 @@ void	cd_exec(char *path, t_data *d)
 
 void	builtin_cd(char **argv, t_data *d)
 {
+	char	*path;
+
 	d->exit_status = EXIT_SUCCESS;
 	if (cd_iserror(argv))
 		return (cd_put_error_too_many_args(d));
@@ -93,7 +96,11 @@ void	builtin_cd(char **argv, t_data *d)
 		return (cd_nodir(d));
 	if (ft_strcmp(argv[1], "-") == 0)
 		return (cd_oldpwd(d));
-	if (cd_is_cdpath(argv[1]))
-		return (cd_cdpath(argv[1], d));
+	path = cd_delete_dot_firstcomp(try_strdup(argv[1]), d);
+	printf("path=%s\n", path);
+	if (path == NULL)
+		return ;
+	if (cd_is_cdpath(path))
+		cd_cdpath(argv[1], d);
 	cd_exec(argv[1], d);
 }

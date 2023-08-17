@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 16:53:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/17 14:21:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap);
 void	envs_delete(char *_key, t_envs **envs_hashmap);
 char	**envs_make_envp(t_envs **envs_hashmap);
 void	envs_free_node(t_envs *node);
-t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap);
-char	*envs_get_value(char *_key, t_envs **envs_hashmap);
+t_envs	*envs_get_node(const char *_key, t_envs **envs_hashmap);
+char	*envs_get_value(const char *_key, t_envs **envs_hashmap);
 size_t	envs_get_hashmap_index(char alpha);
 // int		ft_strcmp(const char *s1, const char *s2);
 // int		ft_isupper(char c);

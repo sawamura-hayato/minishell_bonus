@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 21:13:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/17 17:49:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ void	cd_exec(char *path, t_data *d);
 #include <stdio.h>
 bool	cd_is_cdpath(char *path)
 {
-	char	*ptr;
+	const char	*curdir = "./";
+	const char	*prevdir = "../";
 
-	ptr = ft_memchr((void *)path, '/', ft_strlen(path));
-	return (ptr == NULL || *(ptr + 1) == '\0');
+	return (
+		*path != '/'
+		&& ft_strncmp(path, curdir, ft_strlen(curdir)) != 0
+		&& ft_strncmp(path, prevdir, ft_strlen(prevdir)) != 0
+	);
 }
 
-// =/tterao:/eree::
-// =/tterao:/eree:.
 static char	*cdpath_doublecolon(char *cdpath)
 {
 	char	*new_cdpath;
@@ -55,14 +57,15 @@ static char	*cdpath_singlecolon(char *cdpath)
 	target = ft_memchr(cdpath, ':', ft_strlen(cdpath));
 	if (target == NULL)
 		return (cdpath);
+	printf("target %s\n", target);
 	while (target != NULL)
 	{
-		if (t_memchr(target, ':', ft_strlen(target)) == NULL)
+		if (*(target + 1) == '\0')
 			break ;
-		target = ft_memchr(target, ':', ft_strlen(target));
+		target = ft_memchr(target + 1, ':', ft_strlen(target + 1));
 	}
-	if (*(target + 1) != '\0')
-		return (cd_cdpath);
+	if (target == NULL || *(target + 1) != '\0')
+		return (cdpath);
 	new_cdpath = try_substr(cdpath, 0, target - &cdpath[0]);
 	new_cdpath = try_strjoin_free(new_cdpath, ".:");
 	free(cdpath);
@@ -78,6 +81,7 @@ void	cd_cdpath(char *path, t_data *d)
 	if (cdpath == NULL)
 		return (cd_exec(path, d));
 	cdpath = cdpath_doublecolon(cdpath);
+	printf("%s\n", cdpath);
 	cdpath = cdpath_singlecolon(cdpath);
 	printf("%s\n", cdpath);
 
