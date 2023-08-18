@@ -11,11 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef PARSE_H
-# define PARSE_H
+#define PARSE_H
 
+#include "tokenize.h"
 # include "ft.h"
 # include "init.h"
-# include "tokenize.h"
+
 
 typedef enum e_redirect_type
 {
@@ -45,12 +46,6 @@ typedef struct s_word_list
 	t_token_type		type;
 	struct s_word_list	*next;
 }						t_word_list;
-
-struct s_word_split
-{
-	char				*word;
-	struct s_word_split	*next;
-};
 
 typedef struct s_redirect_list
 {

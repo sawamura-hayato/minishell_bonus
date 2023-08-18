@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 18:28:04 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/07 22:21:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/13 19:57:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	token_is_a_control_char(t_token_type token_type)
 {
-	if (token_type == LOGICAL_AND || \
-		token_type == LOGICAL_OR || \
-		token_type == PIPE || \
+	if (token_type == TOKEN_LOGICAL_AND || \
+		token_type == TOKEN_LOGICAL_OR || \
+		token_type == TOKEN_PIPE || \
 		token_type == REDIRECT)
 		return (true);
 	return (false);

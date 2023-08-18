@@ -17,5 +17,5 @@ test
 .DS_Store
 .DS_Store?
 *.dSYM
-.vscode
-.history/*
+**/.vscode
+**/.history
