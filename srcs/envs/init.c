@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 16:35:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/18 11:34:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdlib.h>
 
 #define SHLVL_MAX_VALUE 999
+
+int		printf(const char *format, ...);
 
 static char	*get_key(const char *str)
 {
@@ -56,6 +58,8 @@ static void	init_three_envs(t_data *d)
 		envs_newnode(try_strdup("PWD"), getcwd(NULL, 0), d->envs_hashmap);
 	if (envs_get_node("SHLVL", d->envs_hashmap) == NULL)
 		envs_newnode(try_strdup("SHLVL"), try_strdup("1"), d->envs_hashmap);
+	if (envs_get_node("IFS", d->envs_hashmap) == NULL)
+		envs_newnode(try_strdup("IFS"), try_strdup(" \t\n"), d->envs_hashmap);
 }
 
 void	envs_init(const char **environ, t_data *d)

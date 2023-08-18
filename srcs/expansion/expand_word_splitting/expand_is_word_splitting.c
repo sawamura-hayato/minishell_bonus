@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/16 13:50:53 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/18 12:12:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	expand_is_word_splitting(char *token, char *ifs)
 
 	i = 0;
 	j = 0;
+	if (token == NULL || ifs == NULL)
+		return (false);
 	while (token[i] != '\0')
 	{
 		while (ifs[j] != '\0')
@@ -54,16 +56,12 @@ bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs)
 			while (f_quote != word_list->type)
 			{
 				word_list = word_list->next;
-				//quoteが奇数の場合の処理なので要相談
 				if (word_list == NULL)
-					return (true);
+					return (false);
 			}
 		}
 		else
 		{
-			// debug_bool_printf_test(expand_is_word_splitting(word_list->word, ifs), "is_word_splitting");
-			// printf("word   %s\n", word_list->word);
-			// printf("ifs    %s\n", ifs);
 			if (expand_is_word_splitting(word_list->word, ifs) && \
 				word_list->is_expand)
 				return (true);
