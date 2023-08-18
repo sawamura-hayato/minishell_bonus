@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/18 12:14:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:22:43 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ int		printf(const char *format, ...);
 // それ以外の文字が任意で設定されている場合は
 // - 任意の文字が連続している場合、または前後に任意の文字があった場合ははNULL文字のトークンを作成する。
 // - 任意の文字が設定されてない文字同士の間にある場合は単語分割する（トークンを分ける）
+	// デフォルトなしの場合
+	// aabbaccaadd
+	// ifs = a
+	// NULL->NULL->bb->cc->NULL->dd
+	// デフォルトありの場合
+	// bba ccaadd
+	// ifs = a
+	// bba
+	// ccaadd
+	// bb->cc->NULL->dd
 
 static bool	is_str_in_char(char *str, char c)
 {
@@ -61,6 +71,44 @@ static bool	is_str_in_char(char *str, char c)
 		str++;
 	}
 	return (false);
+}
+
+void	expand_splitting_word_list_by_ifs_not_default_char(t_word_list **word_list, char *ifs)
+{
+	char		**arr;
+	t_word_list	*node;
+	size_t		i;
+
+	node = *word_list;
+	while ((*word_list)->word[i] != '\0')
+	{
+		if (is_str_in_char(ifs, (*word_list)->word[i]))
+		{
+			i++;
+			while (is_str_in_char(ifs, (*word_list)->word[i]))
+			{
+				word_list_new_target(word_list, (*word_list), debug_new_word_list(try_strdup(""), (*word_list)->index, (*word_list)->type));
+				(*word_list) = (*word_list)->next;
+			}
+		}
+		i++;
+	}
+	// free((*word_list)->word);
+	// printf("word%sd\n",(*word_list)->word);
+	// (*word_list)->word = expand_check_delete_front_and_back_position((*word_list)->word, ifs_default_char);
+	// printf("word%sd\n",(*word_list)->word);
+	arr = expand_get_arr_in_splitting_word((*word_list)->word, ifs);
+	// free((*word_list)->word);
+	(*word_list)->word = arr[0];
+	i = 1;
+	while (arr[i] != NULL)
+	{
+	// 	printf("splitting word   %s\n", (*word_list)->word);
+		word_list_new_target(word_list, (*word_list), debug_new_word_list(arr[i], (*word_list)->index, (*word_list)->type));
+		(*word_list) = (*word_list)->next;
+		i++;
+	}
+	*word_list = node;
 }
 
 // 任意の文字列が前後に連続してある場合に削除する関数
@@ -76,7 +124,7 @@ char	*expand_check_delete_front_and_back_position(char *word, char *ifs_default_
 	while (is_str_in_char(ifs_default_char, word[start_index]))
 		start_index++;
 	end_index = ft_strlen(word);
-	while (is_str_in_char(ifs_default_char, word[end_index]))
+	while (is_str_in_char(ifs_default_char, word[end_index - 1]))
 		end_index--;
 	size = end_index - start_index + 1;
 	new_word = try_calloc(size, sizeof(char));
@@ -158,7 +206,9 @@ void	expand_splitting_word_list_by_ifs_default_char(t_word_list **word_list, cha
 
 	node = *word_list;
 	// free((*word_list)->word);
+	// printf("word%sd\n",(*word_list)->word);
 	(*word_list)->word = expand_check_delete_front_and_back_position((*word_list)->word, ifs_default_char);
+	printf("word%sd\n",(*word_list)->word);
 	arr = expand_get_arr_in_splitting_word((*word_list)->word, ifs_default_char);
 	// free((*word_list)->word);
 	(*word_list)->word = arr[0];
@@ -185,7 +235,7 @@ void expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_de
 		{
 			if (ifs_default_char != NULL)
 				expand_splitting_word_list_by_ifs_default_char(word_list, ifs_default_char);
-			// expand_splitting_word_list_by_ifs_not_default_char(word_list, ifs);
+			expand_splitting_word_list_by_ifs_not_default_char(word_list, ifs);
 		}
 		*word_list = (*word_list)->next;
 	}
