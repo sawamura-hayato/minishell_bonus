@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/17 18:44:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/18 18:21:57 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,10 @@ void	builtin_cd(char **argv, t_data *d)
 		return (cd_nodir(d));
 	if (ft_strcmp(argv[1], "-") == 0)
 		return (cd_oldpwd(d));
-	path = cd_delete_dot_firstcomp(try_strdup(argv[1]), d);
-	printf("path=%s\n", path);
-	if (path == NULL)
-		return ;
+	// path = cd_delete_dot_firstcomp(try_strdup(argv[1]), d);
+	// printf("path=%s\n", path);
 	if (cd_is_cdpath(path))
-		cd_cdpath(argv[1], d);
-	cd_exec(argv[1], d);
+		return (cd_cdpath(try_strdup(argv[1]), d));
+	path = cd_convert_path();
+	cd_exec(path, d);
 }

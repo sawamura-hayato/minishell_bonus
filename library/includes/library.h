@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/16 19:34:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/18 14:23:24 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
 int		ft_isdigit(char c);
 char	*ft_strstr(const char *haystack, const char *needle);
+char	*ft_strrchr(const char *s, int c);
 
 #endif
