@@ -12,7 +12,8 @@
 
 #include "library.h"
 #include "stdlib.h"
-#include "limits.h"
+#include <limits.h>
+#include <stdint.h>
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -32,7 +33,7 @@ void	*try_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
-	if (count != 0 && (SIZE_T_MAX / count) < size)
+	if (count != 0 && (SIZE_MAX / count) < size)
 		return (try_calloc(0, 0));
 	ptr = try_malloc(count * size);
 	ft_bzero(ptr, count * size);

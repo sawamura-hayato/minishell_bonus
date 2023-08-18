@@ -1,5 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */
+
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -12,6 +13,7 @@
 
 #include "minishell.h"
 #include "tokenize.h"
+#include "parse.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
@@ -38,13 +40,18 @@ static char	*read_line()
 void	read_eval_print_loop()
 {
 	char	*line;
+	t_token *token;
+	t_data d;
 
+	d.syntax_flag = false;
 	while (true)
 	{
 		line = read_line();
 		if (line == NULL)
 			break ;
-		debug_print_token(tokenize(line));
+		token = tokenize(line);
+		debug_print_token(token);
+		parse(&token,&d);
 		// printf("line          %s\n", line);
 		// printf("start 0 end 3 %s\n", ft_substr(line, -1, 3));
 		// printf("start 2 end 7 %s\n", ft_substr(line, 2, 7));

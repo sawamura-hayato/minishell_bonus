@@ -38,6 +38,10 @@ PARSE_DIR = parse
 SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
 
 # ENVS_DIR = $(SRCS_DIR)/envs
 # SRCS += $(ENVS_DIR)/init.c	\

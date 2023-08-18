@@ -33,6 +33,7 @@ typedef struct s_data
 {
 	t_envs	**envs_hashmap;
 	int		exit_status;
+	bool syntax_flag;
 }	t_data;
 
 void	envs_init(const char **environ, t_data *d);
