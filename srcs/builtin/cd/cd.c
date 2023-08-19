@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/18 18:21:57 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/19 16:46:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	cd_put_error_too_many_args(t_data *d);
 bool	cd_is_cdpath(char *path);
 void	cd_cdpath(char *path, t_data *d);
 char	*cd_delete_dot_firstcomp(char *path, t_data *d);
+void	cd_convert_path(char *path, t_data *d, bool is_cdpath);
 
 static void	cd_update(t_data *d)
 {
@@ -98,8 +99,8 @@ void	builtin_cd(char **argv, t_data *d)
 		return (cd_oldpwd(d));
 	// path = cd_delete_dot_firstcomp(try_strdup(argv[1]), d);
 	// printf("path=%s\n", path);
-	if (cd_is_cdpath(path))
+	if (cd_is_cdpath(argv[1]))
 		return (cd_cdpath(try_strdup(argv[1]), d));
-	path = cd_convert_path();
+	// path = cd_convert_path();
 	cd_exec(path, d);
 }

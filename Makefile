@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/17 18:41:06 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/19 16:44:24 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/cd/cd.c	\
 	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
 	    $(BUILTIN_DIR)/cd/cd_error.c	\
-	    $(BUILTIN_DIR)/cd/cd_delete_dot.c
+	    $(BUILTIN_DIR)/cd/cd_delete_dot.c	\
+	    $(BUILTIN_DIR)/cd/cd_convert_path.c
 
 
 LIBRARY_DIR = library

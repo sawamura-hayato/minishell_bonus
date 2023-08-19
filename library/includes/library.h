@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/18 14:23:24 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/19 16:42:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdbool.h>
 # include <stddef.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "init.h"
 
 // try
@@ -27,6 +29,7 @@ void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
 char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
 bool	try_chdir(const char *path, t_data *d);
+bool	try_stat(const char *path, struct stat *sb, t_data *d);
 
 // ft
 size_t	ft_strlen(const char *str);
