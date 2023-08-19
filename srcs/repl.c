@@ -41,6 +41,9 @@ void	read_eval_print_loop()
 {
 	char	*line;
 	t_token *token;
+	t_ast *pasre_node;
+	t_word_list *word_p;
+	t_redirect_list *redirect_p;
 	t_data d;
 
 	d.syntax_flag = false;
@@ -51,7 +54,20 @@ void	read_eval_print_loop()
 			break ;
 		token = tokenize(line);
 		debug_print_token(token);
-		parse(&token,&d);
+		pasre_node = parse(&token,&d);
+		word_p = pasre_node->command_list->word_list;
+		redirect_p = pasre_node->command_list->redirect_list;
+		while(word_p)
+		{
+			printf("word:%s\n",word_p->word);
+			word_p = word_p->next;
+		}
+		while(redirect_p)
+		{
+			printf("redirect type:%d ",redirect_p->type);
+			printf("redirect:%s\n",redirect_p->word);
+			redirect_p = redirect_p->next;
+		}
 		// printf("line          %s\n", line);
 		// printf("start 0 end 3 %s\n", ft_substr(line, -1, 3));
 		// printf("start 2 end 7 %s\n", ft_substr(line, 2, 7));

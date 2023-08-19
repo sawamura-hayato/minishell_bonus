@@ -44,13 +44,8 @@ void	command_word_list(t_word_list **head, t_token **current_token)
 	t_token *token;
 
 	token = *current_token;
-	while(token!=NULL && token->next == 0)
-	{
-		word_node = word_list_init_node(token);
-		printf("word_node->word is:%s\n",word_node->word);
-		word_list_addback(head, word_node);
-		token = token->next;
-	}
-	(*current_token) = token;
+	word_node = word_list_init_node(token);
+	printf("word_node->word is:%s\n",word_node->word);
+	word_list_addback(head, word_node);
 }
 

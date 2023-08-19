@@ -40,23 +40,31 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 {
 	t_token *token;
 	t_command *command_list_node;
+	bool redirect_flag;
 
 	token = *current_token;
 	command_list_node = command_list_init_node();
+	redirect_flag = false;
 	ast_command_node->command_list = command_list_node;
 	while (token != NULL && !ast_is_opereter(token->type))
 	{
-		if (token_is_redirect(token->type))
-			command_redirect_list(&(ast_command_node->command_list->redirect_list),&token,d);
+		if (token_is_redirect(token->type) || redirect_flag)
+		{
+			command_redirect_list(&(ast_command_node->command_list->redirect_list),&token,d,redirect_flag);
+			if(redirect_flag == false)
+				redirect_flag = true;
+			else
+				redirect_flag = false;
+		}
 		else
 		{
 			command_word_list(&(ast_command_node->command_list->word_list),
 								&token);
 		}
-		if (token == NULL || d->syntax_flag )
+		if (token_next(&token,d) == NULL || d->syntax_flag )
 				break;
-		printf("token is1:%s\n",token->word);
-		token_next(&token,d); 
+		/* printf("token is1:%s\n",token->word); */
+		/* token_next(&token,d); */ 
 	}
 	return (ast_command_node);
 }
