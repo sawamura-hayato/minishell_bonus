@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/19 18:54:43 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/19 19:04:16 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ bool	is_dir_with_permission(char *dirpath, t_data *d)
 	return (false);
 }
 
+static	char	*dup_dot(char *colon, bool *is_cdpath)
+{
+	(void *)colon;
+	*is_cdpath = false;
+	return (try_strdup("."));
+}
+
 static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 {
 	char	*colon;
@@ -92,16 +99,9 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 		return (cd_convert_path(join_path(try_strdup("."), path), d, false));
 	colon = ft_memchr((void *)cdpath, ':', ft_strlen(cdpath));
 	if (colon != NULL && (cdpath == colon && *(cdpath + 1) == ':'))
-	{
-		colon++;
-		eachpath = try_strdup(".");
-		is_cdpath = false;
-	}
+		eachpath = dup_dot(colon++, &is_cdpath);
 	else if (*cdpath == ':' || *(cdpath + 1) == '\0')
-	{
-		eachpath = try_strdup(".");
-		is_cdpath = false;
-	}
+		eachpath = dup_dot(colon, &is_cdpath);
 	else if (colon != NULL)
 		eachpath = try_substr(cdpath, 0, (colon - cdpath));
 	else
@@ -114,6 +114,7 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 	free(eachpath);
 	return (cd_cdpath_loop(path, colon, d));
 }
+
 
 void	cd_cdpath(char *path, t_data *d)
 {
