@@ -51,10 +51,7 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 		if (token_is_redirect(token->type) || redirect_flag)
 		{
 			command_redirect_list(&(ast_command_node->command_list->redirect_list),&token,d,redirect_flag);
-			if(redirect_flag == false)
-				redirect_flag = true;
-			else
-				redirect_flag = false;
+				redirect_flag = !redirect_flag;
 		}
 		else
 		{
