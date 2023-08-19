@@ -1,3 +1,0 @@
-<DIGIT> ::= 0 | 
-
-<NUMBER> ::= <DIGIT>

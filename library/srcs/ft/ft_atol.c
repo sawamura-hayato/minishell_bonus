@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 16:14:03 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/15 19:56:52 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/15 15:30:49 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/15 19:57:00 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #define UNSIGNED '+'
 #define SIGNED '-'
 
-static bool	is_space(char c)
+static bool	isspace(char c)
 {
 	return (c == '\n' || c == '\t' || c == '\f'
 		|| c == '\r' || c == '\v' || c == ' ');
@@ -42,21 +42,21 @@ static bool	is_overflow(long long sum, long long next_num, char sign)
 
 	if (sign == SIGNED)
 	{
-		of_div = LONG_MIN / -10;
-		of_mod = LONG_MIN % -10;
+		of_div = LLONG_MIN / -10;
+		of_mod = LLONG_MIN % -10;
 		of_mod *= -1;
 	}
 	else
 	{
-		of_div = LONG_MAX / 10;
-		of_mod = LONG_MAX % 10;
+		of_div = LLONG_MAX / 10;
+		of_mod = LLONG_MAX % 10;
 	}
 	if (sum > of_div || (sum == of_div && next_num > of_mod))
 		return (true);
 	return (false);
 }
 
-static int	make_num(const char *str, char sign)
+static long	make_num(const char *str, char sign)
 {
 	long long	num;
 
@@ -66,9 +66,9 @@ static int	make_num(const char *str, char sign)
 		if (is_overflow(num, *str - '0', sign))
 		{
 			if (sign == SIGNED)
-				return ((int)LONG_MIN);
+				return ((long)LLONG_MIN);
 			else
-				return ((int)LONG_MAX);
+				return ((long)LLONG_MAX);
 		}
 		num = num * 10 + (*str - '0');
 		str++;
@@ -78,12 +78,12 @@ static int	make_num(const char *str, char sign)
 	return (num);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
 	char		sign;
 
 	sign = '+';
-	while (is_space(*str))
+	while (isspace(*str))
 		str++;
 	if (*str == '+' || *str == '-')
 	{

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/05 16:57:56 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 21:23:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 10:59:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
+#include <stdlib.h>
+
+size_t	ft_strlen(const char *str);
 
 static size_t	get_len(const char *s1, const char *s2)
 {

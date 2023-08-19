@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_error.c                                     :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 15:43:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/15 17:11:45 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/13 20:05:20 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/13 20:39:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "library.h"
-#include "init.h"
 #include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
 
-void	export_invalid_identifier(char *str, t_data *d)
+static void	put_error(t_data *d)
 {
-	char	*err_msg;
-
 	d->exit_status = EXIT_FAILURE;
-	err_msg = try_strdup("export: `");
-	err_msg = try_strjoin_free(err_msg, str);
-	err_msg = try_strjoin_free(err_msg, "\': not a valid identifier\n");
-	try_write(STDERR_FILENO, err_msg, ft_strlen(err_msg), d);
-	free(err_msg);
+	perror("pwd: error retrieving current directory: getcwd");
+}
+
+void	builtin_pwd(t_data *d)
+{
+	char	*cwd;
+
+	d->exit_status = EXIT_SUCCESS;
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		return (put_error(d));
+	cwd = try_strjoin_free(cwd, "\n");
+	try_write(STDOUT_FILENO, cwd, ft_strlen(cwd), d);
+	free(cwd);
 }

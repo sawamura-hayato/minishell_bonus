@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_is_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:27:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 16:31:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/15 17:13:51 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	export_is_invalid_key(char *str, t_data *d)
 	}
 	while (*str != '=' && *str != '+' && *str != '\0')
 	{
-		if (is_symbol(*str))
+		if (export_is_symbol(*str))
 		{
 			export_invalid_identifier(str, d);
 			return (true);
@@ -47,12 +47,12 @@ static bool	export_is_invalid_key(char *str, t_data *d)
 
 static bool	export_is_invalid_operator(char *str, t_data *d)
 {
-	bool	pulus_flag;
+	bool	plus_flag;
 
-	pulus_flag = false;
+	plus_flag = false;
 	while (*str != '\0')
 	{
-		if (!pulus_flag && *str == '+')
+		if (!plus_flag && *str == '+')
 		{
 			str++;
 			if (*str != '=')
@@ -60,7 +60,7 @@ static bool	export_is_invalid_operator(char *str, t_data *d)
 				export_invalid_identifier(str, d);
 				return (true);
 			}
-			pulus_flag = true;
+			plus_flag = true;
 			continue ;
 		}
 		str++;

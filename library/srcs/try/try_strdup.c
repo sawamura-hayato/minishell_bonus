@@ -18,16 +18,13 @@ char	*try_strdup(const char *s1)
 	char	*res;
 	int		i;
 
-	res = (char *)try_malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	res = (char *)try_calloc((ft_strlen(s1) + 1), sizeof(char));
 	i = 0;
-	if (res == NULL)
-		return (NULL);
 	while (s1[i] != '\0')
 	{
 		res[i] = s1[i];
 		i++;
 	}
-	res[i] = '\0';
 	return (res);
 }
 
