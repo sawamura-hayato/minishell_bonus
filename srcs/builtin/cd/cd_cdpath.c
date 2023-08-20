@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/20 14:56:51 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/20 16:39:05 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <unistd.h>
 
 void	cd_exec(char *path, t_data *d);
-void	cd_convert_path(char *path, t_data *d, bool is_cdpath);
+void	cd_convert_path_and_exec(char *path, t_data *d, bool is_cdpath);
 void	cd_put_error_no_pwd(char *path, t_data *d);
 
 #include <stdio.h>
@@ -59,7 +59,7 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 
 	is_cdpath = true;
 	if (cdpath == NULL || *cdpath == '\0')
-		return (cd_convert_path(join_path(try_strdup("."), path), d, false));
+		return (cd_convert_path_and_exec(path, d, false));
 	colon = ft_memchr((void *)cdpath, ':', ft_strlen(cdpath));
 	if (colon != NULL && (cdpath == colon && *(cdpath + 1) == ':'))
 		eachpath = dup_dot(colon++, &is_cdpath);
@@ -73,7 +73,7 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 		colon++;
 	eachpath = join_path(eachpath, path);
 	if (is_dir_with_permission(eachpath, d))
-		return (cd_convert_path(eachpath, d, is_cdpath));
+		return (cd_convert_path_and_exec(eachpath, d, is_cdpath));
 	free(eachpath);
 	return (cd_cdpath_loop(path, colon, d));
 }
@@ -87,7 +87,7 @@ void	cd_cdpath(char *path, t_data *d)
 	if (cdpath == NULL || *cdpath == '\0')
 	{
 		free(cdpath);
-		return (cd_convert_path(join_path(try_strdup("."), path), d, false));
+		return (cd_convert_path_and_exec(path, d, false));
 	}
 	cd_cdpath_loop(path, cdpath, d);
 
