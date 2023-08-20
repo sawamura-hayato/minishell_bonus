@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/19 16:46:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/20 14:31:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#define CUR_DIR "./"
+#define PRE_DIR "../"
+#define DOT "."
+#define DOTDOT ".."
 
 bool	cd_iserror(char **argv);
 void	cd_put_error_too_many_args(t_data *d);
@@ -84,6 +88,27 @@ void	cd_exec(char *path, t_data *d)
 	if (!try_chdir(path, d))
 		return ;
 	cd_update(d);
+}
+
+bool	cd_is_cdpath(char *path)
+{
+	char	*dot_ptr;
+
+	if (*path == '/')
+		return (false);
+	dot_ptr = ft_strstr(path, PRE_DIR);
+	if (dot_ptr == path)
+		return (false);
+	dot_ptr = ft_strstr(path, CUR_DIR);
+	if (dot_ptr == path)
+		return (false);
+	dot_ptr = ft_strstr(path, DOTDOT);
+	if (dot_ptr == path && *(dot_ptr + ft_strlen(DOTDOT)) == '\0')
+		return (false);
+	dot_ptr = ft_strstr(path, DOT);
+	if (dot_ptr == path && *(dot_ptr + ft_strlen(DOT)) == '\0')
+		return (false);
+	return (true);
 }
 
 void	builtin_cd(char **argv, t_data *d)
