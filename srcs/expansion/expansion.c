@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/18 12:51:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:57:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int main(void)
 	word_list_left->next->next->next->next->is_expand = true;
 	word_list_left->next->next->next->next->next = debug_new_word_list("$B", 1, WORD);
 	word_list_left->next->next->next->next->next->is_expand = true;
+	// word_list_left = debug_new_word_list("$A", 1, WORD);
+	// word_list_left->is_expand = true;
 
 	redirect_list_left = debug_new_redirect_list("<", 2, PS_REDIRECTING_INPUT);
 	redirect_list_left->next = debug_new_redirect_list("$out", 3, PS_FILE);
