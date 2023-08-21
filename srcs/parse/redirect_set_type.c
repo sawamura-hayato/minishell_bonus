@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:36:13 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 20:09:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 20:22:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	redirect_set_type(t_redirect_list **head, t_redirect_list *node, t_token *t
 	// prenode = reirect_get_prenode(head, last_node);
 	if (last_node != NULL && is_redirect_operator(last_node))
 		return (redirect_set_type_word(last_node, node, token));
-	if (ft_strcmp(token->word,"<") == 0)
+	if (ft_strcmp(token->word, "<") == 0)
 		node->type = PS_REDIRECTING_INPUT;
-	else if (ft_strcmp(token->word,">") == 0)
+	else if (ft_strcmp(token->word, ">") == 0)
 		node->type = PS_REDIRECTING_OUTPUT;
-	else if (ft_strcmp(token->word,">>") == 0)
+	else if (ft_strcmp(token->word, ">>") == 0)
 		node->type = PS_APPENDING_OUTPUT;
-	else if (ft_strcmp(token->word,"<<") == 0)
+	else if (ft_strcmp(token->word, "<<") == 0)
 		node->type = PS_HERE_DOCUMENTS;
 }

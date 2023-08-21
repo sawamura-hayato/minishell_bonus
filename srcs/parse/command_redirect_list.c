@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 19:37:37 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 20:22:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,28 @@
 
 t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head)
 {
-	t_redirect_list	*p;
+	t_redirect_list	*node;
 
-	p = *head;
-	while (p)
+	node = *head;
+	while (node)
 	{
-		if (p->next == NULL)
+		if (node->next == NULL)
 			break ;
-		p = p -> next;
+		node = node->next;
 	}
-	return (p);
+	return (node);
 }
 
 
-static t_redirect_list	*redirect_init_node(t_redirect_list **head,t_token *token,bool redirect_flag)
+static t_redirect_list	*redirect_init_node(t_redirect_list **head, t_token *token, bool redirect_flag)
 {
 	t_redirect_list *node;
+
 	node = try_calloc(1, sizeof(t_redirect_list));
-	if(redirect_flag == true)
+	if (redirect_flag == true)
 		node->word = try_strdup(token->word);
 	//t_redirectとtokenをstrcmpなどで比較する必要がある
-	redirect_set_type(head,node,token); //redirectタイプをsetする関数
+	redirect_set_type(head, node, token); //redirectタイプをsetする関数
 	return (node);
 }
 
@@ -69,12 +70,12 @@ void	command_redirect_list(t_redirect_list **head,
 							t_token **current_token,
 							t_data *d,bool redirect_flag)
 {
-	t_token		*token;
+	t_token			*token;
 	t_redirect_list	*node;
 
 	token = *current_token;
-	node = redirect_init_node(head,token,redirect_flag);
-	if(redirect_flag==false && token->next == NULL)
+	node = redirect_init_node(head, token, redirect_flag);
+	if (redirect_flag == false && token->next == NULL)
 	{
 		d->syntax_flag = true;
 		ast_syntax_error(d);
