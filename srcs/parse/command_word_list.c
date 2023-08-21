@@ -7,7 +7,6 @@ static t_word_list	*word_list_init_node(t_token *token)
 {
 	t_word_list	*node;
 
-	printf("token is:%s\n",token->word);
 	node = try_calloc(1, sizeof(t_word_list));
 	node->word = try_strdup(token->word);
 	node->index = token->index;
@@ -45,7 +44,6 @@ void	command_word_list(t_word_list **head, t_token **current_token)
 
 	token = *current_token;
 	word_node = word_list_init_node(token);
-	printf("word_node->word is:%s\n",word_node->word);
 	word_list_addback(head, word_node);
 }
 
