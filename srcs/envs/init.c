@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 18:27:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 21:01:16 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,10 +169,11 @@ int	main()
 	// builtin_export((char *[]){"export", NULL}, &d);
 	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
 	// builtin_env((char *[]){"env", NULL}, &d);
-	builtin_cd((char *[]){"cd", ".././../../../../../../", NULL}, &d);
+	builtin_cd((char *[]){"cd", ".././../..test/../../../../..test", NULL}, &d);
 	builtin_cd((char *[]){"cd", "/Users/tterao/Documents/cursus/minishell_bonus/././/library/../../////../cursus/../../../..", NULL}, &d);
 	builtin_cd((char *[]){"cd", "/Users/tterao/test/../", NULL}, &d);
 	builtin_cd((char *[]){"cd", "/../../..", NULL}, &d);
+	builtin_cd((char *[]){"cd", "/..test/../..test", NULL}, &d);
 
 
 	return (0);
