@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 18:15:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:38:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	cd_convert_path_and_exec(const char *og_path, char *path,
 			t_data *d, bool is_cdpath);
 void	cd_put_error_no_pwd(char *path, t_data *d);
 
-#include <stdio.h>
 
 static char	*join_path(char *eachpath, char *path)
 {
@@ -80,12 +79,13 @@ static void	cd_cdpath_loop(const char *og_path, char *path,
 	return (cd_cdpath_loop(og_path, path, colon, d));
 }
 
+#include <stdio.h>
 void	cd_cdpath(const char *og_path, char *path, t_data *d)
 {
 	char	*cdpath;
 
 	cdpath = envs_get_value("CDPATH", d->envs_hashmap);
-	printf("%s\n", cdpath);
+	// printf("%s\n", cdpath);
 	if (cdpath == NULL || *cdpath == '\0')
 	{
 		free(cdpath);

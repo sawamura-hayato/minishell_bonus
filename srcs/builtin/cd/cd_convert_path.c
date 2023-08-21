@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:29:32 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/21 18:13:18 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:56:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*cd_join_pwd(char *path, t_data *d)
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 									t_data *d, bool is_cdpath)
 {
-	printf("%s %d\n", path, is_cdpath);
+	printf("%s\n", path);
 	if (path == NULL)
 		return ;
 	if (*path != '/')
@@ -49,9 +49,11 @@ void	cd_convert_path_and_exec(const char *og_path, char *path,
 	if (path == NULL)
 		return ;
 	path = cd_delete_dot_slash(path, path);
-	printf("%s\n", path);
 	path = cd_delete_dotdot(path, path);
 	if (path == NULL)
 		return (cd_put_error_file(og_path, d));
 	printf("%s\n", path);
+	// path = cd_delete_dotdot_if_needed(path, path);
+	printf("%s\n\n", path);
+	(void)is_cdpath;
 }

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:09:17 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 18:27:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:34:30 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static bool	cd_is_file(char *path, char *dirpath)
 	return (is_file);
 }
 
-#include <stdio.h>
 static char	*cd_delete_leading_comp(char *path, char *ddc)
 {
 	char		*newpath;
