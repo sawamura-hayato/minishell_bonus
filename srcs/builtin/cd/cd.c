@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/20 16:31:33 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:14:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 bool	cd_iserror(char **argv);
 void	cd_put_error_too_many_args(t_data *d);
 bool	cd_is_cdpath(char *path);
-void	cd_cdpath(char *path, t_data *d);
+void	cd_cdpath(const char *og_path, char *path, t_data *d);
 char	*cd_delete_dot_firstcomp(char *path, t_data *d);
-void	cd_convert_path_and_exec(char *path, t_data *d, bool is_cdpath);
+void	cd_convert_path_and_exec(const char *og_path, char *path,
+			t_data *d, bool is_cdpath);
 
 static void	cd_update(t_data *d)
 {
@@ -123,7 +124,7 @@ void	builtin_cd(char **argv, t_data *d)
 	// path = cd_delete_dot_firstcomp(try_strdup(argv[1]), d);
 	// printf("path=%s\n", path);
 	if (cd_is_cdpath(argv[1]))
-		return (cd_cdpath(try_strdup(argv[1]), d));
-	cd_convert_path_and_exec(try_strdup(argv[1]), d, false);
+		return (cd_cdpath(argv[1], try_strdup(argv[1]), d));
+	cd_convert_path_and_exec(argv[1], try_strdup(argv[1]), d, false);
 	// cd_exec(path, d);
 }

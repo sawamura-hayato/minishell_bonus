@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 14:33:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 18:15:09 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 #include <unistd.h>
 
 void	cd_exec(char *path, t_data *d);
-void	cd_convert_path_and_exec(char *path, t_data *d, bool is_cdpath);
+void	cd_convert_path_and_exec(const char *og_path, char *path,
+			t_data *d, bool is_cdpath);
 void	cd_put_error_no_pwd(char *path, t_data *d);
 
 #include <stdio.h>
@@ -31,7 +32,7 @@ static char	*join_path(char *eachpath, char *path)
 	return (eachpath);
 }
 
-static bool	is_dir_with_permission(char *dirpath)
+bool	cd_is_dir_with_permission(char *dirpath)
 {
 	struct stat	sb;
 
@@ -51,7 +52,8 @@ static	char	*dup_dot(char *colon, bool *is_cdpath)
 	return (try_strdup("."));
 }
 
-static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
+static void	cd_cdpath_loop(const char *og_path, char *path,
+							char *cdpath, t_data *d)
 {
 	char	*colon;
 	char	*eachpath;
@@ -59,7 +61,7 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 
 	is_cdpath = true;
 	if (cdpath == NULL || *cdpath == '\0')
-		return (cd_convert_path_and_exec(path, d, false));
+		return (cd_convert_path_and_exec(og_path, path, d, false));
 	colon = ft_memchr((void *)cdpath, ':', ft_strlen(cdpath));
 	if (colon != NULL && (cdpath == colon && *(cdpath + 1) == ':'))
 		eachpath = dup_dot(colon++, &is_cdpath);
@@ -72,13 +74,13 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 	if (colon != NULL)
 		colon++;
 	eachpath = join_path(eachpath, path);
-	if (is_dir_with_permission(eachpath))
-		return (cd_convert_path_and_exec(eachpath, d, is_cdpath));
+	if (cd_is_dir_with_permission(eachpath))
+		return (cd_convert_path_and_exec(og_path, eachpath, d, is_cdpath));
 	free(eachpath);
-	return (cd_cdpath_loop(path, colon, d));
+	return (cd_cdpath_loop(og_path, path, colon, d));
 }
 
-void	cd_cdpath(char *path, t_data *d)
+void	cd_cdpath(const char *og_path, char *path, t_data *d)
 {
 	char	*cdpath;
 
@@ -87,8 +89,8 @@ void	cd_cdpath(char *path, t_data *d)
 	if (cdpath == NULL || *cdpath == '\0')
 	{
 		free(cdpath);
-		return (cd_convert_path_and_exec(path, d, false));
+		return (cd_convert_path_and_exec(og_path, path, d, false));
 	}
-	cd_cdpath_loop(path, cdpath, d);
+	cd_cdpath_loop(og_path, path, cdpath, d);
 
 }
