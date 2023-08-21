@@ -6,24 +6,19 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/18 21:07:06 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:13:28 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 #define PARSE_H
 
-#include "tokenize.h"
 # include "ft.h"
 # include "init.h"
-<<<<<<< HEAD
 # include "tokenize.h"
 # include "library.h"
 # include <unistd.h>
 #include <stddef.h>
-=======
-
->>>>>>> origin
 
 typedef enum e_redirect_type
 {
