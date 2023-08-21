@@ -38,7 +38,7 @@ void debug_printf_word_list(t_word_list *word_list)
 {
 	while (word_list != NULL)
 	{
-		printf("word   %s\n", word_list->word);
+		printf("word %s\n", word_list->word);
 		word_list = word_list->next;
 	}
 }
