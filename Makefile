@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/15 21:22:09 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/21 19:38:09 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
 # ENVS_DIR = $(SRCS_DIR)/envs
 # SRCS += $(ENVS_DIR)/init.c	\

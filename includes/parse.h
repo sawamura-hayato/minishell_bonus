@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/19 18:13:28 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:37:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef enum e_redirect_type
 	PS_DELIMITER,          // << delimitter(クウォートがない場合)
 	PS_QUOTE_DELIMITER,    // << delimitter(クウォートがある場合)
 	PS_REDIRECT_SINGLE_QUOTE, // < 'file'
-	PS_REDIRECT_DOUBLE_QUOTE // < "file" < <- " <- file <- " 
+	PS_REDIRECT_DOUBLE_QUOTE // < "file" < <- " <- file <- "
 }						t_redirect_type;
 
 typedef enum e_ast_node_type
@@ -102,6 +102,10 @@ bool					token_is_redirect(t_token_type type);
 							/* t_redirect_list *node); */
 
 /* void	redirect_set_type(t_redirect_list *node ,t_token *token); //redirectタイプをsetする関数 */
+void			redirect_set_type(t_redirect_list **head, t_redirect_list *node, t_token *token);
+void			redirect_set_type_word(t_redirect_list *last_node, t_redirect_list*node, t_token *token);
+t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head);
+
 //error関連
 bool					ast_is_opereter(t_token_type type);
 bool token_is_quotation(t_token *token);

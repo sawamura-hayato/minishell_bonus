@@ -1,67 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_redirect_list.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/21 19:37:37 by tterao           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 #include "ft.h"
 #include "library.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-static t_redirect_list *get_last_redirect_List_node(t_redirect_list **head)
+t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head)
 {
-	t_redirect_list *p;
-	
+	t_redirect_list	*p;
+
 	p = *head;
-	while(p)
+	while (p)
 	{
-		if(p->next == NULL)
-			break;
+		if (p->next == NULL)
+			break ;
 		p = p -> next;
 	}
-	return(p);
+	return (p);
 }
 
-static void	redirect_set_type2(t_redirect_list *last_node, t_redirect_list*node,t_token *token)
-{
-	printf("last_node:%s\n",last_node->word);
-	printf("token:%s\n",token->word);
-	if(last_node->type == PS_REDIRECTING_INPUT 
-			|| last_node->type == PS_FILE)	
-	{
-		if(ft_strcmp(token->word,"'") == 0) 
-			node->type = PS_REDIRECT_SINGLE_QUOTE; 
-		else if(ft_strcmp(token->word,"\"") == 0) 
-			node->type = PS_REDIRECT_DOUBLE_QUOTE; 
-		else
-			node->type = PS_FILE;
-	}
-	else if(last_node->type == PS_HERE_DOCUMENTS)
-	{
-		if(ft_strchr(token->word,'\'') == NULL) 
-			node->type = PS_DELIMITER ;
-		else
-			node-> type = PS_QUOTE_DELIMITER ;
-	}
-	else
-		node->type = PS_FILE;
-}
-
-static void	redirect_set_type(t_redirect_list **head,t_redirect_list *node,t_token *token)
-{
-	t_redirect_list *last_node;
-
-	last_node = get_last_redirect_List_node(head);
-	if(last_node != NULL)
-		redirect_set_type2(last_node,node,token);
-	else
-	{
-		if(ft_strcmp(token->word,"<") == 0)
-			node->type = PS_REDIRECTING_INPUT;
-		else if(ft_strcmp(token->word,">") == 0)
-			node->type = PS_REDIRECTING_OUTPUT;
-		else if(ft_strcmp(token->word,">>") == 0)
-			node->type = PS_APPENDING_OUTPUT;
-		else if(ft_strcmp(token->word,"<<") == 0)
-			node->type = PS_HERE_DOCUMENTS;
-	}
-}
 
 static t_redirect_list	*redirect_init_node(t_redirect_list **head,t_token *token,bool redirect_flag)
 {

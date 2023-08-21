@@ -51,18 +51,16 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 		if (token_is_redirect(token->type) || redirect_flag)
 		{
 			command_redirect_list(&(ast_command_node->command_list->redirect_list),&token,d,redirect_flag);
-				redirect_flag = !redirect_flag;
+			redirect_flag = !redirect_flag;
 		}
 		else
 		{
-			command_word_list(&(ast_command_node->command_list->word_list),
-								&token);
+			command_word_list(&(ast_command_node->command_list->word_list), &token);
 		}
 		if (token_next(&token,d) == NULL || d->syntax_flag )
 				break;
 		/* printf("token is1:%s\n",token->word); */
-		/* token_next(&token,d); */ 
+		/* token_next(&token,d); */
 	}
 	return (ast_command_node);
 }
-
