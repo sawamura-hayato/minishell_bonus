@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/19 17:57:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:51:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,16 @@ int main(void)
 	t_redirect_list *redirect_list_left;
 	t_redirect_list *redirect_list_right;
 
-	word_list_left = debug_new_word_list("$", 0, WORD);
-	word_list_left->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);
-	word_list_left->next->next = debug_new_word_list("echo", 1, WORD);
-	word_list_left->next->next->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);
-	word_list_left->next->next->next->next = debug_new_word_list("$A", 1, WORD);
-	word_list_left->next->next->next->next->is_expand = true;
-	word_list_left->next->next->next->next->next = debug_new_word_list("$B", 1, WORD);
-	word_list_left->next->next->next->next->next->is_expand = true;
-	// word_list_left = debug_new_word_list("$A", 1, WORD);
-	// word_list_left->is_expand = true;
+	// word_list_left = debug_new_word_list("$", 0, WORD);
+	// word_list_left->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);
+	// word_list_left->next->next = debug_new_word_list("echo", 1, WORD);
+	// word_list_left->next->next->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);
+	// word_list_left->next->next->next->next = debug_new_word_list("$A", 1, WORD);
+	// word_list_left->next->next->next->next->is_expand = true;
+	// word_list_left->next->next->next->next->next = debug_new_word_list("$B", 1, WORD);
+	// word_list_left->next->next->next->next->next->is_expand = true;
+	word_list_left = debug_new_word_list("$A", 1, WORD);
+	word_list_left->is_expand = true;
 
 	redirect_list_left = debug_new_redirect_list("<", 2, PS_REDIRECTING_INPUT);
 	redirect_list_left->next = debug_new_redirect_list("$out", 3, PS_FILE);
