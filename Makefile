@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/15 21:22:09 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/21 20:17:30 by tyamauch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
 
+HEREDOC_DIR = heredoc
+SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
 # ENVS_DIR = $(SRCS_DIR)/envs
 # SRCS += $(ENVS_DIR)/init.c	\
 # 		$(ENVS_DIR)/envs_newnode.c	\

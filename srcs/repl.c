@@ -14,10 +14,12 @@
 #include "minishell.h"
 #include "tokenize.h"
 #include "parse.h"
+#include "heredoc.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static void	add_line_history(char *line)
 {
@@ -62,12 +64,13 @@ void	read_eval_print_loop()
 			printf("word:%s\n",word_p->word);
 			word_p = word_p->next;
 		}
-		while(redirect_p)
-		{
-			printf("redirect type:%d ",redirect_p->type);
-			printf("redirect:%s\n",redirect_p->word);
-			redirect_p = redirect_p->next;
-		}
+		/* { */
+		/* while(redirect_p) */
+		/* 	printf("redirect type:%d ",redirect_p->type); */
+		/* 	printf("redirect:%s\n",redirect_p->word); */
+		/* 	redirect_p = redirect_p->next; */
+		/* } */
+		heredoc(pasre_node,&d);
 		// printf("line          %s\n", line);
 		// printf("start 0 end 3 %s\n", ft_substr(line, -1, 3));
 		// printf("start 2 end 7 %s\n", ft_substr(line, 2, 7));
