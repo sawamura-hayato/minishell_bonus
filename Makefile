@@ -6,14 +6,14 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/19 16:44:24 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/21 14:33:04 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -60,7 +60,9 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
 	    $(BUILTIN_DIR)/cd/cd_error.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dot.c	\
-	    $(BUILTIN_DIR)/cd/cd_convert_path.c
+	    $(BUILTIN_DIR)/cd/cd_convert_path.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dot_slash.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dotdot.c
 
 
 LIBRARY_DIR = library

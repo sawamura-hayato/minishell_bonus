@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/20 16:39:05 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 14:33:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*join_path(char *eachpath, char *path)
 	return (eachpath);
 }
 
-static bool	is_dir_with_permission(char *dirpath, t_data *d)
+static bool	is_dir_with_permission(char *dirpath)
 {
 	struct stat	sb;
 
@@ -72,7 +72,7 @@ static void	cd_cdpath_loop(char *path, char *cdpath, t_data *d)
 	if (colon != NULL)
 		colon++;
 	eachpath = join_path(eachpath, path);
-	if (is_dir_with_permission(eachpath, d))
+	if (is_dir_with_permission(eachpath))
 		return (cd_convert_path_and_exec(eachpath, d, is_cdpath));
 	free(eachpath);
 	return (cd_cdpath_loop(path, colon, d));

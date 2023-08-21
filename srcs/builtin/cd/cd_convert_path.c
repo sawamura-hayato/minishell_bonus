@@ -6,18 +6,18 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:29:32 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/20 18:01:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/21 14:17:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "library.h"
 #include <stdlib.h>
-#define DS "./"
 
 void	cd_put_error_no_pwd(char *path, t_data *d);
+char	*cd_delete_dot_slash(char *path, char *last_ds);
+char	*cd_delete_dotdot(char *path, char *last_ddc);
 
-#include <stdio.h>
 static char	*cd_join_pwd(char *path, t_data *d)
 {
 	char	*newpath;
@@ -36,20 +36,7 @@ static char	*cd_join_pwd(char *path, t_data *d)
 	return (newpath);
 }
 
-static char	*cd_delete_dot_slash(char *path)
-{
-	char	*newpath;
-	char	*dot_slash;
-
-	dot_slash = ft_strstr(path, "./");
-	if (dot_slash == NULL)
-		return (path);
-	newpath = try_substr(path, 0, dot_slash - path);
-	newpath = try_strjoin_free(newpath, try_strdup(dot_slash + ft_strlen(DS)));
-	free(path);
-	return (cd_delete_dot_slash(newpath));
-}
-
+#include <stdio.h>
 void	cd_convert_path_and_exec(char *path, t_data *d, bool is_cdpath)
 {
 	printf("%s %d\n", path, is_cdpath);
@@ -59,6 +46,8 @@ void	cd_convert_path_and_exec(char *path, t_data *d, bool is_cdpath)
 		path = cd_join_pwd(path, d);
 	if (path == NULL)
 		return ;
-	path = cd_delete_dot_slash(path);
+	path = cd_delete_dot_slash(path, path);
+	printf("%s\n", path);
+	path = cd_delete_dotdot(path, path);
 	printf("%s\n", path);
 }
