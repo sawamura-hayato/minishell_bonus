@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/18 18:55:34 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/19 18:31:46 by tyamauch         ###   ########.fr       */
 /* ************************************************************************** */
 
 /*                                                                            */
@@ -14,6 +14,18 @@
 #include "library.h"
 #include <stdlib.h>
 #include <stdio.h>
+
+static t_ast_node_type set_ast_node_type(t_token *token)
+{
+	t_ast_node_type type;
+	if(token->type == TOKEN_PIPE)
+		type = PS_PIPE;
+	else if(TOKEN_LOGICAL_AND)
+		type = PS_LOGICAL_AND;
+	else if(TOKEN_LOGICAL_OR)
+		type = PS_LOGICAL_OR;
+	return(type);
+}
 
 t_ast	*parse(t_token **current_token, t_data *d)
 {
@@ -24,33 +36,20 @@ t_ast	*parse(t_token **current_token, t_data *d)
 
 	token = *current_token;
 	left_node = ast_command_node(&token, d);
-	printf("left node:%s\n",left_node->command_list->word_list->word);
-	printf("left node p:%p\n",left_node);
-	printf("token:%s\n",token->word);
-	printf("current token:%s\n",(*current_token)->word);
+	printf("%s\n",left_node->command_list->word_list->word);
 	if (d->syntax_flag)
 		return (left_node);
 	while (true)
 	{
 		if (token != NULL && ast_is_opereter(token->type))
 		{
-			printf("token2:%s\n",token->word);
-			printf("current token:%s\n",(*current_token)->word);
-			type = PS_PIPE;
+			type = set_ast_node_type(token);
 			token = token->next; //operatarのtoken
-			printf("token2:%s\n",token->word);
-			printf("current token:%s\n",(*current_token)->word);
 			right_node = ast_command_node(&token,d);
-			printf("right node:%s\n",right_node->command_list->word_list->word);
-			printf("right node p:%p\n",right_node);
 			if(d->syntax_flag)
 				return (left_node);
 			left_node = ast_operator_node(type, left_node,
 					right_node,d);
-			printf("ope node d:%d\n",left_node->type);
-			printf("ope node p:%p\n",left_node);
-			printf("ope node left:p:%p\n",left_node->left_hand);
-			printf("ope node right:p:%p\n",left_node->right_hand);
 			if(d->syntax_flag)
 				return (left_node);
 		}
@@ -76,7 +75,6 @@ t_token	*token_next(t_token **current_token,t_data *d)
 	if(token->next== NULL)
 		return(NULL);
 	token = token->next;
-	printf("token_next:%s\n",token->word);
 	if (token != NULL && token_is_quotation(token)) 
 	{
 		if(token_is_quotation_closed(token) == false)
@@ -91,14 +89,14 @@ t_token	*token_next(t_token **current_token,t_data *d)
 
 bool token_is_quotation(t_token *token)
 {
-	if(token->type == SINGLE_QUOTE)
+	if(token->type == TOKEN_SINGLE_QUOTE)
 		return (true);
-	else if(token->type == DOUBLE_QUOTE)
+	else if(token->type == TOKEN_DOUBLE_QUOTE)
 		return (true);
 	else
 		return(false);
-}
 
+}
 bool					token_is_quotation_closed(t_token *token)
 {
 	if(token->word[0] == '"' || token->word[0] == '\'')
