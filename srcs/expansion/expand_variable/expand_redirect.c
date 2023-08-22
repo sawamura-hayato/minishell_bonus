@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:24:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void expand_token_redirect_list(t_redirect_list *redirect_list, t_data *d, t_red
 
 	expand_word = expand_get_expanded_token(redirect_list->word, d);
 	// 環境変数がない場合, トークンが複数に分かれる場合
-	if (is_quote != RD_DOUBLE_QUOTE &&
+	if (is_quote != TOKEN_DOUBLE_QUOTE &&
 		(expand_word == NULL || expand_is_tokens(expand_word)))
 	{
 		free(expand_word);
@@ -54,13 +54,13 @@ void expand_variable_redirect_list(t_redirect_list **head, t_data *d)
 	node = expand_can_dollar_quote_string_redirect(head);
 	while (node != NULL)
 	{
-		if (node->type == RD_SINGLE_QUOTE)
+		if (node->type == TOKEN_SINGLE_QUOTE)
 		{
 			node = node->next;
-			while (node->type != RD_SINGLE_QUOTE)
+			while (node->type != TOKEN_SINGLE_QUOTE)
 				node = node->next;
 		}
-		if (node->type != RD_SINGLE_QUOTE && ft_strchr(node->word, '$'))
+		if (node->type != TOKEN_SINGLE_QUOTE && ft_strchr(node->word, '$'))
 			expand_token_redirect_list(node, d, node->type);
 		node = node->next;
 	}

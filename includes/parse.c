@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:20:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,9 @@ void	command_redirect_list(t_redirect_list **head,
 }
 
 //redirectのnode(<)
-t_redirect_list_list	*redirect_init_node(t_token *token);
+t_redirect_list	*redirect_init_node(t_token *token);
 {
-	t_redirect_list_list *node;
+	t_redirect_list *node;
 	node = try_calloc(1, sizeof(t_redirect_list));
 	//t_redirect_listとtokenをstrcmpなどで比較する必要がある
 	redirect_set_type(node,token); //redirectタイプをsetする関数

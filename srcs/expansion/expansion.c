@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:20:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void expansion(t_ast *node, t_data *d)
 // 	t_word_list	*word_list_left;
 // 	t_word_list	*word_list_right;
 
-// 	t_redirect_list_list 	*redirect_list_left;
-// 	t_redirect_list_list 	*redirect_list_right;
+// 	t_redirect_list 	*redirect_list_left;
+// 	t_redirect_list 	*redirect_list_right;
 
 // 	word_list_left = debug_new_word_list("$", 0, WORD);
 // 	word_list_left->next = debug_new_word_list("\'", 1, TOKEN_SINGLE_QUOTE);

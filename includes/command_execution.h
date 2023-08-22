@@ -6,29 +6,29 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 12:59:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:45:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_EXECUTION_H
-# define COMMAND_EXECUTION_H
+#define COMMAND_EXECUTION_H
 
 #include "parse.h"
 #include "init.h"
 
 typedef enum e_operator
 {
-	START,
-	END,
-	PIPE,
-	LOGICAL_AND,
-	LOGICAL_OR,
-}	t_operator;
+	EXEC_START,
+	EXEC_END,
+	EXEC_PIPE,
+	EXEC_LOGICAL_AND,
+	EXEC_LOGICAL_OR,
+} t_operator;
 
 enum e_pipefd
 {
-	R = 0,//read用fd
-	W = 1,//write用fd
+	R = 0, // read用fd
+	W = 1, // write用fd
 };
 
 /**
@@ -36,15 +36,15 @@ enum e_pipefd
  *
  * 第一引数の構文木nodeのタイプがコマンドの場合、node->command_listをコマンドとして、実行する
  * 第二引数のoperatorはコマンドの出力先を指定する。left_handにはnode->typeを渡し、right_handには上のnodeから引き継いだoperatorを渡す
- * 一番初めのnode（初めにcommand_executionを呼ぶとき）は、operatorはSTARTになる
- * 一番最後に実行されるnodeのoperatorはENDになる
+ * 一番初めのnode（初めにcommand_executionを呼ぶとき）は、operatorはEXEC_STARTになる
+ * 一番最後に実行されるnodeのoperatorはEXEC_ENDになる
  * 第三引数のdは環境変数と終了ステータスを管理する
  *
  * @param node 構文木のnode
  * @param operator 構文木nodeの一つ上のnodeから引き継ぐoperator
  * @param d 環境変数と終了ステータス
  */
-void	command_execution(t_ast *node, t_operator operator, t_data *d);
+void command_execution(t_ast *node, t_operator operator, t_data * d);
 
 /**
  * @brief この関数はredirectionを実行する
@@ -60,9 +60,9 @@ void	command_execution(t_ast *node, t_operator operator, t_data *d);
  * @return true すべてのredirectionが問題なく成功した場合、trueを返す
  * @return false redirectionを失敗したタイミングで、この関数の処理を終了し、falseを返す
  * //どういうタイミングで失敗するのか？
- * 
+ *
  */
-bool	exec_do_redirection(t_ast *node, t_data *d);
+bool exec_do_redirection(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -72,7 +72,7 @@ bool	exec_do_redirection(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
-void	exec_fork(t_ast *node, t_data *d);
+void exec_fork(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。親プロセスは子プロセスの実行結果を受け取る。
@@ -85,7 +85,7 @@ void	exec_fork(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
-void	exec_pipe(t_ast *node, t_data *d);
+void exec_pipe(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -99,7 +99,7 @@ void	exec_pipe(t_ast *node, t_data *d);
  * @return true コマンドを実行した結果、終了ステータスが0の場合、trueを返す
  * @return false コマンドを実行した結果、終了ステータスが0以外の場合、falseを返す
  */
-bool	exec_l_and(t_ast *node, t_data *d);
+bool exec_l_and(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -113,7 +113,7 @@ bool	exec_l_and(t_ast *node, t_data *d);
  * @return true コマンドを実行した結果、終了ステータスが0以外の場合、trueを返す
  * @return false コマンドを実行した結果、終了ステータスが0の場合、falseを返す
  */
-bool	exec_l_or(t_ast *node, t_data *d);
+bool exec_l_or(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は子プロセス内でコマンドを実行する。
@@ -125,7 +125,7 @@ bool	exec_l_or(t_ast *node, t_data *d);
  * @param pipefd pipeがない場合は、NULLが与えられる
  * @param d 環境変数と終了ステータス
  */
-void	exec_child_process(t_ast *node, int *pipefd, t_data *d);
+void exec_child_process(t_ast *node, int *pipefd, t_data *d);
 
 /**
  * 	@brief この関数は、commandのpathを取得する。
@@ -136,7 +136,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d);
  * @param d 環境変数と終了ステータス
  * @return char* commandのpath
  */
-char	*exec_make_filepath(t_ast *node, t_data *d);
+char *exec_make_filepath(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はコマンド実行の二次元配列（argv）を作成する。
@@ -146,7 +146,7 @@ char	*exec_make_filepath(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @return char** コマンド実行の二次元配列（argv）
  */
-char	**exec_make_command_array(t_ast *node);
+char **exec_make_command_array(t_ast *node);
 
 /**
  * @brief この関数は、第一引数で与えられたnodeより下のnodeの子プロセスを待ち、終了ステータスを取得する。
@@ -156,7 +156,7 @@ char	**exec_make_command_array(t_ast *node);
  *
  * @param node 構文木のnode
  */
-void	exec_wait_child_process(t_ast *node, t_data *d);
+void exec_wait_child_process(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -168,6 +168,6 @@ void	exec_wait_child_process(t_ast *node, t_data *d);
  * @return true builtinの場合、trueを返す
  * @return false builtinde出ない場合、falseを返す
  */
-bool	exec_is_builtin(t_ast *node);
+bool exec_is_builtin(t_ast *node);
 
 #endif

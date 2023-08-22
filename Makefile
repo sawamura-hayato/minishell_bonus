@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/22 13:09:07 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/22 13:37:28 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,10 +71,10 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/exit/exit_error.c	\
 	    $(BUILTIN_DIR)/exit/exit_overflow.c \
 	    $(BUILTIN_DIR)/unset/unset.c	\
-	    $(BUILTIN_DIR)/env/env.c
+	    $(BUILTIN_DIR)/env/env.c	
 
-EXEC_DIR = $(SRCS_DIR)/exec 
-SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+EXEC_DIR = exec 
+SRCS += srcs/exec/exec.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
