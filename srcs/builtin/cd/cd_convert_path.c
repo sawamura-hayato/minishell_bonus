@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:29:32 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/21 21:56:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 13:35:31 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	cd_convert_path_and_exec(const char *og_path, char *path,
 	path = cd_delete_dotdot(path, path);
 	if (path == NULL)
 		return (cd_put_error_file(og_path, d));
-	printf("%s\n\n", path);
+	printf("%s\n", path);
 	path = cd_delete_dotdot_if_needed(path, path);
-	// printf("%s\n\n", path);
+	printf("%s\n\n", path);
 	(void)is_cdpath;
 }
