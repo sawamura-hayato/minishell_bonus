@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-<<<<<<< HEAD
  int	main(void)
  {
  	// (void)argc;
@@ -20,12 +19,3 @@
  	read_eval_print_loop();
  	return (0);
  }
-=======
-int	main(void)
-{
-	// (void)argc;
-	// (void)argv;
-	read_eval_print_loop();
-	return (0);
-}
->>>>>>> origin/104-parseの実装

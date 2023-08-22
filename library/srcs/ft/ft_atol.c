@@ -16,7 +16,7 @@
 #define UNSIGNED '+'
 #define SIGNED '-'
 
-static bool	isspace(char c)
+static bool	is_space(char c)
 {
 	return (c == '\n' || c == '\t' || c == '\f'
 		|| c == '\r' || c == '\v' || c == ' ');
@@ -83,7 +83,7 @@ long	ft_atol(const char *str)
 	char		sign;
 
 	sign = '+';
-	while (isspace(*str))
+	while (is_space(*str))
 		str++;
 	if (*str == '+' || *str == '-')
 	{

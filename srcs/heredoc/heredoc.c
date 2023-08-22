@@ -11,6 +11,8 @@ char	*heredoc_read()
 	buff = NULL;
 	tmp = NULL;
 	line = NULL;
+	if(write(1,"> ",2) == -1)
+			return(NULL);
 	while(true)
 	{
 		if(buff != NULL)
@@ -115,7 +117,6 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 		{
 			if (heredoc_get_str(node, d) == false)
 				return (false);
-			printf("test\n");
 			/* tmp = node->next; */
 			redirect_delete(command, node);
 			break;
