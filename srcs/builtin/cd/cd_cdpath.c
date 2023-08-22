@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 18:38:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:19:32 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void	cd_exec(char *path, t_data *d);
+void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d);
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 			t_data *d, bool is_cdpath);
 void	cd_put_error_no_pwd(char *path, t_data *d);

@@ -6,13 +6,14 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:09:17 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 22:09:33 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 19:14:51 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 #include <stdlib.h>
 #define DDC "/.."
+#define D_SL "//"
 
 char	*cd_delete_dotdot(char *path, char *last_ddc);
 
@@ -49,8 +50,13 @@ static char	*cd_delete_leading_comp(char *path, char *ddc)
 	// printf("fddc=%s\n", following_ddc);
 	if (following_ddc == NULL)
 	{
+		// printf("path=%s\n", path);
+		if (ft_strncmp(path, D_SL, ft_strlen(D_SL)) == 0)
+			newpath = try_strdup("//");
+		else
+			newpath = try_strdup("/");
 		free(path);
-		return (try_strdup("/"));
+		return (newpath);
 	}
 	if (ft_strncmp(path, DDC, ft_strlen(DDC)) == 0
 		&& (*(path + len) == '/' || *(path + len) == '\0'))
@@ -65,10 +71,15 @@ static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc)
 	char		*newpath;
 	const char	*l_dotdot = "/../";
 
+	// printf("path=%s\n", path);
+	// printf("ddc=%s\n", ddc);
+	// printf("pre=%s\n", pre_comp);
 	if (ft_strncmp(pre_comp, l_dotdot, ft_strlen(l_dotdot)) == 0)
 		return (cd_delete_dotdot(path, (ddc + ft_strlen(DDC))));
 	newpath = try_substr(path, 0, pre_comp - path);
+	// printf("newpath=%s\n", newpath);
 	newpath = try_strjoin_free(newpath, (ddc + ft_strlen(DDC)));
+	// printf("newpath=%s\n", newpath);
 	free(path);
 	return (cd_delete_dotdot(newpath, newpath));
 }
@@ -79,7 +90,7 @@ char	*cd_delete_dotdot(char *path, char *last_ddc)
 	char			*pre_comp;
 	const size_t	len = ft_strlen(DDC);
 
-	// printf("\n");
+	printf("\n");
 	ddc = ft_strstr(last_ddc, DDC);
 	if (ddc == NULL)
 		return (path);
@@ -94,7 +105,7 @@ char	*cd_delete_dotdot(char *path, char *last_ddc)
 		return (cd_delete_dotdot(path, (ddc + ft_strlen(DDC))));
 	while (true)
 	{
-		if (pre_comp == path)
+		if (pre_comp == path || (*pre_comp == '/' && (pre_comp - 1) == path))
 			return (cd_delete_leading_comp(path, ddc));
 		if (pre_comp != ddc && *pre_comp == '/' && *(pre_comp + 1) != '/')
 			break ;

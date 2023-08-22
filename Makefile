@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/21 20:51:36 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/22 17:57:06 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,10 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/cd/cd_convert_path.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dot_slash.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dotdot.c	\
-	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c
+	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
+	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
 
 
 LIBRARY_DIR = library

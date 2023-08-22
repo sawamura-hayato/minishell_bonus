@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:29:32 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/22 13:35:31 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:18:36 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*cd_delete_dot_slash(char *path, char *last_ds);
 char	*cd_delete_dotdot(char *path, char *last_ddc);
 void	cd_put_error_file(const char *og_path, t_data *d);
 char	*cd_delete_dotdot_if_needed(char *path, char *last_ddc);
+char	*cd_delete_slash(char *path);
+void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d);
 
 static char	*cd_join_pwd(char *path, t_data *d)
 {
@@ -39,6 +41,7 @@ static char	*cd_join_pwd(char *path, t_data *d)
 }
 
 #include <stdio.h>
+
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 									t_data *d, bool is_cdpath)
 {
@@ -51,11 +54,16 @@ void	cd_convert_path_and_exec(const char *og_path, char *path,
 		return ;
 	printf("%s\n", path);
 	path = cd_delete_dot_slash(path, path);
+	// printf("dotslash=%s\n", path);
 	path = cd_delete_dotdot(path, path);
 	if (path == NULL)
 		return (cd_put_error_file(og_path, d));
-	printf("%s\n", path);
+	// printf("dotdot=%s\n", path);
 	path = cd_delete_dotdot_if_needed(path, path);
+	// printf("%s\n", path);
+	path = cd_delete_slash(path);
+
 	printf("%s\n\n", path);
-	(void)is_cdpath;
+	printf("----------------------------------------------\n");
+	cd_exec(og_path, path, is_cdpath, d);
 }

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/21 18:14:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:19:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,14 @@ char	*cd_delete_dot_firstcomp(char *path, t_data *d);
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 			t_data *d, bool is_cdpath);
 
-static void	cd_update(t_data *d)
+static void	cd_update(char *path, bool is_cdpath, t_data *d)
 {
-	char	*cwd;
 	char	*oldpwd;
 	t_envs	*node;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-		return (perror("getcwd"));
 	free(d->oldpwd);
 	d->oldpwd = d->pwd;
-	d->pwd = cwd;
+	d->pwd = path;
 	node = envs_get_node("PWD", d->envs_hashmap);
 	if (node != NULL)
 		envs_modify("PWD", try_strdup(d->pwd), d->envs_hashmap);
@@ -50,21 +46,27 @@ static void	cd_update(t_data *d)
 		envs_modify("OLDPWD", oldpwd, d->envs_hashmap);
 	else
 		free(oldpwd);
+	if (is_cdpath)
+	{
+		path = try_strjoin_free(path, "\n");
+		try_write(STDOUT_FILENO, path, ft_strlen(path), d);
+	}
+	free(path);
 }
 
 static void	cd_nodir(t_data *d)
 {
-	t_envs		*node;
+	char		*path;
 	const char	*msg = "cd: HOME not set\n";
 
-	node = envs_get_node("HOME", d->envs_hashmap);
-	if (node == NULL || node->value == NULL)
+	path = envs_get_value("HOME", d->envs_hashmap);
+	if (path == NULL)
 	{
 		d->exit_status = EXIT_FAILURE;
 		return (try_write(STDERR_FILENO, msg, ft_strlen(msg), d));
 	}
-	try_chdir(node->value, d);
-	cd_update(d);
+	try_chdir(path, path, d);
+	cd_update(path, false, d);
 }
 
 static void	cd_oldpwd(t_data *d)
@@ -76,19 +78,24 @@ static void	cd_oldpwd(t_data *d)
 		msg = "cd: OLDPWD not set\n";
 		return (try_write(STDERR_FILENO, msg, ft_strlen(msg), d));
 	}
-	if (!try_chdir(d->oldpwd, d))
+	if (!try_chdir(d->oldpwd, d->oldpwd, d))
 		return ;
 	msg = try_strjoin(d->oldpwd, "\n");
 	try_write(STDOUT_FILENO, msg, ft_strlen(msg), d);
 	free(msg);
-	cd_update(d);
+	cd_update(d->oldpwd, false, d);
 }
 
-void	cd_exec(char *path, t_data *d)
+void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d)
 {
-	if (!try_chdir(path, d))
+	if (!try_chdir(og_path, path, d))
 		return ;
-	cd_update(d);
+	if (is_cdpath)
+	{
+		path = try_strjoin_free(path, "\n");
+		try_write(STDOUT_FILENO, path, ft_strlen(path), d);
+	}
+	cd_update(path, is_cdpath, d);
 }
 
 bool	cd_is_cdpath(char *path)
@@ -126,5 +133,4 @@ void	builtin_cd(char **argv, t_data *d)
 	if (cd_is_cdpath(argv[1]))
 		return (cd_cdpath(argv[1], try_strdup(argv[1]), d));
 	cd_convert_path_and_exec(argv[1], try_strdup(argv[1]), d, false);
-	// cd_exec(path, d);
 }

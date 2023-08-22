@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_chdir.c                                        :+:      :+:    :+:   */
+/*   cd_delete_leading_slashes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 15:21:48 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 20:16:22 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/22 17:46:45 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/22 17:59:04 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
-#include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
+#include "library.h"
 
-bool	try_chdir(const char *og_path, const char *path, t_data *d)
+char	*cd_delete_leading_slashes(char *path)
 {
-	char	*msg;
+	char	*newpath;
+	char	*first_slashes;
 
-	if (chdir(path) == -1)
+	if (*path != '/')
+		return (path);
+	first_slashes = path;
+	while (*first_slashes != '\0')
 	{
-		d->exit_status = EXIT_FAILURE;
-		msg = try_strjoin("cd: ", og_path);
-		perror(msg);
-		free(msg);
-		return (false);
+		if (*first_slashes != '/')
+			break ;
+		first_slashes++;
 	}
-	return (true);
+	if ((first_slashes - path) < 3)
+		return (path);
+	newpath = try_strjoin("/", first_slashes);
+	free(path);
+	return (newpath);
 }

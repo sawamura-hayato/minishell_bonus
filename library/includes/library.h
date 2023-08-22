@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/19 16:42:08 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:16:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*try_strjoin(char const *s1, char const *s2);
 void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
 char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
-bool	try_chdir(const char *path, t_data *d);
+bool	try_chdir(const char *og_path, const char *path, t_data *d);
 bool	try_stat(const char *path, struct stat *sb, t_data *d);
 
 // ft
