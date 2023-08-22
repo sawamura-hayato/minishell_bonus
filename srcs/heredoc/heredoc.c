@@ -9,7 +9,7 @@ char	*heredoc_read()
 	char *line;
 
 	buff = NULL;
-	tmp = NULL;
+	tmp = try_strdup("");
 	line = NULL;
 	if(write(1,"> ",2) == -1)
 			return(NULL);
@@ -25,7 +25,7 @@ char	*heredoc_read()
 			return(NULL);
 		if(buff[0] == '\n')
 		{
-			line = try_strdup(tmp); 
+			line = try_strjoin(tmp,buff); 
 			free(tmp);
 			free(buff);
 			break;
@@ -41,9 +41,10 @@ bool	heredoc_read_loop(t_redirect_list *delimiter)
 	char	*str ;
 	char	*tmp ;
 	char *buff ;
+	char *check ;
 
 	str= try_strdup("");
-	printf("delimiter:%s\n",delimiter->word);
+	check = try_strjoin(delimiter->word,"\n");
 	while (true)
 	{
 		buff = heredoc_read();
@@ -52,9 +53,11 @@ bool	heredoc_read_loop(t_redirect_list *delimiter)
 			free(str);
 			return (false);
 		}
-		if (ft_strcmp(buff, delimiter->word) == 0)
+		if (ft_strcmp(buff, check) == 0)
 		{
 			free(buff);
+			free(delimiter->word);
+			free(check);
 			delimiter->word = str;
 			break ;
 		}
@@ -96,7 +99,7 @@ void	redirect_delete(t_command *command, t_redirect_list *target)
 		if(head->word == target->word)
 		{
 			prev->next = head->next;
-			free(head);
+			/* free(head); */
 			break;
 		}
 		prev = head;
@@ -119,10 +122,10 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 				return (false);
 			/* tmp = node->next; */
 			redirect_delete(command, node);
-			break;
+			/* break; */
 			/* node = tmp; */
 		}
-		else
+		/* else */
 			node = node->next;
 	}
 	return (true);
