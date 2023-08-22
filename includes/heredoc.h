@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/09 17:20:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ bool	heredoc_redirect_list(t_command *command, t_data *d);
  * @return true
  * @return false
  */
-bool	heredoc_get_str(t_redirect *node, t_data *d);
+bool	heredoc_get_str(t_redirect_list *node, t_data *d);
 
 /**
  * @brief この関数は、delimiterのクォートを削除する。
  *
  * @param delimiter delimiterのnode
  */
-void	heredoc_delete_quote(t_redirect *delimiter);
+void	heredoc_delete_quote(t_redirect_list *delimiter);
 
 /**
  * @brief この関数は、targetのnodeを線形リストcommand->redirect_listから削除する。
@@ -66,7 +66,7 @@ void	heredoc_delete_quote(t_redirect *delimiter);
  * @param command redirect_listを保持しているcommandのnode
  * @param target 削除するnode
  */
-void	redirect_delete(t_command *command, t_redirect *target);
+void	redirect_delete(t_command *command, t_redirect_list *target);
 
 /**
  * @brief この関数は、delimiterが標準入力から取得されるまで、loopする。
@@ -75,7 +75,7 @@ void	redirect_delete(t_command *command, t_redirect *target);
  * @return true 標準入力がdelimiterが取得された場合、trueを返す
  * @return false 標準入力からdelimiterの取得を失敗もしくはシグナルを取得した場合、falseを返す
  */
-bool	heredoc_read_loop(t_redirect *delimiter);
+bool	heredoc_read_loop(t_redirect_list *delimiter);
 
 /**
  * @brief この関数は、標準入力から文字列を取得する。
@@ -85,7 +85,7 @@ bool	heredoc_read_loop(t_redirect *delimiter);
 char	*heredoc_read();
 
 
-bool	heredoc_read_loop(t_redirect *delimiter)
+bool	heredoc_read_loop(t_redirect_list *delimiter)
 {
 	char	*str = try_strdup("");
 
@@ -111,9 +111,9 @@ bool	heredoc_read_loop(t_redirect *delimiter)
 	return (true);
 }
 
-bool	heredoc_get_str(t_redirect *node, t_data *d)
+bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 {
-	t_redirect	*delimiter = node->next;
+	t_redirect_list	*delimiter = node->next;
 	char		*tmp;
 
 	if (delimiter == NULL)
@@ -125,7 +125,7 @@ bool	heredoc_get_str(t_redirect *node, t_data *d)
 
 bool	heredoc_redirect_list(t_command *command, t_data *d)
 {
-	t_redirect	*node = command->redirect_list;
+	t_redirect_list	*node = command->redirect_list;
 
 	while (node != NULL)
 	{

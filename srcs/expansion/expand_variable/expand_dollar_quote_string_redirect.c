@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:49:50 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/16 09:54:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void expand_token_redirect(t_redirect_list *redirect, t_data *d)
+void expand_token_redirect(t_redirect_list_list *redirect, t_data *d)
 {
 	char *expand_word;
 
@@ -20,9 +20,9 @@ void expand_token_redirect(t_redirect_list *redirect, t_data *d)
 	redirect->word = expand_word;
 }
 
-void expand_delete_dollar_quote_redirect(t_redirect_list **head, bool is_head_dollar)
+void expand_delete_dollar_quote_redirect(t_redirect_list_list **head, bool is_head_dollar)
 {
-	t_redirect_list *node;
+	t_redirect_list_list *node;
 
 	node = *head;
 	if (is_head_dollar)
@@ -45,9 +45,9 @@ void expand_delete_dollar_quote_redirect(t_redirect_list **head, bool is_head_do
 	}
 }
 
-void expand_dollar_quote_string_redirect(t_redirect_list **head)
+void expand_dollar_quote_string_redirect(t_redirect_list_list **head)
 {
-	t_redirect_list *node;
+	t_redirect_list_list *node;
 
 	if (!ft_strcmp((*head)->word, "$") &&
 		((*head)->next->type == PS_REDIRECT_SINGLE_QUOTE || (*head)->next->type == PS_REDIRECT_DOUBLE_QUOTE))
@@ -64,9 +64,9 @@ void expand_dollar_quote_string_redirect(t_redirect_list **head)
 	*head = node;
 }
 
-bool expand_is_dollar_quote_string_redirect(t_redirect_list *head)
+bool expand_is_dollar_quote_string_redirect(t_redirect_list_list *head)
 {
-	t_redirect_list *node;
+	t_redirect_list_list *node;
 
 	node = head;
 	if (node == NULL || node->next == NULL)
@@ -84,7 +84,7 @@ bool expand_is_dollar_quote_string_redirect(t_redirect_list *head)
 	return (false);
 }
 
-t_redirect_list *expand_can_dollar_quote_string_redirect(t_redirect_list **head)
+t_redirect_list_list *expand_can_dollar_quote_string_redirect(t_redirect_list_list **head)
 {
 	if (expand_is_dollar_quote_string_redirect(*head))
 		expand_dollar_quote_string_redirect(head);

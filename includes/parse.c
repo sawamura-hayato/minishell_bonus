@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/14 15:52:57 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
-/*                                                                            */
 #include "parse.h"
 #include "tokenize.h"
 
@@ -160,12 +160,12 @@ void			word_list_addback(t_word **head, t_word *node);
 	;
 }
 
-void	command_redirect_list(t_redirect **head,
+void	command_redirect_list(t_redirect_list **head,
 							t_token **current_token,
 							t_data *d)
 {
 	t_token		*token;
-	t_redirect	*node;
+	t_redirect_list	*node;
 
 	token = *current_token;
 	node = redirect_init_node(token);
@@ -187,16 +187,16 @@ void	command_redirect_list(t_redirect **head,
 }
 
 //redirectのnode(<)
-t_redirect_list	*redirect_init_node(t_token *token);
+t_redirect_list_list	*redirect_init_node(t_token *token);
 {
-	t_redirect_list *node;
-	node = try_calloc(1, sizeof(t_redirect));
-	//t_redirectとtokenをstrcmpなどで比較する必要がある
+	t_redirect_list_list *node;
+	node = try_calloc(1, sizeof(t_redirect_list));
+	//t_redirect_listとtokenをstrcmpなどで比較する必要がある
 	redirect_set_type(node,token); //redirectタイプをsetする関数
 	return (node);
 }
 
-void	redirect_list_addback(t_redirect **head, t_redirect *node)
+void	redirect_list_addback(t_redirect_list **head, t_redirect_list *node)
 {
 	;
 }
