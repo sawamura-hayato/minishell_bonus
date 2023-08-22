@@ -55,7 +55,7 @@ void	read_eval_print_loop()
 		if (line == NULL)
 			break ;
 		token = tokenize(line);
-		debug_print_token(token);
+		// debug_print_token(token);
 		pasre_node = parse(&token,&d);
 		word_p = pasre_node->command_list->word_list;
 		redirect_p = pasre_node->command_list->redirect_list;

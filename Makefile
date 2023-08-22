@@ -42,6 +42,7 @@ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
 HEREDOC_DIR = heredoc
 SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
