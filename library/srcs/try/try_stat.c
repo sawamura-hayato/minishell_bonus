@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   try_stat.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 17:47:34 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 17:26:47 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/19 14:29:30 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/19 18:28:55 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "library.h"
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-void	builtin_unset(char **argv, t_data *d)
+bool	try_stat(const char *path, struct stat *sb, t_data *d)
 {
-	size_t	i;
-
-	d->exit_status = EXIT_SUCCESS;
-	i = 1;
-	while (argv[i] != NULL)
+	if (stat(path, sb) == -1)
 	{
-		if (ft_strcmp(argv[i], "_") != 0)
-			envs_delete(argv[i], d->envs_hashmap);
-		if (ft_strcmp(argv[i], "OLDPWD") == 0)
-		{
-			free(d->oldpwd);
-			d->oldpwd = NULL;
-		}
-		i++;
+		d->exit_status = EXIT_FAILURE;
+		perror("stat");
+		return (false);
 	}
+	return (true);
 }

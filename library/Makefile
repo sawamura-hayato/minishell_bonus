@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/15 15:34:05 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/19 14:41:48 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,15 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_isupper.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_memchr.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strncmp.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp_ignorecase.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_atoi.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_strchr.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_atol.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strstr.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strrchr.c
 
 TRY_DIR = try
 SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
@@ -45,7 +49,9 @@ SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_write.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_itoa.c	\
-			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c
+			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_chdir.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_stat.c
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

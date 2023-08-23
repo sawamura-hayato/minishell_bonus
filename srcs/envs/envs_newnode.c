@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:43:48 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/12 21:23:59 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/17 14:21:12 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "library.h"
 #include <stdlib.h>
 
-t_envs	*envs_get_node(char *_key, t_envs **envs_hashmap)
+t_envs	*envs_get_node(const char *_key, t_envs **envs_hashmap)
 {
 	t_envs	*node;
 

@@ -7,6 +7,7 @@
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
 #    Updated: 2023/08/21 19:38:09 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/23 14:24:31 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,13 +51,31 @@ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 # 		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
 
-# BUILTIN_DIR = $(SRCS_DIR)/builtin
-# SRCS += $(BUILTIN_DIR)/export/export.c	\
-# 	    $(BUILTIN_DIR)/export/export_show.c	\
-# 	    $(BUILTIN_DIR)/export/export_add.c	\
-# 	    $(BUILTIN_DIR)/export/export_is_error.c	\
-# 	    $(BUILTIN_DIR)/export/export_error.c
-
+BUILTIN_DIR = $(SRCS_DIR)/builtin
+SRCS += $(BUILTIN_DIR)/export/export.c	\
+	    $(BUILTIN_DIR)/export/export_show.c	\
+	    $(BUILTIN_DIR)/export/export_add.c	\
+	    $(BUILTIN_DIR)/export/export_is_error.c	\
+	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/export/export_set_oldpwd.c	\
+	    $(BUILTIN_DIR)/pwd/pwd.c	\
+	    $(BUILTIN_DIR)/echo/echo.c	\
+	    $(BUILTIN_DIR)/exit/exit.c	\
+	    $(BUILTIN_DIR)/exit/exit_error.c	\
+	    $(BUILTIN_DIR)/exit/exit_overflow.c	\
+	    $(BUILTIN_DIR)/unset/unset.c	\
+	    $(BUILTIN_DIR)/env/env.c	\
+	    $(BUILTIN_DIR)/cd/cd.c	\
+	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
+	    $(BUILTIN_DIR)/cd/cd_error.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dot.c	\
+	    $(BUILTIN_DIR)/cd/cd_convert_path.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dot_slash.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dotdot.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
+	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
