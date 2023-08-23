@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_calloc.c                                       :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:27:58 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 20:15:01 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/16 19:23:44 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/16 21:14:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#include "stdlib.h"
-#include <limits.h>
-#include <stdint.h>
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	unsigned char	*casted_s;
-	size_t			i;
-
-	casted_s = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	while (*haystack != '\0')
 	{
-		casted_s[i] = '\0';
-		i++;
+		if (ft_strncmp(haystack, needle, ft_strlen(needle)) == 0)
+			return ((char *)haystack);
+		haystack++;
 	}
-}
-
-void	*try_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (count != 0 && (SIZE_MAX / count) < size)
-		return (try_calloc(0, 0));
-	ptr = try_malloc(count * size);
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	return (NULL);
 }

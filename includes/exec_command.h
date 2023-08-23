@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 15:18:11 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:17:25 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_COMMAND_H
 #define EXEC_COMMAND_H
 
-#include "parse.h"
-#include "init.h"
+# include <stdbool.h>
+# include "init.h"
+# include "parse.h"
 
 typedef enum e_operator
 {
@@ -137,7 +138,7 @@ void exec_pipe(t_ast *node, t_data *d);
  * @param d 環境変数と終了ステータス
  * @return char* commandのpath
  */
-// char *exec_make_filepath(t_ast *node, t_data *d);
+char *exec_make_filepath(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はコマンド実行の二次元配列（argv）を作成する。
@@ -171,6 +172,6 @@ void exec_pipe(t_ast *node, t_data *d);
  */
 // bool exec_is_builtin(t_ast *node);
 
-void	debug_printf_double_arr(char **arr);
+// void	debug_printf_double_arr(char **arr);
 
 #endif

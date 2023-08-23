@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_calloc.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:27:58 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 20:15:01 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/16 19:32:14 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/16 19:33:16 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
-#include "stdlib.h"
-#include <limits.h>
-#include <stdint.h>
 
-void	ft_bzero(void *s, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned char	*casted_s;
+	unsigned char	*casted_s1;
+	unsigned char	*casted_s2;
+	int				diff;
 	size_t			i;
 
-	casted_s = (unsigned char *)s;
+	casted_s1 = (unsigned char *)s1;
+	casted_s2 = (unsigned char *)s2;
+	diff = 0;
 	i = 0;
 	while (i < n)
 	{
-		casted_s[i] = '\0';
+		diff = *casted_s1 - *casted_s2;
+		if (!*casted_s1 || !*casted_s2)
+			break ;
+		if (diff != 0)
+			return (diff);
+		casted_s1++;
+		casted_s2++;
 		i++;
 	}
-}
-
-void	*try_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (count != 0 && (SIZE_MAX / count) < size)
-		return (try_calloc(0, 0));
-	ptr = try_malloc(count * size);
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	return (diff);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 13:39:03 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:20:25 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char *expand_get_expanded_token(char *token_word, t_data *d);
 void expand_token_word_list(t_word_list *token, t_data *d);
 void expand_token_redirect_list(t_redirect_list *token,
 								t_data *d,
-								t_redirect_list_type is_quote);
+								t_redirect_type is_quote);
 void expand_variable_word_list(t_word_list **head, t_data *d);
 void expand_variable_redirect_list(t_redirect_list **head, t_data *d);
 void expand_dollar_quote_string_word_list(t_word_list **head);
@@ -79,7 +79,7 @@ void expandion_delete_quotation_redirect_list(t_redirect_list *redirect_list);
 t_ast *debug_new_ast(t_command *command, t_ast_node_type type);
 t_command *debug_new_command(t_word_list *word_list, t_redirect_list *redirect_list);
 t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type);
-t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_list_type type);
+t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_type type);
 
 void debug_printf_word_list(t_word_list *word_list);
 void debug_free_word_list(t_word_list *word_list);

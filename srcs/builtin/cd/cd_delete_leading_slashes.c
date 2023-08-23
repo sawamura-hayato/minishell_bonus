@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_calloc.c                                       :+:      :+:    :+:   */
+/*   cd_delete_leading_slashes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:27:58 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 20:15:01 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/22 17:46:45 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/22 17:59:04 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "library.h"
-#include "stdlib.h"
-#include <limits.h>
-#include <stdint.h>
 
-void	ft_bzero(void *s, size_t n)
+char	*cd_delete_leading_slashes(char *path)
 {
-	unsigned char	*casted_s;
-	size_t			i;
+	char	*newpath;
+	char	*first_slashes;
 
-	casted_s = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	if (*path != '/')
+		return (path);
+	first_slashes = path;
+	while (*first_slashes != '\0')
 	{
-		casted_s[i] = '\0';
-		i++;
+		if (*first_slashes != '/')
+			break ;
+		first_slashes++;
 	}
-}
-
-void	*try_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (count != 0 && (SIZE_MAX / count) < size)
-		return (try_calloc(0, 0));
-	ptr = try_malloc(count * size);
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	if ((first_slashes - path) < 3)
+		return (path);
+	newpath = try_strjoin("/", first_slashes);
+	free(path);
+	return (newpath);
 }

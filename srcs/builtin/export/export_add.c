@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:08:49 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 21:13:14 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/17 14:10:31 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 
 bool	export_is_error(char *str, t_data *d);
+void	export_set_oldpwd(const char *key, t_data *d);
 
 typedef enum e_export_operator
 {
@@ -97,5 +98,6 @@ bool	export_add(char *str, t_data *d)
 		envs_addstr(export_get_key(str, op), export_get_value(str),
 			d->envs_hashmap);
 	}
+	export_set_oldpwd(key, d);
 	return (true);
 }

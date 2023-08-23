@@ -1,41 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_calloc.c                                       :+:      :+:    :+:   */
+/*   try_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:27:58 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 20:15:01 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/23 19:56:59 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/23 20:00:36 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "library.h"
-#include "stdlib.h"
-#include <limits.h>
-#include <stdint.h>
 
-void	ft_bzero(void *s, size_t n)
+void	try_pipe(int *pipefd)
 {
-	unsigned char	*casted_s;
-	size_t			i;
-
-	casted_s = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	if (pipe(pipefd) == -1)
 	{
-		casted_s[i] = '\0';
-		i++;
+		perror("pipe");
+		exit(EXIT_FAILURE);
 	}
-}
-
-void	*try_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (count != 0 && (SIZE_MAX / count) < size)
-		return (try_calloc(0, 0));
-	ptr = try_malloc(count * size);
-	ft_bzero(ptr, count * size);
-	return (ptr);
 }

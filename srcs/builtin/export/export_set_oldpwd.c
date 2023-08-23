@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft.h                                               :+:      :+:    :+:   */
+/*   export_set_oldpwd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/08 13:52:32 by tterao            #+#    #+#             */
-/*   Updated: 2023/07/08 13:57:14 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/17 14:07:28 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/17 14:19:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_H
-# define FT_H
+#include "builtins.h"
+#include "library.h"
+#include <stdlib.h>
 
-#include <stddef.h>
+void	export_set_oldpwd(const char *key, t_data *d)
+{
+	char	*new_oldpwd;
 
-void	*malloc_x(size_t size);
-void	*strdup_x(const char *str);
-void	*substr_x(const char *str, size_t start, size_t length);
-int		close_x(int fd);
-
-#endif
+	if (ft_strcmp(key, "OLDPWD") != 0)
+		return ;
+	new_oldpwd = envs_get_value((char *)key, d->envs_hashmap);
+	free(d->oldpwd);
+	d->oldpwd = new_oldpwd;
+}

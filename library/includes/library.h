@@ -3,18 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 15:14:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:02:34 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LIBRARY_H
 # define LIBRARY_H
 
 # include <stdbool.h>
 # include <stddef.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "init.h"
 
 // try
@@ -30,6 +33,10 @@ int		try_open(int open_value, t_data *d);
 void	try_close(int fildes, t_data *d);
 void	try_dup(int fildes, t_data *d);
 void	try_dup2(int fildes, int fildes2, t_data *d);
+bool	try_chdir(const char *og_path, const char *path, t_data *d);
+bool	try_stat(const char *path, struct stat *sb, t_data *d);
+char	*ft_strchr(const char *s, int c);
+void	try_pipe(int *pipefd);
 
 // ft
 char	*ft_strchr(const char *s, int c);
@@ -44,8 +51,11 @@ bool	ft_isupper(char c);
 bool	ft_islower(char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strcmp_ignorecase(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
 int		ft_isdigit(char c);
+char	*ft_strstr(const char *haystack, const char *needle);
+char	*ft_strrchr(const char *s, int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 17:47:34 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/13 18:48:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/16 17:26:47 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	builtin_unset(char **argv, t_data *d)
 	{
 		if (ft_strcmp(argv[i], "_") != 0)
 			envs_delete(argv[i], d->envs_hashmap);
+		if (ft_strcmp(argv[i], "OLDPWD") == 0)
+		{
+			free(d->oldpwd);
+			d->oldpwd = NULL;
+		}
 		i++;
 	}
 }

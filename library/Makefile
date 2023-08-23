@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/23 15:03:38 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/23 20:02:50 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,15 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_isupper.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_memchr.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strncmp.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp_ignorecase.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_atoi.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_strchr.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_atol.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strstr.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_strrchr.c
 
 TRY_DIR = try
 SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
@@ -50,6 +54,10 @@ SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_dup2.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_open.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_close.c \
+			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_chdir.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_stat.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_pipe.c
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
