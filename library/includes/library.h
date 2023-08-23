@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:33:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:16:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdbool.h>
 # include <stddef.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "init.h"
 
 // try
@@ -26,6 +28,8 @@ char	*try_strjoin(char const *s1, char const *s2);
 void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
 char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
+bool	try_chdir(const char *og_path, const char *path, t_data *d);
+bool	try_stat(const char *path, struct stat *sb, t_data *d);
 char	*ft_strchr(const char *s, int c);
 
 // ft
@@ -40,8 +44,11 @@ bool	ft_isupper(char c);
 bool	ft_islower(char c);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strcmp_ignorecase(const char *s1, const char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
 int		ft_isdigit(char c);
+char	*ft_strstr(const char *haystack, const char *needle);
+char	*ft_strrchr(const char *s, int c);
 
 #endif

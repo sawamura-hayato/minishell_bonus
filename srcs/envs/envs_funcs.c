@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/12 18:43:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/17 14:20:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	envs_delete(char *_key, t_envs **envs_hashmap)
 	}
 }
 
-char	*envs_get_value(char *_key, t_envs **envs_hashmap)
+char	*envs_get_value(const char *_key, t_envs **envs_hashmap)
 {
 	t_envs	*target;
 
