@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/21 19:37:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/23 19:48:43 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "library.h"
 # include <unistd.h>
 #include <stddef.h>
+#include <stdlib.h>
 
 typedef enum e_redirect_type
 {

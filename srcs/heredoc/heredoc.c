@@ -1,125 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
+/*   Updated: 2023/08/23 19:52:55 by tyamauch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "heredoc.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-char	*heredoc_read()
-{
-	char *buff;
-	char *tmp;
-	char *line;
-
-	buff = NULL;
-	tmp = try_strdup("");
-	line = NULL;
-	if(write(1,"> ",2) == -1)
-			return(NULL);
-	while(true)
-	{
-		if(buff != NULL)
-		{
-			tmp = try_strdup(buff); 
-			free(buff);
-		}
-		buff = try_strdup("");
-		if(read(0,buff,1) == -1)
-			return(NULL);
-		if(buff[0] == '\n')
-		{
-			line = try_strjoin(tmp,buff); 
-			free(tmp);
-			free(buff);
-			break;
-		}
-		else
-			buff = try_strjoin(tmp,buff); 
-	}
-	return(line);
-}
-
-bool	heredoc_read_loop(t_redirect_list *delimiter)
-{
-	char	*str ;
-	char	*tmp ;
-	char *buff ;
-	char *check ;
-
-	str= try_strdup("");
-	check = try_strjoin(delimiter->word,"\n");
-	while (true)
-	{
-		buff = heredoc_read();
-		if (buff == NULL)
-		{
-			free(str);
-			return (false);
-		}
-		if (ft_strcmp(buff, check) == 0)
-		{
-			free(buff);
-			free(delimiter->word);
-			free(check);
-			delimiter->word = str;
-			break ;
-		}
-		tmp = str;
-		str = try_strjoin(str, buff);
-		free(buff);
-		free(tmp);
-	}
-	return (true);
-}
-
-void	heredoc_delete_quote(t_redirect_list *delimiter)
-{
-	(void)delimiter;
-}
 
 bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 {
-	t_redirect_list	*delimiter = node->next;
-	/* char		*tmp; */
-	(void)d;
+	t_redirect_list	*delimiter;
 
+	delimiter = node->next;
 	if (delimiter == NULL)
 		return (false);
 	/* if (delimiter->type == PS_QUOTE_DELIMITER) */
-		/* heredoc_delete_quote(delimiter); */
-	return (heredoc_read_loop(delimiter));
-}
-
-void	redirect_delete(t_command *command, t_redirect_list *target)
-{
-	t_redirect_list *list_p;
-	t_redirect_list *prev;
-
-	list_p = command->redirect_list;
-	if(list_p == target)
-	{
-		command->redirect_list = list_p->next;
-		free(list_p);
-		return;
-	}
-	prev = list_p;
-	while(list_p)	
-	{
-		if(list_p == target)
-		{
-			prev->next = list_p->next;
-			free(list_p);
-			break;
-		}
-		prev = list_p;
-		list_p = list_p->next;
-	}
+	/* heredoc_delete_quote(delimiter); */
+	return (heredoc_read_loop(delimiter, d));
 }
 
 bool	heredoc_redirect_list(t_command *command, t_data *d)
 {
-	t_redirect_list	*node ;
-	t_redirect_list	*tmp ;
-	
-	node = command->redirect_list;
+	t_redirect_list	*node;
+	t_redirect_list	*tmp;
 
+	node = command->redirect_list;
 	while (node != NULL)
 	{
 		if (node->type == PS_HERE_DOCUMENTS)
@@ -139,8 +49,8 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 bool	heredoc(t_ast *node, t_data *d)
 {
 	bool	result;
-	result = true;
 
+	result = true;
 	if (node->left_hand != NULL)
 		result = heredoc(node->left_hand, d);
 	if (result && node->right_hand != NULL)
@@ -151,4 +61,3 @@ bool	heredoc(t_ast *node, t_data *d)
 		return (heredoc_redirect_list(node->command_list, d));
 	return (true);
 }
-
