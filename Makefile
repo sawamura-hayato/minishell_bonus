@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
 #    Updated: 2023/08/23 14:24:31 by tterao           ###   ########.fr        #
@@ -35,6 +35,23 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
 PARSE_DIR = parse
+
+EXPANSION_DIR = expansion
+EXPANSION_VARI_DIR = expand_variable
+EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
+EXPANSION_FILENAME_DIR = expand_filename
+EXPANSION_DELETE_QUOTE = expand_delete_quote
+
+SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_word_list.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_redirect.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_expanded_token.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_word_list.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_redirect.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_word_list.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_redirect.c \
 
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
@@ -79,8 +96,8 @@ INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
 $(NAME): $(OBJS) $(LIBRARY_AFILE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBRARY_AFILE) -o $(NAME)
-	# $(CC) $(CFLAGS) $(OBJS) -o $@ $^ $(RL_FLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
+# $(CC) $(CFLAGS) $(OBJS) $(LIBRARY_AFILE) -o $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)

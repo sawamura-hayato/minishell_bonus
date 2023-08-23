@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/13 18:15:20 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/14 19:21:57 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/14 19:22:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <stdlib.h>
 
-// int	main(void)
-// {
-// 	// (void)argc;
-// 	// (void)argv;
-// 	read_eval_print_loop();
-// 	return (0);
-// }
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != (char) c)
+	{
+		if (*s == '\0')
+			return (NULL);
+		s++;
+	}
+	return ((char *) s);
+}

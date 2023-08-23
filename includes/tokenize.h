@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 14:57:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/15 15:47:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include "library.h"
 
 typedef enum e_token_type
 {
 	WORD,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
-	LOGICAL_OR,
-	LOGICAL_AND,
-	PIPE,
-	REDIRECT
+	TOKEN_SINGLE_QUOTE,
+	TOKEN_DOUBLE_QUOTE,
+	REDIRECT,
+	TOKEN_PIPE,
+	TOKEN_LOGICAL_OR,
+	TOKEN_LOGICAL_AND,
 } t_token_type;
 
 typedef enum e_quote

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
 /*   Updated: 2023/08/22 20:16:15 by tterao           ###   ########.fr       */
@@ -30,6 +30,7 @@ char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
 bool	try_chdir(const char *og_path, const char *path, t_data *d);
 bool	try_stat(const char *path, struct stat *sb, t_data *d);
+char	*ft_strchr(const char *s, int c);
 
 // ft
 size_t	ft_strlen(const char *str);
