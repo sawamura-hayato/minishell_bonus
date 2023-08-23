@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   cd_delete_leading_slashes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 17:47:34 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 17:26:47 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/22 17:46:45 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/22 17:59:04 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-#include "library.h"
 #include <stdlib.h>
+#include "library.h"
 
-void	builtin_unset(char **argv, t_data *d)
+char	*cd_delete_leading_slashes(char *path)
 {
-	size_t	i;
+	char	*newpath;
+	char	*first_slashes;
 
-	d->exit_status = EXIT_SUCCESS;
-	i = 1;
-	while (argv[i] != NULL)
+	if (*path != '/')
+		return (path);
+	first_slashes = path;
+	while (*first_slashes != '\0')
 	{
-		if (ft_strcmp(argv[i], "_") != 0)
-			envs_delete(argv[i], d->envs_hashmap);
-		if (ft_strcmp(argv[i], "OLDPWD") == 0)
-		{
-			free(d->oldpwd);
-			d->oldpwd = NULL;
-		}
-		i++;
+		if (*first_slashes != '/')
+			break ;
+		first_slashes++;
 	}
+	if ((first_slashes - path) < 3)
+		return (path);
+	newpath = try_strjoin("/", first_slashes);
+	free(path);
+	return (newpath);
 }

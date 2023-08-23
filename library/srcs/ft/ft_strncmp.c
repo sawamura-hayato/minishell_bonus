@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/13 17:47:34 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/16 17:26:47 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/16 19:32:14 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/16 19:33:16 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "library.h"
-#include <stdlib.h>
 
-void	builtin_unset(char **argv, t_data *d)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
+	unsigned char	*casted_s1;
+	unsigned char	*casted_s2;
+	int				diff;
+	size_t			i;
 
-	d->exit_status = EXIT_SUCCESS;
-	i = 1;
-	while (argv[i] != NULL)
+	casted_s1 = (unsigned char *)s1;
+	casted_s2 = (unsigned char *)s2;
+	diff = 0;
+	i = 0;
+	while (i < n)
 	{
-		if (ft_strcmp(argv[i], "_") != 0)
-			envs_delete(argv[i], d->envs_hashmap);
-		if (ft_strcmp(argv[i], "OLDPWD") == 0)
-		{
-			free(d->oldpwd);
-			d->oldpwd = NULL;
-		}
+		diff = *casted_s1 - *casted_s2;
+		if (!*casted_s1 || !*casted_s2)
+			break ;
+		if (diff != 0)
+			return (diff);
+		casted_s1++;
+		casted_s2++;
 		i++;
 	}
+	return (diff);
 }
