@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 13:23:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:10:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_command
 typedef struct s_ast
 {
 	t_ast_node_type type;
-	struct s_command *command_list;
+	t_command *command_list;
 	struct s_ast *left_hand;
 	struct s_ast *right_hand;
 } t_ast;

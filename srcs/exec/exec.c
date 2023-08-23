@@ -6,17 +6,18 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 12:19:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:16:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <unistd.h>
-#include "command_execution.h"
+#include <fcntl.h>
+#include "exec_command.h"
 
 #include "expansion.h"
 
-size_t	command_get_size_arr_word_list(t_word_list *word_list)
+size_t	exec_get_size_arr_word_list(t_word_list *word_list)
 {
 	size_t	size;
 	size_t	index;
@@ -42,7 +43,7 @@ size_t	command_get_size_arr_word_list(t_word_list *word_list)
 	
 // }
 
-char	*command_get_word_index(t_word_list **word_list)
+char	*exec_get_word_index(t_word_list **word_list)
 {
 	char	*word;
 	size_t	index;
@@ -58,25 +59,25 @@ char	*command_get_word_index(t_word_list **word_list)
 	return (word);
 }
 
-char	**command_change_word_list_to_double_arr(t_word_list *word_list)
+char	**exec_change_word_list_to_double_arr(t_word_list *word_list)
 {
 	char	**arr;
 	size_t	index;
 	size_t	size;
 
-	size = command_get_size_arr_word_list(word_list);
+	size = exec_get_size_arr_word_list(word_list);
 	arr = try_malloc((size + 1) * sizeof(char *));
 	arr[size] = NULL;
 	index = 0;
 	while (index < size)
 	{
-		arr[index] = command_get_word_index(&word_list);
+		arr[index] = exec_get_word_index(&word_list);
 		index++;
 	}
 	return (arr);
 }
 
-t_operator	command_change_ast_type_to_operator(t_ast_node_type ast_type)
+t_operator	exec_change_ast_type_to_operator(t_ast_node_type ast_type)
 {
 	if (PS_PIPE == ast_type)
 		return (EXEC_PIPE);
@@ -87,17 +88,17 @@ t_operator	command_change_ast_type_to_operator(t_ast_node_type ast_type)
 	return (EXEC_START);
 }
 
-void	command_search_exec_command(t_ast *node, t_operator operator, t_data *d)
+void	exec_search_command(t_ast *node, t_operator operator, t_data *d)
 {
 	
 	if (node->left_hand != NULL)
-		command_execution(node->left_hand, command_change_ast_type_to_operator(node->type), d);
+		exec_command(node->left_hand, exec_change_ast_type_to_operator(node->type), d);
 	if (node->type == PS_LOGICAL_AND || node->type == PS_LOGICAL_OR)
 		;
 	else if (node->right_hand != NULL)
-		command_execution(node->right_hand, operator, d);
+		exec_command(node->right_hand, operator, d);
 	else if (operator== EXEC_START && node->right_hand != NULL)
-		command_execution(node->right_hand, EXEC_END, d);
+		exec_command(node->right_hand, EXEC_END, d);
 }
 
 /**
@@ -116,12 +117,75 @@ void	command_search_exec_command(t_ast *node, t_operator operator, t_data *d)
  * //どういうタイミングで失敗するのか？
  *
  */
-bool exec_do_redirection(t_ast *node, t_data *d);
+// bool exec_do_redirection(t_ast *node, t_data *d);
 
-// void	exec_do_redirection(t_ast *node, t_data *d)
+void	exec_redirect_stdin(t_redirect_list *redirect_list, t_data *d)
+{
+	int		fd;
+	char	*file;
+
+	// try_open, dup, dup2, close作成する(try系でd使う？？)
+	while (redirect_list != NULL)
+	{
+		if (redirect_list->type == PS_FILE)
+			file = redirect_list->word;
+		redirect_list = redirect_list->next;
+	}
+	fd = try_open(open(file, O_RDONLY), d);
+	try_dup2(fd, STDIN_FILENO, d);
+	try_close(fd, d);
+}
+
+void	exec_redirect_stdout(t_command *command_list, t_data *d, t_redirect_list_type type)
+{
+	int				fd;
+	char			*file;
+	t_redirect_list	*redirect_list;
+
+	// try_open, dup, dup2, close作成する(try系でd使う？？)
+	(void)d;
+	redirect_list = command_list->redirect_list;
+	while (redirect_list != NULL)
+	{
+		if (redirect_list->type == PS_FILE)
+			file = redirect_list->word;
+		redirect_list = redirect_list->next;
+	}
+	//openの仕方が違う
+	if (type == PS_REDIRECTING_OUTPUT)
+		fd = try_open(open(file, O_RDONLY), d);
+	else
+		fd = try_open(open(file, O_RDONLY), d);
+	command_list->fd = fd;
+}
+
+// void	exec_redirect_heredoc(t_command *command_list, t_data *d)
 // {
 	
 // }
+
+void	exec_do_redirection(t_ast *node, t_data *d)
+{
+	t_redirect_list_type	type;
+
+	type = node->command_list->redirect_list->type;
+	// if (type == PS_DELIMITER)
+	// {
+	// // heredocの場合、heredocの文字列を標準入力に設定する
+	// //色々やり方がある（fd, readとwrite）
+	// 	exec_redirect_heredoc(node->command_list, d);
+	// }
+	if (type == PS_REDIRECTING_OUTPUT || type == PS_APPENDING_OUTPUT)
+	{
+	// outputの場合、node->command_list->fdにopenしたfdとfd_typeを設定する
+		exec_redirect_stdout(node->command_list, d, type);
+	}
+	else if (type == PS_REDIRECTING_INPUT)
+	{
+	// inputの場合、fileをopenし、readした文字列を標準入力に設定する
+		exec_redirect_stdin(node->command_list->redirect_list, d);
+	}
+}
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -133,9 +197,27 @@ bool exec_do_redirection(t_ast *node, t_data *d);
  */
 // void exec_fork(t_ast *node, t_data *d);
 
-void	exec_fork(t_ast *node, t_data *d)
+void	exec_child_process(t_command *command_list, int pipefd, t_data *d)
 {
 	char	**argv;
+	int	fd;
+
+	(void)pipefd;
+	fd = command_list->fd;
+	if (fd != STDOUT_FILENO)
+	{
+		try_dup2(fd, STDOUT_FILENO, d);
+		try_close(fd, d);
+	}
+	if (command_list != NULL)
+	{
+		argv = exec_change_word_list_to_double_arr(command_list->word_list);
+		execve(try_strjoin("/bin/", argv[0]), argv, envs_make_envp(d->envs_hashmap));
+	}
+}
+
+void	exec_fork(t_ast *node, t_data *d)
+{
 	pid_t	pid;
 
 	(void)node;
@@ -145,41 +227,34 @@ void	exec_fork(t_ast *node, t_data *d)
 	{
 		printf("ok\n");
 	}
-		// perror("error process: \n");
 	else if (pid == 0)
 	{
 		printf("ok\n");
-		//fd
-		//実行するコマンドの単方向リストを渡す？
-		//filename
-		//単方向リストから二重配列
-		if (node->command_list != NULL)
-		{
-			argv = command_change_word_list_to_double_arr(node->command_list->word_list);
-			// debug_printf_double_arr(argv);
-			execve(try_strjoin("/bin/", argv[0]), argv, envs_make_envp(d->envs_hashmap));
-		}
+		//pipefd NULLポインタだとintと型が合わない
+		exec_child_process(node->command_list, 0, d);
 		// node->command_list;
 	}
 	else
 	{
-		if (node->command_list != NULL)
-			node->command_list->pid = pid;
+		node->command_list->pid = pid;
 		printf("parent process   %d\n", pid);
 	}
 	// return (0);
 }
 
-void	command_execution(t_ast *node, t_operator operator, t_data *d)
+void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
 	static size_t i = 0;
 
-	command_search_exec_command(node, operator, d);
+	exec_search_command(node, operator, d);
 	i++;
 	printf("num   %zu\n", i);
 
-	// exec_do_redirection(node, d);
-	exec_fork(node, d);
+	if (node->command_list != NULL)
+	{
+		exec_do_redirection(node, d);
+		exec_fork(node, d);
+	}
 	// if (node->type == COMMAND)
 	// {
 	// 	bool	ret = do_redirection(node, &d);
@@ -193,19 +268,19 @@ void	command_execution(t_ast *node, t_operator operator, t_data *d)
 	// 	else if (ret == false && operator == LOGICAL_OR)//operator=LOGICAL_ORの場合、次のコマンドを実行
 	// 	{
 	// 		exec_wait_child_process(node);
-	// 		command_execution(node->right_hand, operator, &d);
+	// 		exec_command(node->right_hand, operator, &d);
 	// 	}
 	// 	else if (operator == PIPE)
 	// 		exec_pipe(node);
 	// 	else if (operator == LOGICAL_AND)
 	// 	{
 	// 		if (exec_l_and(node))
-	// 			command_execution(node->right_hand, operator, &d);
+	// 			exec_command(node->right_hand, operator, &d);
 	// 	}
 	// 	else if (operator == LOGICAL_OR)
 	// 	{
 	// 		if (exec_l_or(node));
-	// 			command_execution(node->right_hand, operator, &d);
+	// 			exec_command(node->right_hand, operator, &d);
 	// 	}
 	// 	else if (operator == EXEC_START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
 	// 		return (builtin(node, NULL, &d));//builtin.hの関数
@@ -263,9 +338,9 @@ int main(void)
 	data.exit_status = 0;
 	envs_init(environ, &data);
 
-	// debug_printf_double_arr(command_change_word_list_to_double_arr(word_list_left));
+	// debug_printf_double_arr(exec_change_word_list_to_double_arr(word_list_left));
 
-	command_execution(node, EXEC_START, &data);
+	exec_command(node, EXEC_START, &data);
 	// expansion(node, &data);
 
 	// debug_printf_word_list(node->left_hand->command_list->word_list);

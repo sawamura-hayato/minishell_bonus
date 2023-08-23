@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/15 15:34:05 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/23 15:03:38 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,11 @@ SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_write.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_itoa.c	\
-			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c
+			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c \
+			$(SRCS_DIR)/$(TRY_DIR)/try_dup.c \
+			$(SRCS_DIR)/$(TRY_DIR)/try_dup2.c \
+			$(SRCS_DIR)/$(TRY_DIR)/try_open.c \
+			$(SRCS_DIR)/$(TRY_DIR)/try_close.c \
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

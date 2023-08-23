@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_execution.h                                :+:      :+:    :+:   */
+/*   exec_command.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 11:45:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:18:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_EXECUTION_H
-#define COMMAND_EXECUTION_H
+#ifndef EXEC_COMMAND_H
+#define EXEC_COMMAND_H
 
 #include "parse.h"
 #include "init.h"
@@ -44,14 +44,15 @@ enum e_pipefd
  * @param operator 構文木nodeの一つ上のnodeから引き継ぐoperator
  * @param d 環境変数と終了ステータス
  */
-void command_execution(t_ast *node, t_operator operator, t_data * d);
+// void command_execution(t_ast *node, t_operator operator, t_data * d);
+void	exec_command(t_ast *node, t_operator operator, t_data *d);
 
 /**
  * @brief この関数はredirectionを実行する
  *
  * node->command_list->redirect_listを実行する
  * heredocの場合、heredocの文字列を標準入力に設定する
- * outputの場合、node->command_list->fdにopenしたfdとfd_typeを設定する
+ * outputの場合、node->command_list->fdにopenしたfdを設定する
  * inputの場合、fileをopenし、readした文字列を標準入力に設定する
  *
  * @param operator
@@ -62,7 +63,7 @@ void command_execution(t_ast *node, t_operator operator, t_data * d);
  * //どういうタイミングで失敗するのか？
  *
  */
-bool exec_do_redirection(t_ast *node, t_data *d);
+// bool exec_do_redirection(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -72,7 +73,7 @@ bool exec_do_redirection(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
-void exec_fork(t_ast *node, t_data *d);
+// void exec_fork(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。親プロセスは子プロセスの実行結果を受け取る。
@@ -99,7 +100,7 @@ void exec_pipe(t_ast *node, t_data *d);
  * @return true コマンドを実行した結果、終了ステータスが0の場合、trueを返す
  * @return false コマンドを実行した結果、終了ステータスが0以外の場合、falseを返す
  */
-bool exec_l_and(t_ast *node, t_data *d);
+// bool exec_l_and(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -113,7 +114,7 @@ bool exec_l_and(t_ast *node, t_data *d);
  * @return true コマンドを実行した結果、終了ステータスが0以外の場合、trueを返す
  * @return false コマンドを実行した結果、終了ステータスが0の場合、falseを返す
  */
-bool exec_l_or(t_ast *node, t_data *d);
+// bool exec_l_or(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は子プロセス内でコマンドを実行する。
@@ -125,7 +126,7 @@ bool exec_l_or(t_ast *node, t_data *d);
  * @param pipefd pipeがない場合は、NULLが与えられる
  * @param d 環境変数と終了ステータス
  */
-void exec_child_process(t_ast *node, int *pipefd, t_data *d);
+// void exec_child_process(t_ast *node, int *pipefd, t_data *d);
 
 /**
  * 	@brief この関数は、commandのpathを取得する。
@@ -136,7 +137,7 @@ void exec_child_process(t_ast *node, int *pipefd, t_data *d);
  * @param d 環境変数と終了ステータス
  * @return char* commandのpath
  */
-char *exec_make_filepath(t_ast *node, t_data *d);
+// char *exec_make_filepath(t_ast *node, t_data *d);
 
 /**
  * @brief この関数はコマンド実行の二次元配列（argv）を作成する。
@@ -146,7 +147,7 @@ char *exec_make_filepath(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @return char** コマンド実行の二次元配列（argv）
  */
-char **exec_make_command_array(t_ast *node);
+// char **exec_make_command_array(t_ast *node);
 
 /**
  * @brief この関数は、第一引数で与えられたnodeより下のnodeの子プロセスを待ち、終了ステータスを取得する。
@@ -156,7 +157,7 @@ char **exec_make_command_array(t_ast *node);
  *
  * @param node 構文木のnode
  */
-void exec_wait_child_process(t_ast *node, t_data *d);
+// void exec_wait_child_process(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -168,7 +169,7 @@ void exec_wait_child_process(t_ast *node, t_data *d);
  * @return true builtinの場合、trueを返す
  * @return false builtinde出ない場合、falseを返す
  */
-bool exec_is_builtin(t_ast *node);
+// bool exec_is_builtin(t_ast *node);
 
 void	debug_printf_double_arr(char **arr);
 
