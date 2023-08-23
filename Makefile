@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/23 14:24:31 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/23 17:23:25 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -35,28 +35,19 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
 PARSE_DIR = parse
-
-EXPANSION_DIR = expansion
-EXPANSION_VARI_DIR = expand_variable
-EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
-EXPANSION_FILENAME_DIR = expand_filename
-EXPANSION_DELETE_QUOTE = expand_delete_quote
-
-SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_word_list.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_redirect.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_expanded_token.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_word_list.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_redirect.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_word_list.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_redirect.c \
+SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
-		$(ENVS_DIR)/envs_newnode.c	\
-		$(ENVS_DIR)/envs_funcs.c	\
+ 		$(ENVS_DIR)/envs_newnode.c	\
+ 		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
 
 BUILTIN_DIR = $(SRCS_DIR)/builtin
@@ -83,8 +74,9 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
 	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
-	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
-
+	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c	\
+	    $(SRCS_DIR)/exec_make_filepath.c	\
+	    $(SRCS_DIR)/exec_get_filepath.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
@@ -96,8 +88,8 @@ INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
 $(NAME): $(OBJS) $(LIBRARY_AFILE)
-	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
-# $(CC) $(CFLAGS) $(OBJS) $(LIBRARY_AFILE) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBRARY_AFILE) -o $(NAME) $(RL_FLAGS)
+	# $(CC) $(CFLAGS) $(OBJS) -o $@ $^ $(RL_FLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
