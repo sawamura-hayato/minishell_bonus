@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 20:59:17 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/23 14:24:07 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ void	envs_init(const char **environ, t_data *d)
 // 	printf("---------------------------------\n");
 // }
 
-#include "builtins.h"
-#include <stdio.h>
+// #include "builtins.h"
+// #include <stdio.h>
 
-int	main()
-{
-	t_data	d;
+// int	main()
+// {
+// 	t_data	d;
 
-	extern const char	**environ;
-	envs_init(environ, &d);
+// 	extern const char	**environ;
+// 	envs_init(environ, &d);
 	// d.exit_status = 42;
 	// builtin_export((char *[]){"export", NULL}, &d);
 	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
@@ -168,28 +168,28 @@ int	main()
 	// builtin_unset((char *[]){"unset", "_", NULL}, &d);
 	// builtin_export((char *[]){"export", NULL}, &d);
 	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	builtin_env((char *[]){"env", NULL}, &d);
-	builtin_cd((char *[]){"cd", ".././../..test/../../../../..test", NULL}, &d);
-	builtin_cd((char *[]){"cd", "../../../../../..test", NULL}, &d);
-	builtin_cd((char *[]){"cd", "../../../..tst/../../..test", NULL}, &d);
-	builtin_cd((char *[]){"cd", "../../../..tst/../../../..test", NULL}, &d);
-	builtin_cd((char *[]){"cd", "../../../../../", NULL}, &d);
-	builtin_cd((char *[]){"cd", "../../../../", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//Users/tterao//////Documents/cursus/minishell_bonus/././/library/../../////../cursus/../../../..", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//Users////////tterao/te/s/t//////p/////", NULL}, &d);
-	builtin_cd((char *[]){"cd", "///Users////////tterao/te/s/t//////p/////", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//////Users////////tterao/te/s/t//////p/////", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//////..//////../../////", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/..test/../..test/////////", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//////////", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//../../Users/../", NULL}, &d);
-	builtin_cd((char *[]){"cd", "//Users/../", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/Users/../", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/Users/../..", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/Users/../Users/..", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/Users/../Users/tterao", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/", NULL}, &d);
+// 	builtin_env((char *[]){"env", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", ".././../..test/../../../../..test", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "../../../../../..test", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "../../../..tst/../../..test", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "../../../..tst/../../../..test", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "../../../../../", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "../../../../", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//Users/tterao//////Documents/cursus/minishell_bonus/././/library/../../////../cursus/../../../..", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//Users////////tterao/te/s/t//////p/////", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "///Users////////tterao/te/s/t//////p/////", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//////Users////////tterao/te/s/t//////p/////", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//////..//////../../////", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "/..test/../..test/////////", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//////////", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//../../Users/../", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "//Users/../", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "/Users/../", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "/Users/../..", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "/Users/../Users/..", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "/Users/../Users/tterao", NULL}, &d);
+// 	builtin_cd((char *[]){"cd", "/", NULL}, &d);
 
 
-	return (0);
-}
+// 	return (0);
+// }
