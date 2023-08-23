@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 20:19:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:49:51 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	cd_update(char *path, bool is_cdpath, t_data *d)
 		free(oldpwd);
 	if (is_cdpath)
 	{
-		path = try_strjoin_free(path, "\n");
+		path = try_strjoin(path, "\n");
 		try_write(STDOUT_FILENO, path, ft_strlen(path), d);
 	}
 	free(path);
@@ -65,7 +65,11 @@ static void	cd_nodir(t_data *d)
 		d->exit_status = EXIT_FAILURE;
 		return (try_write(STDERR_FILENO, msg, ft_strlen(msg), d));
 	}
-	try_chdir(path, path, d);
+	if (!try_chdir(path, path, d))
+	{
+		free(path);
+		return ;
+	}
 	cd_update(path, false, d);
 }
 
@@ -83,18 +87,13 @@ static void	cd_oldpwd(t_data *d)
 	msg = try_strjoin(d->oldpwd, "\n");
 	try_write(STDOUT_FILENO, msg, ft_strlen(msg), d);
 	free(msg);
-	cd_update(d->oldpwd, false, d);
+	cd_update(try_strdup(d->oldpwd), false, d);
 }
 
 void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d)
 {
 	if (!try_chdir(og_path, path, d))
 		return ;
-	if (is_cdpath)
-	{
-		path = try_strjoin_free(path, "\n");
-		try_write(STDOUT_FILENO, path, ft_strlen(path), d);
-	}
 	cd_update(path, is_cdpath, d);
 }
 

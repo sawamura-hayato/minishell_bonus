@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 19:34:53 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:59:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int	main()
 	// builtin_unset((char *[]){"unset", "_", NULL}, &d);
 	// builtin_export((char *[]){"export", NULL}, &d);
 	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_env((char *[]){"env", NULL}, &d);
+	builtin_env((char *[]){"env", NULL}, &d);
 	builtin_cd((char *[]){"cd", ".././../..test/../../../../..test", NULL}, &d);
 	builtin_cd((char *[]){"cd", "../../../../../..test", NULL}, &d);
 	builtin_cd((char *[]){"cd", "../../../..tst/../../..test", NULL}, &d);
