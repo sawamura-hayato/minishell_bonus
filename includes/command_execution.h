@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/22 13:45:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:45:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,7 @@ void exec_wait_child_process(t_ast *node, t_data *d);
  * @return false builtinde出ない場合、falseを返す
  */
 bool exec_is_builtin(t_ast *node);
+
+void	debug_printf_double_arr(char **arr);
 
 #endif

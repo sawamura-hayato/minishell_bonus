@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/22 13:37:28 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/23 11:51:41 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,8 +73,9 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/unset/unset.c	\
 	    $(BUILTIN_DIR)/env/env.c	
 
-EXEC_DIR = exec 
-SRCS += srcs/exec/exec.c
+EXEC_DIR = exec
+SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
