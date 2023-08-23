@@ -44,7 +44,7 @@ size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 bool	ft_is_operator(char c);
-int		ft_isspace(char c);
+int		ft_is_space(char c);
 bool	ft_is_special_char(char c);
 void	*ft_memchr(const void *s, int c, size_t n);
 bool	ft_isupper(char c);

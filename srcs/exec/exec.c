@@ -6,11 +6,12 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 20:28:14 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:57:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +27,8 @@ size_t	exec_get_size_arr_word_list(t_word_list *word_list)
 	size_t	index;
 
 	size = 1;
+	// if (word_list == NULL)
+	// 	return (0);
 	index = word_list->index;
 	while (true)
 	{
@@ -69,6 +72,8 @@ char	**exec_change_word_list_to_double_arr(t_word_list *word_list)
 	size_t	size;
 
 	size = exec_get_size_arr_word_list(word_list);
+	if (size == 0)
+		return (NULL);
 	arr = try_malloc((size + 1) * sizeof(char *));
 	arr[size] = NULL;
 	index = 0;
@@ -141,7 +146,7 @@ t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 		return (NULL);
 	try_dup2(fd, STDIN_FILENO, d);
 	try_close(fd, d);
-	return (node);
+	return (node->next);
 }
 
 t_redirect_list	*exec_redirect_output(t_command *command_list, t_redirect_list *r_node, t_data *d)
@@ -167,7 +172,7 @@ t_redirect_list	*exec_redirect_output(t_command *command_list, t_redirect_list *
 	if (fd == -1)
 		return (NULL);
 	command_list->fd = fd;
-	return (r_node);
+	return (r_node->next);
 }
 
 t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d)
@@ -176,21 +181,23 @@ t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d)
 	size_t	i;
 	ssize_t	write_bytes;
 
+	// printf("%s", node->word);
 	try_pipe(pipefd);
-	write_bytes = WRITE_BYTES + 1;
-	i = 0;
-	while (write_bytes > WRITE_BYTES)
-	{
-		write_bytes = write(pipefd[W],
-				&(node->word[i * WRITE_BYTES]), WRITE_BYTES);
-		if (write_bytes == -1)
-		{
-			perror("write");
-			d->exit_status = EXIT_FAILURE;
-			return (NULL);
-		}
-		i++;
-	}
+	try_write(pipefd[W], node->word, ft_strlen(node->word), d);
+	// write_bytes = WRITE_BYTES + 1;
+	// i = 0;
+	// while (write_bytes > WRITE_BYTES)
+	// {
+	// 	write_bytes = write(pipefd[W],
+	// 			&(node->word[i * WRITE_BYTES]), WRITE_BYTES);
+	// 	if (write_bytes == -1)
+	// 	{
+	// 		perror("write");
+	// 		d->exit_status = EXIT_FAILURE;
+	// 		return (NULL);
+	// 	}
+	// 	i++;
+	// }
 	try_dup2(pipefd[R], STDIN_FILENO, d);
 	try_close(pipefd[W], d);
 	try_close(pipefd[R], d);
@@ -202,6 +209,7 @@ void	exec_do_redirection(t_ast *node, t_data *d)
 	t_redirect_list	*r_node;
 
 	r_node = node->command_list->redirect_list;
+	// printf("%p\n", r_node);
 	while (r_node != NULL)
 	{
 		if (r_node->type == PS_DELIMITER)
@@ -236,20 +244,31 @@ void	exec_do_redirection(t_ast *node, t_data *d)
 void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 {
 	char	**argv;
+	char	*filepath;
 	int	fd;
 
 	(void)pipefd;
 	fd = node->command_list->fd;
 	if (fd != STDOUT_FILENO)
 	{
-		try_dup2(fd, STDOUT_FILENO, d);
+		try_dup2(fd, STDOUT_FILENO, 0);
 		try_close(fd, d);
 	}
-	if (node->command_list != NULL)
+	if (node->command_list->word_list != NULL)
 	{
 		argv = exec_change_word_list_to_double_arr(node->command_list->word_list);
-		execve(exec_make_filepath(node, d), argv, envs_make_envp(d->envs_hashmap));
+		filepath = exec_make_filepath(node, d);
+		char **tmp = argv;
+		// while (*tmp)
+		// {
+			// printf("argv=%s\n", *tmp);
+		// 	tmp++;
+		// }
+		// printf("path=%s\n", filepath);
+		execve(filepath, argv, envs_make_envp(d->envs_hashmap));
+		// execve(NULL, NULL, envs_make_envp(d->envs_hashmap));
 	}
+	exit(1);
 }
 
 void	exec_fork(t_ast *node, t_data *d)
@@ -276,6 +295,14 @@ void	exec_fork(t_ast *node, t_data *d)
 		// printf("parent process   %d\n", pid);
 	}
 	// return (0);
+}
+
+void	exec_wait_child_process(t_ast *node, t_data *d)
+{
+	int	status;
+
+	waitpid(node->command_list->pid, &status, 0);
+	d->exit_status = status;
 }
 
 void	exec_command(t_ast *node, t_operator operator, t_data *d)
@@ -323,8 +350,8 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 	// 	else
 	// 		exec_fork(node, &d);
 	// }
-	// if (operator == EXEC_START)
-	// 	exec_wait_child_process(node, &d);
+	if (operator == EXEC_START)
+		exec_wait_child_process(node, d);
 }
 
 // int main(void)

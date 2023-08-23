@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:41:07 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEREDOC_H
 # define HEREDOC_H
 
-# include "parse.h"
+# define BUFFER_SIZE 1024
 # include "init.h"
 # include "library.h"
-
+# include "parse.h"
 # include <stdbool.h>
 
 /**
@@ -75,85 +75,21 @@ void	redirect_delete(t_command *command, t_redirect_list *target);
  * @return true 標準入力がdelimiterが取得された場合、trueを返す
  * @return false 標準入力からdelimiterの取得を失敗もしくはシグナルを取得した場合、falseを返す
  */
-bool	heredoc_read_loop(t_redirect_list *delimiter);
+bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d);
 
 /**
  * @brief この関数は、標準入力から文字列を取得する。
  *
  * @return char* 改行まで入力された文字列もしくはNULLを返す。
  */
-char	*heredoc_read();
+char	*heredoc_read(t_data *d);
 
+/* bool	heredoc_read_loop(t_redirect_list *delimiter); */
 
-bool	heredoc_read_loop(t_redirect_list *delimiter)
-{
-	char	*str = try_strdup("");
+bool	heredoc_get_str(t_redirect_list *node, t_data *d);
 
-	while (true)
-	{
-		char *buff = heredoc_read();
-		if (buff == NULL)
-		{
-			free(str);
-			return (false);
-		}
-		if (ft_strcmp(buff, delimiter->word) == 0)
-		{
-			free(buff);
-			delimiter->word = str;
-			break ;
-		}
-		tmp = str;
-		str = try_strjoin(str, buff);
-		free(buff);
-		free(tmp);
-	}
-	return (true);
-}
+bool	heredoc_redirect_list(t_command *command, t_data *d);
 
-bool	heredoc_get_str(t_redirect_list *node, t_data *d)
-{
-	t_redirect_list	*delimiter = node->next;
-	char		*tmp;
-
-	if (delimiter == NULL)
-		return (false);
-	if (delimiter->type == QUOTE_DELIMITER)
-		heredoc_delete_quote(delimiter);
-	return (heredoc_read_loop(delimiter));
-}
-
-bool	heredoc_redirect_list(t_command *command, t_data *d)
-{
-	t_redirect_list	*node = command->redirect_list;
-
-	while (node != NULL)
-	{
-		if (node->type == HERE_DOCUMENTS)
-		{
-			if (heredoc_get_str(node, d) == false)
-				return (false);
-			redirect_delete(command, node);
-		}
-		node = node->next;
-	}
-	return (true);
-}
-
-
-bool	heredoc(t_ast *node, t_data *d)
-{
-	bool	result;
-
-	if (node->left_hand != NULL)
-		result = heredoc(node->left_hand, d);
-	if (result && node->right_hand != NULL)
-		result = heredoc(node->right_hand, d);
-	if (result == false)
-		return (false);
-	if (node->type == COMMAND)
-		return (heredoc_redirect_list(node->command_list, d));
-	return (true);
-}
+bool	heredoc(t_ast *node, t_data *d);
 
 #endif

@@ -6,14 +6,14 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/23 19:20:35 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/23 21:48:10 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -44,10 +44,15 @@ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
+HEREDOC_DIR = heredoc
+SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
+		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
+		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
+
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
- 		$(ENVS_DIR)/envs_newnode.c	\
- 		$(ENVS_DIR)/envs_funcs.c	\
+		$(ENVS_DIR)/envs_newnode.c	\
+		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
 
 BUILTIN_DIR = $(SRCS_DIR)/builtin
