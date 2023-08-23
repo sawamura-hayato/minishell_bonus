@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/08 20:48:49 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/23 14:20:09 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_EXECUTION_H
 # define COMMAND_EXECUTION_H
+
+# include <stdbool.h>
+# include "init.h"
+# include "parse.h"
 
 typedef enum e_operator
 {
@@ -164,50 +168,50 @@ void	exec_wait_child_process(t_ast *node, t_data *d);
  */
 bool	exec_is_builtin(t_ast *node);
 
-void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
-{
-	if (node->left_hand != NULL)
-		command_execution(node->left_hand, node->type, &d);
-	if (node->type == LOGICAL_AND || node->type == LOGICAL_OR)
-		;
-	else if (node->right_hand != NULL)
-		command_execution(node->right_hand, operator, &d);
-	else if (operator == START && node->right_hand != NULL)
-		command_execution(node->right_hand, END, &d);
-	if (node->type == COMMAND)
-	{
-		bool	ret = do_redirection(node, &d);
-		if (ret == false && operator != LOGICAL_OR)
-		{
-			//エラー処理
-			//redirectionが失敗したらこのノードのコマンドを実行しない
-			//open readが失敗したときなど
-			return;
-		}
-		else if (ret == false && operator == LOGICAL_OR)//operator=LOGICAL_ORの場合、次のコマンドを実行
-		{
-			exec_wait_child_process(node);
-			command_execution(node->right_hand, operator, &d);
-		}
-		else if (operator == PIPE)
-			exec_pipe(node);
-		else if (operator == LOGICAL_AND)
-		{
-			if (exec_l_and(node))
-				command_execution(node->right_hand, operator, &d);
-		}
-		else if (operator == LOGICAL_OR)
-		{
-			if (exec_l_or(node));
-				command_execution(node->right_hand, operator, &d);
-		}
-		else if (operator == START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
-			return (builtin(node, NULL, &d));//builtin.hの関数
-		else
-			exec_fork(node, &d);
-	}
-	if (operator == START)
-		exec_wait_child_process(node, &d);
-}
+// void	command_execution(t_ast *node, enum	e_operator operator, t_data *d)
+// {
+// 	if (node->left_hand != NULL)
+// 		command_execution(node->left_hand, node->type, &d);
+// 	if (node->type == LOGICAL_AND || node->type == LOGICAL_OR)
+// 		;
+// 	else if (node->right_hand != NULL)
+// 		command_execution(node->right_hand, operator, &d);
+// 	else if (operator == START && node->right_hand != NULL)
+// 		command_execution(node->right_hand, END, &d);
+// 	if (node->type == COMMAND)
+// 	{
+// 		bool	ret = do_redirection(node, &d);
+// 		if (ret == false && operator != LOGICAL_OR)
+// 		{
+// 			//エラー処理
+// 			//redirectionが失敗したらこのノードのコマンドを実行しない
+// 			//open readが失敗したときなど
+// 			return;
+// 		}
+// 		else if (ret == false && operator == LOGICAL_OR)//operator=LOGICAL_ORの場合、次のコマンドを実行
+// 		{
+// 			exec_wait_child_process(node);
+// 			command_execution(node->right_hand, operator, &d);
+// 		}
+// 		else if (operator == PIPE)
+// 			exec_pipe(node);
+// 		else if (operator == LOGICAL_AND)
+// 		{
+// 			if (exec_l_and(node))
+// 				command_execution(node->right_hand, operator, &d);
+// 		}
+// 		else if (operator == LOGICAL_OR)
+// 		{
+// 			if (exec_l_or(node));
+// 				command_execution(node->right_hand, operator, &d);
+// 		}
+// 		else if (operator == START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
+// 			return (builtin(node, NULL, &d));//builtin.hの関数
+// 		else
+// 			exec_fork(node, &d);
+// 	}
+// 	if (operator == START)
+// 		exec_wait_child_process(node, &d);
+// }
 
 #endif
