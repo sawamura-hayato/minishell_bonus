@@ -6,13 +6,11 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:17:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/23 15:28:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/23 15:55:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command_execution.h"
-#include "init.h"
-#include "parse.h"
 #include "library.h"
 #include <stdlib.h>
 #define COLON ":"
@@ -40,21 +38,49 @@ static char	*add_currentpath_single_colon(char *path)
 	return (path);
 }
 
-static char	*join_path_command(char *path, char *command)
+static char	*join_path_command(char *path, char *command, char *last_colon)
 {
+	char	*newpath;
+
 	if (path[ft_strlen(path) - 1] != '/')
-		path = try_strjoin_free(path, "/");
-	
+	{
+		newpath = try_strjoin(last_colon, "/");
+		newpath = try_strjoin_free(newpath, command);
+	}
+	else
+		newpath = try_strjoin(last_colon, command);
+	return (newpath);
 }
 
-static char	*get_filepath(char *path, char *command)
+bool	exec_is_commnad_with_permission(char *filepath)
+{
+	struct stat	sb;
+
+	if (stat(filepath, &sb) == -1)
+		return (false);
+	if (!S_ISDIR(sb.st_mode) && access(filepath, X_OK) == 0)
+		return (true);
+	return (false);
+}
+
+static char	*get_filepath(char *path, char *command, char *last_colon)
 {
 	char	*eachpath;
 	char	*colon;
 
-	colon = ft_strstr(path, COLON);
+	if (last_colon == '\0')
+		return (NULL);
+	colon = ft_strstr(last_colon, COLON);
 	if (colon == NULL)
-		eachpath = join_path_command(path, command);
+		eachpath = join_path_command(path, command, last_colon);
+	else
+		eachpath = try_substr(last_colon, 0, colon - last_colon);
+	if (exec_is_commnad_with_permission(eachpath))
+	{
+		free(path);
+		return (eachpath);
+	}
+	return (get_filepath(path, command, last_colon + ft_strlen(last_colon)));
 }
 
 char	*exec_make_filepath(t_ast *node, t_data *d)
@@ -72,5 +98,5 @@ char	*exec_make_filepath(t_ast *node, t_data *d)
 		path = add_currentpath_double_colon(path);
 		path = add_currentpath_single_colon(path);
 	}
-	get_filepath(path, node->command_list->word_list->word);
+	path = get_filepath(path, node->command_list->word_list->word);
 }
