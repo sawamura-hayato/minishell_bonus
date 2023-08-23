@@ -74,8 +74,8 @@ void	read_eval_print_loop()
 		redirect_p = pasre_node->command_list->redirect_list;
 		while(redirect_p)
 		{
-			printf("redirect type:%d ",redirect_p->type);
-			printf("redirect:%s",redirect_p->word);
+			printf("redirect type:%d\n ",redirect_p->type);
+			printf("redirect:%s\n",redirect_p->word);
 			redirect_p = redirect_p->next;
 		}
 		// printf("line          %s\n", line);

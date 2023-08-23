@@ -89,28 +89,34 @@ bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 
 void	redirect_delete(t_command *command, t_redirect_list *target)
 {
-	t_redirect_list *head;
+	t_redirect_list *list_p;
 	t_redirect_list *prev;
 
-	head = command->redirect_list;
-	prev = head;
-	while(head)	
+	list_p = command->redirect_list;
+	if(list_p == target)
 	{
-		if(head->word == target->word)
+		command->redirect_list = list_p->next;
+		free(list_p);
+		return;
+	}
+	prev = list_p;
+	while(list_p)	
+	{
+		if(list_p == target)
 		{
-			prev->next = head->next;
-			/* free(head); */
+			prev->next = list_p->next;
+			free(list_p);
 			break;
 		}
-		prev = head;
-		head = head->next;
+		prev = list_p;
+		list_p = list_p->next;
 	}
 }
 
 bool	heredoc_redirect_list(t_command *command, t_data *d)
 {
 	t_redirect_list	*node ;
-	/* t_redirect_list	*tmp ; */
+	t_redirect_list	*tmp ;
 	
 	node = command->redirect_list;
 
@@ -120,12 +126,11 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 		{
 			if (heredoc_get_str(node, d) == false)
 				return (false);
-			/* tmp = node->next; */
+			tmp = node->next;
 			redirect_delete(command, node);
-			/* break; */
-			/* node = tmp; */
+			node = tmp;
 		}
-		/* else */
+		else
 			node = node->next;
 	}
 	return (true);
