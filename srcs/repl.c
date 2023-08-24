@@ -58,10 +58,8 @@ void	read_eval_print_loop()
 {
 	char	*line;
 	t_token *token;
-	// t_ast *pasre_node;
-	// // t_word_list *word_p;
-	// // t_redirect_list *redirect_p;
-	// t_data d;
+	t_ast *pasre_node;
+	t_data d;
 
 	// extern const char	**environ;
 
@@ -71,34 +69,15 @@ void	read_eval_print_loop()
 	{
 		// int fd  = dup(STDIN_FILENO);
 		line = read_line();
-		// // printf("line = %s\n", line);
 		if (line == NULL)
 			continue ;
 		token = tokenize(line);
-		debug_print_token(token);
-		// pasre_node = parse(&token,&d);
-		// heredoc(pasre_node, &d);
-		// exec_command(pasre_node, EXEC_START, &d);
-		// word_p = pasre_node->command_list->word_list;
-		// redirect_p = pasre_node->command_list->redirect_list;
-		// exec_make_filepath(pasre_node, &d);
-		// while(word_p)
-		// {
-		// 	printf("word:%s\n",word_p->word);
-		// 	word_p = word_p->next;
-		// }
-		// while(redirect_p)
-		// {
-		// 	printf("redirect type:%d ",redirect_p->type);
-		// 	printf("redirect:%s\n",redirect_p->word);
-		// 	redirect_p = redirect_p->next;
-		// }
-		// printf("line          %s\n", line);
-		// printf("start 0 end 3 %s\n", ft_substr(line, -1, 3));
-		// printf("start 2 end 7 %s\n", ft_substr(line, 2, 7));
-
-		// free(line);
-		// try_dup2(fd, STDIN_FILENO, &d);
-		// try_close(fd, &d);
+		// debug_print_token(token);
+		pasre_node = parse(&token,&d);
+		debug_print_ast(pasre_node);
+		heredoc(pasre_node, &d);
+		free(line);
+		try_dup2(fd, STDIN_FILENO, &d);
+		try_close(fd, &d);
 	}
 }

@@ -59,8 +59,8 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 		}
 		if (token_next(&token,d) == NULL || d->syntax_flag )
 				break;
-		/* printf("token is1:%s\n",token->word); */
 		/* token_next(&token,d); */
+		*current_token = token;
 	}
 	return (ast_command_node);
 }
