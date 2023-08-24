@@ -6,86 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 14:43:23 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:11:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
 #include "exec_command.h"
-#include "parse.h"
-// #include "expansion.h"
-#define WRITE_BYTES 2000
 
-size_t	exec_get_size_arr_word_list(t_word_list *word_list)
-{
-	size_t	size;
-	size_t	index;
-
-	size = 1;
-	// if (word_list == NULL)
-	// 	return (0);
-	index = word_list->index;
-	while (true)
-	{
-		word_list = word_list->next;
-		if (word_list == NULL)
-			break ;
-		if (index != word_list->index)
-		{
-			index = word_list->index;
-			size++;
-		}
-	}
-	return (size);
-}
-
-// size_t	command_get_size_word_index(t_word_list **word_list, size_t index)
-// {
-
-// }
-
-char	*exec_get_word_index(t_word_list **word_list)
-{
-	char	*word;
-	size_t	index;
-
-	index = (*word_list)->index;
-	word = try_strdup((*word_list)->word);
-	(*word_list) = (*word_list)->next;
-	while ((*word_list) != NULL && index == (*word_list)->index)
-	{
-		word = try_strjoin_free(word, (*word_list)->word);
-		(*word_list) = (*word_list)->next;
-	}
-	return (word);
-}
-
-char	**exec_change_word_list_to_double_arr(t_word_list *word_list)
-{
-	char	**arr;
-	size_t	index;
-	size_t	size;
-
-	size = exec_get_size_arr_word_list(word_list);
-	if (size == 0)
-		return (NULL);
-	arr = try_malloc((size + 1) * sizeof(char *));
-	arr[size] = NULL;
-	index = 0;
-	while (index < size)
-	{
-		arr[index] = exec_get_word_index(&word_list);
-		index++;
-	}
-	return (arr);
-}
-
-t_operator	exec_change_ast_type_to_operator(t_ast_node_type ast_type)
+static t_operator	exec_change_ast_type_to_operator(t_ast_node_type ast_type)
 {
 	if (PS_PIPE == ast_type)
 		return (EXEC_PIPE);
@@ -96,242 +23,87 @@ t_operator	exec_change_ast_type_to_operator(t_ast_node_type ast_type)
 	return (EXEC_START);
 }
 
-void	exec_search_command(t_ast *node, t_operator operator, t_data *d)
+static void	exec_search_command(t_ast *node, t_operator operator, t_data *d)
 {
 
 	if (node->left_hand != NULL)
-		exec_command(node->left_hand, exec_change_ast_type_to_operator(node->type), d);
-	if (node->type == PS_LOGICAL_AND || node->type == PS_LOGICAL_OR)
-		;
+		exec_command(node->left_hand,
+			exec_change_ast_type_to_operator(node->type), d);
+	else if (node->type == PS_LOGICAL_AND)
+	{
+		exec_wait_child_process(node->left_hand, d);
+		if (d->exit_status == EXIT_SUCCESS)
+			exec_command(node->right_hand, operator, d);
+	}
+	else if (node->type == PS_LOGICAL_OR)
+	{
+		exec_wait_child_process(node->left_hand, d);
+		if (d->exit_status != EXIT_SUCCESS)
+			exec_command(node->right_hand, operator, d);
+	}
+	else if (operator == EXEC_START && node->right_hand != NULL)
+		exec_command(node->right_hand, EXEC_END, d);
 	else if (node->right_hand != NULL)
 		exec_command(node->right_hand, operator, d);
-	else if (operator== EXEC_START && node->right_hand != NULL)
-		exec_command(node->right_hand, EXEC_END, d);
 }
 
 /**
- * @brief この関数はredirectionを実行する
+ * @brief この関数は、コマンドがbuiltinか判定する
  *
- * node->command_list->redirect_listを実行する
- * heredocの場合、heredocの文字列を標準入力に設定する
- * outputの場合、node->command_list->fdにopenしたfdとfd_typeを設定する
- * inputの場合、fileをopenし、readした文字列を標準入力に設定する
+ * node->command_list->word_listがbuiltinか判定する。
  *
- * @param operator
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
- * @return true すべてのredirectionが問題なく成功した場合、trueを返す
- * @return false redirectionを失敗したタイミングで、この関数の処理を終了し、falseを返す
- * //どういうタイミングで失敗するのか？
- *
+ * @return true builtinの場合、trueを返す
+ * @return false builtinde出ない場合、falseを返す
  */
-// bool exec_do_redirection(t_ast *node, t_data *d);
-
-t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
+bool	exec_is_builtin(t_ast *node)
 {
-	int		fd;
-	char	*file;
+	char	*command;
 
-	node = node->next;
-	file = node->word;
-	fd = try_open(open(file, O_RDONLY), file, d);
-	if (fd == -1)
-		return (NULL);
-	try_dup2(fd, STDIN_FILENO, d);
-	try_close(fd, d);
-	return (node->next);
-}
-
-t_redirect_list	*exec_redirect_output(t_command *command_list, t_redirect_list *r_node, t_data *d)
-{
-	int						fd;
-	char					*file;
-	const t_redirect_type	type = r_node->type;
-
-	r_node = r_node->next;
-	file = r_node->word;
-	if (type == PS_REDIRECTING_OUTPUT)
-		fd = try_open(open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644), file, d);
-	else
-		fd = try_open(open(file, O_CREAT | O_WRONLY | O_APPEND, 0644), file, d);
-	if (fd == -1)
-		return (NULL);
-	command_list->fd = fd;
-	return (r_node->next);
-}
-
-t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d)
-{
-	int		pipefd[2];
-	size_t	i;
-	ssize_t	write_bytes;
-
-	// printf("%s", node->word);
-	try_pipe(pipefd);
-	try_write(pipefd[W], node->word, ft_strlen(node->word), d);
-	// write_bytes = WRITE_BYTES + 1;
-	// i = 0;
-	// while (write_bytes > WRITE_BYTES)
-	// {
-	// 	write_bytes = write(pipefd[W],
-	// 			&(node->word[i * WRITE_BYTES]), WRITE_BYTES);
-	// 	if (write_bytes == -1)
-	// 	{
-	// 		perror("write");
-	// 		d->exit_status = EXIT_FAILURE;
-	// 		return (NULL);
-	// 	}
-	// 	i++;
-	// }
-	try_dup2(pipefd[R], STDIN_FILENO, d);
-	try_close(pipefd[W], d);
-	try_close(pipefd[R], d);
-	return (node->next);
-}
-
-void	exec_do_redirection(t_ast *node, t_data *d)
-{
-	t_redirect_list	*r_node;
-
-	r_node = node->command_list->redirect_list;
-	// printf("%p\n", r_node);
-	while (r_node != NULL)
-	{
-		if (r_node->type == PS_DELIMITER)
-		{
-		// heredocの場合、heredocの文字列を標準入力に設定する
-		//色々やり方がある（fd, readとwrite）
-			r_node = exec_redirect_heredoc(r_node, d);
-		}
-		else if (r_node->type == PS_REDIRECTING_OUTPUT || r_node->type == PS_APPENDING_OUTPUT)
-		{
-		// outputの場合、r_node->command_list->fdにopenしたfdとfd_typeを設定する
-			r_node = exec_redirect_output(node->command_list, r_node, d);
-		}
-		else if (r_node->type == PS_REDIRECTING_INPUT)
-		{
-		// inputの場合、fileをopenし、readした文字列を標準入力に設定する
-			r_node = exec_redirect_input(r_node, d);
-		}
-	}
+	if (node->command_list->word_list == NULL)
+		return (false);
+	command = node->command_list->word_list->word;
+	return (
+		ft_strcmp_ignorecase(command, "echo") == 0
+		|| ft_strcmp_ignorecase(command, "cd") == 0
+		|| ft_strcmp_ignorecase(command, "pwd") == 0
+		|| ft_strcmp_ignorecase(command, "export") == 0
+		|| ft_strcmp_ignorecase(command, "unset") == 0
+		|| ft_strcmp_ignorecase(command, "env") == 0
+		|| ft_strcmp_ignorecase(command, "exit") == 0
+	);
 }
 
 /**
- * @brief この関数はforkを実行し、子プロセスを生成する。
+ * @brief この関数はコマンドを実行する
  *
- * 子プロセスのidをnode->command_list->pidに代入する。
+ * 第一引数の構文木nodeのタイプがコマンドの場合、node->command_listをコマンドとして、実行する
+ * 第二引数のoperatorはコマンドの出力先を指定する。left_handにはnode->typeを渡し、right_handには上のnodeから引き継いだoperatorを渡す
+ * 一番初めのnode（初めにcommand_executionを呼ぶとき）は、operatorはEXEC_STARTになる
+ * 一番最後に実行されるnodeのoperatorはEXEC_ENDになる
+ * 第三引数のdは環境変数と終了ステータスを管理する
  *
  * @param node 構文木のnode
+ * @param operator 構文木nodeの一つ上のnodeから引き継ぐoperator
  * @param d 環境変数と終了ステータス
  */
-// void exec_fork(t_ast *node, t_data *d);
-
-void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
-{
-	char	**argv;
-	char	*filepath;
-	int	fd;
-
-	(void)pipefd;
-	fd = node->command_list->fd;
-	if (fd != STDOUT_FILENO)
-	{
-		try_dup2(fd, STDOUT_FILENO, 0);
-		try_close(fd, d);
-	}
-	if (node->command_list->word_list != NULL)
-	{
-		argv = exec_change_word_list_to_double_arr(node->command_list->word_list);
-		filepath = exec_make_filepath(node, d);
-		char **tmp = argv;
-		// while (*tmp)
-		// {
-			// printf("argv=%s\n", *tmp);
-		// 	tmp++;
-		// }
-		// printf("path=%s\n", filepath);
-		execve(filepath, argv, envs_make_envp(d->envs_hashmap));
-		// execve(NULL, NULL, envs_make_envp(d->envs_hashmap));
-	}
-	exit(1);
-}
-
-void	exec_fork(t_ast *node, t_data *d)
-{
-	pid_t	pid;
-
-	(void)node;
-	(void)d;
-	pid = fork();
-	if (pid < 0)
-	{
-		// printf("ok\n");
-	}
-	else if (pid == 0)
-	{
-		// printf("ok\n");
-		//pipefd NULLポインタだとintと型が合わない
-		exec_child_process(node, NULL, d);
-		// node->command_list;
-	}
-	else
-	{
-		node->command_list->pid = pid;
-		// printf("parent process   %d\n", pid);
-	}
-	// return (0);
-}
-
-void	exec_wait_child_process(t_ast *node, t_data *d)
-{
-	int	status;
-
-	waitpid(node->command_list->pid, &status, 0);
-	d->exit_status = status;
-}
-
 void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
-	static size_t i = 0;
-
 	exec_search_command(node, operator, d);
-	i++;
-	// printf("num   %zu\n", i);
-
 	if (node->command_list != NULL)
 	{
 		exec_do_redirection(node, d);
 		exec_fork(node, d);
 	}
-	// if (node->type == COMMAND)
+	// if (node->type == PS_COMMAND)
 	// {
-	// 	bool	ret = do_redirection(node, &d);
-	// 	if (ret == false && operator != LOGICAL_OR)
-	// 	{
-	// 		//エラー処理
-	// 		//redirectionが失敗したらこのノードのコマンドを実行しない
-	// 		//open readが失敗したときなど
-	// 		return;
-	// 	}
-	// 	else if (ret == false && operator == LOGICAL_OR)//operator=LOGICAL_ORの場合、次のコマンドを実行
-	// 	{
-	// 		exec_wait_child_process(node);
-	// 		exec_command(node->right_hand, operator, &d);
-	// 	}
-	// 	else if (operator == PIPE)
+	// 	if (do_redirection(node, &d) == false)
+	// 		return ;
+	// 	else if (operator == PS_PIPE)
 	// 		exec_pipe(node);
-	// 	else if (operator == LOGICAL_AND)
-	// 	{
-	// 		if (exec_l_and(node))
-	// 			exec_command(node->right_hand, operator, &d);
-	// 	}
-	// 	else if (operator == LOGICAL_OR)
-	// 	{
-	// 		if (exec_l_or(node));
-	// 			exec_command(node->right_hand, operator, &d);
-	// 	}
 	// 	else if (operator == EXEC_START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
-	// 		return (builtin(node, NULL, &d));//builtin.hの関数
+	// 		return (builtin(node, NULL, &d));
 	// 	else
 	// 		exec_fork(node, &d);
 	// }
