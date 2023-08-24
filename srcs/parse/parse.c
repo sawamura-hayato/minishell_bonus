@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/23 20:41:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 20:49:14 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,34 @@ static t_ast_node_type set_ast_node_type(t_token *token)
 	return(type);
 }
 
-static void debug_print_ast(t_ast *node)
+void debug_print_ast(t_ast *node)
 {
 	t_redirect_list *redirect_p;
 	t_word_list *word_p;
 
-	if (node != NULL && node->left_hand != NULL)
+	if ( node->left_hand != NULL)
 		debug_print_ast(node->left_hand);
-	if (node != NULL && node->right_hand != NULL)
+	if (node->right_hand != NULL)
 		debug_print_ast(node->right_hand);
-
+	printf("===========debug==================\n");
+	printf("ast_node_type:[%d]\n", node->type);
+	if(node->command_list == NULL)
+		return;
 	word_p = node->command_list->word_list;
 	redirect_p = node->command_list->redirect_list;
-	while(word_p)
+	while(word_p != NULL)
 	{
-		printf("word:[%s]\n", word_p->word);
+		printf("word_list:[%s] ", word_p->word);
+		printf("type:[%d]\n", word_p->type);
 		word_p = word_p->next;
 	}
-	while(redirect_p)
+	while(redirect_p !=NULL)
 	{
-		printf("redirect:[%s]\n",redirect_p->word);
+		printf("redirect_list:[%s] ",redirect_p->word);
+		printf("type:[%d]\n",redirect_p->type);
 		redirect_p = redirect_p->next;
 	}
+	printf("===========debug==================\n");
 }
 
 t_ast	*parse(t_token **current_token, t_data *d)
@@ -60,15 +66,12 @@ t_ast	*parse(t_token **current_token, t_data *d)
 
 	token = *current_token;
 	left_node = ast_command_node(&token, d);
-	debug_print_ast(left_node);
 	if (d->syntax_flag)
 		return (left_node);
 	while (true)
 	{
 		if (token != NULL && ast_is_opereter(token->type))
 		{
-			printf("test");
-			exit(1);
 			type = set_ast_node_type(token);
 			token = token->next; //operatarのtoken
 			right_node = ast_command_node(&token,d);
@@ -81,7 +84,6 @@ t_ast	*parse(t_token **current_token, t_data *d)
 		}
 		else
 		{
-			debug_print_ast(left_node);
 			return (left_node);
 		}
 	}
