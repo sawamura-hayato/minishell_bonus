@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/23 14:24:31 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/21 19:38:09 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
 # 		$(ENVS_DIR)/envs_newnode.c	\
 # 		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
-
 
 BUILTIN_DIR = $(SRCS_DIR)/builtin
 SRCS += $(BUILTIN_DIR)/export/export.c	\
