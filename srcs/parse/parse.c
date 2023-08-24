@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/22 19:59:07 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:41:48 by tterao           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
-/*                                                                            */
 #include "parse.h"
 #include "library.h"
 #include <stdlib.h>
@@ -36,7 +36,6 @@ t_ast	*parse(t_token **current_token, t_data *d)
 
 	token = *current_token;
 	left_node = ast_command_node(&token, d);
-	/* printf("%s\n",left_node->command_list->word_list->word); */
 	if (d->syntax_flag)
 		return (left_node);
 	while (true)
@@ -75,7 +74,7 @@ t_token	*token_next(t_token **current_token,t_data *d)
 	if(token->next== NULL)
 		return(NULL);
 	token = token->next;
-	if (token != NULL && token_is_quotation(token)) 
+	if (token != NULL && token_is_quotation(token))
 	{
 		if(token_is_quotation_closed(token) == false)
 		{

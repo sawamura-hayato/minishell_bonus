@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 14:39:09 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/12 18:42:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	expandion_delete_quotation_word_list(t_word_list *word_list)
 	word_list_strjoin(word_list);
 }
 
-void	expandion_delete_quotation_redirect_list(t_redirect *redirect_list)
+void	expandion_delete_quotation_redirect_list(t_redirect_list *redirect_list)
 {
 	redirect_list_delete_target(redirect_list, SINGLE_QUOTE);
 	redirect_list_delete_target(redirect_list, DOUBLE_QUOTE);

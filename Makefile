@@ -6,14 +6,14 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/21 19:38:09 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/24 13:27:21 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -47,11 +47,12 @@ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
 HEREDOC_DIR = heredoc
 SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
 		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
-		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c \
-# ENVS_DIR = $(SRCS_DIR)/envs
-# SRCS += $(ENVS_DIR)/init.c	\
-# 		$(ENVS_DIR)/envs_newnode.c	\
-# 		$(ENVS_DIR)/envs_funcs.c	\
+		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
+
+ENVS_DIR = $(SRCS_DIR)/envs
+SRCS += $(ENVS_DIR)/init.c	\
+		$(ENVS_DIR)/envs_newnode.c	\
+		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
 
 BUILTIN_DIR = $(SRCS_DIR)/builtin
@@ -80,6 +81,11 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
 
+EXEC_DIR = exec
+SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a

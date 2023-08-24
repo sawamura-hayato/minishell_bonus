@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 19:48:43 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:40:25 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 
 typedef enum e_redirect_type
 {
-	PS_REDIRECTING_INPUT,  // <
-	PS_REDIRECTING_OUTPUT, // >
-	PS_APPENDING_OUTPUT,   // >>
-	PS_FILE,               // redirect fil
-	PS_HERE_DOCUMENTS,     // <<
-	PS_DELIMITER,          // << delimitter(クウォートがない場合)
-	PS_QUOTE_DELIMITER,    // << delimitter(クウォートがある場合)
+	PS_REDIRECTING_INPUT,	  // <
+	PS_REDIRECTING_OUTPUT,	  // >
+	PS_APPENDING_OUTPUT,	  // >>
+	PS_FILE,				  // redirect fil
+	PS_HERE_DOCUMENTS,		  // <<
+	PS_DELIMITER,			  // << delimitter(クウォートがない場合)
+	PS_QUOTE_DELIMITER,		  // << delimitter(クウォートがある場合)
 	PS_REDIRECT_SINGLE_QUOTE, // < 'file'
 	PS_REDIRECT_DOUBLE_QUOTE // < "file" < <- " <- file <- "
 }						t_redirect_type;
@@ -40,15 +40,15 @@ typedef enum e_ast_node_type
 	PS_LOGICAL_AND,
 	PS_LOGICAL_OR,
 	PS_COMMAND,
-}						t_ast_node_type;
+} t_ast_node_type;
 
 typedef struct s_word_list
 {
-	char				*word;
-	size_t index; //クォートが閉じるまで更新されない
-	t_token_type		type;
-	struct s_word_list	*next;
-}						t_word_list;
+	char *word;
+	size_t index; // クォートが閉じるまで更新されない
+	t_token_type type;
+	struct s_word_list *next;
+} t_word_list;
 
 typedef struct s_redirect_list
 {

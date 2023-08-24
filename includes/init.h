@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/17 14:21:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 13:26:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_data
 {
 	t_envs	**envs_hashmap;
 	int		exit_status;
-	bool syntax_flag;
+	bool 	syntax_flag;
 	char	*pwd;
 	char	*oldpwd;
 }	t_data;

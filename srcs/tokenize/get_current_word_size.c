@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_current_word_size.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:58:47 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 18:59:12 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:22:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	token_get_operator_size(char *line)
 	return (size);
 }
 
-size_t	token_get_redirect_size(char *line)
+size_t	token_get_redirect_list_size(char *line)
 {
 	size_t	size;
 	size_t	redirect_input;
@@ -68,7 +68,7 @@ size_t	token_get_special_word_size(char *line)
 
 	size = 0;
 	size += token_get_operator_size(line);
-	size += token_get_redirect_size(line);
+	size += token_get_redirect_list_size(line);
 	return (size);
 }
 
