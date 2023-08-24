@@ -13,6 +13,8 @@
 #ifndef FT_H
 # define FT_H
 
+#include <stddef.h>
+
 void	*malloc_x(size_t size);
 void	*strdup_x(const char *str);
 void	*substr_x(const char *str, size_t start, size_t length);

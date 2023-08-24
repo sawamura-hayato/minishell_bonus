@@ -33,6 +33,7 @@ typedef struct s_data
 {
 	t_envs	**envs_hashmap;
 	int		exit_status;
+	bool syntax_flag;
 	char	*pwd;
 	char	*oldpwd;
 }	t_data;
