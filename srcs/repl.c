@@ -66,10 +66,10 @@ void	read_eval_print_loop()
 	extern const char	**environ;
 
 	envs_init(environ, &d);
-	d.syntax_flag = false;
 	while (true)
 	{
 		int fd  = dup(STDIN_FILENO);
+		d.syntax_flag = false;
 		line = read_line();
 		// printf("line = %s\n", line);
 		if (line == NULL)

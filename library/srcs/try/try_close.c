@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_close.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:40:48 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 15:19:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:28:59 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void	try_close(int fildes, t_data *d)
 	{
 		perror("close");
 		d->exit_status = EXIT_FAILURE;
-		exit(d->exit_status);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 21:57:23 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 14:43:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,16 +132,9 @@ t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 	int		fd;
 	char	*file;
 
-	// try_open, dup, dup2, close作成する(try系でd使う？？)
-	// while (redirect_list != NULL)
-	// {
-	// 	if (redirect_list->type == PS_FILE)
-	// 		file = redirect_list->word;
-	// 	redirect_list = redirect_list->next;
-	// }
 	node = node->next;
 	file = node->word;
-	fd = try_open(open(file, O_RDONLY), d);
+	fd = try_open(open(file, O_RDONLY), file, d);
 	if (fd == -1)
 		return (NULL);
 	try_dup2(fd, STDIN_FILENO, d);
@@ -151,24 +144,16 @@ t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 
 t_redirect_list	*exec_redirect_output(t_command *command_list, t_redirect_list *r_node, t_data *d)
 {
-	int				fd;
-	char			*file;
+	int						fd;
+	char					*file;
+	const t_redirect_type	type = r_node->type;
 
-	// try_open, dup, dup2, close作成する(try系でd使う？？)
-	// while (redirect_list != NULL)
-	// {
-	// 	if (redirect_list->type == PS_FILE)
-	// 		file = redirect_list->word;
-	// 	redirect_list = redirect_list->next;
-	// }
-
-	//openの仕方が違う
 	r_node = r_node->next;
 	file = r_node->word;
-	if (r_node->type == PS_REDIRECTING_OUTPUT)
-		fd = try_open(open(file, O_CREAT | O_TRUNC | O_RDWR, 0644), d);
+	if (type == PS_REDIRECTING_OUTPUT)
+		fd = try_open(open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644), file, d);
 	else
-		fd = try_open(open(file, O_CREAT | O_RDWR | O_APPEND, 0644), d);
+		fd = try_open(open(file, O_CREAT | O_WRONLY | O_APPEND, 0644), file, d);
 	if (fd == -1)
 		return (NULL);
 	command_list->fd = fd;

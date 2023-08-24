@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_open.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:40:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 15:19:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:38:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 // try_open(open(), d)
 // 可変長配列実装するのがめんどくさいので、openした値を見て判断する
 
-int	try_open(int open_value, t_data *d)
+int	try_open(int open_value, char *file, t_data *d)
 {
-	if(open_value < 0)
+	if (open_value < 0)
 	{
-		perror("open");
+		perror(file);
 		d->exit_status = EXIT_FAILURE;
-		exit(d->exit_status);
 	}
 	return (open_value);
 }
