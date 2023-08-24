@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:59:46 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 18:14:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 20:19:19 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,17 @@
 void	exec_pipe(t_ast *node, t_data *d)
 {
 	pid_t	pid;
+	int		pipefd[2];
 
 	pid = try_fork();
+	try_pipe(pipefd);
 	if (pid == 0)
-		exec_child_process(node, NULL, d);
+		exec_child_process(node, pipefd, d);
 	else
+	{
 		node->command_list->pid = pid;
+		try_close(pipefd[W], d);
+		try_dup2(pipefd[R], STDIN_FILENO, d);
+		try_close(pipefd[R], d);
+	}
 }
