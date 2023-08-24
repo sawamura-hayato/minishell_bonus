@@ -14,10 +14,12 @@
 #include "minishell.h"
 #include "tokenize.h"
 #include "parse.h"
+#include "heredoc.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static void	add_line_history(char *line)
 {
@@ -53,7 +55,7 @@ void	read_eval_print_loop()
 		if (line == NULL)
 			break ;
 		token = tokenize(line);
-		// debug_print_token(token);
+		debug_print_token(token);
 		pasre_node = parse(&token,&d);
 		word_p = pasre_node->command_list->word_list;
 		redirect_p = pasre_node->command_list->redirect_list;
@@ -65,6 +67,14 @@ void	read_eval_print_loop()
 		while(redirect_p)
 		{
 			printf("redirect type:%d ",redirect_p->type);
+			printf("redirect:%s\n",redirect_p->word);
+			redirect_p = redirect_p->next;
+		}
+		printf("%d\n"	,heredoc(pasre_node,&d));
+		redirect_p = pasre_node->command_list->redirect_list;
+		while(redirect_p)
+		{
+			printf("redirect type:%d\n ",redirect_p->type);
 			printf("redirect:%s\n",redirect_p->word);
 			redirect_p = redirect_p->next;
 		}
