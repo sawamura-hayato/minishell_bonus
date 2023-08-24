@@ -60,12 +60,15 @@ t_ast	*parse(t_token **current_token, t_data *d)
 
 	token = *current_token;
 	left_node = ast_command_node(&token, d);
+	debug_print_ast(left_node);
 	if (d->syntax_flag)
 		return (left_node);
 	while (true)
 	{
 		if (token != NULL && ast_is_opereter(token->type))
 		{
+			printf("test");
+			exit(1);
 			type = set_ast_node_type(token);
 			token = token->next; //operatarのtoken
 			right_node = ast_command_node(&token,d);
@@ -77,8 +80,10 @@ t_ast	*parse(t_token **current_token, t_data *d)
 				return (left_node);
 		}
 		else
+		{
 			debug_print_ast(left_node);
 			return (left_node);
+		}
 	}
 }
 
