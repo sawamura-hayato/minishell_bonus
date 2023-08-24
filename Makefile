@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/24 16:52:56 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/24 18:14:46 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ SRCS += $(ENVS_DIR)/init.c	\
 		$(ENVS_DIR)/envs_make_envp.c
 
 BUILTIN_DIR = $(SRCS_DIR)/builtin
-SRCS += $(BUILTIN_DIR)/export/export.c	\
+SRCS += $(BUILTIN_DIR)/builtin.c	\
+	    $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_show.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
 	    $(BUILTIN_DIR)/export/export_is_error.c	\
@@ -89,6 +90,7 @@ SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_child_process.c	\
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_do_redirection.c	\
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_fork.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_pipe.c	\
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_wait_child_process.c
 
 LIBRARY_DIR = library

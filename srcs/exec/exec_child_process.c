@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 16:50:31 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:36:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,61 +15,66 @@
 
 size_t	exec_get_size_arr_word_list(t_word_list *word_list)
 {
-	size_t	size;
-	size_t	index;
+	size_t		size;
+	t_word_list	*node;
 
-	size = 1;
-	index = word_list->index;
-	while (true)
+	size = 0;
+	node = word_list;
+	while (node != NULL)
 	{
-		word_list = word_list->next;
-		if (word_list == NULL)
-			break ;
-		if (index != word_list->index)
-		{
-			index = word_list->index;
-			size++;
-		}
+		size++;
+		node = node->next;
 	}
 	return (size);
 }
 
-char	*exec_get_word_index(t_word_list **word_list)
+// char	*exec_get_word_index(t_word_list **word_list)
+// {
+// 	char	*word;
+// 	size_t	index;
+
+// 	index = (*word_list)->index;
+// 	word = try_strdup((*word_list)->word);
+// 	(*word_list) = (*word_list)->next;
+// 	while ((*word_list) != NULL && index == (*word_list)->index)
+// 	{
+// 		word = try_strjoin_free(word, (*word_list)->word);
+// 		(*word_list) = (*word_list)->next;
+// 	}
+// 	return (word);
+// }
+
+/**
+ * @brief この関数はコマンド実行の二次元配列（argv）を作成する。
+ *
+ * node->command_list->word_listからコマンドを作成する。
+ *
+ * @param node 構文木のnode
+ * @return char** コマンド実行の二次元配列（argv）
+ */
+char	**exec_make_argv(t_ast *node)
 {
-	char	*word;
-	size_t	index;
+	char		**arr;
+	t_word_list	*w_node;
+	size_t		index;
+	size_t		size;
 
-	index = (*word_list)->index;
-	word = try_strdup((*word_list)->word);
-	(*word_list) = (*word_list)->next;
-	while ((*word_list) != NULL && index == (*word_list)->index)
-	{
-		word = try_strjoin_free(word, (*word_list)->word);
-		(*word_list) = (*word_list)->next;
-	}
-	return (word);
-}
-
-char	**exec_change_word_list_to_double_arr(t_word_list *word_list)
-{
-	char	**arr;
-	size_t	index;
-	size_t	size;
-
-	size = exec_get_size_arr_word_list(word_list);
-	// if (size == 0)
-	// 	return (NULL);
-	arr = try_malloc((size + 1) * sizeof(char *));
-	arr[size] = NULL;
+	w_node = node->command_list->word_list;
+	size = exec_get_size_arr_word_list(w_node);
+	if (size == 0)
+		return (NULL);
+	arr = try_calloc(size + 1, sizeof(char *));
 	index = 0;
 	while (index < size)
 	{
-		arr[index] = exec_get_word_index(&word_list);
+		arr[index] = w_node->word;
+		w_node = w_node->next;
 		index++;
 	}
 	return (arr);
 }
 
+#include <stdio.h>
 void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 {
 	char	**argv;
@@ -77,6 +82,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	int	fd;
 
 	(void)pipefd;
+	// printf("argv=%s--\n", node->command_list->word_list->word);
 	fd = node->command_list->fd;
 	if (fd != STDOUT_FILENO)
 	{
@@ -85,7 +91,8 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	}
 	if (node->command_list->word_list != NULL)
 	{
-		argv = exec_change_word_list_to_double_arr(node->command_list->word_list);
+		argv = exec_make_argv(node);
+		// printf("argv=%s--\n", node->command_list->word_list->word);
 		filepath = exec_make_filepath(node, d);
 		char **tmp = argv;
 		// while (*tmp)

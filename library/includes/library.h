@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 14:38:28 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:46:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ bool	try_chdir(const char *og_path, const char *path, t_data *d);
 bool	try_stat(const char *path, struct stat *sb, t_data *d);
 char	*ft_strchr(const char *s, int c);
 void	try_pipe(int *pipefd);
+pid_t	try_fork(void);
 
 // ft
 char	*ft_strchr(const char *s, int c);

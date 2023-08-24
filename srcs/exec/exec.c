@@ -6,11 +6,12 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 17:11:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:27:27 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
+#include "builtins.h"
 
 static t_operator	exec_change_ast_type_to_operator(t_ast_node_type ast_type)
 {
@@ -91,25 +92,28 @@ bool	exec_is_builtin(t_ast *node)
 void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
 	exec_search_command(node, operator, d);
-	if (node->command_list != NULL)
-	{
-		exec_do_redirection(node, d);
-		exec_fork(node, d);
-	}
-	// if (node->type == PS_COMMAND)
+	// if (node->command_list != NULL)
 	// {
-	// 	if (do_redirection(node, &d) == false)
-	// 		return ;
-	// 	else if (operator == PS_PIPE)
-	// 		exec_pipe(node);
-	// 	else if (operator == EXEC_START && exec_is_builtin(node))//operatorなしかつ実行するのはbuiltinのみなので、親プロセスで実行
-	// 		return (builtin(node, NULL, &d));
-	// 	else
-	// 		exec_fork(node, &d);
+	// 	exec_do_redirection(node, d);
+	// 	exec_fork(node, d);
 	// }
+	if (node->type == PS_COMMAND)
+	{
+		if (exec_do_redirection(node, d) == false)
+			return ;
+		else if (operator == PS_PIPE)
+			exec_pipe(node, d);
+		else if (operator == EXEC_START && exec_is_builtin(node))
+			return (builtin(node, NULL, d));
+		else
+			exec_fork(node, d);
+	}
 	if (operator == EXEC_START)
 		exec_wait_child_process(node, d);
 }
+
+test''test
+0000220000
 
 // int main(void)
 // {

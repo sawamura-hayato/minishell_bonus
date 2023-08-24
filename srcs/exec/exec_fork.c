@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:46:09 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 16:58:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 17:47:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,9 @@ void	exec_fork(t_ast *node, t_data *d)
 {
 	pid_t	pid;
 
-	(void)node;
-	(void)d;
-	pid = fork();
-	if (pid < 0)
-	{
-		// printf("ok\n");
-	}
-	else if (pid == 0)
-	{
-		// printf("ok\n");
-		//pipefd NULLポインタだとintと型が合わない
+	pid = try_fork();
+	if (pid == 0)
 		exec_child_process(node, NULL, d);
-		// node->command_list;
-	}
 	else
-	{
 		node->command_list->pid = pid;
-		// printf("parent process   %d\n", pid);
-	}
-	// return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 16:57:43 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 18:11:12 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char *exec_make_filepath(t_ast *node, t_data *d);
  * @param node 構文木のnode
  * @return char** コマンド実行の二次元配列（argv）
  */
-char **exec_make_command_array(t_ast *node);
+char **exec_make_argv(t_ast *node);
 
 /**
  * @brief この関数は、第一引数で与えられたnodeより下のnodeの子プロセスを待ち、終了ステータスを取得する。
