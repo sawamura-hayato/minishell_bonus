@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:45:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:49:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:26:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ t_quote token_set_flag_quote(char quote)
 	return (DEFAULT);
 }
 
-t_token_type token_set_flag_token(char *line, t_quote f_quote)
+t_token_type token_set_flag_token(char *line)
 {
-	if (ft_strlen(line) > 2 || f_quote != DEFAULT)
+	if (ft_strlen(line) > 2)
 		return (WORD);
-	else if ('\'' == line[0])
-		return (TOKEN_SINGLE_QUOTE);
-	else if ('\"' == line[0])
-		return (TOKEN_DOUBLE_QUOTE);
+	else if ('(' == line[0])
+		return (TK_OPEN_PARENTHESIS);
+	else if (')' == line[0])
+		return (TK_CLOSE_PARENTHESIS);
 	else if ('|' == line[0])
 	{
 		if ('|' == line[1])
-			return (TOKEN_LOGICAL_OR);
-		return (TOKEN_PIPE);
+			return (TK_LOGICAL_OR);
+		return (TK_PIPE);
 	}
 	else if ('&' == line[0] && '&' == line[1])
-		return (TOKEN_LOGICAL_AND);
+		return (TK_LOGICAL_AND);
 	else if ('>' == line[0] || '<' == line[0])
 		return (REDIRECT);
 	return (WORD);

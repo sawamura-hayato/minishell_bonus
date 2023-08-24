@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:57:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/06 13:43:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:39:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	token_addback(t_token **head, t_token *new_token)
 	}
 }
 
-t_token	*create_token(char *word, t_token_type token_type, size_t index)
+t_token	*create_token(char *word, t_token_type token_type)
 {
 	t_token	*token;
 
 	token = try_malloc(sizeof(t_token));
 	token->word = word;
-	token->type = token_type;
-	token->index = index;
+	token->tk_type = token_type;
+	token->type = token_get_type_word(word);
 	token->next = NULL;
 	return (token);
 }
@@ -50,9 +50,9 @@ void	debug_print_token(t_token *token_list)
 {
 	while (token_list != NULL)
 	{
-		printf("word            [%s]\n", token_list->word);
-		printf("token token_type  [%d]\n", token_list->type);
-		printf("token n         [%zu]\n", token_list->index);
+		printf("word              [%s]\n", token_list->word);
+		printf("token token_type  [%d]\n", token_list->tk_type);
+		printf("token_ty          [%s]\n", token_list->type);
 		token_list = token_list->next;
 	}
 }

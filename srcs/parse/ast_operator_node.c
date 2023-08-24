@@ -21,7 +21,7 @@ t_ast	*ast_operator_node(t_ast_node_type type, t_ast *left_hand, t_ast *right_ha
 
 bool	ast_is_opereter(t_token_type type)
 {
-	if(type == TOKEN_LOGICAL_OR || type == TOKEN_LOGICAL_AND || type == TOKEN_PIPE)
+	if(type == TK_LOGICAL_OR || type == TK_LOGICAL_AND || type == TK_PIPE)
 		return(true);
 	else
 		return(false);
