@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 19:27:27 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:38:02 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,6 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 	if (operator == EXEC_START)
 		exec_wait_child_process(node, d);
 }
-
-test''test
-0000220000
 
 // int main(void)
 // {

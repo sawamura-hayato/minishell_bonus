@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 18:11:12 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 19:58:21 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ enum e_pipefd
 {
 	R = 0, // read用fd
 	W = 1, // write用fd
+};
+
+enum e_exit_status
+{
+	COMMAND_NOT_FOUND = 127,
 };
 
 /**

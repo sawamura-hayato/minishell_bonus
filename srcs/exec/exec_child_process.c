@@ -6,11 +6,12 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 18:36:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 20:02:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
+#include "builtins.h"
 #include <stdlib.h>
 
 size_t	exec_get_size_arr_word_list(t_word_list *word_list)
@@ -77,32 +78,28 @@ char	**exec_make_argv(t_ast *node)
 #include <stdio.h>
 void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 {
-	char	**argv;
-	char	*filepath;
-	int	fd;
+	const char	**argv = (const char **)exec_make_argv(node);
+	const char	*filepath = (const char *)exec_make_filepath(node, d);
+	int			fd;
+	char		*msg;
 
-	(void)pipefd;
-	// printf("argv=%s--\n", node->command_list->word_list->word);
+	// while (argv != NULL)
+	// {
+	// 	printf("%s\n", *argv);
+	// 	argv++;
+	// }
+	if (exec_is_builtin(node))
+		return (builtin(node, pipefd, d));
 	fd = node->command_list->fd;
 	if (fd != STDOUT_FILENO)
 	{
 		try_dup2(fd, STDOUT_FILENO, 0);
 		try_close(fd, d);
 	}
-	if (node->command_list->word_list != NULL)
-	{
-		argv = exec_make_argv(node);
-		// printf("argv=%s--\n", node->command_list->word_list->word);
-		filepath = exec_make_filepath(node, d);
-		char **tmp = argv;
-		// while (*tmp)
-		// {
-			// printf("argv=%s\n", *tmp);
-		// 	tmp++;
-		// }
-		// printf("path=%s\n", filepath);
-		execve(filepath, argv, envs_make_envp(d->envs_hashmap));
-		// execve(NULL, NULL, envs_make_envp(d->envs_hashmap));
-	}
-	exit(1);
+	if (node->command_list->word_list == NULL)
+		exit(EXIT_SUCCESS);
+	execve(filepath, (char *const *)argv, envs_make_envp(d->envs_hashmap));
+	msg = try_strjoin(*argv, ": command not found\n");
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	exit(COMMAND_NOT_FOUND);
 }

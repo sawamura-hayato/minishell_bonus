@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:06:08 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/14 15:50:39 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/24 20:06:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	builtin_echo(char **argv, t_data *d)
 	if (argv[1] == NULL)
 		return (put_str(try_strdup(""), false, d));
 	args = echo_option(&argv[1]);
-	if (argv != args)
+	if (&argv[1] != args)
 		n_option = true;
 	else
 		n_option = false;
