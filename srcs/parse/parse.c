@@ -27,6 +27,30 @@ static t_ast_node_type set_ast_node_type(t_token *token)
 	return(type);
 }
 
+static void debug_print_ast(t_ast *node)
+{
+	t_redirect_list *redirect_p;
+	t_word_list *word_p;
+
+	if (node != NULL && node->left_hand != NULL)
+		debug_print_ast(node->left_hand);
+	if (node != NULL && node->right_hand != NULL)
+		debug_print_ast(node->right_hand);
+
+	word_p = node->command_list->word_list;
+	redirect_p = node->command_list->redirect_list;
+	while(word_p)
+	{
+		printf("word:[%s]\n", word_p->word);
+		word_p = word_p->next;
+	}
+	while(redirect_p)
+	{
+		printf("redirect:[%s]\n",redirect_p->word);
+		redirect_p = redirect_p->next;
+	}
+}
+
 t_ast	*parse(t_token **current_token, t_data *d)
 {
 	t_token			*token;
@@ -53,6 +77,7 @@ t_ast	*parse(t_token **current_token, t_data *d)
 				return (left_node);
 		}
 		else
+			debug_print_ast(left_node);
 			return (left_node);
 	}
 }
