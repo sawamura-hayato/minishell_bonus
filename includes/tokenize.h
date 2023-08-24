@@ -6,7 +6,11 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/15 16:39:12 by hsawamur         ###   ########.fr       */
+>>>>>>> 106-単語分割
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +61,17 @@ bool token_can_get_quote_token(t_token **token, char **line,
 							   t_quote *f_quote, size_t index);
 
 // get_current_word_size.c
+<<<<<<< HEAD
 size_t	token_get_current_word_size(char *line, t_quote f_quote);
 size_t	token_get_operator_size(char *line);
 size_t	token_get_redirect_list_size(char *line);
 size_t	token_get_special_word_size(char *line);
+=======
+size_t token_get_current_word_size(char *line, t_quote f_quote);
+size_t token_get_operator_size(char *line);
+size_t token_get_redirect_list_size(char *line);
+size_t token_get_special_word_size(char *line);
+>>>>>>> 106-単語分割
 
 // get_current_token.c
 size_t token_get_current_word_size(char *line, t_quote f_quote);
@@ -79,11 +90,11 @@ void free_token(t_token *token_list);
 void debug_print_token(t_token *token_list);
 
 // library
-int		ft_isspace(char c);
-bool	ft_is_special_char(char c);
-size_t	ft_strlen(const char *str);
+int ft_isspace(char c);
+bool ft_is_special_char(char c);
+size_t ft_strlen(const char *str);
 
-void	*try_malloc(size_t size);
-void	*try_calloc(size_t count, size_t size);
+void *try_malloc(size_t size);
+void *try_calloc(size_t count, size_t size);
 
 #endif
