@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_cdpath.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 20:19:32 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 22:40:47 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,27 @@ static char	*join_path(char *eachpath, char *path)
 	return (eachpath);
 }
 
-bool	cd_is_dir_with_permission(char *dirpath)
+#include <stdio.h>
+bool	cd_is_dir_with_permission(char *path, char *dirpath)
 {
 	struct stat	sb;
+	bool		has_permission;
 
+	has_permission = false;
 	if (stat(dirpath, &sb) == -1)
+	{
+		free(dirpath);
 		return (false);
+	}
 	if (S_ISDIR(sb.st_mode) && access(dirpath, X_OK) == 0)
 		return (true);
 	if (S_ISLNK(sb.st_mode) && access(dirpath, X_OK) == 0)
 		return (true);
-	return (false);
+	if (has_permission)
+		free(path);
+	else
+		free(dirpath);
+	return (has_permission);
 }
 
 static	char	*dup_dot(char *colon, bool *is_cdpath)
@@ -73,9 +83,8 @@ static void	cd_cdpath_loop(const char *og_path, char *path,
 	if (colon != NULL)
 		colon++;
 	eachpath = join_path(eachpath, path);
-	if (cd_is_dir_with_permission(eachpath))
+	if (cd_is_dir_with_permission(path, eachpath))
 		return (cd_convert_path_and_exec(og_path, eachpath, d, is_cdpath));
-	free(eachpath);
 	return (cd_cdpath_loop(og_path, path, colon, d));
 }
 
@@ -92,5 +101,4 @@ void	cd_cdpath(const char *og_path, char *path, t_data *d)
 		return (cd_convert_path_and_exec(og_path, path, d, false));
 	}
 	cd_cdpath_loop(og_path, path, cdpath, d);
-
 }

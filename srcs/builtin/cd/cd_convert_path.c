@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:29:32 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/25 20:45:37 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/25 22:40:55 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static char	*cd_join_pwd(char *path, t_data *d)
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 									t_data *d, bool is_cdpath)
 {
-	// printf("%s\n", path);
 	if (path == NULL)
 		return ;
 	if (*path != '/')

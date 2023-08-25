@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 21:06:10 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/25 22:15:04 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,12 @@ void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d)
 
 bool	cd_is_cdpath(char *path)
 {
-	char	*dot_ptr;
-
-	if (*path == '/')
-		return (false);
-	dot_ptr = ft_strstr(path, PRE_DIR);
-	if (dot_ptr == path)
-		return (false);
-	dot_ptr = ft_strstr(path, CUR_DIR);
-	if (dot_ptr == path)
-		return (false);
-	dot_ptr = ft_strstr(path, DOTDOT);
-	if (dot_ptr == path && *(dot_ptr + ft_strlen(DOTDOT)) == '\0')
-		return (false);
-	dot_ptr = ft_strstr(path, DOT);
-	if (dot_ptr == path && *(dot_ptr + ft_strlen(DOT)) == '\0')
-		return (false);
-	return (true);
+	return 
+	(
+		*path != '/'
+		&& ft_strncmp(path, DOT, ft_strlen(DOT) != 0)
+		&& ft_strncmp(path, DOTDOT, ft_strlen(DOTDOT) != 0)
+	);
 }
 
 void	builtin_cd(char **argv, t_data *d)
