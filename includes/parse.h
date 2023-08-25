@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 20:24:31 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:41:21 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ bool token_is_quotation(t_token *token);
 bool					token_is_quotation_closed(t_token *token);
 void					ast_expect(t_token **current_token, char op,t_data *d);
 t_token					*token_next(t_token **current_token,t_data *d);
-void	ast_syntax_error(t_data *d);
+void	ast_syntax_error(t_data *d,t_token *token);
+t_ast_node_type set_ast_node_type(t_token *token);
 /* t_command *command_list_init_node(); */
 
 		/* void* try_calloc(size_t nmemb,size_t size); */

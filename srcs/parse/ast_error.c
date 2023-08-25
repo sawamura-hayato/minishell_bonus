@@ -1,9 +1,9 @@
 #include "parse.h"
 #include <stdio.h>
 
-void	ast_syntax_error(t_data *d)
+void	ast_syntax_error(t_data *d,t_token *token)
 {
-	printf("syntax error near unexpected token `newline'");
+	printf("syntax error near unexpected token `%s'\n",token->word);
 	d->exit_status = 2;
 	d->syntax_flag = true;
 }

@@ -9,7 +9,7 @@ t_ast	*ast_operator_node(t_ast_node_type type, t_ast *left_hand, t_ast *right_ha
 
 	if (right_hand == NULL)
 	{
-		ast_syntax_error(d);
+		ast_syntax_error(d,NULL);
 		return (NULL); 
 	}
 	ast_operator_node = ast_init_node();

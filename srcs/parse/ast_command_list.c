@@ -9,7 +9,6 @@ static t_command *command_list_init_node()
 	node = try_calloc(1, sizeof(t_command));
 	node->fd = STDOUT_FILENO;
 	node->pid = -1;
-
 	return(node);
 }
 
@@ -20,18 +19,15 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	t_ast	*node;
 
 	ast_command_node = ast_init_node();
-	ast_command_node->type = PS_COMMAND;
 	token = *current_token;
-	if (token->word[0] == '(')
+	ast_command_node->type = set_ast_node_type(token);
+	if(token == NULL || ast_command_node->type != PS_COMMAND)
+		ast_syntax_error(d,token);
+	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
 		node = parse(current_token, d);
-		ast_expect(current_token, ')',d);
+		ast_expect(current_token, TK_CLOSE_PARENTHESIS,d);
 		return (node);
-	}
-	if (token == NULL || ast_is_opereter(token->tk_type))
-	{
-		ast_syntax_error(d);
-		return(NULL);
 	}
 	return (ast_command_list(ast_command_node, current_token,d));
 }
@@ -59,7 +55,6 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 		}
 		if (token_next(&token,d) == NULL || d->syntax_flag )
 				break;
-		/* token_next(&token,d); */
 		*current_token = token;
 	}
 	return (ast_command_node);

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 20:11:19 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:41:56 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	command_redirect_list(t_redirect_list **head,
 	if (redirect_flag == false && token->next == NULL)
 	{
 		d->syntax_flag = true;
-		ast_syntax_error(d);
+		ast_syntax_error(d,token);
 	}
 	redirect_list_addback(head, node);
 }
