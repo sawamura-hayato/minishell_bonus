@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 11:44:48 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 01:16:50 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	const char	**argv = (const char **)exec_make_argv(node);
 	const char	*filepath = (const char *)exec_make_filepath(node, d);
 
-	// dprintf(STDERR_FILENO, "%s\n", *argv);
+	// dprintf(STDERR_FILENO, "exec=%s\n", *argv);
 	if (node->command_list->word_list != NULL && exec_is_builtin(node))
 		return (builtin(node, pipefd, d));
 	if (node->command_list->fd != STDOUT_FILENO)
@@ -119,7 +119,6 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	exec_pipefd(node, pipefd, d);
 	if (node->command_list->word_list == NULL)
 		exit(EXIT_SUCCESS);
-
 	// while (argv != NULL)
 	// {
 	// 	printf("%s\n", *argv);

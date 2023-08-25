@@ -6,7 +6,7 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/26 00:44:44 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/26 00:47:29 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,7 @@ OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
-$(NAME): $(OBJS) $(LIBRARY_DIR)/srcs/ft/%.c	$(LIBRARY_DIR)/srcs/try/%.c
+$(NAME): $(OBJS) $(LIBRARY_AFILE)
 	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
