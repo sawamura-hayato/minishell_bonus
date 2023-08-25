@@ -24,6 +24,8 @@ void	ast_syntax_error(t_data *d)
 /* <OPERATOR> ::= '|' */
 /* 			|  '||' */
 /* 			|  '&&' */
+/* 			|  '(' */
+/* 			|  ')' */
 
 /* <REDIRECTION> ::= '>' <WORD> */
 /* 				| '<' <WORD> */

@@ -64,18 +64,19 @@ void	read_eval_print_loop()
 	// extern const char	**environ;
 
 	// envs_init(environ, &d);
-	// d.syntax_flag = false;
+ 	d.syntax_flag = false;
 	while (true)
 	{
-		// int fd  = dup(STDIN_FILENO);
+		 int fd  = dup(STDIN_FILENO);
 		line = read_line();
 		if (line == NULL)
 			continue ;
 		token = tokenize(line);
-		// debug_print_token(token);
+		debug_print_token(token);
 		pasre_node = parse(&token,&d);
-		debug_print_ast(pasre_node);
+		/* debug_print_ast(pasre_node); */
 		heredoc(pasre_node, &d);
+		/* exec_command(pasre_node,EXEC_START,&d); */
 		free(line);
 		try_dup2(fd, STDIN_FILENO, &d);
 		try_close(fd, &d);

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/24 21:32:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 18:53:36 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static t_ast_node_type set_ast_node_type(t_token *token)
+t_ast_node_type set_ast_node_type(t_token *token)
 {
 	t_ast_node_type type;
-	if(token->type == TK_PIPE)
+	if(token->tk_type == TK_PIPE)
 		type = PS_PIPE;
-	else if(TK_LOGICAL_AND)
+	else if(token->tk_type == TK_LOGICAL_AND)
 		type = PS_LOGICAL_AND;
-	else if(TK_LOGICAL_OR)
+	else if(token->tk_type == TK_LOGICAL_OR)
 		type = PS_LOGICAL_OR;
 	return(type);
 }
@@ -70,7 +70,7 @@ t_ast	*parse(t_token **current_token, t_data *d)
 		return (left_node);
 	while (true)
 	{
-		if (token != NULL && ast_is_opereter(token->type))
+		if (token != NULL && ast_is_opereter(token->tk_type))
 		{
 			type = set_ast_node_type(token);
 			token = token->next; //operatarのtoken
@@ -120,9 +120,9 @@ t_token	*token_next(t_token **current_token,t_data *d)
 
 bool token_is_quotation(t_token *token)
 {
-	if(token->type == TOKEN_SINGLE_QUOTE)
+	if(*(token->type) == IS_SINGLE_QUOTED)
 		return (true);
-	else if(token->type == TOKEN_DOUBLE_QUOTE)
+	else if(*(token->type) == IS_DOUBLE_QUOTED)
 		return (true);
 	else
 		return(false);
