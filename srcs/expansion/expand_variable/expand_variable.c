@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 20:47:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:34:00 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,21 @@ bool	expand_is_variable_word(char *word)
 	i = 0;
 	if (word == NULL)
 		return (false);
-	f_quote = token_set_flag_quote(word[i]);
 	while (word[i] != '\0')
 	{
-		if (f_quote != DEFAULT)
+		f_quote = token_set_flag_quote(word[i]);
+		if (f_quote == SINGLE_QUOTE_FLAG)
 		{
 			while (f_quote != token_set_flag_quote(word[++i]))
 			{
 				if (word[i] == '\0')
-					break;
+					return (false);
 			}
+			i++;
 		}
 		else
 		{
-			if (word[i] == '$' && word[i + 1] != '\0')
+			if (word[i] == '$')
 				return (true);
 			i++;
 		}
@@ -55,12 +56,17 @@ void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 {
 	char	*expand_word;
 
-	expand_word = word_list->word;
-	while (expand_is_variable_word(expand_word))
+	if (expand_is_variable_word(word_list->word))
 	{
-		// free(expand_word);
-		printf("ok  %s\n", expand_word);
-		expand_word = expand_get_expanded_token(expand_word, d);
+		
+		printf("word     %s\n", word_list->word);
+		expand_word = expand_get_expanded_token(word_list->word, d);
+		printf("expand   %s\n", expand_word);
+		word_list->word = expand_word;
 	}
-	word_list->word = expand_word;
 }
+
+//　それ以外は場合　展開する
+//　シングルクウォートの場合　展開しない
+//
+//

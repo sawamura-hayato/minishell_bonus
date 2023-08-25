@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 20:38:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:31:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,17 @@ size_t	expand_get_str_to_dollar_size(char *word)
 	
 	i = 0;
 	while (word[i] != '\0' && word[i] != '$')
+	{
+		if (word[i] == '\'')
+		{
+			while (word[++i] == '\'')
+			{
+				if (word[i] == '\0')
+					return (i);
+			}
+		}
 		i++;
+	}
 	return (i);
 }
 

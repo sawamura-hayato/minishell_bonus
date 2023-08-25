@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 20:46:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:36:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ int main(void)
 
 	//クウォートがある場合の対応
 	word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
-	word_list_left->next = debug_new_word_list("$A $A", 1, WORD);
-	word_list_left->next->next = debug_new_word_list("\"$A\" \"$A\"", 1, WORD);
-	word_list_left->next->next->next = debug_new_word_list("$aaaa", 1, WORD);
-	word_list_left->next->next->next->next = debug_new_word_list("bat", 1, WORD);
+	word_list_left->next = debug_new_word_list("\'$A\' $A", 1, WORD);
+	word_list_left->next->next = debug_new_word_list("$A $A", 1, WORD);
+	word_list_left->next->next->next = debug_new_word_list("\"$A\"\"$A\"", 1, WORD);
+	word_list_left->next->next->next->next = debug_new_word_list("$aaaa", 1, WORD);
+	word_list_left->next->next->next->next->next = debug_new_word_list("bat", 1, WORD);
 
 	redirect_list_left = debug_new_redirect_list("<", 2, PS_REDIRECTING_INPUT);
 	redirect_list_left->next = debug_new_redirect_list("$out", 3, PS_FILE);
