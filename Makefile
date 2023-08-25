@@ -6,7 +6,7 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/25 21:33:33 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/26 00:44:44 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,33 +21,32 @@ RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/repl.c
+		$(SRCS_DIR)/repl.c	\
+		$(SRCS_DIR)/init.c
 
 RM = rm -rf
 
 TOKENIZE_DIR = tokenize
 SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
-PARSE_DIR = parse
-SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
+ PARSE_DIR = parse
+ SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
-HEREDOC_DIR = heredoc
-SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
-		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
-		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
+ HEREDOC_DIR = heredoc
+ SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
+ 		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
+ 		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
 
 EXEC_DIR = exec
 SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
@@ -63,7 +62,7 @@ SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_put_error.c
 
 ENVS_DIR = $(SRCS_DIR)/envs
-SRCS += $(ENVS_DIR)/init.c	\
+SRCS += $(ENVS_DIR)/envs_init.c	\
 		$(ENVS_DIR)/envs_newnode.c	\
 		$(ENVS_DIR)/envs_funcs.c	\
 		$(ENVS_DIR)/envs_make_envp.c
@@ -79,14 +78,14 @@ SRCS += $(BUILTIN_DIR)/builtin.c	\
 	    $(BUILTIN_DIR)/pwd/pwd.c	\
 	    $(BUILTIN_DIR)/echo/echo.c	\
 	    $(BUILTIN_DIR)/exit/exit.c	\
-	    $(BUILTIN_DIR)/exit/exit_error.c	\
-	    $(BUILTIN_DIR)/exit/exit_overflow.c	\
-	    $(BUILTIN_DIR)/unset/unset.c	\
-	    $(BUILTIN_DIR)/env/env.c	\
-	    $(BUILTIN_DIR)/cd/cd.c	\
-	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
-	    $(BUILTIN_DIR)/cd/cd_error.c	\
-	    $(BUILTIN_DIR)/cd/cd_delete_dot.c	\
+ 	    $(BUILTIN_DIR)/exit/exit_error.c	\
+ 	    $(BUILTIN_DIR)/exit/exit_overflow.c	\
+ 	    $(BUILTIN_DIR)/unset/unset.c	\
+ 	    $(BUILTIN_DIR)/env/env.c	\
+ 	    $(BUILTIN_DIR)/cd/cd.c	\
+ 	    $(BUILTIN_DIR)/cd/cd_cdpath.c	\
+ 	    $(BUILTIN_DIR)/cd/cd_error.c	\
+ 	    $(BUILTIN_DIR)/cd/cd_delete_dot.c	\
 	    $(BUILTIN_DIR)/cd/cd_convert_path.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dot_slash.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dotdot.c	\
@@ -105,7 +104,7 @@ OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
-$(NAME): $(OBJS) $(LIBRARY_AFILE)
+$(NAME): $(OBJS) $(LIBRARY_DIR)/srcs/ft/%.c	$(LIBRARY_DIR)/srcs/try/%.c
 	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c

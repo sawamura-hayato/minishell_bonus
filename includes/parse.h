@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 17:09:32 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 00:16:44 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ t_ast					*ast_init_node();
 void					ast_addback(t_ast **head, t_ast *new_node);
 void					ast_free_all_nodes(t_ast *node);
 
+void debug_print_ast(t_ast *node);
 //t_command関連
 void	command_word_list(t_word_list** word_list,
 						t_token **current_token);

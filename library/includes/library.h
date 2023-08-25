@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 17:46:54 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 00:39:25 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
 int		try_open(int open_value, char *file, t_data *d);
 void	try_close(int fildes, t_data *d);
-void	try_dup(int fildes, t_data *d);
+int		try_dup(int fildes, t_data *d);
 void	try_dup2(int fildes, int fildes2, t_data *d);
 bool	try_chdir(const char *og_path, const char *path, t_data *d);
 bool	try_stat(const char *path, struct stat *sb, t_data *d);

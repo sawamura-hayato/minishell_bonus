@@ -3,7 +3,46 @@
 
 void	ast_syntax_error(t_data *d)
 {
-	printf("syntax_error");
+	printf("syntax error near unexpected token `newline'");
 	d->exit_status = 2;
 	d->syntax_flag = true;
 }
+
+/* <ALPHA> ::= a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z| */
+/*              A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z */
+
+/* <DIGIT> ::= 0|1|2|3|4|5|6|7|8|9 */
+
+/* <NUMBER> ::= <DIGIT> */
+/*            | <NUMBER> <DIGIT> */
+
+/* <WORD> ::= <ALPHA> */
+/* 		 | <WORD> <ALPHA> */
+/* 		 | <WORD> '_' */
+/* 		 | <WORD> <NUMBER> */
+
+/* <OPERATOR> ::= '|' */
+/* 			|  '||' */
+/* 			|  '&&' */
+/* 			|  '(' */
+/* 			|  ')' */
+
+/* <REDIRECTION> ::= '>' <WORD> */
+/* 				| '<' <WORD> */
+/* 				| '<<' <WORD> */
+/* 				| '>>' <WORD> */
+/* 				| '<>' <WORD> */
+
+/* <WORD_LIST> ::= <WORD> */
+/* 			|   <WORD_LIST> <WORD> */
+
+/* <REDIRECTION_LIST> ::= <REDIRECTION> */
+/* 					|  <REDIRECTION_LIST> <REDIRECTION> */
+
+/* <COMMAND> ::= <WORD_LIST> */
+/* 			| <REDIRECTION_LIST> */
+/* 			| <OPERATOR> */
+
+/* <COMMAND_LIST> ::= <COMMAND> */
+/* 				|  <COMMAND_LIST> <COMMAND> */
+
