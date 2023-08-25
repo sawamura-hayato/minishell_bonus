@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 21:34:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:49:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 
 // int printf(const char *format, ...);
 // void debug_printf_test(char *testA, char *testB);
-
-// void expand_variable(t_ast *node, t_data *d)
-// {
-// 	expand_variable_word_list(&(node->command_list->word_list), d);
-// 	expand_variable_redirect_list(&(node->command_list->redirect_list), d);
-// }
 
 bool	expand_is_variable_word(char *word)
 {
@@ -65,8 +59,3 @@ void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 		word_list->word = expand_word;
 	}
 }
-
-//　それ以外は場合　展開する
-//　シングルクウォートの場合　展開しない
-//
-//

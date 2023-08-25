@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 21:31:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:56:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ char *expand_get_expand_word(char **word, t_envs **envs)
 
 	// printf("word   %s\n", *word);
 	// exit(0);
+	printf("word %s\n", *word);
 	target_word = expand_get_string_to_dollar_or_symbol(word);
+	printf("word %s\n", target_word);
 	target_value = envs_get_value(target_word, envs);
+	printf("word %s\n", target_value);
 	return (target_value);
 }
 
@@ -46,7 +49,7 @@ char *expand_convert_dollar_word(char **word, t_data *d)
 	if (**word == '\0')
 		return (try_strdup(expand_word));
 	if (f_quote == SINGLE_QUOTE_FLAG || f_quote == DOUBLE_QUOTE_FLAG)
-		expand_word = expand_get_delete_dollar_quote_word_list(word, f_quote);
+		expand_word = expand_get_delete_dollar_quote_word_list(word, f_quote, d);
 	else if (**word == '?')
 		expand_word = expand_get_exist_status(word, d->exit_status);
 	else
