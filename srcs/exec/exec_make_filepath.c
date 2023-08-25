@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_make_filepath.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:17:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 18:32:51 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 11:44:35 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*exec_make_filepath(t_ast *node, t_data *d)
 {
 	char	*path;
 
+	if (node->command_list->word_list == NULL)
+		return (NULL);
 	if (is_absolute_path_with_permission(node))
 		return (try_strdup(node->command_list->word_list->word));
 	path = envs_get_value("PATH", d->envs_hashmap);

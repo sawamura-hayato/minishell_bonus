@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:59:46 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 20:19:19 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 11:36:49 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
+#include <stdio.h>
 void	exec_pipe(t_ast *node, t_data *d)
 {
 	pid_t	pid;
 	int		pipefd[2];
 
+	// dprintf(STDERR_FILENO, "pipe\n");
 	pid = try_fork();
 	try_pipe(pipefd);
 	if (pid == 0)

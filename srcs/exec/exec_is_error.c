@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_is_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:11:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 22:20:40 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 11:12:59 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #define PREDIR "../"
 #define DOTDOT ".."
 #define AB_PATH "/"
+
+void	exec_put_error_is_dir(const char *command, t_data *d);
+void	exec_put_error_cmd_not_found(const char *command, t_data *d);
+void	exec_put_error_no_file(const char *command, t_data *d);
+void	exec_put_error_no_permission(const char *command, t_data *d);
 
 static bool	is_path(const char *command)
 {
@@ -28,7 +33,7 @@ static bool	is_path(const char *command)
 	);
 }
 
-static bool	is_dir(char *dirpath)
+static bool	is_dir(const char *dirpath)
 {
 	struct stat	sb;
 
@@ -41,12 +46,18 @@ static bool	is_dir(char *dirpath)
 	return (false);
 }
 
+static bool	is_file(const char *path)
+{
+	return (access(path, F_OK) == 0);
+}
+
 void	exec_is_error(const char *argv, const char *filepath, t_data *d)
 {
-	if (is_path(*argv) && is_dir(*argv))
-		exec_put_error_is_dir(*argv, d);
+	if (is_path(argv) && is_dir(argv))
+		exec_put_error_is_dir(argv, d);
+	if (is_path(argv) && is_file(argv) && access(argv, X_OK) != 0)
+		exec_put_error_no_permission(argv, d);
 	if (envs_get_node("PATH", d->envs_hashmap) == NULL
-		&& !is_path(*argv) && filepath == NULL)
-		exec_put_error_no_file(*argv, d);
-
+		&& !is_path(argv) && filepath == NULL)
+		exec_put_error_no_file(argv, d);
 }

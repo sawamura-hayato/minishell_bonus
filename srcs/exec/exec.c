@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 19:38:02 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 11:36:20 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 	{
 		if (exec_do_redirection(node, d) == false)
 			return ;
-		else if (operator == PS_PIPE)
+		else if (operator == EXEC_PIPE)
 			exec_pipe(node, d);
 		else if (operator == EXEC_START && exec_is_builtin(node))
 			return (builtin(node, NULL, d));

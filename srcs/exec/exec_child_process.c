@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 22:14:54 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 11:44:48 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "builtins.h"
 #include <stdlib.h>
+
+void	exec_is_error(const char *argv, const char *filepath, t_data *d);
+void	exec_put_error_cmd_not_found(const char *command, t_data *d);
 
 static size_t	exec_get_argv_size(t_word_list *word_list)
 {
@@ -23,7 +26,8 @@ static size_t	exec_get_argv_size(t_word_list *word_list)
 	node = word_list;
 	while (node != NULL)
 	{
-		size++;
+		if (node->word != NULL)
+			size++;
 		node = node->next;
 	}
 	return (size);
@@ -68,9 +72,12 @@ char	**exec_make_argv(t_ast *node)
 	index = 0;
 	while (index < size)
 	{
-		arr[index] = w_node->word;
+		if (w_node->word != NULL)
+		{
+			arr[index] = w_node->word;
+			index++;
+		}
 		w_node = w_node->next;
-		index++;
 	}
 	return (arr);
 }
@@ -101,6 +108,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	const char	**argv = (const char **)exec_make_argv(node);
 	const char	*filepath = (const char *)exec_make_filepath(node, d);
 
+	// dprintf(STDERR_FILENO, "%s\n", *argv);
 	if (node->command_list->word_list != NULL && exec_is_builtin(node))
 		return (builtin(node, pipefd, d));
 	if (node->command_list->fd != STDOUT_FILENO)
@@ -117,7 +125,8 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	// 	printf("%s\n", *argv);
 	// 	argv++;
 	// }
-	exec_is_error(argv, filepath, d);
+	exec_is_error(*argv, filepath, d);
+	// dprintf(STDERR_FILENO, "cmd exec\n");
 	execve(filepath, (char *const *)argv, envs_make_envp(d->envs_hashmap));
 	exec_put_error_cmd_not_found(*argv, d);
 }
