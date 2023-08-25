@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:09:17 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 18:59:00 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/25 19:50:04 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,6 @@ static bool	cd_is_file(char *path, char *dirpath)
 	return (is_file);
 }
 
-// static char	*cd_delete_leading_comp(char *path, char *ddc)
-// {
-// 	char			*newpath;
-// 	const char		*following_ddc = ft_strstr(ddc + ft_strlen(DDC), DDC);
-// 	const size_t	len = ft_strlen(DDC);
-
-// 	printf("path=%s\n", path);
-// 	printf("ddc=%s\n", ddc);
-// 	printf("fddc=%s\n", following_ddc);
-// 	if (following_ddc == NULL)
-// 	{
-// 		// printf("path=%s\n", path);
-// 		newpath = ft_substr(path, 0, ddc - path);
-// 		if (cd_is_file(path, newpath))
-// 			return (NULL);
-// 		free(newpath);
-// 		if (ft_strncmp(path, D_SL, ft_strlen(D_SL)) == 0)
-// 			newpath = try_strdup("//");
-// 		else
-// 			newpath = try_strdup("/");
-// 		free(path);
-// 		return (newpath);
-// 	}
-// 	if (is_dotdotcomp(path))
-// 		return (cd_delete_dotdot(path, (ddc + ft_strlen(DDC))));
-// 	newpath = try_strdup(ddc + len);
-// 	// newpath = try_strdup(following_ddc);
-// 	printf("new=%s\n", newpath);
-// 	free(path);
-// 	return (cd_delete_leading_comp(newpath, newpath));
-// }
-
 char	*skip_consecutive_slashes(char *path)
 {
 	while (*path != '\0')
@@ -125,9 +93,6 @@ static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc)
 }
 
 
-//../../../..test/../////test../
-//..test/../../..test/../////test../
-///////../////../../..test/../////test../
 char	*cd_delete_dotdot(char *path, char *last_ddc)
 {
 	char			*ddc;

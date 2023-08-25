@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 16:00:35 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/25 20:34:15 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,8 @@ int	main()
 	builtin_cd((char *[]){"cd", "/Users/../..", NULL}, &d);
 	builtin_cd((char *[]){"cd", "/Users/../Users/..", NULL}, &d);
 	builtin_cd((char *[]){"cd", "/Users/../Users/tterao", NULL}, &d);
-	builtin_cd((char *[]){"cd", "/", NULL}, &d);
+	builtin_cd((char *[]){"cd", "/bin/cat/../", NULL}, &d);
+	builtin_cd((char *[]){"cd", "./test/../", NULL}, &d);
 
 
 	return (0);
