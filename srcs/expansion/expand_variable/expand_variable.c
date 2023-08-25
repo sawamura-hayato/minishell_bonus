@@ -6,15 +6,11 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:08:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:12:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-// #include <stdio.h>
-
-// int printf(const char *format, ...);
-// void debug_printf_test(char *testA, char *testB);
 
 bool	expand_is_variable_word(char *word)
 {

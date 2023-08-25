@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/25 22:07:00 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/25 22:39:16 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,8 @@ EXPANSION_DELETE_QUOTE = expand_delete_quote
 
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_word_list.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_redirect.c \
 		
 EXPANSION_VARI_DIR = expand_variable
 EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
@@ -60,8 +62,8 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_redirect.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_expanded_token.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_word_list.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_redirect.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_exit_status.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_str_to_dollar.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_redirect.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/new_word_list.c \

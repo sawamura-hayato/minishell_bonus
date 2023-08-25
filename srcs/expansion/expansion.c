@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:07:31 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:19:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,6 @@
 #include "tokenize.h"
 
 int printf(const char *format, ...);
-
-void	expand_word_list(t_word_list **word_list, t_data *d)
-{
-	t_word_list *node;
-	
-
-	node = *word_list;
-	while (node != NULL)
-	{
-		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
-		{
-			expand_variable_word_list(node, d);
-		}
-		node = node->next;
-	}
-}
 
 void	expand_command_list(t_ast *node, t_data *d)
 {
@@ -49,8 +33,6 @@ void expansion(t_ast *node, t_data *d)
 		expand_command_list(node, d);
 	else
 		printf("operator\n");
-	// expand_filename(node);
-	// expand_delete_quotation(node);
 }
 
 int main(void)
@@ -69,10 +51,11 @@ int main(void)
 	t_redirect_list 	*redirect_list_right;
 
 	//クウォートがある場合の対応
+	//記号対応
 	word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
 	word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
-	word_list_new_tail(&word_list_left, debug_new_word_list("\'gg$A\' \'$Agg\'", 1, WORD));
-	word_list_new_tail(&word_list_left, debug_new_word_list("$Agg gg$A", 1, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("\'gg$A\'++++\'$Agg\'", 1, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("$Agg--??gg$A", 1, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$aaaa", 1, WORD));

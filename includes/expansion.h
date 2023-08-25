@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 21:56:28 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:40:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void expansion(t_ast *node, t_data *d);
 
 // expand_variable
 void expand_variable(t_ast *node, t_data *d);
+void expand_word_list(t_word_list **word_list, t_data *d);
 char *expand_convert_dollar_word(char **word, t_data *d);
 char *expand_get_expanded_token(char *token_word, t_data *d);
 void expand_token_redirect_list(t_redirect_list *token,
@@ -34,9 +35,9 @@ void expand_variable_redirect_list(t_redirect_list *head, t_data *d);
 void expand_dollar_quote_string_word_list(t_word_list **head);
 // t_word_list *expand_can_dollar_quote_string_word_list(t_word_list **head);
 t_redirect_list *expand_can_dollar_quote_string_redirect(t_redirect_list **head);
-char	*expand_get_delete_dollar_quote_word_list(char **word, t_quote f_quote, t_data *d);
-bool	expand_is_variable_word(char *word);
-char 	*expand_get_expand_word(char **word, t_envs **envs);
+char *expand_get_delete_dollar_quote(char **word, t_quote f_quote, t_data *d);
+bool expand_is_variable_word(char *word);
+char *expand_get_expand_word(char **word, t_envs **envs);
 
 // new_word_list.c
 void word_list_new_head(t_word_list **head, t_word_list *new_word_list);
@@ -54,6 +55,13 @@ void redirect_free(t_redirect_list *redirect);
 void redirect_delete_head(t_redirect_list **head);
 void redirect_delete_tail(t_redirect_list **head);
 void redirect_delete_target(t_redirect_list **head, t_redirect_list *target);
+
+// expand_get_exit_status.c
+char *expand_get_exit_status(char **word, unsigned int exit_status);
+
+// expand_get_str_to_dollar.c
+char	*expand_get_str_to_dollar(char **word);
+char	*expand_get_string_to_dollar_or_symbol(char **word);
 
 // expand_word_splitting.c
 // IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
