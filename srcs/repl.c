@@ -61,13 +61,13 @@ void	read_eval_print_loop()
 	t_ast *pasre_node;
 	t_data d;
 
-	extern const char	**environ;
+	// extern const char	**environ;
 
-	envs_init(environ, &d);
-	d.syntax_flag = false;
+	// envs_init(environ, &d);
+	// d.syntax_flag = false;
 	while (true)
 	{
-		int fd  = dup(STDIN_FILENO);
+		// int fd  = dup(STDIN_FILENO);
 		line = read_line();
 		if (line == NULL)
 			continue ;
