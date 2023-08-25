@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:19:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:11:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ int main(void)
 
 	//クウォートがある場合の対応
 	//記号対応
-	word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
+	word_list_left = NULL;
+	// word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
+	word_list_new_tail(&word_list_left, debug_new_word_list("\"$A\"", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("$\'$A\'", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("\'gg$A\'++++\'$Agg\'", 1, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$Agg--??gg$A", 1, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD));
@@ -88,10 +91,10 @@ int main(void)
 	expansion(node, &data);
 
 	debug_printf_word_list(node->left_hand->command_list->word_list);
-	debug_printf_word_list(node->right_hand->command_list->word_list);
+	// debug_printf_word_list(node->right_hand->command_list->word_list);
 
-	debug_printf_redirect(node->left_hand->command_list->redirect_list);
-	debug_printf_redirect(node->right_hand->command_list->redirect_list);
+	// debug_printf_redirect(node->left_hand->command_list->redirect_list);
+	// debug_printf_redirect(node->right_hand->command_list->redirect_list);
 	// if (word_list_left == NULL)
 	// 	printf("ok");
 	// printf("%s\n", node->command_list->word_list->word);

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:42:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:13:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char *expand_convert_dollar_word(char **word, t_data *d)
 		expand_word = expand_get_exit_status(word, d->exit_status);
 	else
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
+	// printf("expand %s\n", expand_word);
 	return (expand_word);
 }
 
@@ -62,6 +63,7 @@ char *expand_get_expanded_token(char *token, t_data *d)
 			free(expand_word);
 		}
 	}
+	// printf("word     %s\n", join_word);
 	return (join_word);
 }
 

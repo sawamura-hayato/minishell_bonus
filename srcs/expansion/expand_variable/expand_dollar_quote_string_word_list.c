@@ -6,11 +6,15 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:15:16 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:14:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+//クウォートの問題
+// - クウォート削除してはいけないのに削除されてる
+// - 単語分割への影響はない（クウォートだから）
 
 char *expand_get_delete_dollar_quote(char **word, t_quote f_quote, t_data *d)
 {
@@ -18,8 +22,8 @@ char *expand_get_delete_dollar_quote(char **word, t_quote f_quote, t_data *d)
 	size_t size;
 	size_t i;
 
-	(*word)++;
 	size = 0;
+	(*word)++;
 	while (f_quote != token_set_flag_quote((*word)[size]))
 		size++;
 	expand_word = try_calloc(size + 1, sizeof(char));

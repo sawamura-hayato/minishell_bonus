@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:12:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:10:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,23 @@ void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 	if (expand_is_variable_word(word_list->word))
 	{
 		
-		printf("word     %s\n", word_list->word);
+		// printf("word     %s\n", word_list->word);
 		expand_word = expand_get_expanded_token(word_list->word, d);
-		printf("expand   %s\n", expand_word);
+		// printf("expand   %s\n", expand_word);
 		word_list->word = expand_word;
+	}
+}
+
+void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
+{
+	char	*expand_word;
+
+	if (expand_is_variable_word(redirect_list->word))
+	{
+		
+		// printf("word     %s\n", redirect_list->word);
+		expand_word = expand_get_expanded_token(redirect_list->word, d);
+		// printf("expand   %s\n", expand_word);
+		redirect_list->word = expand_word;
 	}
 }
