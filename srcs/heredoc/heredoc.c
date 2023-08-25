@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/23 19:52:55 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/25 19:11:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 	node = command->redirect_list;
 	while (node != NULL)
 	{
-		if (node->type == PS_HERE_DOCUMENTS)
+		if (node->re_type == PS_HERE_DOCUMENTS)
 		{
 			if (heredoc_get_str(node, d) == false)
 				return (false);

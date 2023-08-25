@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 21:57:23 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 18:59:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ t_redirect_list	*exec_redirect_output(t_command *command_list, t_redirect_list *
 	//openの仕方が違う
 	r_node = r_node->next;
 	file = r_node->word;
-	if (r_node->type == PS_REDIRECTING_OUTPUT)
+	if (r_node->re_type == PS_REDIRECTING_OUTPUT)
 		fd = try_open(open(file, O_CREAT | O_TRUNC | O_RDWR, 0644), d);
 	else
 		fd = try_open(open(file, O_CREAT | O_RDWR | O_APPEND, 0644), d);
@@ -212,18 +212,18 @@ void	exec_do_redirection(t_ast *node, t_data *d)
 	// printf("%p\n", r_node);
 	while (r_node != NULL)
 	{
-		if (r_node->type == PS_DELIMITER)
+		if (r_node->re_type == PS_DELIMITER)
 		{
 		// heredocの場合、heredocの文字列を標準入力に設定する
 		//色々やり方がある（fd, readとwrite）
 			r_node = exec_redirect_heredoc(r_node, d);
 		}
-		else if (r_node->type == PS_REDIRECTING_OUTPUT || r_node->type == PS_APPENDING_OUTPUT)
+		else if (r_node->re_type == PS_REDIRECTING_OUTPUT || r_node->re_type == PS_APPENDING_OUTPUT)
 		{
 		// outputの場合、r_node->command_list->fdにopenしたfdとfd_typeを設定する
 			r_node = exec_redirect_output(node->command_list, r_node, d);
 		}
-		else if (r_node->type == PS_REDIRECTING_INPUT)
+		else if (r_node->re_type == PS_REDIRECTING_INPUT)
 		{
 		// inputの場合、fileをopenし、readした文字列を標準入力に設定する
 			r_node = exec_redirect_input(r_node, d);

@@ -6,79 +6,99 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/16 09:54:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:10:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void expand_delete_dollar_quote_word_list(t_word_list **head, bool is_head_dollar)
+char	*expand_get_delete_dollar_quote_word_list(char **word, t_quote f_quote)
 {
-	t_word_list *node;
+	char	*expand_word;
+	size_t	size;
+	size_t	i;
 
-	node = *head;
-	if (is_head_dollar)
+	(*word)++;
+	size = 0;
+	while (f_quote != token_set_flag_quote((*word)[size]))
+		size++;
+	expand_word = try_calloc(size + 1, sizeof(char));
+	i = 0;
+	while (i < size)
 	{
-		word_list_delete_head(head);
-		word_list_delete_head(head);
-		word_list_delete_target(head, (*head)->next);
+		expand_word[i] = (*word)[i];
+		i++;
 	}
-	else
-	{
-		while (ft_strcmp((*head)->next->word, "$"))
-			(*head) = (*head)->next;
-		word_list_delete_target(head, (*head)->next);
-		word_list_delete_target(head, (*head)->next);
-		if ((*head)->next->next == NULL)
-			word_list_delete_tail(head);
-		else
-			word_list_delete_target(head, (*head)->next->next);
-		(*head) = node;
-	}
+	(*word) += size + 1;
+	return (expand_word);
 }
 
-void expand_dollar_quote_string_word_list(t_word_list **head)
-{
-	t_word_list *node;
+// void expand_dollar_quote_string_word_list(t_word_list *head)
+// {
+// 	t_word_list *node;
+// 	size_t f_quote;
+// 	size_t i;
+// 	size_t size;
 
-	if (!ft_strcmp((*head)->word, "$") &&
-		((*head)->next->type == TOKEN_SINGLE_QUOTE || (*head)->next->type == TOKEN_DOUBLE_QUOTE))
-		expand_delete_dollar_quote_word_list(head, true);
-	node = *head;
-	while ((*head) != NULL && (*head)->next != NULL && (*head)->next->next != NULL)
-	{
-		if (!ft_strcmp((*head)->next->word, "$") &&
-			((*head)->next->next->type == TOKEN_SINGLE_QUOTE ||
-			 (*head)->next->next->type == TOKEN_DOUBLE_QUOTE))
-			expand_delete_dollar_quote_word_list(head, false);
-		*head = (*head)->next;
-	}
-	*head = node;
-}
+// 	node = head;
+// 	i = 0;
+// 	size = 0;
+// 	while (node->word[i] != '\0')
+// 	{
+// 		if (node->word[i] == '$')
+// 		{
+// 			f_quote = node->type[++i] - '0';
+// 			if (f_quote == IS_SINGLE_QUOTED ||
+// 				f_quote == DOUBLE_QUOTE_FLAG)
+// 			{
+// 				while (f_quote != node->type[++i] - '0')
+// 					size++;
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	return (false);
+// }
 
-bool expand_is_dollar_quote_string_word_list(t_word_list *head)
-{
-	t_word_list *node;
+// bool expand_is_dollar_quote_string_word_list(t_word_list *head)
+// {
+// 	t_word_list *node;
+// 	size_t f_quote;
+// 	size_t i;
 
-	node = head;
-	if (node == NULL || node->next == NULL)
-		return (false);
-	if (!ft_strcmp(node->word, "$") &&
-		(node->next->type == TOKEN_SINGLE_QUOTE || node->next->type == TOKEN_DOUBLE_QUOTE))
-		return (true);
-	while (node->next->next != NULL)
-	{
-		if (!ft_strcmp(node->next->word, "$") &&
-			(node->next->next->type == TOKEN_SINGLE_QUOTE || node->next->next->type == TOKEN_DOUBLE_QUOTE))
-			return (true);
-		node = node->next;
-	}
-	return (false);
-}
+// 	node = head;
+// 	i = 0;
+// 	while (node->word[i] != '\0')
+// 	{
+// 		if (node->word[i] == '$')
+// 		{
+// 			f_quote = node->type[++i] - '0';
+// 			if (f_quote == IS_SINGLE_QUOTED ||
+// 				f_quote == DOUBLE_QUOTE_FLAG)
+// 				return (true);
+// 		}
+// 		i++;
+// 	}
+// 	return (false);
+// }
 
-t_word_list *expand_can_dollar_quote_string_word_list(t_word_list **head)
-{
-	if (expand_is_dollar_quote_string_word_list(*head))
-		expand_dollar_quote_string_word_list(head);
-	return (*head);
-}
+// void expand_can_dollar_quote_string_word_list(t_word_list *head)
+// {
+// 	if (expand_is_dollar_quote_string_word_list(head))
+// 		expand_dollar_quote_string_word_list(head);
+// }
+
+// "$'echo'echo$'echo'"
+// "020000200000200002"
+
+// "echo"
+// "echo$'echo'"
+
+// "echoecho"
+// "$'echo'"
+
+// "echoechoecho"
+// "000000000000"
+
+// echo $"ec   c"
+// ec   c

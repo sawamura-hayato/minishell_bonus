@@ -6,62 +6,62 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 15:43:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 18:59:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-bool expand_is_tokens(char *expand_word)
-{
-	bool f_space;
+// bool expand_is_tokens(char *expand_word)
+// {
+// 	bool f_space;
 
-	f_space = false;
-	while (*expand_word != '\0')
-	{
-		if (f_space)
-			return (true);
-		if (ft_isspace(*expand_word))
-			f_space = true;
-		expand_word++;
-	}
-	return (false);
-}
+// 	f_space = false;
+// 	while (*expand_word != '\0')
+// 	{
+// 		if (f_space)
+// 			return (true);
+// 		if (ft_isspace(*expand_word))
+// 			f_space = true;
+// 		expand_word++;
+// 	}
+// 	return (false);
+// }
 
-void expand_token_redirect_list(t_redirect_list *redirect_list, t_data *d, t_redirect_type is_quote)
-{
-	char *expand_word;
+// void expand_token_redirect_list(t_redirect_list *redirect_list, t_data *d, t_redirect_type is_quote)
+// {
+// 	char *expand_word;
 
-	expand_word = expand_get_expanded_token(redirect_list->word, d);
-	// 環境変数がない場合, トークンが複数に分かれる場合
-	if (is_quote != PS_REDIRECT_DOUBLE_QUOTE &&
-		(expand_word == NULL || expand_is_tokens(expand_word)))
-	{
-		free(expand_word);
-		// token->is_abm_error = true;
-	}
-	else
-	{
-		// free(redirect_list->word);
-		redirect_list->word = expand_word;
-	}
-}
+// 	expand_word = expand_get_expanded_token(redirect_list->word, d);
+// 	// 環境変数がない場合, トークンが複数に分かれる場合
+// 	if (is_quote != PS_REDIRECT_DOUBLE_QUOTE &&
+// 		(expand_word == NULL || expand_is_tokens(expand_word)))
+// 	{
+// 		free(expand_word);
+// 		// token->is_abm_error = true;
+// 	}
+// 	else
+// 	{
+// 		// free(redirect_list->word);
+// 		redirect_list->word = expand_word;
+// 	}
+// }
 
-void expand_variable_redirect_list(t_redirect_list *head, t_data *d)
-{
-	t_redirect_list *node;
+// void expand_variable_redirect_list(t_redirect_list *head, t_data *d)
+// {
+// 	t_redirect_list *node;
 
-	node = expand_can_dollar_quote_string_redirect(&head);
-	while (node != NULL)
-	{
-		if (node->type == TOKEN_SINGLE_QUOTE)
-		{
-			node = node->next;
-			while (node->type != TOKEN_SINGLE_QUOTE)
-				node = node->next;
-		}
-		if (node->type != TOKEN_SINGLE_QUOTE && ft_strchr(node->word, '$'))
-			expand_token_redirect_list(node, d, node->type);
-		node = node->next;
-	}
-}
+// 	node = expand_can_dollar_quote_string_redirect(&head);
+// 	while (node != NULL)
+// 	{
+// 		if (node->re_type == TOKEN_SINGLE_QUOTE)
+// 		{
+// 			node = node->next;
+// 			while (node->re_type != TOKEN_SINGLE_QUOTE)
+// 				node = node->next;
+// 		}
+// 		if (node->type != TOKEN_SINGLE_QUOTE && ft_strchr(node->word, '$'))
+// 			expand_token_redirect_list(node, d, node->re_type);
+// 		node = node->next;
+// 	}
+// }

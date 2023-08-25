@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 15:24:57 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:38:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,16 @@ char *expand_get_expand_word(char **word, t_envs **envs)
 
 char *expand_convert_dollar_word(char **word, t_data *d)
 {
-	char *expand_word;
+	char	*expand_word;
+	t_quote	f_quote;
 
 	expand_word = *word;
 	(*word)++;
+	f_quote = token_set_flag_quote((*word)[0]);
 	if (**word == '\0')
 		return (try_strdup(expand_word));
+	if (f_quote == SINGLE_QUOTE_FLAG || f_quote == DOUBLE_QUOTE_FLAG)
+		expand_word = expand_get_delete_dollar_quote_word_list(word, f_quote);
 	else if (**word == '?')
 		expand_word = expand_get_exist_status(word, d->exit_status);
 	else

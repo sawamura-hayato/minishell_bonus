@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 15:26:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 19:10:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,22 @@
 #include <stddef.h>
 #include "library.h"
 
+#include <stdio.h>
+
+#define DEFAULT_CHAR_TYPE (0)
+#define IS_SUBSTITUTED (1)
+#define IS_SINGLE_QUOTED (2)
+#define IS_DOUBLE_QUOTED (3)
+
 typedef enum e_token_type
 {
 	WORD,
-	TOKEN_SINGLE_QUOTE,
-	TOKEN_DOUBLE_QUOTE,
 	REDIRECT,
-	TOKEN_PIPE,
-	TOKEN_LOGICAL_OR,
-	TOKEN_LOGICAL_AND,
+	TK_PIPE,
+	TK_LOGICAL_OR,
+	TK_LOGICAL_AND,
+	TK_OPEN_PARENTHESIS,
+	TK_CLOSE_PARENTHESIS
 } t_token_type;
 
 typedef enum e_quote
@@ -37,42 +44,32 @@ typedef enum e_quote
 
 typedef struct s_token
 {
-	char *word;
-	t_token_type type;
-	size_t index;
-	struct s_token *next;
+	char		*word;
+	char		*type;
+	t_token_type	tk_type;
+	struct s_token	*next;
 } t_token;
 
 // tokenize.c
 t_token *tokenize(const char *line);
 
-// get_next_token_index.c
-size_t token_can_get_next_token_index(t_token *head,
-									  char **line, t_quote f_quote, size_t index);
-bool token_is_a_control_char(t_token_type token_type);
-t_token_type token_get_last_token_type(t_token *head);
-
-// get_quote_token.c
-bool token_can_get_quote_token(t_token **token, char **line,
-							   t_quote *f_quote, size_t index);
-
 // get_current_word_size.c
-size_t	token_get_current_word_size(char *line, t_quote f_quote);
-size_t	token_get_operator_size(char *line);
-size_t	token_get_redirect_list_size(char *line);
-size_t	token_get_special_word_size(char *line);
+size_t token_get_current_word_size(char *line);
+size_t token_get_operator_size(char *line);
+size_t token_get_redirect_list_size(char *line);
+size_t token_get_special_word_size(char *line);
 
 // get_current_token.c
-size_t token_get_current_word_size(char *line, t_quote f_quote);
 char *token_get_current_word(char *line, size_t size);
-void token_get_current_token(t_token **head, char **line, t_quote f_quote, size_t *index);
+void token_get_current_token(t_token **head, char **line);
+char	*token_get_type_word(char *word);
 
 // set_flag.c
 t_quote token_set_flag_quote(char quote);
-t_token_type token_set_flag_token(char *line, t_quote f_flag);
+t_token_type token_set_flag_token(char *line);
 
 // linear_linked_token.c
-t_token *create_token(char *word, t_token_type token_type, size_t index);
+t_token *create_token(char *word, t_token_type token_type);
 void token_addback(t_token **head, t_token *new_token);
 t_token *token_end(void);
 void free_token(t_token *token_list);

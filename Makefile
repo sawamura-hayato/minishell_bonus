@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/25 15:44:38 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/25 19:28:41 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,21 +28,19 @@ RM = rm -rf
 TOKENIZE_DIR = tokenize
 SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
-PARSE_DIR = parse
-SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
+# PARSE_DIR = parse
+# SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
 HEREDOC_DIR = heredoc
 SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
@@ -104,11 +102,11 @@ SRCS += $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
 
-EXEC_DIR = exec
-SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
-		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c
+# EXEC_DIR = exec
+# SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+# 		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:58:47 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 15:26:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:51:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ size_t	token_get_operator_size(char *line)
 			return (logical_and_size);
 		return (++size);
 	}
+	else if ('(' == line[0] || ')' == line[0])
+		return (++size);
 	return (size);
 }
 
@@ -72,24 +74,32 @@ size_t	token_get_special_word_size(char *line)
 	return (size);
 }
 
-size_t	token_get_current_word_size(char *line, t_quote f_quote)
+size_t	token_get_current_word_size(char *line)
 {
 	size_t	size;
+	t_quote	f_quote;
 
 	size = 0;
-	if (f_quote != DEFAULT)
+	while (line[size] != '\0')
 	{
-		while (f_quote != token_set_flag_quote(line[size]) && \
-				line[size] != '\0')
+		f_quote = token_set_flag_quote(line[size]);
+		if (f_quote != DEFAULT)
+		{
 			size++;
-	}
-	else
-	{
-		while (token_set_flag_quote(line[size]) == DEFAULT && \
-				!ft_isspace(line[size]) && \
-				!ft_is_special_char(line[size]) && \
-				line[size] != '\0')
-			size++;
+			while (f_quote != token_set_flag_quote(line[size]))
+			{
+				if (line[size] == '\0')
+				{
+					size--;
+					break;
+				}
+				size++;
+			}
+		}
+		else if (ft_isspace(line[size]) || \
+					ft_is_special_char(line[size]))
+			break;
+		size++;
 	}
 	size += token_get_special_word_size(line);
 	return (size);

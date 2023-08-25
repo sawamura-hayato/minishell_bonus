@@ -9,7 +9,7 @@ static t_word_list	*word_list_init_node(t_token *token)
 
 	node = try_calloc(1, sizeof(t_word_list));
 	node->word = try_strdup(token->word);
-	node->index = token->index;
+	node->type = token_get_type_word(token->word);
 	node->type = token->type;
 	return (node);
 }

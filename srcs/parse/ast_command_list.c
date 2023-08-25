@@ -46,9 +46,9 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 	command_list_node = command_list_init_node();
 	redirect_flag = false;
 	ast_command_node->command_list = command_list_node;
-	while (token != NULL && !ast_is_opereter(token->type))
+	while (token != NULL && !ast_is_opereter(token->tk_type))
 	{
-		if (token_is_redirect(token->type) || redirect_flag)
+		if (token_is_redirect(token->tk_type) || redirect_flag)
 		{
 			command_redirect_list(&(ast_command_node->command_list->redirect_list),&token,d,redirect_flag);
 			redirect_flag = !redirect_flag;
@@ -59,8 +59,8 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 		}
 		if (token_next(&token,d) == NULL || d->syntax_flag )
 				break;
-		/* printf("token is1:%s\n",token->word); */
 		/* token_next(&token,d); */
+		*current_token = token;
 	}
 	return (ast_command_node);
 }

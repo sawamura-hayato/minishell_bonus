@@ -6,11 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/21 14:41:24 by hsawamur         ###   ########.fr       */
->>>>>>> 106-単語分割
+/*   Updated: 2023/08/25 20:41:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,11 +234,7 @@ char **expand_get_arr_in_splitting_word(char *word, char *ifs_default_char)
 	return (arr);
 }
 
-<<<<<<< HEAD
-void expand_splitting_redirect_list(t_redirect_list *redirect_list, t_envs *ifs)
-=======
 void expand_splitting_word_list_by_ifs_default_char(t_word_list **word_list, char *ifs_default_char)
->>>>>>> 106-単語分割
 {
 	char **arr;
 	t_word_list *node;
