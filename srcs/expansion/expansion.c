@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 21:59:30 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 22:07:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ int main(void)
 
 	//クウォートがある場合の対応
 	word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
-	word_list_left->next = debug_new_word_list("$\"$A\"", 0, WORD);
-	word_list_left->next->next = debug_new_word_list("\'gg$A\' \'$Agg\'", 1, WORD);
-	word_list_left->next->next->next = debug_new_word_list("$Agg gg$A", 1, WORD);
-	word_list_left->next->next->next->next = debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD);
-	word_list_left->next->next->next->next->next = debug_new_word_list("$aaaa", 1, WORD);
-	word_list_left->next->next->next->next->next->next = debug_new_word_list("bat", 1, WORD);
+	word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("\'gg$A\' \'$Agg\'", 1, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("$Agg gg$A", 1, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("$aaaa", 1, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("bat", 1, WORD));
 
 	redirect_list_left = debug_new_redirect_list("<", 2, PS_REDIRECTING_INPUT);
 	redirect_list_left->next = debug_new_redirect_list("$out", 3, PS_FILE);
@@ -83,10 +84,11 @@ int main(void)
 	left_node = debug_new_ast(debug_new_command(word_list_left, redirect_list_left), PS_COMMAND);
 	;
 	word_list_right = debug_new_word_list("echo", 0, WORD);
-	word_list_right->next = debug_new_word_list("ok", 0, WORD);
-	word_list_right->next->next = debug_new_word_list("$", 1, WORD);
+	word_list_new_tail(&word_list_right, debug_new_word_list("ok", 0, WORD));
+	word_list_new_tail(&word_list_right, debug_new_word_list("$", 1, WORD));
+	word_list_new_tail(&word_list_right, debug_new_word_list("$?", 2, WORD));
+
 	// word_list_right->next->next->next = debug_new_word_list("\"", 2, TOKEN_DOUBLE_QUOTE);
-	word_list_right->next->next->next = debug_new_word_list("$word", 2, WORD);
 	// word_list_right->next->next->next->next->next = debug_new_word_list("\"", 2, TOKEN_DOUBLE_QUOTE);
 
 	redirect_list_right = debug_new_redirect_list(">", 3, PS_REDIRECTING_OUTPUT);
