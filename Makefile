@@ -6,7 +6,7 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/25 15:22:27 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/25 17:41:52 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,34 +20,47 @@ RL_DIR = $(shell brew --prefix readline)
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
-SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/repl.c
+# SRCS = $(SRCS_DIR)/main.c \
+# 		$(SRCS_DIR)/repl.c
 
 RM = rm -rf
 
-TOKENIZE_DIR = tokenize
-SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
-		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
+# TOKENIZE_DIR = tokenize
+# SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_quote_token.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_next_token_index.c \
+# 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
-PARSE_DIR = parse
-SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
+# PARSE_DIR = parse
+# SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
+# 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
 
-HEREDOC_DIR = heredoc
-SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
-		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
-		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
+# HEREDOC_DIR = heredoc
+# SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
+# 		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
+# 		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
+
+# EXEC_DIR = exec
+# SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+# 		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_child_process.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_do_redirection.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_fork.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_pipe.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_wait_child_process.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_is_error.c	\
+# 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_put_error.c
 
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
@@ -56,7 +69,8 @@ SRCS += $(ENVS_DIR)/init.c	\
 		$(ENVS_DIR)/envs_make_envp.c
 
 BUILTIN_DIR = $(SRCS_DIR)/builtin
-SRCS += $(BUILTIN_DIR)/builtin.c	\
+# SRCS += $(BUILTIN_DIR)/builtin.c	
+SRCS += 	\
 	    $(BUILTIN_DIR)/export/export.c	\
 	    $(BUILTIN_DIR)/export/export_show.c	\
 	    $(BUILTIN_DIR)/export/export_add.c	\
@@ -80,20 +94,8 @@ SRCS += $(BUILTIN_DIR)/builtin.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
 	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
-	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
-
-EXEC_DIR = exec
-SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
-		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_child_process.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_do_redirection.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_fork.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_pipe.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_wait_child_process.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_is_error.c	\
-	    $(SRCS_DIR)/$(EXEC_DIR)/exec_put_error.c
+	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c	\
+	    $(BUILTIN_DIR)/cd/cd_get_pre_comp.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
