@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_do_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 16:58:31 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:19:52 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 		return (NULL);
 	try_dup2(fd, STDIN_FILENO, d);
 	try_close(fd, d);
-	return (node->next);
+	return (node);
 }
 
 static t_redirect_list	*exec_redirect_output(t_command *command_list,
@@ -46,14 +46,14 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 	if (fd == -1)
 		return (NULL);
 	command_list->fd = fd;
-	return (r_node->next);
+	return (r_node);
 }
 
 static t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d)
 {
 	int		pipefd[2];
-	size_t	i;
-	ssize_t	write_bytes;
+	// size_t	i;
+	// ssize_t	write_bytes;
 
 	// printf("%s", node->word);
 	try_pipe(pipefd);
@@ -75,7 +75,7 @@ static t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d)
 	try_dup2(pipefd[R], STDIN_FILENO, d);
 	try_close(pipefd[W], d);
 	try_close(pipefd[R], d);
-	return (node->next);
+	return (node);
 }
 
 /**
@@ -100,13 +100,16 @@ bool	exec_do_redirection(t_ast *node, t_data *d)
 	r_node = node->command_list->redirect_list;
 	while (r_node != NULL)
 	{
-		if (r_node->type == PS_DELIMITER)
-			r_node = exec_redirect_heredoc(r_node, d);
+		if (r_node->type == PS_REDIRECTING_INPUT)
+			r_node = exec_redirect_input(r_node, d);
 		else if (r_node->type == PS_REDIRECTING_OUTPUT
 			|| r_node->type == PS_APPENDING_OUTPUT)
 			r_node = exec_redirect_output(node->command_list, r_node, d);
-		else if (r_node->type == PS_REDIRECTING_INPUT)
-			r_node = exec_redirect_input(r_node, d);
+		else if (r_node->type == PS_DELIMITER || r_node->type == PS_QUOTE_DELIMITER)
+			r_node = exec_redirect_heredoc(r_node, d);
+		if (r_node == NULL)
+			return (false);
+		r_node = r_node->next;
 	}
 	return (true);
 }

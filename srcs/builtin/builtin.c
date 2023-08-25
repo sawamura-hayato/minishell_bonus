@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/24 20:01:32 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:32:34 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,25 @@ static int	dup_stdout_fd(t_ast *node, int *pipefd, t_data *d)
 	if (pipefd != NULL && node->command_list->fd == STDOUT_FILENO)
 	{
 		fd = dup(STDOUT_FILENO);
-		try_close(pipefd[R], d);
 		try_dup2(pipefd[W], STDOUT_FILENO, d);
-		try_close(pipefd[W], d);
 	}
 	else if (node->command_list->fd != STDOUT_FILENO)
 	{
+		fd = dup(STDOUT_FILENO);
 		try_dup2(node->command_list->fd, STDOUT_FILENO, d);
 		try_close(node->command_list->fd, d);
+	}
+	if (pipefd != NULL)
+	{
+		try_close(pipefd[R], d);
+		try_close(pipefd[W], d);
 	}
 	return (fd);
 }
 
 static void	reset_stdoutfd(int fd, t_data *d)
 {
-	try_dup2(fd, STDIN_FILENO, d);
+	try_dup2(fd, STDOUT_FILENO, d);
 	try_close(fd, d);
 }
 

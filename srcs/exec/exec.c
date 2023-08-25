@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 11:36:20 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/25 11:52:39 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ static t_operator	exec_change_ast_type_to_operator(t_ast_node_type ast_type)
 	return (EXEC_START);
 }
 
+static t_operator	get_operator(t_operator operator)
+{
+	if (operator == EXEC_START)
+		return (EXEC_END);
+	else
+		return (operator);
+}
+
 static void	exec_search_command(t_ast *node, t_operator operator, t_data *d)
 {
 
@@ -34,18 +42,16 @@ static void	exec_search_command(t_ast *node, t_operator operator, t_data *d)
 	{
 		exec_wait_child_process(node->left_hand, d);
 		if (d->exit_status == EXIT_SUCCESS)
-			exec_command(node->right_hand, operator, d);
+			exec_command(node->right_hand, get_operator(operator), d);
 	}
 	else if (node->type == PS_LOGICAL_OR)
 	{
 		exec_wait_child_process(node->left_hand, d);
 		if (d->exit_status != EXIT_SUCCESS)
-			exec_command(node->right_hand, operator, d);
+			exec_command(node->right_hand, get_operator(operator), d);
 	}
-	else if (operator == EXEC_START && node->right_hand != NULL)
-		exec_command(node->right_hand, EXEC_END, d);
 	else if (node->right_hand != NULL)
-		exec_command(node->right_hand, operator, d);
+		exec_command(node->right_hand, get_operator(operator), d);
 }
 
 /**

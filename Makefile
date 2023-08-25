@@ -6,14 +6,14 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/25 11:10:47 by tatyu            ###   ########.fr        #
+#    Updated: 2023/08/25 15:22:27 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -105,8 +105,7 @@ INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
 $(NAME): $(OBJS) $(LIBRARY_AFILE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBRARY_AFILE) -o $(NAME) $(RL_FLAGS)
-	# $(CC) $(CFLAGS) $(OBJS) -o $@ $^ $(RL_FLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)

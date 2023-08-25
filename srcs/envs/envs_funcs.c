@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/17 14:20:06 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:37:03 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	*envs_get_value(const char *_key, t_envs **envs_hashmap)
 
 	target = envs_get_node(_key, envs_hashmap);
 	if (target == NULL)
+		return (NULL);
+	if (target->value == NULL)
 		return (NULL);
 	return (try_strdup(target->value));
 }
