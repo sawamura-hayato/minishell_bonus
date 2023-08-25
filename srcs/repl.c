@@ -74,8 +74,9 @@ void	read_eval_print_loop()
 		token = tokenize(line);
 		debug_print_token(token);
 		pasre_node = parse(&token,&d);
-		debug_print_ast(pasre_node);
+		/* debug_print_ast(pasre_node); */
 		heredoc(pasre_node, &d);
+		/* exec_command(pasre_node,EXEC_START,&d); */
 		free(line);
 		try_dup2(fd, STDIN_FILENO, &d);
 		try_close(fd, &d);
