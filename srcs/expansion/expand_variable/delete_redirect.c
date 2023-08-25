@@ -6,11 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:54:13 by hsawamur          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/08/22 13:13:51 by hsawamur         ###   ########.fr       */
-=======
-/*   Updated: 2023/08/15 16:39:12 by hsawamur         ###   ########.fr       */
->>>>>>> 106-単語分割
+/*   Updated: 2023/08/25 15:40:52 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +44,7 @@ void redirect_delete_tail(t_redirect_list **head)
 	node->next = NULL;
 }
 
-<<<<<<< HEAD
 void redirect_delete_target(t_redirect_list **head, t_redirect_list *target)
-=======
-void redirect_delete_taget(t_redirect_list **head, t_redirect_list *target)
->>>>>>> 106-単語分割
 {
 	t_redirect_list *tmp;
 	t_redirect_list *node;

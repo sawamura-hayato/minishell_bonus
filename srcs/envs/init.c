@@ -6,11 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/08/23 17:55:00 by tterao           ###   ########.fr       */
-=======
-/*   Updated: 2023/08/18 12:33:13 by hsawamur         ###   ########.fr       */
->>>>>>> 106-単語分割
+/*   Updated: 2023/08/25 15:41:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +68,10 @@ static void	init_three_envs(t_data *d)
 		envs_newnode(try_strdup("PWD"), cwd, d->envs_hashmap);
 	if (envs_get_node("SHLVL", d->envs_hashmap) == NULL)
 		envs_newnode(try_strdup("SHLVL"), try_strdup("1"), d->envs_hashmap);
-<<<<<<< HEAD
 	d->pwd = cwd;
 	d->oldpwd = envs_get_value("OLDPWD", d->envs_hashmap);
-=======
 	if (envs_get_node("IFS", d->envs_hashmap) == NULL)
 		envs_newnode(try_strdup("IFS"), try_strdup(" \t\n"), d->envs_hashmap);
->>>>>>> 106-単語分割
 }
 
 void	envs_init(const char **environ, t_data *d)

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 15:14:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:40:03 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ void expansion(t_ast *node, t_data *d);
 void expand_variable(t_ast *node, t_data *d);
 char *expand_convert_dollar_word(char **word, t_data *d);
 char *expand_get_expanded_token(char *token_word, t_data *d);
-void expand_token_word_list(t_word_list *token, t_data *d);
 void expand_token_redirect_list(t_redirect_list *token,
 								t_data *d,
 								t_redirect_type is_quote);
-void expand_variable_word_list(t_word_list **head, t_data *d);
-void expand_variable_redirect_list(t_redirect_list **head, t_data *d);
+void expand_variable_word_list(t_word_list *word_list, t_data *d);
+void expand_variable_redirect_list(t_redirect_list *head, t_data *d);
 void expand_dollar_quote_string_word_list(t_word_list **head);
 t_word_list *expand_can_dollar_quote_string_word_list(t_word_list **head);
 t_redirect_list *expand_can_dollar_quote_string_redirect(t_redirect_list **head);
@@ -51,25 +50,24 @@ void word_list_delete_target(t_word_list **head, t_word_list *target);
 void redirect_free(t_redirect_list *redirect);
 void redirect_delete_head(t_redirect_list **head);
 void redirect_delete_tail(t_redirect_list **head);
-void redirect_delete_taget(t_redirect_list **head, t_redirect_list *target);
+void redirect_delete_target(t_redirect_list **head, t_redirect_list *target);
 
 // expand_word_splitting.c
 // IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
- void	expand_word_splitting(t_ast *node, t_data *d);
+void expand_word_splitting(t_ast *node, t_data *d);
 //  char	*expand_get_splitting_word(char **word);
 //  void	expand_get_splitting_word_list(t_word_list **word_list);
 //  void	expand_splitting_word_list(t_word_list *word_list, t_envs *ifs);
 //  void	expand_splitting_redirect_list(t_redirect_list *redirect_list, t_envs *ifs);
 //  void	expand_word_splitting(t_ast *node, t_data *d);
 
-
 // bool	expand_is_word_splitting(char *token, char *ifs);
-bool	expand_is_word_splitting(char *token, char *ifs);
-bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs);
-bool	expand_is_empty_ifs(char *ifs);
+bool expand_is_word_splitting(char *token, char *ifs);
+bool expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs);
+bool expand_is_empty_ifs(char *ifs);
 // char	*expand_set_ifs_default_char(int f_space, int f_tab, int f_new_line);
-char	*expand_check_ifs_default_char(char *ifs);
-void	expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_default_char);
+char *expand_check_ifs_default_char(char *ifs);
+void expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_default_char);
 
 // expand_filename.c
 void expand_filename(t_ast *node);
@@ -95,7 +93,7 @@ t_command *debug_new_command(t_word_list *word_list, t_redirect_list *redirect_l
 t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type);
 t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_type type);
 
-void	debug_bool_printf_test(bool flag, char *msg);
+void debug_bool_printf_test(bool flag, char *msg);
 void debug_printf_word_list(t_word_list *word_list);
 void debug_free_word_list(t_word_list *word_list);
 void debug_printf_redirect(t_redirect_list *redirect);

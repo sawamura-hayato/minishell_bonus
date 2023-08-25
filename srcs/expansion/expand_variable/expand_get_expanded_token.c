@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/15 15:52:14 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:24:57 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ char	*expand_get_str_to_dollar(char **word)
 
 char *expand_get_expanded_token(char *token, t_data *d)
 {
-	char *expand_word;
-	char *join_word;
+	char	*expand_word;
+	char	*join_word;
 
 	join_word = NULL;
 	while (*token != '\0')

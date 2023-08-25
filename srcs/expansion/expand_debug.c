@@ -3,8 +3,6 @@
 
 int printf(const char *format, ...);
 
-<<<<<<< HEAD
-=======
 void	debug_bool_printf_test(bool flag, char *msg)
 {
 	static size_t i = 0;
@@ -16,7 +14,6 @@ void	debug_bool_printf_test(bool flag, char *msg)
 		printf("\e[0;31mko\033[0m: %s\n", msg);
 }
 
->>>>>>> 106-単語分割
 void debug_printf_test(char *testA, char *testB)
 {
 	static size_t i = 0;
@@ -93,11 +90,7 @@ void debug_free_redirect(t_redirect_list *redirect)
 	free(redirect);
 }
 
-<<<<<<< HEAD
-t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_list_type type)
-=======
 t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_type type)
->>>>>>> 106-単語分割
 {
 	t_redirect_list *new_redirect_list;
 
