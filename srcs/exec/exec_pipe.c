@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:59:46 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 01:11:48 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 10:16:00 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_pipe(t_ast *node, t_data *d)
 	pid_t	pid;
 	int		pipefd[2];
 
-	// dprintf(STDERR_FILENO, "pipe\n");
+	dprintf(STDERR_FILENO, "pipe\n");
 	pid = try_fork();
 	try_pipe(pipefd);
 	if (pid == 0)

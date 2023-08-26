@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 01:13:06 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 10:14:41 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  * @return true builtinの場合、trueを返す
- * @return false builtinde出ない場合、falseを返す
+ * @return false builtinでない場合、falseを返す
  */
 bool	exec_is_builtin(t_ast *node)
 {
