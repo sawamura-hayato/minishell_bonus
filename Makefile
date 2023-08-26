@@ -3,10 +3,11 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/26 13:47:05 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/26 15:24:55 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/26 00:47:29 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +22,8 @@ RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/repl.c
+		$(SRCS_DIR)/repl.c	\
+		$(SRCS_DIR)/init.c
 
 RM = rm -rf
 
@@ -47,21 +49,35 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_delete.c \
  		$(SRCS_DIR)/$(HEREDOC_DIR)/heredoc_read.c
 
- ENVS_DIR = $(SRCS_DIR)/envs
- SRCS += $(ENVS_DIR)/init.c	\
- 		$(ENVS_DIR)/envs_newnode.c	\
- 		$(ENVS_DIR)/envs_funcs.c	\
- 		$(ENVS_DIR)/envs_make_envp.c
+EXEC_DIR = exec
+SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_child_process.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_do_redirection.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_fork.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_pipe.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_wait_child_process.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_is_error.c	\
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_put_error.c
 
- BUILTIN_DIR = $(SRCS_DIR)/builtin
- SRCS += $(BUILTIN_DIR)/export/export.c	\
- 	    $(BUILTIN_DIR)/export/export_show.c	\
- 	    $(BUILTIN_DIR)/export/export_add.c	\
- 	    $(BUILTIN_DIR)/export/export_is_error.c	\
- 	    $(BUILTIN_DIR)/export/export_error.c	\
- 	    $(BUILTIN_DIR)/export/export_set_oldpwd.c	\
- 	    $(BUILTIN_DIR)/pwd/pwd.c	\
- 	    $(BUILTIN_DIR)/echo/echo.c	\
+ENVS_DIR = $(SRCS_DIR)/envs
+SRCS += $(ENVS_DIR)/envs_init.c	\
+		$(ENVS_DIR)/envs_newnode.c	\
+		$(ENVS_DIR)/envs_funcs.c	\
+		$(ENVS_DIR)/envs_make_envp.c
+
+BUILTIN_DIR = $(SRCS_DIR)/builtin
+SRCS += $(BUILTIN_DIR)/builtin.c	\
+	    $(BUILTIN_DIR)/export/export.c	\
+	    $(BUILTIN_DIR)/export/export_show.c	\
+	    $(BUILTIN_DIR)/export/export_add.c	\
+	    $(BUILTIN_DIR)/export/export_is_error.c	\
+	    $(BUILTIN_DIR)/export/export_error.c	\
+	    $(BUILTIN_DIR)/export/export_set_oldpwd.c	\
+	    $(BUILTIN_DIR)/pwd/pwd.c	\
+	    $(BUILTIN_DIR)/echo/echo.c	\
 	    $(BUILTIN_DIR)/exit/exit.c	\
  	    $(BUILTIN_DIR)/exit/exit_error.c	\
  	    $(BUILTIN_DIR)/exit/exit_overflow.c	\
@@ -72,18 +88,13 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  	    $(BUILTIN_DIR)/cd/cd_error.c	\
  	    $(BUILTIN_DIR)/cd/cd_delete_dot.c	\
 	    $(BUILTIN_DIR)/cd/cd_convert_path.c	\
- 	    $(BUILTIN_DIR)/cd/cd_delete_dot_slash.c	\
- 	    $(BUILTIN_DIR)/cd/cd_delete_dotdot.c	\
- 	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c	\
- 	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
- 	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
- 	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c
-
- EXEC_DIR = exec
- SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
- 		$(SRCS_DIR)/$(EXEC_DIR)/exec_debug.c \
- 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
- 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c
+	    $(BUILTIN_DIR)/cd/cd_delete_dot_slash.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dotdot.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_dotdot_if_needed.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
+	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
+	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c	\
+	    $(BUILTIN_DIR)/cd/cd_get_pre_comp.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a
@@ -95,8 +106,7 @@ INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
 $(NAME): $(OBJS) $(LIBRARY_AFILE)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBRARY_AFILE) -o $(NAME) $(RL_FLAGS)
-	# $(CC) $(CFLAGS) $(OBJS) -o $@ $^ $(RL_FLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)

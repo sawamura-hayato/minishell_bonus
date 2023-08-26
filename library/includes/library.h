@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 20:02:34 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 00:39:25 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ char	*try_strjoin(char const *s1, char const *s2);
 void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
 char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
-int		try_open(int open_value, t_data *d);
+int		try_open(int open_value, char *file, t_data *d);
 void	try_close(int fildes, t_data *d);
-void	try_dup(int fildes, t_data *d);
+int		try_dup(int fildes, t_data *d);
 void	try_dup2(int fildes, int fildes2, t_data *d);
 bool	try_chdir(const char *og_path, const char *path, t_data *d);
 bool	try_stat(const char *path, struct stat *sb, t_data *d);
 char	*ft_strchr(const char *s, int c);
 void	try_pipe(int *pipefd);
+pid_t	try_fork(void);
 
 // ft
 char	*ft_strchr(const char *s, int c);
