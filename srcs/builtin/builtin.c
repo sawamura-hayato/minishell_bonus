@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/26 19:24:02 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 19:59:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ static void	reset_stdoutfd(int fd, t_data *d)
 	try_close(fd, d);
 }
 
-static void	finish_process(int *pipefd, bool is_parent_process, t_data *d)
+static void	finish_process(bool is_parent_process, t_data *d)
 {
-	if (pipefd != NULL)
-		try_close(pipefd[W], d);
 	if (is_parent_process)
 		return ;
 	exit(d->exit_status);
@@ -84,5 +82,5 @@ void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)
 	if (dupped_stdoutfd >= 0)
 		reset_stdoutfd(dupped_stdoutfd, d);
 	exec_free_argv(argv);
-	finish_process(pipefd, is_parent_process, d);
+	finish_process(is_parent_process, d);
 }
