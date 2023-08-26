@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 22:44:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:09:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*expand_get_str_to_dollar(char **word)
 
 	i = 0;
 	size = expand_get_str_to_dollar_size(*word);
-	str = try_calloc(size, sizeof(char));
+	str = try_calloc(size + 1, sizeof(char));
 	while (i < size)
 	{
 		str[i] = (*word)[i];

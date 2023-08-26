@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 00:10:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 15:38:10 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 	{
 		
 		// printf("word     %s\n", word_list->word);
-		expand_word = expand_get_expanded_token(word_list->word, d);
+		expand_get_expanded_token(&(word_list->word), &(word_list->type), d);
 		// printf("expand   %s\n", expand_word);
-		word_list->word = expand_word;
 	}
 }
 
@@ -60,12 +59,14 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 {
 	char	*expand_word;
 
+// is_abi trueかつ展開前の値が入る
+// 条件 expand_word_splitting
+// 通常の場合、展開後の値がIFSにある場合
 	if (expand_is_variable_word(redirect_list->word))
 	{
 		
 		// printf("word     %s\n", redirect_list->word);
-		expand_word = expand_get_expanded_token(redirect_list->word, d);
+		expand_get_expanded_token(&(redirect_list->word), &(redirect_list->type), d);
 		// printf("expand   %s\n", expand_word);
-		redirect_list->word = expand_word;
 	}
 }

@@ -39,6 +39,7 @@ void debug_printf_word_list(t_word_list *word_list)
 	while (word_list != NULL)
 	{
 		printf("word %s\n", word_list->word);
+		printf("type %s\n", word_list->type);
 		word_list = word_list->next;
 	}
 }
@@ -97,7 +98,7 @@ t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_ty
 	new_redirect_list = try_malloc(sizeof(t_redirect_list));
 	new_redirect_list->word = word;
 	new_redirect_list->re_type = type;
-	new_redirect_list->type = token_get_type_word(word);
+	new_redirect_list->type = token_get_type_word(word, false);
 	new_redirect_list->is_ambiguous_error = false;
 	new_redirect_list->next = NULL;
 	return (new_redirect_list);
@@ -110,7 +111,7 @@ t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type)
 	new_word_list = try_malloc(sizeof(t_word_list));
 	new_word_list->word = word;
 	new_word_list->tk_type = type;
-	new_word_list->type = token_get_type_word(word);
+	new_word_list->type = token_get_type_word(word, false);
 	new_word_list->next = NULL;
 	return (new_word_list);
 }

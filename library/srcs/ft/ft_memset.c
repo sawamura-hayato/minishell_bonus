@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_calloc.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/03 18:27:58 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 15:50:39 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/26 15:50:55 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/26 15:57:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "library.h"
 #include "stdlib.h"
-#include <limits.h>
-#include <stdint.h>
 
-static void	ft_bzero(void *s, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	unsigned char	*casted_s;
+	unsigned char	*new_b;
 	size_t			i;
 
-	casted_s = (unsigned char *)s;
+	new_b = (unsigned char *)b;
 	i = 0;
-	while (i < n)
+	while (i < len)
 	{
-		casted_s[i] = '\0';
+		new_b[i] = c;
 		i++;
 	}
-}
-
-void	*try_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (count != 0 && (SIZE_MAX / count) < size)
-		return (try_calloc(0, 0));
-	ptr = try_malloc(count * size);
-	ft_bzero(ptr, count * size);
-	return (ptr);
+	return (new_b);
 }

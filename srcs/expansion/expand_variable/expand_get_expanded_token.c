@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 00:13:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:13:33 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,38 @@ char *expand_convert_dollar_word(char **word, t_data *d)
 	return (expand_word);
 }
 
-char *expand_get_expanded_token(char *token, t_data *d)
+// typeを作る　voidにしてchar *token, char *typeにポインタ文字列入れる
+
+void	expand_get_expanded_token(char **token, char **type, t_data *d)
 {
-	char *expand_word;
-	char *join_word;
+	char	*tmp;
+	char	*expand_word;
+	char	*join_word;
+	char	*join_type_word;
 
 	join_word = NULL;
-	while (*token != '\0')
+	join_type_word = NULL;
+	tmp = *token;
+	while (*tmp != '\0')
 	{
-		if (*token == '$')
+		if (*tmp == '$')
 		{
-			expand_word = expand_convert_dollar_word(&token, d);
+			expand_word = expand_convert_dollar_word(&tmp, d);
 			join_word = try_strjoin_free(join_word, expand_word);
+			join_type_word = try_strjoin_free(join_type_word, token_get_type_word(expand_word, true));
 			free(expand_word);
 		}
 		else
 		{
-			expand_word = expand_get_str_to_dollar(&token);
+			expand_word = expand_get_str_to_dollar(&tmp);
 			join_word = try_strjoin_free(join_word, expand_word);
+			join_type_word = try_strjoin_free(join_type_word, token_get_type_word(expand_word, false));
 			free(expand_word);
 		}
 	}
 	// printf("word     %s\n", join_word);
-	return (join_word);
+	*token = join_word;
+	*type = join_type_word;
 }
 
 // int main(void)
