@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child_process.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 10:38:44 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 13:31:47 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ static void	exec_pipefd(t_ast *node, int *pipefd, t_data *d)
 	try_close(pipefd[R], d);
 	if (node->command_list->fd == STDOUT_FILENO)
 		try_dup2(pipefd[W], STDOUT_FILENO, d);
-		// try_dup2(STDOUT_FILENO, pipefd[W], d);
 	try_close(pipefd[W], d);
 }
 
@@ -109,7 +108,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	const char	**argv = (const char **)exec_make_argv(node);
 	const char	*filepath = (const char *)exec_make_filepath(node, d);
 
-	dprintf(STDERR_FILENO, "exec=%s\n", *argv);
+	// dprintf(STDERR_FILENO, "exec=%s\n", *argv);
 	if (node->command_list->word_list != NULL && exec_is_builtin(node))
 		return (builtin(node, pipefd, d));
 	if (node->command_list->fd != STDOUT_FILENO)
@@ -118,19 +117,19 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 		try_close(node->command_list->fd, d);
 	}
 	exec_pipefd(node, pipefd, d);
-	dprintf(STDERR_FILENO, "exec=%s\n", node->command_list->word_list->word);
+	// dprintf(STDERR_FILENO, "exec=%s\n", node->command_list->word_list->word);
 	if (node->command_list->word_list == NULL)
 		exit(EXIT_SUCCESS);
-	char	**tmp = (char **)argv;
-	while (tmp != NULL && *tmp != NULL)
-	{
-		dprintf(STDERR_FILENO, "tmp=%s\n", *tmp);
-		tmp++;
-	}
+	// char	**tmp = (char **)argv;
+	// while (tmp != NULL && *tmp != NULL)
+	// {
+	// 	dprintf(STDERR_FILENO, "tmp=%s\n", *tmp);
+	// 	tmp++;
+	// }
 	// dprintf(STDERR_FILENO, "cmd exec\n");
 	exec_is_error(*argv, filepath, d);
-	dprintf(STDERR_FILENO, "cmd exec\n");
+	// dprintf(STDERR_FILENO, "cmd exec\n");
 	execve(filepath, (char *const *)argv, envs_make_envp(d->envs_hashmap));
-	dprintf(STDERR_FILENO, "failed\n");
+	// dprintf(STDERR_FILENO, "failed\n");
 	exec_put_error_cmd_not_found(*argv, d);
 }

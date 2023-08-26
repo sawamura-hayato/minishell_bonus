@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:59:46 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 10:16:00 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 13:31:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	exec_pipe(t_ast *node, t_data *d)
 	pid_t	pid;
 	int		pipefd[2];
 
-	dprintf(STDERR_FILENO, "pipe\n");
-	pid = try_fork();
+	// dprintf(STDERR_FILENO, "pipe\n");
 	try_pipe(pipefd);
+	pid = try_fork();
 	if (pid == 0)
 		exec_child_process(node, pipefd, d);
 	else
 	{
 		node->command_list->pid = pid;
-		try_close(pipefd[W], d);
 		try_dup2(pipefd[R], STDIN_FILENO, d);
+		try_close(pipefd[W], d);
 		try_close(pipefd[R], d);
 	}
 }

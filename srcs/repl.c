@@ -58,10 +58,10 @@ void	read_eval_print_loop()
 {
 	char	*line;
 	t_token *token;
-	t_ast *ast;
-	t_data d;
-
+	t_ast 	*ast;
+	t_data	d;
 	extern const char	**environ;
+
 	envs_init(environ, &d);
 	while (true)
 	{
@@ -75,7 +75,7 @@ void	read_eval_print_loop()
 		token = tokenize(line);
 		// debug_print_token(token);
 		ast = parse(&token,&d);
-		debug_print_ast(ast);
+		// debug_print_ast(ast);
 		heredoc(ast, &d);
 		exec_command(ast, EXEC_START, &d);
 		end_command(line, &d);

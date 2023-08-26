@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:46:09 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 10:16:05 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 13:50:04 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_fork(t_ast *node, t_data *d)
 {
 	pid_t	pid;
 
-	dprintf(STDERR_FILENO, "fork\n");
+	// dprintf(STDERR_FILENO, "fork\n");
 	pid = try_fork();
 	if (pid == 0)
 		exec_child_process(node, NULL, d);
