@@ -1,7 +1,4 @@
 #include "parse.h"
-#include "library.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 static t_command *command_list_init_node()
 {
@@ -20,12 +17,18 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 
 	ast_command_node = ast_init_node();
 	token = *current_token;
+	if(token == NULL)
+	{
+		ast_syntax_error(d,token);
+		return (NULL);
+	}
 	ast_command_node->type = set_ast_node_type(token);
-	if(token == NULL || ast_command_node->type != PS_COMMAND)
+	if(ast_command_node->type != PS_COMMAND)
 		ast_syntax_error(d,token);
 	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
-		node = parse(current_token, d);
+		//tokenを一つ進めつ必要がある
+		node = parse(&(token->next), d);
 		ast_expect(current_token, TK_CLOSE_PARENTHESIS,d);
 		return (node);
 	}

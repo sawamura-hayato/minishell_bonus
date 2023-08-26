@@ -3,7 +3,10 @@
 
 void	ast_syntax_error(t_data *d,t_token *token)
 {
-	printf("syntax error near unexpected token `%s'\n",token->word);
+	if(token == NULL)
+		printf("syntax error near unexpected token `newline'\n");
+	else 
+		printf("syntax error near unexpected token `%s'\n",token->word);
 	d->exit_status = 2;
 	d->syntax_flag = true;
 }
@@ -16,11 +19,17 @@ void	ast_syntax_error(t_data *d,t_token *token)
 /* <NUMBER> ::= <DIGIT> */
 /*            | <NUMBER> <DIGIT> */
 
+/* t_token_type WORD */
 /* <WORD> ::= <ALPHA> */
 /* 		 | <WORD> <ALPHA> */
 /* 		 | <WORD> '_' */
 /* 		 | <WORD> <NUMBER> */
 
+/* t_token_type TK_PIPE */
+/* t_token_type TK_LOGICAL_OR */
+/* t_token_type TK_LOGICAL_AND */
+/* t_token_type TK_OPEN_PARENTHESIS */
+/* t_token_type TK_CLOSE_PARENTHESIS */
 /* <OPERATOR> ::= '|' */
 /* 			|  '||' */
 /* 			|  '&&' */
@@ -32,6 +41,19 @@ void	ast_syntax_error(t_data *d,t_token *token)
 /* 				| '<<' <WORD> */
 /* 				| '>>' <WORD> */
 /* 				| '<>' <WORD> */
+
+/* bash: syntax error near unexpected token `newline'> */
+/* ./minishell > */
+/* ./minishell < */
+/* ./minishell << */
+/* ./minishell >> */
+
+/* hoge is not <WORD> <OPERATOR>*/
+/* bash: syntax error near unexpected token `hoge */
+/* ./minishell > hoge*/
+/* ./minishell < hoge*/
+/* ./minishell << hoge*/
+/* ./minishell >> hoge*/
 
 /* <WORD_LIST> ::= <WORD> */
 /* 			|   <WORD_LIST> <WORD> */

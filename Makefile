@@ -6,7 +6,7 @@
 #    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/26 15:24:55 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/26 16:00:26 by tyamauch         ###   ########.fr        #
 #    Updated: 2023/08/26 00:47:29 by tatyu            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
@@ -42,7 +42,9 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
- 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
+ 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c
 
  HEREDOC_DIR = heredoc
  SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \

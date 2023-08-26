@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/23 19:52:55 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/26 23:00:26 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ bool	heredoc(t_ast *node, t_data *d)
 		return (false);
 	if (node->type == PS_COMMAND)
 		return (heredoc_redirect_list(node->command_list, d));
-	return (true);
+	return (!(d->syntax_flag));
 }

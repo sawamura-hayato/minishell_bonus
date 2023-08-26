@@ -60,6 +60,7 @@ void	read_eval_print_loop()
 	t_token *token;
 	t_ast 	*ast;
 	t_data	d;
+	/* int fd; */
 	extern const char	**environ;
 
 	envs_init(environ, &d);
@@ -73,15 +74,19 @@ void	read_eval_print_loop()
 			continue ;
 		}
 		token = tokenize(line);
-		debug_print_token(token);
-		pasre_node = parse(&token,&d);
-		debug_print_ast(pasre_node);
-		heredoc(pasre_node, &d);
-		/* exec_command(pasre_node,EXEC_START,&d); */
-		free(line);
-		try_dup2(fd, STDIN_FILENO, &d);
-		try_close(fd, &d);
-		/* exec_command(ast, EXEC_START, &d); */
-		/* end_command(line, &d); */
+		/* debug_print_token(token); */
+		ast = parse(&token,&d);
+		/* debug_print_ast(ast); */
+		/* printf("syntax_flag %d\n",d.syntax_flag); */
+		/* ast_free_all_nodes(ast); */
+		heredoc(ast, &d);
+		if(!heredoc(ast, &d))
+		{
+			/* ast_free_all_nodes(ast); */
+			/* exit(1); */
+			end_command(line, &d);
+		}
+		exec_command(ast,EXEC_START,&d);
+		end_command(line, &d);
 	}
 }

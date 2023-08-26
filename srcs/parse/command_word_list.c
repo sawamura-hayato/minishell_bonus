@@ -1,7 +1,4 @@
 #include "parse.h"
-#include "library.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 static t_word_list	*word_list_init_node(t_token *token)
 {
@@ -9,7 +6,6 @@ static t_word_list	*word_list_init_node(t_token *token)
 
 	node = try_calloc(1, sizeof(t_word_list));
 	node->word = try_strdup(token->word);
-	/* node->index = token->index; */
 	node->type = token->tk_type;
 	return (node);
 }
