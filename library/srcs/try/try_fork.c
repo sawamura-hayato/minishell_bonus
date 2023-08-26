@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   try_dup2.c                                         :+:      :+:    :+:   */
+/*   try_fork.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/23 14:40:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 00:38:13 by tatyu            ###   ########.fr       */
+/*   Created: 2023/08/24 17:43:49 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/24 17:46:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include <stdlib.h>
+#include <sys/types.h>
 #include <stdio.h>
-#include "init.h"
+#include <stdlib.h>
+#include "library.h"
 
-void	try_dup2(int fildes, int fildes2, t_data *d)
+pid_t	try_fork(void)
 {
-	if (dup2(fildes, fildes2) == -1)
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == -1)
 	{
-		perror("dup");
-		d->exit_status = EXIT_FAILURE;
-		exit(d->exit_status);
+		perror("fork");
+		exit(EXIT_FAILURE);
 	}
+	return (pid);
 }

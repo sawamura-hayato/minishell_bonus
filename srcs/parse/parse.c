@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/25 18:53:36 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:18:53 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 t_ast_node_type set_ast_node_type(t_token *token)
 {
 	t_ast_node_type type;
+	
+	type = PS_COMMAND;
 	if(token->tk_type == TK_PIPE)
 		type = PS_PIPE;
 	else if(token->tk_type == TK_LOGICAL_AND)

@@ -22,6 +22,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void	init(t_data *d);
+void	end_command(char *line, t_data *d);
+
 static void	add_line_history(char *line)
 {
 	if (line[0] == NULL_CHAR)
@@ -46,10 +49,7 @@ static char	*read_line()
 
 	line = readline(PROMPT);
 	if (line == NULL || is_only_spaces(line))
-	{
-		free(line);
 		return (NULL);
-	}
 	add_line_history(line);
 	return (line);
 }
@@ -58,27 +58,26 @@ void	read_eval_print_loop()
 {
 	char	*line;
 	t_token *token;
-	t_ast *pasre_node;
-	t_data d;
+	t_ast 	*ast;
+	t_data	d;
+	extern const char	**environ;
 
-	// extern const char	**environ;
-
-	// envs_init(environ, &d);
- 	d.syntax_flag = false;
+	envs_init(environ, &d);
 	while (true)
 	{
-		 int fd  = dup(STDIN_FILENO);
+		init(&d);
 		line = read_line();
 		if (line == NULL)
+		{
+			end_command(line, &d);
 			continue ;
+		}
 		token = tokenize(line);
-		debug_print_token(token);
-		pasre_node = parse(&token,&d);
-		/* debug_print_ast(pasre_node); */
-		heredoc(pasre_node, &d);
-		/* exec_command(pasre_node,EXEC_START,&d); */
-		free(line);
-		try_dup2(fd, STDIN_FILENO, &d);
-		try_close(fd, &d);
+		// debug_print_token(token);
+		ast = parse(&token,&d);
+		// debug_print_ast(ast);
+		heredoc(ast, &d);
+		exec_command(ast, EXEC_START, &d);
+		end_command(line, &d);
 	}
 }

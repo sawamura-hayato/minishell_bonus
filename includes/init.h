@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 13:26:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 00:26:35 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 {
 	t_envs	**envs_hashmap;
 	int		exit_status;
+	int		dupped_stdinfd;
 	bool 	syntax_flag;
 	char	*pwd;
 	char	*oldpwd;
@@ -48,8 +49,5 @@ void	envs_free_node(t_envs *node);
 t_envs	*envs_get_node(const char *_key, t_envs **envs_hashmap);
 char	*envs_get_value(const char *_key, t_envs **envs_hashmap);
 size_t	envs_get_hashmap_index(char alpha);
-// int		ft_strcmp(const char *s1, const char *s2);
-// int		ft_isupper(char c);
-// int		ft_islower(char c);
 
 #endif

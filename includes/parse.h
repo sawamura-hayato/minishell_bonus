@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 20:24:31 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:16:44 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_redirect_list
 typedef struct s_command
 {
 	t_word_list			*word_list;
-	t_redirect_list			*redirect_list;
+	t_redirect_list		*redirect_list;
 	int fd;    //どこにコマンドを出力するか(初期値はSTD OUT FILNE NO)
 	pid_t pid; //子プロセスのIDを管理(初期値は-1)
 }						t_command;

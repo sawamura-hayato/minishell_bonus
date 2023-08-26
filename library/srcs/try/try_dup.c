@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:40:45 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/23 15:18:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:40:19 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 #include <stdio.h>
 #include "init.h"
 
-void	try_dup(int fildes, t_data *d)
+int	try_dup(int fildes, t_data *d)
 {
-	if (dup(fildes) < 0)
+	const int	fd = dup(fildes);
+	if (fd == -1)
 	{
 		perror("dup");
 		d->exit_status = EXIT_FAILURE;
 		exit(d->exit_status);
 	}
+	return (fd);
 }
