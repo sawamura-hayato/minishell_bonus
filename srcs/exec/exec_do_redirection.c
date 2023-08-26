@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_do_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 15:19:52 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 15:30:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "library.h"
 #define WRITE_BYTES 2000
 
+void	exec_put_error_ambiguous_redirect(char *file, t_data *d);
+
 static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 {
 	int		fd;
@@ -22,6 +24,11 @@ static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 
 	node = node->next;
 	file = node->word;
+	if (node->is_ambiguous_error)
+	{
+		exec_put_error_ambiguous_redirect(file, d);
+		return (NULL);
+	}
 	fd = try_open(open(file, O_RDONLY), file, d);
 	if (fd == -1)
 		return (NULL);
@@ -39,6 +46,11 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 
 	r_node = r_node->next;
 	file = r_node->word;
+	if (r_node->is_ambiguous_error)
+	{
+		exec_put_error_ambiguous_redirect(file, d);
+		return (NULL);
+	}
 	if (type == PS_REDIRECTING_OUTPUT)
 		fd = try_open(open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644), file, d);
 	else
@@ -105,7 +117,8 @@ bool	exec_do_redirection(t_ast *node, t_data *d)
 		else if (r_node->type == PS_REDIRECTING_OUTPUT
 			|| r_node->type == PS_APPENDING_OUTPUT)
 			r_node = exec_redirect_output(node->command_list, r_node, d);
-		else if (r_node->type == PS_DELIMITER || r_node->type == PS_QUOTE_DELIMITER)
+		else if (r_node->type == PS_DELIMITER
+			|| r_node->type == PS_QUOTE_DELIMITER)
 			r_node = exec_redirect_heredoc(r_node, d);
 		if (r_node == NULL)
 			return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 00:26:35 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 16:09:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
 	t_envs	**envs_hashmap;
 	int		exit_status;
 	int		dupped_stdinfd;
-	bool 	syntax_flag;
+	bool	syntax_flag;
 	char	*pwd;
 	char	*oldpwd;
 }	t_data;

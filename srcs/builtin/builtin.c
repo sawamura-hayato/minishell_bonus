@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/25 15:32:34 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 18:28:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,28 @@ static void	reset_stdoutfd(int fd, t_data *d)
 	try_close(fd, d);
 }
 
-void	builtin(t_ast *node, int *pipefd, t_data *d)
+static void	finish_process(int *pipefd, bool is_parent_process, t_data *d)
+{
+	if (pipefd != NULL)
+		try_close(pipefd[W], d);
+	if (is_parent_process)
+		return ;
+	exit(d->exit_status);
+}
+
+void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)
 {
 	char		**argv;
 	const int	dupped_stdoutfd = dup_stdout_fd(node, pipefd, d);
 
+
 	argv = exec_make_argv(node);
+	// char	**tmp = argv;
+	// while (tmp != NULL && *tmp != NULL)
+	// {
+	// 	dprintf(STDERR_FILENO, "tmp=%s\n", *tmp);
+	// 	tmp++;
+	// }
 	if (ft_strcmp_ignorecase(argv[0], "echo") == 0)
 		builtin_echo(argv, d);
 	else if (ft_strcmp_ignorecase(argv[0], "cd") == 0)
@@ -65,11 +81,8 @@ void	builtin(t_ast *node, int *pipefd, t_data *d)
 		builtin_env(argv, d);
 	else if (ft_strcmp_ignorecase(argv[0], "exit") == 0)
 		builtin_exit(argv, d);
-	if (pipefd != NULL)
-	{
-		try_close(pipefd[W], d);
-		exit(d->exit_status);
-	}
 	if (dupped_stdoutfd >= 0)
 		reset_stdoutfd(dupped_stdoutfd, d);
+	exec_free_argv(argv);
+	finish_process(pipefd, is_parent_process, d);
 }

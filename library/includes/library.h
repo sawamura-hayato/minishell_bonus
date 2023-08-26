@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 00:39:25 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 15:40:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ bool	try_stat(const char *path, struct stat *sb, t_data *d);
 char	*ft_strchr(const char *s, int c);
 void	try_pipe(int *pipefd);
 pid_t	try_fork(void);
+pid_t	try_waitpid(pid_t pid, int *wstatus, int options, t_data *d);
 
 // ft
 char	*ft_strchr(const char *s, int c);

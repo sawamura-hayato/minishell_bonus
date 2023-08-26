@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 13:31:47 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 16:12:24 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,6 @@ static size_t	exec_get_argv_size(t_word_list *word_list)
 	}
 	return (size);
 }
-
-// char	*exec_get_word_index(t_word_list **word_list)
-// {
-// 	char	*word;
-// 	size_t	index;
-
-// 	index = (*word_list)->index;
-// 	word = try_strdup((*word_list)->word);
-// 	(*word_list) = (*word_list)->next;
-// 	while ((*word_list) != NULL && index == (*word_list)->index)
-// 	{
-// 		word = try_strjoin_free(word, (*word_list)->word);
-// 		(*word_list) = (*word_list)->next;
-// 	}
-// 	return (word);
-// }
 
 /**
  * @brief この関数はコマンド実行の二次元配列（argv）を作成する。
@@ -110,7 +94,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 
 	// dprintf(STDERR_FILENO, "exec=%s\n", *argv);
 	if (node->command_list->word_list != NULL && exec_is_builtin(node))
-		return (builtin(node, pipefd, d));
+		return (builtin(node, pipefd, false, d));
 	if (node->command_list->fd != STDOUT_FILENO)
 	{
 		try_dup2(node->command_list->fd, STDOUT_FILENO, d);
