@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/26 17:22:43 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/26 19:14:18 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,8 @@ SRCS += $(BUILTIN_DIR)/builtin.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_slash.c	\
 	    $(BUILTIN_DIR)/cd/cd_replace_non_leading_consecutive_slashes.c	\
 	    $(BUILTIN_DIR)/cd/cd_delete_leading_slashes.c	\
-	    $(BUILTIN_DIR)/cd/cd_get_pre_comp.c
+	    $(BUILTIN_DIR)/cd/cd_get_pre_comp.c	\
+	    $(BUILTIN_DIR)/cd/cd_exec.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/26 18:28:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 19:24:02 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)
 	if (ft_strcmp_ignorecase(argv[0], "echo") == 0)
 		builtin_echo(argv, d);
 	else if (ft_strcmp_ignorecase(argv[0], "cd") == 0)
-		builtin_cd(argv, d);
+		argv = builtin_cd(argv, d);
 	else if (ft_strcmp_ignorecase(argv[0], "pwd") == 0)
 		builtin_pwd(d);
 	else if (ft_strcmp_ignorecase(argv[0], "export") == 0)
