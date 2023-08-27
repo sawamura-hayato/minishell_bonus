@@ -24,6 +24,7 @@
 
 void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
+void	eof(t_data *d);
 
 static void	add_line_history(char *line)
 {
@@ -74,10 +75,7 @@ void	read_eval_print_loop()
 		reset_vars(&d);
 		line = read_line();
 		if (line == NULL)
-		{
-			end_command(line, &d);
-			continue ;
-		}
+			eof(&d);
 		token = tokenize(line);
 		// debug_print_token(token);
 		ast = parse(&token,&d);

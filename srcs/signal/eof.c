@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   eof.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 17:55:44 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/27 17:57:21 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/27 18:05:10 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "library.h"
+#include "init.h"
+#include <stdlib.h>
 
-int	main(void)
- {
- 	// (void)argc;
- 	// (void)argv;
- 	read_eval_print_loop();
- 	return (0);
- }
+void	end_command(char *line, t_data *d);
+
+void	eof(t_data *d)
+{
+	const char	*msg = "exit\n";
+
+	end_command(NULL, d);
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	exit(d->exit_status);
+}
