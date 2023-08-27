@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/26 19:59:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 14:57:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,6 @@ void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)
 
 
 	argv = exec_make_argv(node);
-	// char	**tmp = argv;
-	// while (tmp != NULL && *tmp != NULL)
-	// {
-	// 	dprintf(STDERR_FILENO, "tmp=%s\n", *tmp);
-	// 	tmp++;
-	// }
 	if (ft_strcmp_ignorecase(argv[0], "echo") == 0)
 		builtin_echo(argv, d);
 	else if (ft_strcmp_ignorecase(argv[0], "cd") == 0)
