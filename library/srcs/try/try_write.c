@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 21:20:10 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/12 15:17:30 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 19:49:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 #include <stdlib.h>
 
 
-void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d)
+ssize_t	try_write(int fildes, const void *buf, size_t nbyte, t_data *d)
 {
-	if (write(fildes, buf, nbyte) == -1)
+	const ssize_t	write_bytes = write(fildes, buf, nbyte);
+
+	if (write_bytes == -1)
 	{
 		d->exit_status = EXIT_FAILURE;
 		perror("write");
 	}
+	return (write_bytes);
 }

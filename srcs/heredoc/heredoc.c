@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
 /*   Updated: 2023/08/26 23:00:26 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/27 16:26:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +20,8 @@ bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 	delimiter = node->next;
 	if (delimiter == NULL)
 		return (false);
-	/* if (delimiter->type == PS_QUOTE_DELIMITER) */
-	/* heredoc_delete_quote(delimiter); */
+	if (delimiter->type == PS_QUOTE_DELIMITER)
+		heredoc_delete_quote(delimiter);
 	return (heredoc_read_loop(delimiter, d));
 }
 

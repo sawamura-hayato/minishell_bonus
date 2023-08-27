@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   try_waitpid.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/26 00:22:15 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/27 14:51:41 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/26 15:36:05 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/26 16:17:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include "init.h"
 #include "library.h"
 
-void	reset_vars(t_data *d)
+pid_t	try_waitpid(pid_t pid, int *wstatus, int options, t_data *d)
 {
-	d->dupped_stdinfd = try_dup(STDIN_FILENO, d);
-	d->syntax_flag = false;
-}
+	pid_t	value;
 
-void	end_command(char *line, t_data *d)
-{
-	free(line);
-	try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
-	try_close(d->dupped_stdinfd, d);
+	value = waitpid(pid, wstatus, options);
+	if (value == -1)
+	{
+		d->exit_status = EXIT_FAILURE;
+		perror("waitpid");
+	}
+	return (value);
 }
