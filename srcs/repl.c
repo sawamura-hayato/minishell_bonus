@@ -74,19 +74,23 @@ void	read_eval_print_loop()
 			continue ;
 		}
 		token = tokenize(line);
-		/* debug_print_token(token); */
+		debug_print_token(token);
 		ast = parse(&token,&d);
-		/* debug_print_ast(ast); */
-		/* printf("syntax_flag %d\n",d.syntax_flag); */
-		/* ast_free_all_nodes(ast); */
-		heredoc(ast, &d);
-		if(!heredoc(ast, &d))
+		debug_print_ast(ast);
+		if(d.syntax_flag == 1)
 		{
 			/* ast_free_all_nodes(ast); */
-			/* exit(1); */
 			end_command(line, &d);
+			continue;
 		}
+		heredoc(ast, &d);
+		/* if(!heredoc(ast, &d)) */
+		/* { */
+		/* 	/1* exit(1); *1/ */
+		/* 	end_command(line, &d); */
+		/* } */
 		exec_command(ast,EXEC_START,&d);
 		end_command(line, &d);
+		/* debug_print_ast(ast); */
 	}
 }

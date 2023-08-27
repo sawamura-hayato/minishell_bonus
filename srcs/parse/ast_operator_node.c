@@ -1,7 +1,4 @@
 #include "parse.h"
-#include "library.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 t_ast	*ast_operator_node(t_ast_node_type type, t_ast *left_hand, t_ast *right_hand, t_data *d)
 {

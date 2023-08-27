@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:36:13 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 20:08:33 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:21:05 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	redirect_set_type_word(t_redirect_list *last_node, t_redirect_list*node, t_
 {
 	const t_redirect_type	type = last_node->type;
 
-	// printf("last_node:%s\n",last_node->word);
-	// printf("token:%s\n",token->word);
 	if(token->tk_type != WORD)
 	{
 		node->type = -1;
@@ -27,7 +25,13 @@ void	redirect_set_type_word(t_redirect_list *last_node, t_redirect_list*node, t_
 		|| type == PS_APPENDING_OUTPUT)
 		node->type = PS_FILE;
 	else if (type == PS_HERE_DOCUMENTS)
-		node->type = PS_DELIMITER;
+	{
+		if((ft_strrchr(token->type,IS_SINGLE_QUOTED + '0') != NULL)
+				|| ft_strrchr(token->type,IS_DOUBLE_QUOTED + '0') != NULL)
+			node->type = PS_QUOTE_DELIMITER;
+		else
+			node->type = PS_DELIMITER;
+	}
 }
 
 bool	is_redirect_operator(t_redirect_list *node)

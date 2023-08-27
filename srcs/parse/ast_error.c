@@ -7,7 +7,7 @@ void	ast_syntax_error(t_data *d,t_token *token)
 		printf("syntax error near unexpected token `newline'\n");
 	else 
 		printf("syntax error near unexpected token `%s'\n",token->word);
-	d->exit_status = 2;
+	d->exit_status = SYNTAX_ERROR;
 	d->syntax_flag = true;
 }
 

@@ -8,6 +8,11 @@ void debug_print_ast(t_ast *node)
 	t_redirect_list *redirect_p;
 	t_word_list *word_p;
 
+	if(node == NULL)
+	{
+		printf("ast_node is NULL\n");
+		return;
+	}
 	if ( node->left_hand != NULL)
 		debug_print_ast(node->left_hand);
 	if (node->right_hand != NULL)

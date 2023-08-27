@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 22:39:03 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:21:14 by tyamauch         ###   ########.fr       */
 /*   Updated: 2023/08/26 00:16:44 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -22,6 +22,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#define SYNTAX_ERROR 2
+
 typedef enum e_redirect_type
 {
 	PS_REDIRECTING_INPUT,	  // <
@@ -31,8 +33,6 @@ typedef enum e_redirect_type
 	PS_HERE_DOCUMENTS,		  // <<
 	PS_DELIMITER,			  // << delimitter(クウォートがない場合)
 	PS_QUOTE_DELIMITER,		  // << delimitter(クウォートがある場合)
-	PS_REDIRECT_SINGLE_QUOTE, // < 'file'
-	PS_REDIRECT_DOUBLE_QUOTE // < "file" < <- " <- file <- "
 }						t_redirect_type;
 
 typedef enum e_ast_node_type
@@ -46,7 +46,7 @@ typedef enum e_ast_node_type
 typedef struct s_word_list
 {
 	char *word;
-	/* size_t index; // クォートが閉じるまで更新されない */
+	char *word_type;
 	t_token_type type;
 	struct s_word_list *next;
 } t_word_list;
@@ -54,7 +54,7 @@ typedef struct s_word_list
 typedef struct s_redirect_list
 {
 	char				*word;
-	/* size_t				index; */
+	char  				*redirect_type;
 	t_redirect_type		type;
 	bool is_ambiguous_error; //初期値はfalse
 	struct s_redirect_list	*next;
@@ -88,7 +88,7 @@ void					ast_free_all_nodes(t_ast *node);
 void debug_print_ast(t_ast *node);
 //t_command関連
 void	command_word_list(t_word_list** word_list,
-						t_token **current_token);
+						t_token **current_token, t_data *d);
 void	command_redirect_list(t_redirect_list** redirect_list,
 							t_token **current_token,
 							t_data *d,bool redirect_flag);

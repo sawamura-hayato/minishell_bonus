@@ -27,7 +27,6 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 		ast_syntax_error(d,token);
 	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
-		//tokenを一つ進めつ必要がある
 		node = parse(&(token->next), d);
 		ast_expect(current_token, TK_CLOSE_PARENTHESIS,d);
 		return (node);
@@ -53,9 +52,7 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 			redirect_flag = !redirect_flag;
 		}
 		else
-		{
-			command_word_list(&(ast_command_node->command_list->word_list), &token);
-		}
+			command_word_list(&(ast_command_node->command_list->word_list), &token,d);
 		if (token_next(&token,d) == NULL || d->syntax_flag )
 				break;
 		*current_token = token;
