@@ -35,7 +35,7 @@ static t_redirect_list	*redirect_init_node(t_redirect_list **head, t_token *toke
 	if (redirect_flag == true)
 	{
 		node->word = try_strdup(token->word);
-		node->redirect_type = try_strdup(token->type);
+		node->type = try_strdup(token->type);
 	}
 	redirect_set_type(head, node, token); //redirectタイプをsetする関数
 	return (node);

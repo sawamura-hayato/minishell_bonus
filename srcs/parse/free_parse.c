@@ -26,7 +26,7 @@ static void redirect_list_free(t_redirect_list *head)
 		{
 			tmp =redirect_p->next;
 			free(redirect_p->word);
-			free(redirect_p->redirect_type);
+			free(redirect_p->type);
 			free(redirect_p);
 			redirect_p = tmp;
 		}
