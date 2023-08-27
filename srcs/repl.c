@@ -1,13 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/06 13:35:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 23:04:08 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +66,6 @@ void	read_eval_print_loop()
 	t_token *token;
 	t_ast 	*ast;
 	t_data	d;
-	/* int fd; */
 	extern const char	**environ;
 
 	envs_init(environ, &d);
@@ -83,7 +81,6 @@ void	read_eval_print_loop()
 		debug_print_ast(ast);
 		if(d.syntax_flag == 1)
 		{
-			/* ast_free_all_nodes(ast); */
 			end_command(line, &d);
 			continue;
 		}
@@ -94,8 +91,8 @@ void	read_eval_print_loop()
 		/* 	end_command(line, &d); */
 		/* } */
 		exec_command(ast,EXEC_START,&d);
+		exec_command(ast, EXEC_START, &d);
 		free_all_data(token, ast);
 		end_command(line, &d);
-		/* debug_print_ast(ast); */
 	}
 }
