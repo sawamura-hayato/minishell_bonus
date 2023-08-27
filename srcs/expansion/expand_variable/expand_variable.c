@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 19:16:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 19:57:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,50 @@ void expand_variable_word_list(t_word_list *word_list, t_data *d)
 	}
 }
 
+//"  aa"
+//"  aa  d"bb
+//cc"  aa  d"bb
+
 bool expand_is_ambiguous_error(char *redirect_word, char *redirect_type, char *ifs)
 {
 	char	*ifs_default_char;
 	size_t	i;
+	bool	flag;
 
 	if (redirect_word == NULL || redirect_type == NULL)
 		return (false);
 	ifs_default_char = expand_check_ifs_default_char(ifs);
 	i = 0;
+	flag = false;
 	while (redirect_word[i] != '\0')
 	{
-		while (redirect_type[i] == '1' && redirect_word[i] != '\0')
+		while (redirect_word[i] != '\0' && redirect_type[i] == '1')
 		{
-			while (redirect_type[i] == '1' && expand_is_str_in_char(ifs_default_char, redirect_word[i]))
+			while (redirect_word[i] != '\0' && redirect_type[i] == '1' && expand_is_str_in_char(ifs, redirect_word[i]))
 			{
-				// printf("redirect_word  %zu\n", i);
-				if (!expand_is_str_in_char(ifs_default_char, redirect_word[i]))
+				printf("redirect_word  [%zu] \n", i);
+				if (expand_is_str_in_char(ifs_default_char, redirect_word[i]))
+				{
+					i++;
+					continue;
+				}
+				else
 					return (true);
-				i++;
 			}
-			while (redirect_type[i] == '1' && redirect_word[i] != '\0')
+			while (redirect_word[i] != '\0' && redirect_type[i] == '1')
 			{
-				if (expand_is_str_in_char(ifs, redirect_word[i]))
+				printf("redirect_word  %c[%zu] \n",redirect_word[i], i);
+				printf("redirect_word  [%zu] \n", i);
+				printf("ifs            [%s] \n", ifs);
+				if (!expand_is_str_in_char(ifs, redirect_word[i]))
+				{
+					i++;
+					continue;
+				}
+				else
+				{
 					return (true);
-				i++;
+				}
 			}
 		}
 		if (redirect_word[i] == '\0')
