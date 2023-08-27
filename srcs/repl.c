@@ -26,6 +26,7 @@ void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
 void	eof(t_data *d);
 void	set_readline_signal(t_data *d);
+void	get_signal_num(t_data *d);
 
 int	signal_num = 0;
 
@@ -47,11 +48,12 @@ static bool	is_only_spaces(char *line)
 	return (true);
 }
 
-static char	*read_line()
+static char	*read_line(t_data *d)
 {
 	char	*line;
 
 	line = readline(PROMPT);
+	get_signal_num(d);
 	if (line == NULL || is_only_spaces(line))
 		return (NULL);
 	add_line_history(line);
@@ -75,9 +77,9 @@ void	read_eval_print_loop()
 	envs_init(environ, &d);
 	while (true)
 	{
-		set_readline_signal(&d);
 		reset_vars(&d);
-		line = read_line();
+		set_readline_signal(&d);
+		line = read_line(&d);
 		if (line == NULL)
 			eof(&d);
 		token = tokenize(line);
