@@ -6,12 +6,12 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 22:13:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 16:15:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_COMMAND_H
-#define EXEC_COMMAND_H
+# define EXEC_COMMAND_H
 
 # include <stdbool.h>
 # include "init.h"
@@ -28,8 +28,8 @@ typedef enum e_operator
 
 enum e_pipefd
 {
-	R = 0, // read用fd
-	W = 1, // write用fd
+	R = 0,
+	W = 1,
 };
 
 enum e_exit_status
@@ -42,7 +42,8 @@ enum e_exit_status
  * @brief この関数はコマンドを実行する
  *
  * 第一引数の構文木nodeのタイプがコマンドの場合、node->command_listをコマンドとして、実行する
- * 第二引数のoperatorはコマンドの出力先を指定する。left_handにはnode->typeを渡し、right_handには上のnodeから引き継いだoperatorを渡す
+ * 第二引数のoperatorはコマンドの出力先を指定する。left_handにはnode->typeを渡し、
+ * right_handには上のnodeから引き継いだoperatorを渡す
  * 一番初めのnode（初めにcommand_executionを呼ぶとき）は、operatorはEXEC_STARTになる
  * 一番最後に実行されるnodeのoperatorはEXEC_ENDになる
  * 第三引数のdは環境変数と終了ステータスを管理する
@@ -176,6 +177,6 @@ void	exec_wait_child_process(t_ast *node, t_data *d);
  */
 bool	exec_is_builtin(t_ast *node);
 
-// void	debug_printf_double_arr(char **arr);
+void	exec_free_argv(char **argv);
 
 #endif

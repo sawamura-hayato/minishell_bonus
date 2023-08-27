@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   exec_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/26 00:22:15 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/27 14:51:41 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/26 15:54:40 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/27 13:50:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec_command.h"
 #include <stdlib.h>
-#include "init.h"
-#include "library.h"
 
-void	reset_vars(t_data *d)
+void	exec_free_argv(char **argv)
 {
-	d->dupped_stdinfd = try_dup(STDIN_FILENO, d);
-	d->syntax_flag = false;
+	size_t	i;
+
+	i = 0;
+	while (argv[i] != NULL)
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv);
 }
 
-void	end_command(char *line, t_data *d)
+void	*exec_delete_file_free(char *file)
 {
-	free(line);
-	try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
-	try_close(d->dupped_stdinfd, d);
+	unlink(file);
+	free(file);
+	return (NULL);
 }
