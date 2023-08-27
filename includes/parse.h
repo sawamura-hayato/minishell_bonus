@@ -40,13 +40,13 @@ typedef enum e_ast_node_type
 	PS_PIPE,
 	PS_LOGICAL_AND,
 	PS_LOGICAL_OR,
-	PS_COMMAND,
+	PS_COMMAND,F
 } t_ast_node_type;
 
 typedef struct s_word_list
 {
 	char *word;
-	char *word_type;
+	char *type;
 	t_token_type type;
 	struct s_word_list *next;
 } t_word_list;

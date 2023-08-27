@@ -10,7 +10,7 @@ static void word_list_free(t_word_list *head)
 	{
 		tmp = word_p->next;
 		free(word_p->word);
-		free(word_p->word_type);
+		free(word_p->type);
 		free(word_p);
 		word_p = tmp;
 	}
