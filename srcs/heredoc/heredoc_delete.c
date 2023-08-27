@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:49 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 16:28:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 20:58:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	heredoc_delete_quote(t_redirect_list *delimiter)
 
 	old_delimiter = delimiter->word;
 	new_delimiter = try_calloc(get_size(delimiter->word) + 1, sizeof(char));
+	i = 0;
 	while (*old_delimiter != '\0')
 	{
 		if (is_quotation(*old_delimiter) == false)
@@ -52,7 +53,7 @@ void	heredoc_delete_quote(t_redirect_list *delimiter)
 	}
 	free(delimiter->word);
 	delimiter->word = new_delimiter;
-	printf("%s\n", new_delimiter);
+	// printf("%s\n", new_delimiter);
 }
 
 void	redirect_delete(t_command *command, t_redirect_list *target)

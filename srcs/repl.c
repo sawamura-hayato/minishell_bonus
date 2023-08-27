@@ -25,6 +25,9 @@
 void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
 void	eof(t_data *d);
+void	set_readline_signal(t_data *d);
+
+int	signal_num = 0;
 
 static void	add_line_history(char *line)
 {
@@ -72,6 +75,7 @@ void	read_eval_print_loop()
 	envs_init(environ, &d);
 	while (true)
 	{
+		set_readline_signal(&d);
 		reset_vars(&d);
 		line = read_line();
 		if (line == NULL)
