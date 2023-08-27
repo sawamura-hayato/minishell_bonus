@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 19:40:19 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/27 22:54:19 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head)
 	return (node);
 }
 
-
-static t_redirect_list	*redirect_init_node(t_redirect_list **head, t_token *token, bool redirect_flag)
+static t_redirect_list	*redirect_init_node(t_redirect_list **head,
+		t_token *token, bool redirect_flag)
 {
-	t_redirect_list *node;
+	t_redirect_list	*node;
 
 	node = try_calloc(1, sizeof(t_redirect_list));
 	if (redirect_flag == true)
@@ -37,11 +37,12 @@ static t_redirect_list	*redirect_init_node(t_redirect_list **head, t_token *toke
 		node->word = try_strdup(token->word);
 		node->type = try_strdup(token->type);
 	}
-	redirect_set_type(head, node, token); //redirectタイプをsetする関数
+	redirect_set_type(head, node, token);
 	return (node);
 }
 
-static void	redirect_list_addback(t_redirect_list **head, t_redirect_list *new_node)
+static void	redirect_list_addback(t_redirect_list **head,
+		t_redirect_list *new_node)
 {
 	t_redirect_list	*node;
 
@@ -66,27 +67,28 @@ static void	redirect_list_addback(t_redirect_list **head, t_redirect_list *new_n
 
 void	command_redirect_list(t_redirect_list **head,
 							t_token **current_token,
-							t_data *d,bool redirect_flag)
+							t_data *d,
+							bool redirect_flag)
 {
 	t_token			*token;
 	t_redirect_list	*node;
 
 	token = *current_token;
-	if(token_is_quotation_closed(token)==false)
+	if (token_is_quotation_closed(token) == false)
 	{
 		d->syntax_flag = true;
-		ast_syntax_error(d,token);
+		ast_syntax_error(d, token);
 	}
 	node = redirect_init_node(head, token, redirect_flag);
-	if (redirect_flag == false && token->next == NULL) 
+	if (redirect_flag == false && token->next == NULL)
 	{
 		d->syntax_flag = true;
-		ast_syntax_error(d,NULL);
+		ast_syntax_error(d, NULL);
 	}
-	else if(redirect_flag == true && node->re_type == -1)
+	else if (redirect_flag == true && node->re_type == -1)
 	{
 		d->syntax_flag = true;
-		ast_syntax_error(d,token);
+		ast_syntax_error(d, token);
 	}
 	redirect_list_addback(head, node);
 }

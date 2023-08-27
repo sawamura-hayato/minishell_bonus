@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_word_list.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/27 22:55:00 by tyamauch          #+#    #+#             */
+/*   Updated: 2023/08/27 22:55:02 by tyamauch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
 static t_word_list	*word_list_init_node(t_token *token)
@@ -11,7 +23,7 @@ static t_word_list	*word_list_init_node(t_token *token)
 	return (node);
 }
 
-static void			word_list_addback(t_word_list **head, t_word_list *new_node)
+static void	word_list_addback(t_word_list **head, t_word_list *new_node)
 {
 	t_word_list	*node;
 
@@ -34,16 +46,17 @@ static void			word_list_addback(t_word_list **head, t_word_list *new_node)
 	}
 }
 
-void	command_word_list(t_word_list **head, t_token **current_token,t_data *d)
+void	command_word_list(t_word_list **head, t_token **current_token,
+		t_data *d)
 {
 	t_word_list	*word_node;
-	t_token *token;
+	t_token		*token;
 
 	token = *current_token;
-	if(token_is_quotation_closed(token)==false)
+	if (token_is_quotation_closed(token) == false)
 	{
 		d->syntax_flag = true;
-		ast_syntax_error(d,token);
+		ast_syntax_error(d, token);
 	}
 	else
 	{
@@ -51,4 +64,3 @@ void	command_word_list(t_word_list **head, t_token **current_token,t_data *d)
 		word_list_addback(head, word_node);
 	}
 }
-

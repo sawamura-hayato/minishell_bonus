@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_error.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/27 22:58:31 by tyamauch          #+#    #+#             */
+/*   Updated: 2023/08/27 22:58:55 by tyamauch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 #include <stdio.h>
 
-void	ast_syntax_error(t_data *d,t_token *token)
+void	ast_syntax_error(t_data *d, t_token *token)
 {
-	if(token == NULL)
+	if (token == NULL)
 		printf("syntax error near unexpected token `newline'\n");
-	else 
-		printf("syntax error near unexpected token `%s'\n",token->word);
+	else
+		printf("syntax error near unexpected token `%s'\n", token->word);
 	d->exit_status = SYNTAX_ERROR;
 	d->syntax_flag = true;
 }
@@ -21,9 +33,9 @@ void	ast_syntax_error(t_data *d,t_token *token)
 
 /* t_token_type WORD */
 /* <WORD> ::= <ALPHA> */
-/* 		 | <WORD> <ALPHA> */
-/* 		 | <WORD> '_' */
-/* 		 | <WORD> <NUMBER> */
+/* 			| <WORD> <ALPHA> */
+/* 			| <WORD> '_' */
+/* 			| <WORD> <NUMBER> */
 
 /* t_token_type TK_PIPE */
 /* t_token_type TK_LOGICAL_OR */
@@ -67,4 +79,3 @@ void	ast_syntax_error(t_data *d,t_token *token)
 
 /* <COMMAND_LIST> ::= <COMMAND> */
 /* 				|  <COMMAND_LIST> <COMMAND> */
-

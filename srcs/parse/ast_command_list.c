@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 22:24:04 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/27 22:34:43 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,12 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 	{
 		if (token_is_redirect(token->tk_type) || redirect_flag)
 		{
-			command_redirect_list(&(ast_command_node->command_list->redirect_list),
-									&token,
-									d,
-									redirect_flag);
+			command_redirect_list(&(command_list_node->redirect_list),
+				&token, d, redirect_flag);
 			redirect_flag = !redirect_flag;
 		}
 		else
-			command_word_list(&(ast_command_node->command_list->word_list),
-								&token,
-								d);
+			command_word_list(&(command_list_node->word_list), &token, d);
 		if (token_next(&token, d) == NULL || d->syntax_flag)
 			break ;
 		*current_token = token;
