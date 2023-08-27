@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 15:36:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:09:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ t_redirect_list *expand_can_dollar_quote_string_redirect(t_redirect_list **head)
 char *expand_get_delete_dollar_quote(char **word, t_quote f_quote, t_data *d);
 bool expand_is_variable_word(char *word);
 char *expand_get_expand_word(char **word, t_envs **envs);
+
+bool	expand_is_str_in_char(char *str, char c);
 
 // new_word_list.c
 void word_list_new_head(t_word_list **head, t_word_list *new_word_list);

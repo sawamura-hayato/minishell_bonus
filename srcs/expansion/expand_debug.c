@@ -67,7 +67,10 @@ void debug_printf_redirect(t_redirect_list *redirect)
 {
 	while (redirect != NULL)
 	{
-		printf("redirect   %s\n", redirect->word);
+		printf("redirect word   %s\n", redirect->word);
+		printf("redirect type   %s\n", redirect->type);
+		if (redirect->is_ambiguous_error)
+			printf("ambiguous_error\n");
 		redirect = redirect->next;
 	}
 }

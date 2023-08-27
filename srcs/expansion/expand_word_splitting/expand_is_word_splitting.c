@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/18 12:33:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:15:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,56 +20,56 @@ int		printf(const char *format, ...);
 # define NEW_LINE '\n'
 
 
-bool	expand_is_word_splitting(char *token, char *ifs)
-{
-	size_t	i;
-	size_t	j;
+// bool	expand_is_word_splitting(char *token, char *ifs)
+// {
+// 	size_t	i;
+// 	size_t	j;
 
-	i = 0;
-	j = 0;
-	if (token == NULL || ifs == NULL)
-		return (false);
-	while (token[i] != '\0')
-	{
-		while (ifs[j] != '\0')
-		{
-			if (token[i] == ifs[j])
-				return (true);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (false);
-}
+// 	i = 0;
+// 	j = 0;
+// 	if (token == NULL || ifs == NULL)
+// 		return (false);
+// 	while (token[i] != '\0')
+// 	{
+// 		while (ifs[j] != '\0')
+// 		{
+// 			if (token[i] == ifs[j])
+// 				return (true);
+// 			j++;
+// 		}
+// 		j = 0;
+// 		i++;
+// 	}
+// 	return (false);
+// }
 
-bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs)
-{
-	t_token_type	f_quote;
+// bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs)
+// {
+// 	t_token_type	f_quote;
 
-	while (word_list != NULL)
-	{
-		if (word_list->type == TOKEN_SINGLE_QUOTE || \
-			word_list->type == TOKEN_DOUBLE_QUOTE)
-		{
-			f_quote = word_list->type;
-			while (f_quote != word_list->type)
-			{
-				word_list = word_list->next;
-				if (word_list == NULL)
-					return (false);
-			}
-		}
-		else
-		{
-			if (expand_is_word_splitting(word_list->word, ifs) && \
-				word_list->is_expand)
-				return (true);
-		}
-		word_list = word_list->next;
-	}
-	return (false);
-}
+// 	while (word_list != NULL)
+// 	{
+// 		if (word_list->type == TOKEN_SINGLE_QUOTE || \
+// 			word_list->type == TOKEN_DOUBLE_QUOTE)
+// 		{
+// 			f_quote = word_list->type;
+// 			while (f_quote != word_list->type)
+// 			{
+// 				word_list = word_list->next;
+// 				if (word_list == NULL)
+// 					return (false);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			if (expand_is_word_splitting(word_list->word, ifs) && \
+// 				word_list->is_expand)
+// 				return (true);
+// 		}
+// 		word_list = word_list->next;
+// 	}
+// 	return (false);
+// }
 
 bool	expand_is_empty_ifs(char *ifs)
 {

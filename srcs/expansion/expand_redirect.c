@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 15:25:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 18:41:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 		{
 			//単純な展開クウォート削除も行わない関数作成
 		}
-		// node->DELMITER
+		// exit(0);
 		node = node->next;
 	}
 }
