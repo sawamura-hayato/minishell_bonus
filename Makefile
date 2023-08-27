@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/27 21:55:22 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/27 22:54:13 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,7 +100,9 @@ SRCS += $(BUILTIN_DIR)/builtin.c	\
 	    $(BUILTIN_DIR)/cd/cd_exec.c
 
 SIGNAL_DIR = $(SRCS_DIR)/signal
-SRCS +=	$(SIGNAL_DIR)/readline_signal.c	\
+SRCS +=	$(SIGNAL_DIR)/signal.c	\
+		$(SIGNAL_DIR)/signal_readline.c	\
+		$(SIGNAL_DIR)/signal_heredoc.c	\
 		$(SIGNAL_DIR)/eof.c
 
 LIBRARY_DIR = library

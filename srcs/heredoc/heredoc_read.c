@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 14:46:25 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 23:02:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*heredoc_read(t_data *d)
 	while (read_bytes > BUFFER_SIZE)
 	{
 		read_bytes = read(STDIN_FILENO, buff, BUFFER_SIZE);
-		if (read_bytes == -1)
+		if (read_bytes == -1 || read_bytes == 0)
 			return (NULL);
 		buff[read_bytes] = '\0';
 		if (line == NULL)
@@ -56,7 +56,8 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 		buff = heredoc_read(d);
 		if (buff == NULL)
 		{
-			free(str);
+			all_free(buff, delimiter->word, check);
+			delimiter->word = str;
 			return (false);
 		}
 		if (ft_strcmp(buff, check) == 0)

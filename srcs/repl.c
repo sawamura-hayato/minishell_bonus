@@ -25,7 +25,7 @@
 void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
 void	eof(t_data *d);
-void	set_readline_signal(t_data *d);
+void	set_signal_readline(t_data *d);
 void	get_signal_num(t_data *d);
 
 int	signal_num = 0;
@@ -78,7 +78,7 @@ void	read_eval_print_loop()
 	while (true)
 	{
 		reset_vars(&d);
-		set_readline_signal(&d);
+		set_signal_readline(&d);
 		line = read_line(&d);
 		if (line == NULL)
 			eof(&d);

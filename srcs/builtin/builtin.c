@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/27 14:57:46 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:17:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)
 {
 	char		**argv;
 	const int	dupped_stdoutfd = dup_stdout_fd(node, pipefd, d);
-
 
 	argv = exec_make_argv(node);
 	if (ft_strcmp_ignorecase(argv[0], "echo") == 0)

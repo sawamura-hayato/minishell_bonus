@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   readline_signal.c                                  :+:      :+:    :+:   */
+/*   signal_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 19:54:52 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 21:54:46 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 22:28:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@
 static void	handler(int signum)
 {
 	signal_num = signum;
-	if (signum == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	write(STDOUT_FILENO, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 static void	sigquit(t_data *d)
@@ -86,7 +83,7 @@ static void	sigint(t_data *d)
 		return ;
 }
 
-void	set_readline_signal(t_data *d)
+void	set_signal_readline(t_data *d)
 {
 	sigint(d);
 	sigquit(d);
