@@ -47,7 +47,7 @@ typedef struct s_word_list
 {
 	char *word;
 	char *type;
-	t_token_type type;
+	t_token_type tk_type;
 	struct s_word_list *next;
 } t_word_list;
 
@@ -55,7 +55,7 @@ typedef struct s_redirect_list
 {
 	char				*word;
 	char  				*type;
-	t_redirect_type		type;
+	t_redirect_type		re_type;
 	bool is_ambiguous_error; //初期値はfalse
 	struct s_redirect_list	*next;
 }						t_redirect_list;

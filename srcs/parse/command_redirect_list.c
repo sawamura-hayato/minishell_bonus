@@ -83,7 +83,7 @@ void	command_redirect_list(t_redirect_list **head,
 		d->syntax_flag = true;
 		ast_syntax_error(d,NULL);
 	}
-	else if(redirect_flag == true && node->type == -1)
+	else if(redirect_flag == true && node->re_type == -1)
 	{
 		d->syntax_flag = true;
 		ast_syntax_error(d,token);

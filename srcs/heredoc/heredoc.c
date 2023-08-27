@@ -20,7 +20,7 @@ bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 	delimiter = node->next;
 	if (delimiter == NULL)
 		return (false);
-	if (delimiter->type == PS_QUOTE_DELIMITER)
+	if (delimiter->re_type == PS_QUOTE_DELIMITER)
 		heredoc_delete_quote(delimiter);
 	return (heredoc_read_loop(delimiter, d));
 }
@@ -33,7 +33,7 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 	node = command->redirect_list;
 	while (node != NULL)
 	{
-		if (node->type == PS_HERE_DOCUMENTS)
+		if (node->re_type == PS_HERE_DOCUMENTS)
 		{
 			if (heredoc_get_str(node, d) == false)
 				return (false);

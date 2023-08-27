@@ -14,32 +14,32 @@
 
 void	redirect_set_type_word(t_redirect_list *last_node, t_redirect_list*node, t_token *token)
 {
-	const t_redirect_type	type = last_node->type;
+	const t_redirect_type	type = last_node->re_type;
 
 	if(token->tk_type != WORD)
 	{
-		node->type = -1;
+		node->re_type = -1;
 		return ;
 	}
 	if (type == PS_REDIRECTING_INPUT || type == PS_REDIRECTING_OUTPUT
 		|| type == PS_APPENDING_OUTPUT)
-		node->type = PS_FILE;
+		node->re_type = PS_FILE;
 	else if (type == PS_HERE_DOCUMENTS)
 	{
 		if((ft_strrchr(token->type,IS_SINGLE_QUOTED + '0') != NULL)
 				|| ft_strrchr(token->type,IS_DOUBLE_QUOTED + '0') != NULL)
-			node->type = PS_QUOTE_DELIMITER;
+			node->re_type = PS_QUOTE_DELIMITER;
 		else
-			node->type = PS_DELIMITER;
+			node->re_type = PS_DELIMITER;
 	}
 }
 
 bool	is_redirect_operator(t_redirect_list *node)
 {
-	return (node->type == PS_REDIRECTING_INPUT
-		|| node->type == PS_REDIRECTING_OUTPUT
-		|| node->type == PS_APPENDING_OUTPUT
-		|| node->type == PS_HERE_DOCUMENTS);
+	return (node->re_type == PS_REDIRECTING_INPUT
+		|| node->re_type == PS_REDIRECTING_OUTPUT
+		|| node->re_type == PS_APPENDING_OUTPUT
+		|| node->re_type == PS_HERE_DOCUMENTS);
 }
 
 // static t_redirect_list	*reirect_get_prenode(t_redirect_list **head, t_redirect_list *target)
@@ -72,11 +72,11 @@ void	redirect_set_type(t_redirect_list **head, t_redirect_list *node, t_token *t
 	if (last_node != NULL && is_redirect_operator(last_node))
 		return (redirect_set_type_word(last_node, node, token));
 	if (ft_strcmp(token->word, "<") == 0)
-		node->type = PS_REDIRECTING_INPUT;
+		node->re_type = PS_REDIRECTING_INPUT;
 	else if (ft_strcmp(token->word, ">") == 0)
-		node->type = PS_REDIRECTING_OUTPUT;
+		node->re_type = PS_REDIRECTING_OUTPUT;
 	else if (ft_strcmp(token->word, ">>") == 0)
-		node->type = PS_APPENDING_OUTPUT;
+		node->re_type = PS_APPENDING_OUTPUT;
 	else if (ft_strcmp(token->word, "<<") == 0)
-		node->type = PS_HERE_DOCUMENTS;
+		node->re_type = PS_HERE_DOCUMENTS;
 }
