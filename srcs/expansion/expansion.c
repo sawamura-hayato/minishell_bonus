@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 19:58:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:47:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int main(void)
 	envs_init(environ, &data);
 	redirect_list_right = debug_new_redirect_list(">", 3, PS_REDIRECTING_OUTPUT);
 	redirect_list_right->next = debug_new_redirect_list("$A", 4, PS_FILE);
+	redirect_list_right->next->next = debug_new_redirect_list("$A", 5, PS_DELIMITER);
 	right_node = debug_new_ast(debug_new_command(word_list_right, redirect_list_right), PS_COMMAND);
 
 	node = debug_new_ast(NULL, PS_PIPE);
