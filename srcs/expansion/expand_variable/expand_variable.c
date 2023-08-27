@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 19:57:53 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:13:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,22 @@ bool expand_is_ambiguous_error(char *redirect_word, char *redirect_type, char *i
 {
 	char	*ifs_default_char;
 	size_t	i;
-	bool	flag;
 
 	if (redirect_word == NULL || redirect_type == NULL)
 		return (false);
 	ifs_default_char = expand_check_ifs_default_char(ifs);
 	i = 0;
-	flag = false;
 	while (redirect_word[i] != '\0')
 	{
+		if (token_set_flag_quote(redirect_type[i]) == DOUBLE_QUOTE_FLAG)
+		{
+			while (token_set_flag_quote(redirect_type[++i]) != DOUBLE_QUOTE_FLAG)
+				i++;
+		}
 		while (redirect_word[i] != '\0' && redirect_type[i] == '1')
 		{
 			while (redirect_word[i] != '\0' && redirect_type[i] == '1' && expand_is_str_in_char(ifs, redirect_word[i]))
 			{
-				printf("redirect_word  [%zu] \n", i);
 				if (expand_is_str_in_char(ifs_default_char, redirect_word[i]))
 				{
 					i++;
@@ -100,18 +102,13 @@ bool expand_is_ambiguous_error(char *redirect_word, char *redirect_type, char *i
 			}
 			while (redirect_word[i] != '\0' && redirect_type[i] == '1')
 			{
-				printf("redirect_word  %c[%zu] \n",redirect_word[i], i);
-				printf("redirect_word  [%zu] \n", i);
-				printf("ifs            [%s] \n", ifs);
 				if (!expand_is_str_in_char(ifs, redirect_word[i]))
 				{
 					i++;
 					continue;
 				}
 				else
-				{
 					return (true);
-				}
 			}
 		}
 		if (redirect_word[i] == '\0')
@@ -137,13 +134,9 @@ void expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 	word = redirect_list->word;
 	if (expand_is_variable_word(word))
 	{
-		// printf("word     %s\n", redirect_list->word);
 		expand_get_expanded_token(&(redirect_list->word), &(redirect_list->type), d);
-		printf("redirect   %s, %s\n", redirect_list->word, redirect_list->type);
 		if (expand_is_ambiguous_error(redirect_list->word, redirect_list->type, ifs))
 		{
-			printf("expand   %s\n", word);
-			printf("expand   %s\n", redirect_list->word);
 			redirect_list->is_ambiguous_error = true;
 			redirect_list->word = word;
 		}
