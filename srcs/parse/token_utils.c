@@ -1,9 +1,5 @@
 #include "parse.h"
-#include "library.h"
-#include <stdlib.h>
-#include <stdio.h>
 
-/* //token のindexを使う処理に変更するかも */
 t_token	*token_next(t_token **current_token,t_data *d)
 {
 	t_token	*token;

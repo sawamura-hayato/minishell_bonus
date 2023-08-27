@@ -45,34 +45,19 @@ t_ast	*parse(t_token **current_token, t_data *d)
 	token = *current_token;
 	left_node = ast_command_node(&token, d);
 	if (d->syntax_flag)
-	{
-		ast_free_all_nodes(left_node);	
-		return (NULL);
-	}
+		return (ast_free_all_nodes(left_node));
 	while (true)
 	{	
 		if (token == NULL || !ast_is_opereter(token->tk_type))
 			break;	
 		type = set_ast_node_type(token);
 		if(token_next(&token,d) == NULL)
-		{
-				ast_syntax_error(d,token);
-				ast_free_all_nodes(left_node);	
-				return (NULL);
-		}
 		right_node = ast_command_node(&token,d);
 		if(d->syntax_flag)
-		{
-				ast_free_all_nodes(left_node);	
-				return (NULL);
-		}
-		left_node = ast_operator_node(type, left_node,
-					right_node,d);
+			return (ast_free_all_nodes(left_node));
+		left_node = ast_operator_node(type, left_node,right_node,d);
 		if(d->syntax_flag)
-		{
-			ast_free_all_nodes(left_node);	
-			return (NULL);
-		}
+			return (ast_free_all_nodes(left_node));
 	}
 	return (left_node);
 }

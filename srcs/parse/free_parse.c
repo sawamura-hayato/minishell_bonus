@@ -32,7 +32,7 @@ static void redirect_list_free(t_redirect_list *head)
 		}
 }
 
-void	ast_free_all_nodes(t_ast *node)
+void *ast_free_all_nodes(t_ast *node)
 {
 	if (node != NULL && node->left_hand != NULL)
 		ast_free_all_nodes(node->left_hand);
@@ -44,4 +44,5 @@ void	ast_free_all_nodes(t_ast *node)
 		redirect_list_free(node->command_list->redirect_list);
 	}
 	free(node);
+	return(NULL);
 }

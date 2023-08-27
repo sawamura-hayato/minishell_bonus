@@ -83,7 +83,7 @@ t_ast					*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_d
 t_ast					*ast_operator_node(t_ast_node_type type ,t_ast *left_hand,t_ast *right_hand,t_data *d);
 t_ast					*ast_init_node();
 void					ast_addback(t_ast **head, t_ast *new_node);
-void					ast_free_all_nodes(t_ast *node);
+void                    *ast_free_all_nodes(t_ast *node);
 
 void debug_print_ast(t_ast *node);
 //t_command関連

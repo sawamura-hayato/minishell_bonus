@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_command_list.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
+/*   Updated: 2023/08/27 22:24:04 by tyamauch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 
-static t_command *command_list_init_node()
+static t_command	*command_list_init_node(void)
 {
-	t_command* node;
+	t_command	*node;
+
 	node = try_calloc(1, sizeof(t_command));
 	node->fd = STDOUT_FILENO;
 	node->pid = -1;
-	return(node);
+	return (node);
 }
 
 t_ast	*ast_command_node(t_token **current_token, t_data *d)
@@ -17,28 +30,29 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 
 	ast_command_node = ast_init_node();
 	token = *current_token;
-	if(token == NULL)
+	if (token == NULL)
 	{
-		ast_syntax_error(d,token);
+		ast_syntax_error(d, token);
 		return (NULL);
 	}
 	ast_command_node->type = set_ast_node_type(token);
-	if(ast_command_node->type != PS_COMMAND)
-		ast_syntax_error(d,token);
+	if (ast_command_node->type != PS_COMMAND)
+		ast_syntax_error(d, token);
 	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
 		node = parse(&(token->next), d);
-		ast_expect(current_token, TK_CLOSE_PARENTHESIS,d);
+		ast_expect(current_token, TK_CLOSE_PARENTHESIS, d);
 		return (node);
 	}
-	return (ast_command_list(ast_command_node, current_token,d));
+	return (ast_command_list(ast_command_node, current_token, d));
 }
 
-t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data *d)
+t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
+		t_data *d)
 {
-	t_token *token;
-	t_command *command_list_node;
-	bool redirect_flag;
+	t_token		*token;
+	t_command	*command_list_node;
+	bool		redirect_flag;
 
 	token = *current_token;
 	command_list_node = command_list_init_node();
@@ -48,13 +62,18 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_data 
 	{
 		if (token_is_redirect(token->tk_type) || redirect_flag)
 		{
-			command_redirect_list(&(ast_command_node->command_list->redirect_list),&token,d,redirect_flag);
+			command_redirect_list(&(ast_command_node->command_list->redirect_list),
+									&token,
+									d,
+									redirect_flag);
 			redirect_flag = !redirect_flag;
 		}
 		else
-			command_word_list(&(ast_command_node->command_list->word_list), &token,d);
-		if (token_next(&token,d) == NULL || d->syntax_flag )
-				break;
+			command_word_list(&(ast_command_node->command_list->word_list),
+								&token,
+								d);
+		if (token_next(&token, d) == NULL || d->syntax_flag)
+			break ;
 		*current_token = token;
 	}
 	return (ast_command_node);

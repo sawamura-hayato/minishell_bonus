@@ -94,7 +94,6 @@ void	read_eval_print_loop()
 		/* 	end_command(line, &d); */
 		/* } */
 		exec_command(ast,EXEC_START,&d);
-		exec_command(ast, EXEC_START, &d);
 		free_all_data(token, ast);
 		end_command(line, &d);
 		/* debug_print_ast(ast); */
