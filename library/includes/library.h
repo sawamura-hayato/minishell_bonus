@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 19:50:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 13:44:18 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_strchr(const char *s, int c);
 void	try_pipe(int *pipefd);
 pid_t	try_fork(void);
 pid_t	try_waitpid(pid_t pid, int *wstatus, int options, t_data *d);
+void	try_unlink(const char *pathname, t_data *d);
 
 // ft
 char	*ft_strchr(const char *s, int c);

@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_free.c                                        :+:      :+:    :+:   */
+/*   try_unlink.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/26 15:54:40 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 13:50:40 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/27 13:41:32 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/27 13:43:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_command.h"
+#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include "library.h"
 
-void	exec_free_argv(char **argv)
+void	try_unlink(const char *pathname, t_data *d)
 {
-	size_t	i;
-
-	i = 0;
-	while (argv[i] != NULL)
+	if (unlink(pathname) == -1)
 	{
-		free(argv[i]);
-		i++;
+		d->exit_status = EXIT_FAILURE;
+		perror("unlink");
 	}
-	free(argv);
-}
-
-void	*exec_delete_file_free(char *file)
-{
-	unlink(file);
-	free(file);
-	return (NULL);
 }
