@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 22:21:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:48:19 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef enum e_quote
 
 typedef struct s_token
 {
-	const char		*word;
-	const char		*type;
+	char			*word;
+	char			*type;
 	t_token_type	tk_type;
 	struct s_token	*next;
 } t_token;
@@ -72,7 +72,7 @@ t_token_type token_set_flag_token(char *line);
 t_token *create_token(char *word, t_token_type token_type);
 void token_addback(t_token **head, t_token *new_token);
 t_token *token_end(void);
-void free_token(t_token *token_list);
+void token_free_all_tokens(t_token *token_list);
 void debug_print_token(t_token *token_list);
 
 // library

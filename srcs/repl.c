@@ -54,6 +54,12 @@ static char	*read_line()
 	return (line);
 }
 
+static void	free_all_data(t_token *token, t_ast *ast)
+{
+	token_free_all_tokens(token);
+	(void)ast;
+}
+
 void	read_eval_print_loop()
 {
 	char	*line;
@@ -78,6 +84,7 @@ void	read_eval_print_loop()
 		// debug_print_ast(ast);
 		heredoc(ast, &d);
 		exec_command(ast, EXEC_START, &d);
+		free_all_data(token, ast);
 		end_command(line, &d);
 	}
 }
