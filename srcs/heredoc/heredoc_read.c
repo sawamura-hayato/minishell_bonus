@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/23 19:49:02 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/27 14:46:25 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+#define HEREDOC_PROMPT "> "
 
 static void	all_free(char *s1, char *s2, char *s3)
 {
@@ -26,7 +27,7 @@ char	*heredoc_read(t_data *d)
 	ssize_t	read_bytes;
 
 	line = NULL;
-	try_write(1, "> ", 2, d);
+	try_write(STDERR_FILENO, "> ", ft_strlen(HEREDOC_PROMPT), d);
 	read_bytes = BUFFER_SIZE + 1;
 	while (read_bytes > BUFFER_SIZE)
 	{

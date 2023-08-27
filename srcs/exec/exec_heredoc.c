@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 21:27:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 13:51:12 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 14:05:03 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	*exec_delete_file_free(char *file);
 
 static char	*get_heredoc_tmpfile(void)
 {
-	char		*file;
-	int			i;
+	char	*file;
+	int		i;
 
 	i = 0;
 	while (true)

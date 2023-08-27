@@ -22,7 +22,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	init(t_data *d);
+void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
 
 static void	add_line_history(char *line)
@@ -65,7 +65,7 @@ void	read_eval_print_loop()
 	envs_init(environ, &d);
 	while (true)
 	{
-		init(&d);
+		reset_vars(&d);
 		line = read_line();
 		if (line == NULL)
 		{
