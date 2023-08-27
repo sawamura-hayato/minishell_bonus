@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 10:14:41 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/26 16:13:55 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
  * @brief この関数はコマンドを実行する
  *
  * 第一引数の構文木nodeのタイプがコマンドの場合、node->command_listをコマンドとして、実行する
- * 第二引数のoperatorはコマンドの出力先を指定する。left_handにはnode->typeを渡し、right_handには上のnodeから引き継いだoperatorを渡す
+ * 第二引数のoperatorはコマンドの出力先を指定する。left_handにはnode->typeを渡し、
+ * right_handには上のnodeから引き継いだoperatorを渡す
  * 一番初めのnode（初めにcommand_executionを呼ぶとき）は、operatorはEXEC_STARTになる
  * 一番最後に実行されるnodeのoperatorはEXEC_ENDになる
  * 第三引数のdは環境変数と終了ステータスを管理する
@@ -104,7 +105,7 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 		if (operator == EXEC_PIPE)
 			exec_pipe(node, d);
 		else if (operator == EXEC_START && exec_is_builtin(node))
-			return (builtin(node, NULL, d));
+			return (builtin(node, NULL, true, d));
 		else
 			exec_fork(node, d);
 	}

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 21:39:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 17:55:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- int	main(void)
+int	main(void)
  {
  	// (void)argc;
  	// (void)argv;

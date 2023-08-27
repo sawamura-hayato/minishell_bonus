@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 14:35:53 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/13 19:09:46 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/27 15:35:19 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ static char	*export_make_str(char *str, t_envs *node)
 
 static void	export_put_str(char *str, t_data *d)
 {
-	if (str[0] == '\0')
-		try_write(STDOUT_FILENO, "\n", 1, d);
-	else
+	if (str[0] != '\0')
 		try_write(STDOUT_FILENO, str, ft_strlen(str), d);
 	free(str);
 }

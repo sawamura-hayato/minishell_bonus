@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linear_linked_token.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:57:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 21:39:53 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 15:48:19 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,19 @@ void	debug_print_token(t_token *token_list)
 	}
 }
 
-void	free_token(t_token *token_list)
+void	token_free_all_tokens(t_token *token_list)
 {
-	t_token	*tmp_token;
+	t_token	*token;
+	t_token	*tmp;
 
-	tmp_token = NULL;
-	while (token_list != NULL)
+	token = token_list;
+	while (token != NULL)
 	{
-		free(token_list);
-		tmp_token = token_list->next;
-		token_list = tmp_token;
+		tmp = token->next;
+		free(token->word);
+		free(token->type);
+		free(token);
+		token = tmp;
 	}
 }
 

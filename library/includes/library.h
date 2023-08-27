@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 00:39:25 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/27 13:44:18 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*try_calloc(size_t count, size_t size);
 char	*try_strdup(const char *s1);
 char	*try_substr(char const *s, size_t start, size_t len);
 char	*try_strjoin(char const *s1, char const *s2);
-void	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
+ssize_t	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
 char	*try_itoa(int n);
 char	*try_strjoin_free(char *free_str, const char *str2);
 int		try_open(int open_value, char *file, t_data *d);
@@ -38,6 +38,8 @@ bool	try_stat(const char *path, struct stat *sb, t_data *d);
 char	*ft_strchr(const char *s, int c);
 void	try_pipe(int *pipefd);
 pid_t	try_fork(void);
+pid_t	try_waitpid(pid_t pid, int *wstatus, int options, t_data *d);
+void	try_unlink(const char *pathname, t_data *d);
 
 // ft
 char	*ft_strchr(const char *s, int c);

@@ -22,8 +22,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void	init(t_data *d);
+void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
+void	eof(t_data *d);
 
 static void	add_line_history(char *line)
 {
@@ -54,6 +55,12 @@ static char	*read_line()
 	return (line);
 }
 
+static void	free_all_data(t_token *token, t_ast *ast)
+{
+	token_free_all_tokens(token);
+	(void)ast;
+}
+
 void	read_eval_print_loop()
 {
 	char	*line;
@@ -66,13 +73,10 @@ void	read_eval_print_loop()
 	envs_init(environ, &d);
 	while (true)
 	{
-		init(&d);
+		reset_vars(&d);
 		line = read_line();
 		if (line == NULL)
-		{
-			end_command(line, &d);
-			continue ;
-		}
+			eof(&d);
 		token = tokenize(line);
 		debug_print_token(token);
 		ast = parse(&token,&d);
@@ -90,6 +94,8 @@ void	read_eval_print_loop()
 		/* 	end_command(line, &d); */
 		/* } */
 		exec_command(ast,EXEC_START,&d);
+		exec_command(ast, EXEC_START, &d);
+		free_all_data(token, ast);
 		end_command(line, &d);
 		/* debug_print_ast(ast); */
 	}
