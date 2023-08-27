@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 20:49:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:55:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	expand_get_expanded_word_delimiter(char **token, char **type, t_data
 	join_word = NULL;
 	join_type_word = NULL;
 	tmp = *token;
-	printf("word     %s\n", join_word);
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')
@@ -74,12 +73,11 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 			expand_variable_redirect_list(node, d);
 			// expand_word_splitting_redirect_list(node, d);
 			// expand_filename(node);
-			// expand_delete_quotation(node);
+			expand_delete_quotation_redirect_list(node);
 		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 		{
 			//単純な展開クウォート削除も行わない関数作成
-			printf("ok\n");
 			expand_get_expanded_word_delimiter(&(node->word), &(node->type), d);
 		}
 		// exit(0);
