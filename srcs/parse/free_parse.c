@@ -28,7 +28,7 @@ static void	word_list_free(t_word_list *head)
 	}
 }
 
-static void	redirect_list_free(t_redirect_list *node)
+static void	redirect_list_free(t_redirect_list *head)
 {
 	t_redirect_list	*node;
 	t_redirect_list	*tmp;
