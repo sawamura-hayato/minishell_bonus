@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 23:07:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 11:06:45 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 void	get_signal_num(t_data *d);
 void	set_signal_heredoc(t_data *d);
@@ -51,21 +53,10 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 	return (true);
 }
 
-static void	heredoc_put_error(t_data *d, bool *result)
+static void	heredoc_put_error(t_data *d)
 {
-	const char	*msg
-		= "arning: here-document delimited by end-of-file (wanted `eof')\n";
-
-	if (signal_num == SIGINT)
-	{
-		get_signal_num(d);
-		try_write(STDERR_FILENO, "\n", 1, d);
-	}
-	else
-	{
-		*result = true;
-		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
-	}
+	get_signal_num(d);
+	try_write(STDERR_FILENO, "\n", 1, d);
 }
 
 bool	heredoc(t_ast *node, t_data *d)
@@ -82,6 +73,6 @@ bool	heredoc(t_ast *node, t_data *d)
 	if (node->type == PS_COMMAND)
 	result = heredoc_redirect_list(node->command_list, d);
 	if (result == false)
-		heredoc_put_error(d, &result);
+		heredoc_put_error(d);
 	return (result);
 }

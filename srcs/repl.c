@@ -53,8 +53,10 @@ static char	*read_line(t_data *d)
 	char	*line;
 
 	line = readline(PROMPT);
+	if (line == NULL)
+		eof(d);
 	get_signal_num(d);
-	if (line == NULL || is_only_spaces(line))
+	if (is_only_spaces(line))
 		return (NULL);
 	add_line_history(line);
 	return (line);
@@ -81,7 +83,10 @@ void	read_eval_print_loop()
 		set_signal_readline(&d);
 		line = read_line(&d);
 		if (line == NULL)
-			eof(&d);
+		{
+			end_command(line, &d);
+			continue ;
+		}
 		token = tokenize(line);
 		// debug_print_token(token);
 		ast = parse(&token,&d);

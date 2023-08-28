@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:22:01 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 23:09:55 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 10:52:43 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	sigint(t_data *d)
 		perror("sigaddset");
 		return ;
 	}
-	if (try_sigaction(SIGQUIT, &act, NULL, d) == -1)
+	if (try_sigaction(SIGINT, &act, NULL, d) == -1)
 		return ;
 }
 

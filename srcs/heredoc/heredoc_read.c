@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 23:02:40 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 11:07:41 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ char	*heredoc_read(t_data *d)
 	return (line);
 }
 
+static void	heredoc_put_warning(t_data *d)
+{
+	const char	*msg
+		= "\nwarning: here-document delimited by end-of-file (wanted `eof')\n";
+
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+}
+
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 {
 	char	*str;
@@ -54,14 +62,16 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 	while (true)
 	{
 		buff = heredoc_read(d);
-		if (buff == NULL)
+		if (buff == NULL && signal_num != 0)
 		{
 			all_free(buff, delimiter->word, check);
 			delimiter->word = str;
 			return (false);
 		}
-		if (ft_strcmp(buff, check) == 0)
+		if (buff == NULL || ft_strcmp(buff, check) == 0)
 		{
+			if(buff == NULL)
+				heredoc_put_warning(d);
 			all_free(buff, delimiter->word, check);
 			delimiter->word = str;
 			break ;
