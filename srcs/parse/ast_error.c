@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:58:31 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 22:58:55 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:05:12 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	ast_syntax_error(t_data *d, t_token *token)
 {
-	char *msg;
-	char *tmp;
+	char	*msg;
+	char	*tmp;
 
 	if (token == NULL)
 	{
@@ -33,7 +33,6 @@ void	ast_syntax_error(t_data *d, t_token *token)
 		msg = try_strjoin(msg, tmp);
 		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 		free(msg);
-		/* printf("syntax error near unexpected token `%s'\n", token->word); */
 	}
 	d->exit_status = SYNTAX_ERROR;
 	d->syntax_flag = true;

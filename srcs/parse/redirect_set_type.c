@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:36:13 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 22:57:01 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:01:10 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	redirect_set_type_word(t_redirect_list *last_node,
 		t_redirect_list *node, t_token *token)
 {
-	const t_redirect_type	type;
+	t_redirect_type	type;
 
 	type = last_node->re_type;
 	if (token->tk_type != WORD)
