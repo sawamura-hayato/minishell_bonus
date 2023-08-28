@@ -18,7 +18,7 @@ static void	word_list_free(t_word_list *head)
 	t_word_list	*tmp;
 
 	word_p = head;
-	while (word_p)
+	while (word_p != NULL)
 	{
 		tmp = word_p->next;
 		free(word_p->word);
@@ -34,7 +34,7 @@ static void	redirect_list_free(t_redirect_list *head)
 	t_redirect_list	*tmp;
 
 	redirect_p = head;
-	while (redirect_p)
+	while (redirect_p != NULL)
 	{
 		tmp = redirect_p->next;
 		free(redirect_p->word);
