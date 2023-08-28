@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 14:23:56 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:41:10 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
  */
 void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
-	set_signal_exec(d);
 	exec_child_node(node, operator, d);
 	if (node->type == PS_COMMAND)
 	{

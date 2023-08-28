@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 19:54:52 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 14:10:43 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:34:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	signal_put_error(const char *f, t_data *d);
 
 static void	handler(int signum)
 {
-	signal_num = signum;
+	g_signal_num = signum;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();

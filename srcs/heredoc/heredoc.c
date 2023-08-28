@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 13:40:54 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:40:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	get_signal_num(t_data *d);
 void	set_signal_heredoc(t_data *d);
+void	ignore_signal(t_data *d);
 
 bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 {
@@ -42,7 +43,11 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 		if (node->type == PS_HERE_DOCUMENTS)
 		{
 			if (heredoc_get_str(node, d) == false)
+			{
+				ignore_signal(d);
 				return (false);
+			}
+			ignore_signal(d);
 			tmp = node->next;
 			redirect_delete(command, node);
 			node = tmp;

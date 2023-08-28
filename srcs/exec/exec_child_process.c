@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 14:22:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:41:35 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	char	**argv;
 	char	*filepath;
 
+	set_signal_exec(d);
 	if (node->command_list->word_list != NULL && exec_is_builtin(node))
 		return (builtin(node, pipefd, false, d));
-	// set_signal_exec(d);
 	argv = exec_make_argv(node);
 	filepath = exec_make_filepath(node, d);
 	if (node->command_list->fd != STDOUT_FILENO)

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:58:27 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 15:34:30 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:46:43 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signal_put_error(const char *f, t_data *d);
 
 static void	handler(int signum)
 {
-	signal_num = signum;
+	g_signal_num = signum;
 	if (signum == SIGINT)
 		write(STDERR_FILENO, "\n", 1);
 	else if (signum == SIGQUIT)

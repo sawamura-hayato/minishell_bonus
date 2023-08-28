@@ -27,8 +27,9 @@ void	end_command(char *line, t_data *d);
 void	eof(t_data *d);
 void	set_signal_readline(t_data *d);
 void	get_signal_num(t_data *d);
+void	ignore_signal(t_data *d);
 
-int	signal_num = 0;
+int	g_signal_num = 0;
 
 static void	add_line_history(char *line)
 {
@@ -53,9 +54,9 @@ static char	*read_line(t_data *d)
 	char	*line;
 
 	line = readline(PROMPT);
+	get_signal_num(d);
 	if (line == NULL)
 		eof(d);
-	get_signal_num(d);
 	if (is_only_spaces(line))
 		return (NULL);
 	add_line_history(line);
@@ -79,6 +80,7 @@ void	read_eval_print_loop(t_data *d)
 		reset_vars(d);
 		set_signal_readline(d);
 		line = read_line(d);
+		ignore_signal(d);
 		if (line == NULL)
 		{
 			end_command(line, d);

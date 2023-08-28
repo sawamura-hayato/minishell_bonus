@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:22:01 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 14:21:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:34:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	signal_put_error(const char *f, t_data *d);
 
 static void	handler(int signum)
 {
-	signal_num = signum;
+	g_signal_num = signum;
 	close(STDIN_FILENO);
 }
 

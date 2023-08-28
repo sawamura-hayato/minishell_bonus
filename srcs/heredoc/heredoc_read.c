@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 13:51:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:34:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 	while (true)
 	{
 		buff = heredoc_read(d);
-		if (buff == NULL && signal_num != 0)
+		if (buff == NULL && g_signal_num != 0)
 		{
 			all_free(buff, delimiter->word, (char *)delimiter_nl);
 			delimiter->word = str;
