@@ -6,17 +6,18 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/27 18:01:20 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/28 14:20:51 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
+CFLAGS += -I$(READLINE_DIR)/include
 RL_FLAGS = -L$(RL_DIR)/lib -lreadline
 
 SRCS_DIR = srcs
@@ -99,7 +100,11 @@ SRCS += $(BUILTIN_DIR)/builtin.c	\
 	    $(BUILTIN_DIR)/cd/cd_exec.c
 
 SIGNAL_DIR = $(SRCS_DIR)/signal
-SRCS +=	$(SIGNAL_DIR)/eof.c
+SRCS +=	$(SIGNAL_DIR)/signal.c	\
+		$(SIGNAL_DIR)/signal_readline.c	\
+		$(SIGNAL_DIR)/signal_heredoc.c	\
+		$(SIGNAL_DIR)/signal_exec.c	\
+		$(SIGNAL_DIR)/eof.c
 
 LIBRARY_DIR = library
 LIBRARY_AFILE = $(LIBRARY_DIR)/library.a

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 18:29:32 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/26 19:34:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 15:01:51 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*cd_join_pwd(char *path, t_data *d)
 	return (newpath);
 }
 
-#include <stdio.h>
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 									t_data *d, bool is_cdpath)
 {

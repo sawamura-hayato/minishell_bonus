@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 14:46:25 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:34:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*heredoc_read(t_data *d)
 	while (read_bytes > BUFFER_SIZE)
 	{
 		read_bytes = read(STDIN_FILENO, buff, BUFFER_SIZE);
-		if (read_bytes == -1)
+		if (read_bytes == -1 || read_bytes == 0)
 			return (NULL);
 		buff[read_bytes] = '\0';
 		if (line == NULL)
@@ -43,25 +43,35 @@ char	*heredoc_read(t_data *d)
 	return (line);
 }
 
+static void	heredoc_put_warning(t_data *d)
+{
+	const char	*msg
+		= "\nwarning: here-document delimited by end-of-file (wanted `eof')\n";
+
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+}
+
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 {
-	char	*str;
-	char	*buff;
-	char	*check;
+	char		*str;
+	char		*buff;
+	const char	*delimiter_nl = try_strjoin(delimiter->word, "\n");
 
 	str = try_strdup("");
-	check = try_strjoin(delimiter->word, "\n");
 	while (true)
 	{
 		buff = heredoc_read(d);
-		if (buff == NULL)
+		if (buff == NULL && g_signal_num != 0)
 		{
-			free(str);
+			all_free(buff, delimiter->word, (char *)delimiter_nl);
+			delimiter->word = str;
 			return (false);
 		}
-		if (ft_strcmp(buff, check) == 0)
+		if (buff == NULL || ft_strcmp(buff, delimiter_nl) == 0)
 		{
-			all_free(buff, delimiter->word, check);
+			if (buff == NULL)
+				heredoc_put_warning(d);
+			all_free(buff, delimiter->word, (char *)delimiter_nl);
 			delimiter->word = str;
 			break ;
 		}

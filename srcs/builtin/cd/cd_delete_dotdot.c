@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_delete_dotdot.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:09:17 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 19:50:04 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/28 15:01:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,26 @@ bool	is_dotdotcomp(char *path)
 	);
 }
 
-static bool	cd_is_file(char *path, char *dirpath)
+static bool	cd_is_dir(char *path, char *dirpath)
 {
 	struct stat	sb;
-	bool		is_file;
+	bool		is_dir;
 
 	if (stat(dirpath, &sb) == -1)
 	{
 		free(dirpath);
+		free(path);
 		return (false);
 	}
-	if (S_ISREG(sb.st_mode))
+	if (S_ISDIR(sb.st_mode))
+		is_dir = true;
+	else
 	{
-		is_file = true;
+		is_dir = false;
 		free(path);
 	}
-	else
-		is_file = false;
 	free(dirpath);
-	return (is_file);
+	return (is_dir);
 }
 
 char	*skip_consecutive_slashes(char *path)
@@ -69,12 +70,9 @@ static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc)
 {
 	char		*newpath;
 
-	// printf("path=%s\n", path);
-	// printf("ddc=%s\n", ddc);
-	// printf("pre=%s\n", pre_comp);
 	if (cd_is_slash_comp(pre_comp, ddc))
 		return (cd_delete_dotdot(path, (ddc + ft_strlen(ddc))));
-	if (cd_is_file(path, try_substr(path, 0, ddc - path)))
+	if (!cd_is_dir(path, try_substr(path, 0, ddc - path)))
 		return (NULL);
 	if (pre_comp != path)
 	{
@@ -86,8 +84,6 @@ static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc)
 		newpath = try_substr(path, 0, skip_consecutive_slashes(path) - path);
 		newpath = try_strjoin_free(newpath, (ddc + ft_strlen(DDC) + 1));
 	}
-	// printf("newpath=%s\n", newpath);
-	// printf("front=%s\n", newpath);
 	free(path);
 	return (cd_delete_dotdot(newpath, newpath));
 }
@@ -104,7 +100,7 @@ char	*cd_delete_dotdot(char *path, char *last_ddc)
 		return (path);
 	if (!is_dotdotcomp(ddc) || ddc == path)
 		return (cd_delete_dotdot(path, ddc + ddc_len));
-	if (cd_is_file(path, try_substr(path, 0, ddc - path)))
+	if (!cd_is_dir(path, try_substr(path, 0, ddc - path)))
 		return (NULL);
 	pre_comp = cd_get_pre_comp(path, ddc);
 	if (is_dotdotcomp(pre_comp))

@@ -25,6 +25,11 @@
 void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
 void	eof(t_data *d);
+void	set_signal_readline(t_data *d);
+void	get_signal_num(t_data *d);
+void	ignore_signal(t_data *d);
+
+int	g_signal_num = 0;
 
 static void	add_line_history(char *line)
 {
@@ -44,12 +49,15 @@ static bool	is_only_spaces(char *line)
 	return (true);
 }
 
-static char	*read_line()
+static char	*read_line(t_data *d)
 {
 	char	*line;
 
 	line = readline(PROMPT);
-	if (line == NULL || is_only_spaces(line))
+	get_signal_num(d);
+	if (line == NULL)
+		eof(d);
+	if (is_only_spaces(line))
 		return (NULL);
 	add_line_history(line);
 	return (line);
@@ -61,28 +69,30 @@ static void	free_all_data(t_token *token, t_ast *ast)
 	(void)ast;
 }
 
-void	read_eval_print_loop()
+void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
-	t_token *token;
-	t_ast 	*ast;
-	t_data	d;
-	extern const char	**environ;
+	t_token	*token;
+	t_ast	*ast;
 
-	envs_init(environ, &d);
 	while (true)
 	{
-		reset_vars(&d);
-		line = read_line();
+		reset_vars(d);
+		set_signal_readline(d);
+		line = read_line(d);
+		ignore_signal(d);
 		if (line == NULL)
-			eof(&d);
+		{
+			end_command(line, d);
+			continue ;
+		}
 		token = tokenize(line);
 		// debug_print_token(token);
-		ast = parse(&token,&d);
+		ast = parse(&token,d);
 		// debug_print_ast(ast);
-		heredoc(ast, &d);
-		exec_command(ast, EXEC_START, &d);
+		if (heredoc(ast, d))
+			exec_command(ast, EXEC_START, d);
 		free_all_data(token, ast);
-		end_command(line, &d);
+		end_command(line, d);
 	}
 }
