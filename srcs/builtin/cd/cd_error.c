@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:37:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 20:37:18 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/28 14:58:09 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	cd_put_error_no_pwd(char *path, t_data *d)
 	msg = try_strjoin_free(msg, ": Permission denied\n");
 	free(path);
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
 }
 
 void	cd_put_error_file(const char *og_path, t_data *d)
@@ -51,7 +52,17 @@ void	cd_put_error_file(const char *og_path, t_data *d)
 	char	*msg;
 
 	msg = try_strjoin("cd: ", og_path);
-	msg = try_strjoin(msg, ": Not a directory\n");
-
+	msg = try_strjoin_free(msg, ": Not a directory\n");
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
+}
+
+void	cd_put_error_file_dir(const char *og_path, t_data *d)
+{
+	char	*msg;
+
+	msg = try_strjoin("cd: ", og_path);
+	msg = try_strjoin_free(msg, ": No such file or directory\n");
+	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
 }

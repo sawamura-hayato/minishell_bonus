@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_heredoc.c                                   :+:      :+:    :+:   */
+/*   signal_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/27 22:22:01 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 14:21:49 by tterao           ###   ########.fr       */
+/*   Created: 2023/08/28 13:58:27 by tterao            #+#    #+#             */
+/*   Updated: 2023/08/28 14:21:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 #include <signal.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 
@@ -21,26 +22,14 @@ void	signal_put_error(const char *f, t_data *d);
 static void	handler(int signum)
 {
 	signal_num = signum;
-	close(STDIN_FILENO);
+	if (signum == SIGINT)
+		write(STDERR_FILENO, "\n", 1);
+	else if (signum == SIGQUIT)
+		write(STDERR_FILENO, "Quit: 3\n", 8);
 }
 
-static void	sigquit(t_data *d)
-{
-	struct sigaction	act;
 
-	act.sa_handler = SIG_IGN;
-	act.sa_flags = 0;
-	if (sigemptyset(&act.sa_mask) == -1)
-		return (signal_put_error("sigemptyset", d));
-	if (sigaddset(&act.sa_mask, SIGINT) == -1)
-		return (signal_put_error("sigaddset", d));
-	if (sigaddset(&act.sa_mask, SIGQUIT) == -1)
-		return (signal_put_error("sigaddset", d));
-	if (try_sigaction(SIGQUIT, &act, NULL, d) == -1)
-		return ;
-}
-
-static void	sigint(t_data *d)
+void	set_signal_exec(t_data *d)
 {
 	struct sigaction	act;
 
@@ -48,16 +37,12 @@ static void	sigint(t_data *d)
 	act.sa_flags = 0;
 	if (sigemptyset(&act.sa_mask) == -1)
 		return (signal_put_error("sigemptyset", d));
-	if (sigaddset(&act.sa_mask, SIGINT) == -1)
+	if (sigaddset(&act.sa_mask, SIGINT))
 		return (signal_put_error("sigaddset", d));
-	if (sigaddset(&act.sa_mask, SIGQUIT) == -1)
+	if (sigaddset(&act.sa_mask, SIGQUIT))
 		return (signal_put_error("sigaddset", d));
 	if (try_sigaction(SIGINT, &act, NULL, d) == -1)
 		return ;
-}
-
-void	set_signal_heredoc(t_data *d)
-{
-	sigint(d);
-	sigquit(d);
+	if (try_sigaction(SIGQUIT, &act, NULL, d) == -1)
+		return ;
 }

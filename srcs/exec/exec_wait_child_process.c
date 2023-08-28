@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 15:52:16 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 14:28:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 		pid = try_waitpid(node->command_list->pid, &status, 0, d);
 		if (pid != -1 && WIFSIGNALED(status))
 			d->exit_status = SIGNAL_EXITSTATUS + WTERMSIG(status);
-		else
+		else if (pid != -1)
 			d->exit_status = status;
 	}
 }

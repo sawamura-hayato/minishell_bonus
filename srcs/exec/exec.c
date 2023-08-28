@@ -6,12 +6,14 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 16:13:55 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 14:23:56 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "builtins.h"
+
+void	set_signal_exec(t_data *d);
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -97,6 +99,7 @@ static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
  */
 void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
+	set_signal_exec(d);
 	exec_child_node(node, operator, d);
 	if (node->type == PS_COMMAND)
 	{
