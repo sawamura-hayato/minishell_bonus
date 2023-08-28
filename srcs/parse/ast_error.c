@@ -1,10 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ast_error.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/27 22:58:31 by tyamauch          #+#    #+#             */
+/*   Updated: 2023/08/28 19:05:12 by tyamauch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parse.h"
 #include <stdio.h>
 
-void	ast_syntax_error(t_data *d)
+void	ast_syntax_error(t_data *d, t_token *token)
 {
-	printf("syntax error near unexpected token `newline'");
-	d->exit_status = 2;
+	char	*msg;
+	char	*tmp;
+
+	if (token == NULL)
+	{
+		msg = try_strdup("syntax error near unexpected token `newline'\n");
+		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+		free(msg);
+	}
+	else
+	{
+		msg = try_strdup("syntax error near unexpected token `");
+		tmp = try_strdup(token->word);
+		msg = try_strjoin(msg, tmp);
+		tmp = try_strdup("'\n");
+		msg = try_strjoin(msg, tmp);
+		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+		free(msg);
+	}
+	d->exit_status = SYNTAX_ERROR;
 	d->syntax_flag = true;
 }
 
@@ -16,11 +46,17 @@ void	ast_syntax_error(t_data *d)
 /* <NUMBER> ::= <DIGIT> */
 /*            | <NUMBER> <DIGIT> */
 
+/* t_token_type WORD */
 /* <WORD> ::= <ALPHA> */
-/* 		 | <WORD> <ALPHA> */
-/* 		 | <WORD> '_' */
-/* 		 | <WORD> <NUMBER> */
+/* 			| <WORD> <ALPHA> */
+/* 			| <WORD> '_' */
+/* 			| <WORD> <NUMBER> */
 
+/* t_token_type TK_PIPE */
+/* t_token_type TK_LOGICAL_OR */
+/* t_token_type TK_LOGICAL_AND */
+/* t_token_type TK_OPEN_PARENTHESIS */
+/* t_token_type TK_CLOSE_PARENTHESIS */
 /* <OPERATOR> ::= '|' */
 /* 			|  '||' */
 /* 			|  '&&' */
@@ -32,6 +68,19 @@ void	ast_syntax_error(t_data *d)
 /* 				| '<<' <WORD> */
 /* 				| '>>' <WORD> */
 /* 				| '<>' <WORD> */
+
+/* bash: syntax error near unexpected token `newline'> */
+/* ./minishell > */
+/* ./minishell < */
+/* ./minishell << */
+/* ./minishell >> */
+
+/* hoge is not <WORD> <OPERATOR>*/
+/* bash: syntax error near unexpected token `hoge */
+/* ./minishell > hoge*/
+/* ./minishell < hoge*/
+/* ./minishell << hoge*/
+/* ./minishell >> hoge*/
 
 /* <WORD_LIST> ::= <WORD> */
 /* 			|   <WORD_LIST> <WORD> */
@@ -45,4 +94,3 @@ void	ast_syntax_error(t_data *d)
 
 /* <COMMAND_LIST> ::= <COMMAND> */
 /* 				|  <COMMAND_LIST> <COMMAND> */
-
