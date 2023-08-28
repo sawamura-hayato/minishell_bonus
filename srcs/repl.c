@@ -87,9 +87,7 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		// debug_print_token(token);
-		ast = parse(&token,d);
-		// debug_print_ast(ast);
+		ast = parse(&token, d);
 		if (heredoc(ast, d))
 			exec_command(ast, EXEC_START, d);
 		free_all_data(token, ast);
