@@ -108,9 +108,6 @@ void					ast_expect(t_token **current_token, char op,t_data *d);
 t_token					*token_next(t_token **current_token,t_data *d);
 void	ast_syntax_error(t_data *d,t_token *token);
 t_ast_node_type set_ast_node_type(t_token *token);
-/* t_command *command_list_init_node(); */
-
-		/* void* try_calloc(size_t nmemb,size_t size); */
 
 		/* ls infileC a b */
 		/* | ls */
