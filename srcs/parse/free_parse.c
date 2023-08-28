@@ -14,33 +14,33 @@
 
 static void	word_list_free(t_word_list *head)
 {
-	t_word_list	*word_p;
+	t_word_list	*node;
 	t_word_list	*tmp;
 
-	word_p = head;
-	while (word_p != NULL)
+	node = head;
+	while (node != NULL)
 	{
-		tmp = word_p->next;
-		free(word_p->word);
-		free(word_p->type);
-		free(word_p);
-		word_p = tmp;
+		tmp = node->next;
+		free(node->word);
+		free(node->type);
+		free(node);
+		node = tmp;
 	}
 }
 
-static void	redirect_list_free(t_redirect_list *head)
+static void	redirect_list_free(t_redirect_list *node)
 {
-	t_redirect_list	*redirect_p;
+	t_redirect_list	*node;
 	t_redirect_list	*tmp;
 
-	redirect_p = head;
-	while (redirect_p != NULL)
+	node = head;
+	while (node != NULL)
 	{
-		tmp = redirect_p->next;
-		free(redirect_p->word);
-		free(redirect_p->type);
-		free(redirect_p);
-		redirect_p = tmp;
+		tmp = node->next;
+		free(node->word);
+		free(node->type);
+		free(node);
+		node = tmp;
 	}
 }
 
