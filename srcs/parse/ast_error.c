@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:58:31 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 19:05:12 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:41:38 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	ast_syntax_error(t_data *d, t_token *token)
 	{
 		msg = try_strdup("syntax error near unexpected token `");
 		tmp = try_strdup(token->word);
-		msg = try_strjoin(msg, tmp);
+		msg = try_strjoin_free(msg, tmp);
 		tmp = try_strdup("'\n");
-		msg = try_strjoin(msg, tmp);
+		msg = try_strjoin_free(msg, tmp);
 		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 		free(msg);
 	}

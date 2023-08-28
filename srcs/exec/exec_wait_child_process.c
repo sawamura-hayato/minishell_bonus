@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 18:54:52 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 19:40:37 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 		}
 		else if (WIFEXITED(status))
 			d->exit_status = WEXITSTATUS(status);
-		dprintf(STDERR_FILENO, "%d\n", d->exit_status);
+		/* dprintf(STDERR_FILENO, "%d\n", d->exit_status); */
 	}
 }
 // 		||

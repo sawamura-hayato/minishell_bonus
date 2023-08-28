@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 23:04:08 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:48:23 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*read_line(t_data *d)
 static void	free_all_data(t_token *token, t_ast *ast)
 {
 	token_free_all_tokens(token);
-	(void)ast;
+	ast_free_all_nodes(ast);
 }
 
 void	read_eval_print_loop(t_data *d)
