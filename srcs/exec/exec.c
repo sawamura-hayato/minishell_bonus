@@ -6,13 +6,16 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 20:41:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 22:55:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "builtins.h"
 #define SIGINT_EXITSTATUS 130
+#define SIGQUIT_EXITSTATUS 131
+
+void	put_sigquit_line(t_data *d);
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -75,6 +78,8 @@ static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
 	else if (node->type == PS_LOGICAL_OR)
 	{
 		exec_wait_child_process(node->left_hand, d);
+		if (d->exit_status == SIGQUIT_EXITSTATUS)
+			put_sigquit_line(d);
 		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 		if (d->exit_status != EXIT_SUCCESS
 			&& d->exit_status != SIGINT_EXITSTATUS)

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 20:37:55 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 20:59:50 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 		return (builtin(node, pipefd, false, d));
 	argv = exec_make_argv(node);
 	filepath = exec_make_filepath(node, d);
-	dprintf(STDERR_FILENO, "%s\n", *argv);
 	if (node->command_list->fd != STDOUT_FILENO)
 	{
 		try_dup2(node->command_list->fd, STDOUT_FILENO, d);
