@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 20:55:27 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/28 15:22:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 			expand_variable_redirect_list(node, d);
 			// expand_word_splitting_redirect_list(node, d);
 			// expand_filename(node);
-			expand_delete_quotation_redirect_list(node);
+			// expand_word_splitting_word_list(node, d);
+			// expand_filename(node);
+			printf("type %s, word %s\n", node->type, node->word);
+			if (!node->is_ambiguous_error && expand_is_delete_quotation_word(node->type))
+				expand_delete_quotation_redirect_list(node);
 		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 		{

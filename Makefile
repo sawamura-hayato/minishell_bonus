@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/27 18:12:44 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/08/28 14:36:43 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
 
 EXPANSION_DIR = expansion
 EXPANSION_FILENAME_DIR = expand_filename
-EXPANSION_DELETE_QUOTE = expand_delete_quote
 
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
@@ -57,7 +56,6 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_redirect.c \
 		
 EXPANSION_VARI_DIR = expand_variable
-EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_expanded_token.c \
@@ -68,9 +66,12 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/new_word_list.c \
 		# $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_dollar_quote_string_redirect.c \
 
+EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_splitting.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_is_word_splitting.c \
 
+EXPANSION_DELETE_QUOTE = expand_delete_quote
+SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_DELETE_QUOTE)/expand_delete_quote.c
 
 ENVS_DIR = $(SRCS_DIR)/envs
 SRCS += $(ENVS_DIR)/init.c	\
