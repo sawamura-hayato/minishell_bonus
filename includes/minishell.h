@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:43:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/07/26 13:06:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:01:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#define NULL_CHAR ('\0')
-// #define SINGLE_QUOTE (')
-// #define DOUBLE_QUOTE (")
-#define PROMPT ("minishell$ ")
+# include "init.h"
+# define NULL_CHAR ('\0')
+# define PROMPT ("minishell$ ")
 
-#include <stdio.h>
-
-// t_token	*tokenize(const char *line);
-void	read_eval_print_loop();
-// t_token	*tokenize(const char *line);
+void	read_eval_print_loop(t_data *d);
 
 #endif

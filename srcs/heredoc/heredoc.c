@@ -6,13 +6,17 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 23:04:37 by tyamauch         ###   ########.fr       */
-/*   Updated: 2023/08/26 23:00:26 by tyamauch         ###   ########.fr       */
-/*   Updated: 2023/08/27 16:26:06 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:40:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "heredoc.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+
+void	get_signal_num(t_data *d);
+void	set_signal_heredoc(t_data *d);
+void	ignore_signal(t_data *d);
 
 bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 {
@@ -23,6 +27,8 @@ bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 		return (false);
 	if (delimiter->re_type == PS_QUOTE_DELIMITER)
 		heredoc_delete_quote(delimiter);
+	set_signal_heredoc(d);
+	try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 	return (heredoc_read_loop(delimiter, d));
 }
 
@@ -37,7 +43,11 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 		if (node->re_type == PS_HERE_DOCUMENTS)
 		{
 			if (heredoc_get_str(node, d) == false)
+			{
+				ignore_signal(d);
 				return (false);
+			}
+			ignore_signal(d);
 			tmp = node->next;
 			redirect_delete(command, node);
 			node = tmp;
@@ -46,6 +56,12 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 			node = node->next;
 	}
 	return (true);
+}
+
+static void	heredoc_signal_newline(t_data *d)
+{
+	get_signal_num(d);
+	try_write(STDERR_FILENO, "\n", 1, d);
 }
 
 bool	heredoc(t_ast *node, t_data *d)
@@ -60,6 +76,8 @@ bool	heredoc(t_ast *node, t_data *d)
 	if (result == false)
 		return (false);
 	if (node->type == PS_COMMAND)
-		return (heredoc_redirect_list(node->command_list, d));
-	return (!(d->syntax_flag));
+		result = heredoc_redirect_list(node->command_list, d);
+	if (result == false)
+		heredoc_signal_newline(d);
+	return (result);
 }

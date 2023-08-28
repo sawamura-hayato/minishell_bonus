@@ -6,12 +6,24 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 15:52:16 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 18:54:52 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
+#include "library.h"
 #define SIGNAL_EXITSTATUS 128
+
+#include <stdio.h>
+static void	put_newline(int signum, t_data *d)
+{
+	const char	*msg = "Quit: 3\n";
+
+	if (signum == SIGINT)
+		try_write(STDERR_FILENO, "\n", 1, d);
+	else if (signum == SIGQUIT)
+		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+}
 
 /**
  * @brief この関数は、第一引数で与えられたnodeより下のnodeの子プロセスを待ち、終了ステータスを取得する。
@@ -24,7 +36,6 @@
 void	exec_wait_child_process(t_ast *node, t_data *d)
 {
 	int		status;
-	pid_t	pid;
 
 	if (node->left_hand != NULL && node->type != PS_LOGICAL_AND
 		&& node->type != PS_LOGICAL_OR)
@@ -37,10 +48,18 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 		d->exit_status = EXIT_FAILURE;
 	else
 	{
-		pid = try_waitpid(node->command_list->pid, &status, 0, d);
-		if (pid != -1 && WIFSIGNALED(status))
+		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
+			return ;
+		if (WIFSIGNALED(status))
+		{
 			d->exit_status = SIGNAL_EXITSTATUS + WTERMSIG(status);
-		else
-			d->exit_status = status;
+			put_newline(WTERMSIG(status), d);
+		}
+		else if (WIFEXITED(status))
+			d->exit_status = WEXITSTATUS(status);
+		dprintf(STDERR_FILENO, "%d\n", d->exit_status);
 	}
 }
+// 		||
+// 	||		ls
+// cat		cat
