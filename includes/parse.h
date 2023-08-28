@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 19:15:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 00:55:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#define SYNTAX_ERROR 2
+
 typedef enum e_redirect_type
 {
 	PS_REDIRECTING_INPUT,	  // <
@@ -30,8 +32,6 @@ typedef enum e_redirect_type
 	PS_HERE_DOCUMENTS,		  // <<
 	PS_DELIMITER,			  // << delimitter(クウォートがない場合)
 	PS_QUOTE_DELIMITER,		  // << delimitter(クウォートがある場合)
-	PS_REDIRECT_SINGLE_QUOTE, // < 'file'
-	PS_REDIRECT_DOUBLE_QUOTE // < "file" < <- " <- file <- "
 }						t_redirect_type;
 
 typedef enum e_ast_node_type
@@ -39,7 +39,7 @@ typedef enum e_ast_node_type
 	PS_PIPE,
 	PS_LOGICAL_AND,
 	PS_LOGICAL_OR,
-	PS_COMMAND,
+	PS_COMMAND,F
 } t_ast_node_type;
 
 typedef struct s_word_list
@@ -62,7 +62,7 @@ typedef struct s_redirect_list
 typedef struct s_command
 {
 	t_word_list			*word_list;
-	t_redirect_list			*redirect_list;
+	t_redirect_list		*redirect_list;
 	int fd;    //どこにコマンドを出力するか(初期値はSTD OUT FILNE NO)
 	pid_t pid; //子プロセスのIDを管理(初期値は-1)
 }						t_command;
@@ -82,30 +82,21 @@ t_ast					*ast_command_list(t_ast *ast_command_node, t_token **current_token,t_d
 t_ast					*ast_operator_node(t_ast_node_type type ,t_ast *left_hand,t_ast *right_hand,t_data *d);
 t_ast					*ast_init_node();
 void					ast_addback(t_ast **head, t_ast *new_node);
-void					ast_free_all_nodes(t_ast *node);
+void                    *ast_free_all_nodes(t_ast *node);
 
 void debug_print_ast(t_ast *node);
 //t_command関連
 void	command_word_list(t_word_list** word_list,
-						t_token **current_token);
+						t_token **current_token, t_data *d);
 void	command_redirect_list(t_redirect_list** redirect_list,
 							t_token **current_token,
 							t_data *d,bool redirect_flag);
 bool					token_is_redirect(t_token_type type);
 
-//t_word_list関連
-/* t_word_list				*word_list_init_node(t_token *token); */
-/* void					word_list_addback(t_word_list **head, t_word_list *node); */
-
-//t_redirect関連
-/* t_redirect_list				*redirect_init_node(t_token *token); */
-/* void	redirect_list_addback(t_redirect_list **head, */
-							/* t_redirect_list *node); */
-
-/* void	redirect_set_type(t_redirect_list *node ,t_token *token); //redirectタイプをsetする関数 */
 void			redirect_set_type(t_redirect_list **head, t_redirect_list *node, t_token *token);
 void			redirect_set_type_word(t_redirect_list *last_node, t_redirect_list*node, t_token *token);
 t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head);
+bool	is_redirect_operator(t_redirect_list *node);
 
 //error関連
 bool					ast_is_opereter(t_token_type type);
@@ -114,10 +105,8 @@ bool token_is_quotation(t_token *token);
 bool					token_is_quotation_closed(t_token *token);
 void					ast_expect(t_token **current_token, char op,t_data *d);
 t_token					*token_next(t_token **current_token,t_data *d);
-void	ast_syntax_error(t_data *d);
-/* t_command *command_list_init_node(); */
-
-/* void* try_calloc(size_t nmemb,size_t size); */
+void	ast_syntax_error(t_data *d,t_token *token);
+t_ast_node_type set_ast_node_type(t_token *token);
 
 		/* ls infileC a b */
 		/* | ls */

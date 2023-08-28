@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/24 13:26:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 17:34:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <unistd.h>
 # include <stdbool.h>
+
+extern int	g_signal_num;
 
 enum
 {
@@ -33,7 +35,8 @@ typedef struct s_data
 {
 	t_envs	**envs_hashmap;
 	int		exit_status;
-	bool 	syntax_flag;
+	int		dupped_stdinfd;
+	bool	syntax_flag;
 	char	*pwd;
 	char	*oldpwd;
 }	t_data;
@@ -48,8 +51,5 @@ void	envs_free_node(t_envs *node);
 t_envs	*envs_get_node(const char *_key, t_envs **envs_hashmap);
 char	*envs_get_value(const char *_key, t_envs **envs_hashmap);
 size_t	envs_get_hashmap_index(char alpha);
-// int		ft_strcmp(const char *s1, const char *s2);
-// int		ft_isupper(char c);
-// int		ft_islower(char c);
 
 #endif

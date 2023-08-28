@@ -1,13 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/06 13:35:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 00:52:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +20,15 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+void	reset_vars(t_data *d);
+void	end_command(char *line, t_data *d);
+void	eof(t_data *d);
+void	set_signal_readline(t_data *d);
+void	get_signal_num(t_data *d);
+void	ignore_signal(t_data *d);
+
+int	g_signal_num = 0;
 
 static void	add_line_history(char *line)
 {
@@ -40,44 +48,50 @@ static bool	is_only_spaces(char *line)
 	return (true);
 }
 
-static char	*read_line()
+static char	*read_line(t_data *d)
 {
 	char	*line;
 
 	line = readline(PROMPT);
-	if (line == NULL || is_only_spaces(line))
-	{
-		free(line);
+	get_signal_num(d);
+	if (line == NULL)
+		eof(d);
+	if (is_only_spaces(line))
 		return (NULL);
-	}
 	add_line_history(line);
 	return (line);
 }
 
-// void	read_eval_print_loop()
-// {
-// 	char	*line;
-// 	t_token *token;
-// 	t_ast *pasre_node;
-// 	t_data d;
+static void	free_all_data(t_token *token, t_ast *ast)
+{
+	token_free_all_tokens(token);
+	(void)ast;
+}
 
-// 	// extern const char	**environ;
+void	read_eval_print_loop(t_data *d)
+{
+	char	*line;
+	t_token	*token;
+	t_ast	*ast;
 
-// 	// envs_init(environ, &d);
-// 	// d.syntax_flag = false;
-// 	while (true)
-// 	{
-// 		// int fd  = dup(STDIN_FILENO);
-// 		line = read_line();
-// 		if (line == NULL)
-// 			continue ;
-// 		token = tokenize(line);
-// 		// debug_print_token(token);
-// 		pasre_node = parse(&token,&d);
-// 		debug_print_ast(pasre_node);
-// 		heredoc(pasre_node, &d);
-// 		free(line);
-// 		try_dup2(pasre_node->command_list->fd, STDIN_FILENO, &d);
-// 		try_close(pasre_node->command_list->fd, &d);
-// 	}
-// }
+	while (true)
+	{
+		reset_vars(d);
+		set_signal_readline(d);
+		line = read_line(d);
+		ignore_signal(d);
+		if (line == NULL)
+		{
+			end_command(line, d);
+			continue ;
+		}
+		token = tokenize(line);
+		// debug_print_token(token);
+		ast = parse(&token,d);
+		// debug_print_ast(ast);
+		if (heredoc(ast, d))
+			exec_command(ast, EXEC_START, d);
+		free_all_data(token, ast);
+		end_command(line, d);
+	}
+}

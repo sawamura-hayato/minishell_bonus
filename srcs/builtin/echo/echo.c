@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:06:08 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/14 15:50:39 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 18:27:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include "library.h"
 #include <stdlib.h>
 
+
 static bool	is_noption(char *str)
 {
 	return (str[0] == '-' && str[1] == 'n');
 }
 
-static char	**echo_option(char **argv)
+static char	**echo_option(char *argv[])
 {
 	size_t	i;
 
@@ -28,10 +29,10 @@ static char	**echo_option(char **argv)
 		if (is_noption(*argv) == false)
 			break ;
 		i = 1;
-		while (*argv[i] != '\0')
+		while ((*argv)[i] != '\0')
 		{
-			if (*argv[i] != 'n')
-				break ;
+			if ((*argv)[i] != 'n')
+				return (argv);
 			i++;
 		}
 		argv++;
@@ -75,10 +76,12 @@ void	builtin_echo(char **argv, t_data *d)
 	if (argv[1] == NULL)
 		return (put_str(try_strdup(""), false, d));
 	args = echo_option(&argv[1]);
-	if (argv != args)
+	if (&argv[1] != args)
 		n_option = true;
 	else
 		n_option = false;
+	if (args != NULL && *args == NULL)
+		return ;
 	str = make_str(args);
 	put_str(str, n_option, d);
 }
