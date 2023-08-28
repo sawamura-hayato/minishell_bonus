@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 21:34:59 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/28 23:03:26 by tyamauch         ###   ########.fr       */
 /*   Updated: 2023/08/26 00:18:53 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -55,7 +55,11 @@ t_ast	*parse(t_token **current_token, t_data *d)
 		token_next(&token, d);
 		right_node = ast_command_node(&token, d);
 		if (d->syntax_flag)
+		{
+			printf("test2\n");
+			free(right_node);
 			return (ast_free_all_nodes(left_node));
+		}
 		left_node = ast_operator_node(type, left_node, right_node, d);
 		if (d->syntax_flag)
 			return (ast_free_all_nodes(left_node));
