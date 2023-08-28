@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:55:37 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 19:48:22 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:32:40 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	*ast_free_all_nodes(t_ast *node)
 	{
 		word_list_free(node->command_list->word_list);
 		redirect_list_free(node->command_list->redirect_list);
+		free(node->command_list);
 	}
 	free(node);
 	return (NULL);
