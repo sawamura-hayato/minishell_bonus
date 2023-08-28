@@ -15,10 +15,26 @@
 
 void	ast_syntax_error(t_data *d, t_token *token)
 {
+	char *msg;
+	char *tmp;
+
 	if (token == NULL)
-		printf("syntax error near unexpected token `newline'\n");
+	{
+		msg = try_strdup("syntax error near unexpected token `newline'\n");
+		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+		free(msg);
+	}
 	else
-		printf("syntax error near unexpected token `%s'\n", token->word);
+	{
+		msg = try_strdup("syntax error near unexpected token `");
+		tmp = try_strdup(token->word);
+		msg = try_strjoin(msg, tmp);
+		tmp = try_strdup("'\n");
+		msg = try_strjoin(msg, tmp);
+		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+		free(msg);
+		/* printf("syntax error near unexpected token `%s'\n", token->word); */
+	}
 	d->exit_status = SYNTAX_ERROR;
 	d->syntax_flag = true;
 }
