@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 18:39:52 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 19:58:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static t_operator	get_right_operator(t_operator operator)
 
 static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
 {
-
 	if (node->left_hand != NULL)
 		exec_command(node->left_hand, get_left_operator(node->type), d);
 	if (node->type == PS_LOGICAL_AND)

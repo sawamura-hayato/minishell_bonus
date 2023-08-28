@@ -6,15 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 18:54:52 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 19:58:12 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "library.h"
 #define SIGNAL_EXITSTATUS 128
+#define SIGINT_EXITSTATUS 130
 
-#include <stdio.h>
 static void	put_newline(int signum, t_data *d)
 {
 	const char	*msg = "Quit: 3\n";
@@ -44,8 +44,10 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 		exec_wait_child_process(node->right_hand, d);
 	if (node->type != PS_COMMAND)
 		return ;
-	if (node->command_list->pid == -1)
+	if (node->command_list->pid == -1 && d->exit_status != SIGINT_EXITSTATUS)
 		d->exit_status = EXIT_FAILURE;
+	else if (node->command_list->pid == -1)
+		;
 	else
 	{
 		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
@@ -57,9 +59,5 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 		}
 		else if (WIFEXITED(status))
 			d->exit_status = WEXITSTATUS(status);
-		dprintf(STDERR_FILENO, "%d\n", d->exit_status);
 	}
 }
-// 		||
-// 	||		ls
-// cat		cat
