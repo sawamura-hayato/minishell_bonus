@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 14:28:46 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 15:55:19 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 void	exec_wait_child_process(t_ast *node, t_data *d)
 {
 	int		status;
-	pid_t	pid;
 
 	if (node->left_hand != NULL && node->type != PS_LOGICAL_AND
 		&& node->type != PS_LOGICAL_OR)
@@ -37,10 +36,11 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 		d->exit_status = EXIT_FAILURE;
 	else
 	{
-		pid = try_waitpid(node->command_list->pid, &status, 0, d);
-		if (pid != -1 && WIFSIGNALED(status))
+		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
+			return ;
+		if (WIFSIGNALED(status))
 			d->exit_status = SIGNAL_EXITSTATUS + WTERMSIG(status);
-		else if (pid != -1)
-			d->exit_status = status;
+		else if (WIFEXITED(status))
+			d->exit_status = WEXITSTATUS(status);
 	}
 }

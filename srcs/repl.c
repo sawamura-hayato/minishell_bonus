@@ -68,32 +68,29 @@ static void	free_all_data(t_token *token, t_ast *ast)
 	(void)ast;
 }
 
-void	read_eval_print_loop()
+void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
-	t_token *token;
-	t_ast 	*ast;
-	t_data	d;
-	extern const char	**environ;
+	t_token	*token;
+	t_ast	*ast;
 
-	envs_init(environ, &d);
 	while (true)
 	{
-		reset_vars(&d);
-		set_signal_readline(&d);
-		line = read_line(&d);
+		reset_vars(d);
+		set_signal_readline(d);
+		line = read_line(d);
 		if (line == NULL)
 		{
-			end_command(line, &d);
+			end_command(line, d);
 			continue ;
 		}
 		token = tokenize(line);
 		// debug_print_token(token);
-		ast = parse(&token,&d);
+		ast = parse(&token,d);
 		// debug_print_ast(ast);
-		if (heredoc(ast, &d))
-			exec_command(ast, EXEC_START, &d);
+		if (heredoc(ast, d))
+			exec_command(ast, EXEC_START, d);
 		free_all_data(token, ast);
-		end_command(line, &d);
+		end_command(line, d);
 	}
 }
