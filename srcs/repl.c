@@ -91,8 +91,8 @@ void	read_eval_print_loop()
 		// debug_print_token(token);
 		ast = parse(&token,&d);
 		// debug_print_ast(ast);
-		heredoc(ast, &d);
-		exec_command(ast, EXEC_START, &d);
+		if (heredoc(ast, &d))
+			exec_command(ast, EXEC_START, &d);
 		free_all_data(token, ast);
 		end_command(line, &d);
 	}

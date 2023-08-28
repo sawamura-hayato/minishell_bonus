@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 11:07:41 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/28 13:51:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,25 @@ static void	heredoc_put_warning(t_data *d)
 
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 {
-	char	*str;
-	char	*buff;
-	char	*check;
+	char		*str;
+	char		*buff;
+	const char	*delimiter_nl = try_strjoin(delimiter->word, "\n");
 
 	str = try_strdup("");
-	check = try_strjoin(delimiter->word, "\n");
 	while (true)
 	{
 		buff = heredoc_read(d);
 		if (buff == NULL && signal_num != 0)
 		{
-			all_free(buff, delimiter->word, check);
+			all_free(buff, delimiter->word, (char *)delimiter_nl);
 			delimiter->word = str;
 			return (false);
 		}
-		if (buff == NULL || ft_strcmp(buff, check) == 0)
+		if (buff == NULL || ft_strcmp(buff, delimiter_nl) == 0)
 		{
-			if(buff == NULL)
+			if (buff == NULL)
 				heredoc_put_warning(d);
-			all_free(buff, delimiter->word, check);
+			all_free(buff, delimiter->word, (char *)delimiter_nl);
 			delimiter->word = str;
 			break ;
 		}

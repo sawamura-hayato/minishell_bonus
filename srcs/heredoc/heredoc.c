@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 11:06:45 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/28 13:40:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	heredoc_redirect_list(t_command *command, t_data *d)
 	return (true);
 }
 
-static void	heredoc_put_error(t_data *d)
+static void	heredoc_signal_newline(t_data *d)
 {
 	get_signal_num(d);
 	try_write(STDERR_FILENO, "\n", 1, d);
@@ -71,8 +71,8 @@ bool	heredoc(t_ast *node, t_data *d)
 	if (result == false)
 		return (false);
 	if (node->type == PS_COMMAND)
-	result = heredoc_redirect_list(node->command_list, d);
+		result = heredoc_redirect_list(node->command_list, d);
 	if (result == false)
-		heredoc_put_error(d);
+		heredoc_signal_newline(d);
 	return (result);
 }
