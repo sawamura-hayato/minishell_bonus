@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:08:49 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/17 14:10:31 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 22:08:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef enum e_export_operator
 {
 	NEW,
 	ADD,
-}t_export_operator;
+}	t_export_operator;
 
 static t_export_operator	export_get_operator(char *str)
 {

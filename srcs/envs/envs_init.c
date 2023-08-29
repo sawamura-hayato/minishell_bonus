@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 02:06:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:46:35 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,10 @@ static void	init_three_envs(t_data *d)
 	if (cwd == NULL)
 	{
 		perror(
-			"job-working-directory: error retrieving current directory: getcwd"
-			);
-		perror("shell-init: error retrieving current directory: getcwd");
+			"shell-init: error retrieving current directory: "
+			"getcwd: cannot access parent directories");
+		perror("sh_makepath: error retrieving current directory: "
+			"getcwd: cannot access parent directories");
 	}
 	if (envs_get_node("OLDPWD", d->envs_hashmap) == NULL)
 		envs_newnode(try_strdup("OLDPWD"), NULL, d->envs_hashmap);
@@ -89,110 +90,3 @@ void	envs_init(const char **environ, t_data *d)
 	}
 	init_three_envs(d);
 }
-
-// #include <stdio.h>
-// static void	debug_hashmap(t_envs **envs_hashmap)
-// {
-// 	size_t	i = 0;
-// 	t_envs	*node;
-// 	while (i < HASHMAP_SIZE)
-// 	{
-// 		node = envs_hashmap[i];
-// 		while (node)
-// 		{
-// 			printf("%s=%s\n", node->key, node->value);
-// 			node = node->next;
-// 		}
-// 		i++;
-// 	}
-// 	printf("---------------------------------\n");
-// }
-
-// static void	debug_envp(char **envp)
-// {
-// 	while (*envp != NULL)
-// 	{
-// 		printf("%s\n", *envp);
-// 		envp++;
-// 	}
-// 	printf("---------------------------------\n");
-// }
-
-// #include "builtins.h"
-// #include <stdio.h>
-// #include "exec_command.h"
-// int	main()
-// {
-// 	t_data	d;
-
-// 	extern const char	**environ;
-// 	envs_init(environ, &d);
-	// d.exit_status = 42;
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_export((char *[]){"export", "test=test", "a=abc", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-
-	// builtin_export((char *[]){"export", "test+=", "a+=", "*fea", "b", "a", NULL}, &d);
-	// builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
-	// builtin_export((char *[]){"export", "_=", "_B+=b", "_A", "c", "d", "e", "f", "g", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// builtin_pwd(&d);
-	// builtin_echo((char *[]){"echo", NULL}, &d);
-	// builtin_echo((char *[]){"echo", "-nnnnnnnnn", "-n", "-n", "-nnnnnnnnnnnnnnnnn", "test", NULL}, &d);
-	// builtin_echo((char *[]){"echo", "-nnnnnnnnn", "", "", "", NULL}, &d);
-	// builtin_echo((char *[]){"echo", "test", "-nnnnnn", "-n", "", NULL}, &d);
-	// builtin_exit((char *[]){"exit", "", NULL}, &d);
-	// builtin_exit((char *[]){"exit", "    -9223372036854775807", NULL}, &d);
-	// builtin_exit((char *[]){"exit", "    -9223372036854775807", "", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_export((char *[]){"export", "test=test", "a=abc", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-
-	// builtin_export((char *[]){"export", "test+=", "a+=", "*fea", "b", "a", NULL}, &d);
-	// builtin_export((char *[]){"export", "test=", "a+=abc", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_export((char *[]){"export", "+=test", "op=========", "o+=====", "c", "d", "e", "f", "g", NULL}, &d);
-	// builtin_export((char *[]){"export", "_=", "_B+=b", "_A", "c", "d", "e", "f", "g", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// builtin_env((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_unset((char *[]){"unset", "SHLVL", "PWD", NULL}, &d);
-	// builtin_unset((char *[]){"unset", "PWD","OLDPWD", "SHLVL", "_", NULL}, &d);
-	// builtin_unset((char *[]){"unset", "$@#", "test", "1';'", NULL}, &d);
-	// builtin_unset((char *[]){"unset", "_", NULL}, &d);
-	// builtin_export((char *[]){"export", NULL}, &d);
-	// printf("------------------------------------------------------------------------------------------------------------------------------------\n");
-	// builtin_env((char *[]){"env", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", ".././../..test/../../../../..test", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "../../../../../..test", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "../../../..tst/../../..test", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "../../../..tst/../../../..test", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "../../../../../", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "../../../../", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//Users/tterao//////Documents/cursus/minishell_bonus/././/library/../../////../cursus/../../../..", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//Users////////tterao/te/s/t//////p/////", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "///Users////////tterao/te/s/t//////p/////", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//////Users////////tterao/te/s/t//////p/////", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//////..//////../../////", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "/..test/../..test/////////", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//////////", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//../../Users/../", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "//Users/../", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "/Users/../", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "/Users/../..", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "/Users/../Users/..", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "/Users/../Users/tterao", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "/bin/cat/../", NULL}, &d);
-// 	builtin_cd((char *[]){"cd", "./test/../", NULL}, &d);
-
-
-// 	return (0);
-// }
