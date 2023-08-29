@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 15:03:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:07:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d);
 void expand_variable_word_list(t_word_list *word_list, t_data *d);
 void expand_variable_redirect_list(t_redirect_list *head, t_data *d);
 void expand_dollar_quote_string_word_list(t_word_list **head);
-// t_word_list *expand_can_dollar_quote_string_word_list(t_word_list **head);
+t_word_list *expand_can_dollar_quote_string_word_list(t_word_list **head);
 t_redirect_list *expand_can_dollar_quote_string_redirect(t_redirect_list **head);
-char *expand_get_delete_dollar_quote(char **word, t_quote f_quote, t_data *d);
+char *expand_get_delete_dollar_quote(char **word, t_quote f_quote);
 bool expand_is_variable_word(char *word);
 char *expand_get_expand_word(char **word, t_envs **envs);
 
@@ -73,9 +73,9 @@ void expand_word_splitting(t_ast *node, t_data *d);
 //  void	expand_word_splitting(t_ast *node, t_data *d);
 
 // bool	expand_is_word_splitting(char *token, char *ifs);
-bool expand_is_word_splitting(char *token, char *ifs);
-bool expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs);
-bool expand_is_empty_ifs(char *ifs);
+bool	expand_is_word_splitting(char *word, char *type, char *ifs);
+bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs);
+bool	expand_is_empty_ifs(char *ifs);
 // char	*expand_set_ifs_default_char(int f_space, int f_tab, int f_new_line);
 char *expand_check_ifs_default_char(char *ifs);
 void expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_default_char);
@@ -96,6 +96,7 @@ void expand_delete_quotation(t_ast *node);
 void	expand_delete_quotation_word_list(t_word_list *word_list);
 void	expand_delete_quotation_redirect_list(t_redirect_list *redirect_list);
 bool	expand_is_delete_quotation_word(char *word);
+bool	expand_is_type_quotation(int type);
 // expand_debug.c
 t_ast *debug_new_ast(t_command *command, t_ast_node_type type);
 t_command *debug_new_command(t_word_list *word_list, t_redirect_list *redirect_list);

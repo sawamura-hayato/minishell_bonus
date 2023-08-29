@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 15:22:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:05:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	expand_get_expanded_word_delimiter(char **token, char **type, t_data
 			free(expand_word);
 		}
 	}
-	// printf("word     %s\n", join_word);
 	*token = join_word;
 	*type = join_type_word;
 }
@@ -75,7 +74,7 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 			// expand_filename(node);
 			// expand_word_splitting_word_list(node, d);
 			// expand_filename(node);
-			printf("type %s, word %s\n", node->type, node->word);
+			// printf("type %s, word %s\n", node->type, node->word);
 			if (!node->is_ambiguous_error && expand_is_delete_quotation_word(node->type))
 				expand_delete_quotation_redirect_list(node);
 		}

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:55:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:03:29 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void debug_print_ast(t_ast *node);
 //t_command関連
 void	command_word_list(t_word_list** word_list,
 						t_token **current_token, t_data *d);
-void	command_redirect_list(t_redirect_list** redirect_list,
-							t_token **current_token,
-							t_data *d,bool redirect_flag);
+// void	command_redirect_list(t_redirect_list** redirect_list,
+// 							t_token **current_token,
+// 							t_data *d,bool redirect_flag);
 bool					token_is_redirect(t_token_type type);
 
 void			redirect_set_type(t_redirect_list **head, t_redirect_list *node, t_token *token);

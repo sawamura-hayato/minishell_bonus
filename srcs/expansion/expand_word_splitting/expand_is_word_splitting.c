@@ -6,70 +6,67 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 18:15:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:22:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 int		printf(const char *format, ...);
-	// if (!expand_check_quote(&node->command_list->word_list) && \
-	// 	!expand_check_quote(&node->command_list->word_list)&&
-	// 	!expand_is_empty_ifs(ifs->value))
+
 # define SPACE ' '
 # define TAB '\t'
 # define NEW_LINE '\n'
 
 
-// bool	expand_is_word_splitting(char *token, char *ifs)
-// {
-// 	size_t	i;
-// 	size_t	j;
+bool	expand_is_word_splitting(char *word, char *type, char *ifs)
+{
+	size_t	i;
+	size_t	j;
 
-// 	i = 0;
-// 	j = 0;
-// 	if (token == NULL || ifs == NULL)
-// 		return (false);
-// 	while (token[i] != '\0')
-// 	{
-// 		while (ifs[j] != '\0')
-// 		{
-// 			if (token[i] == ifs[j])
-// 				return (true);
-// 			j++;
-// 		}
-// 		j = 0;
-// 		i++;
-// 	}
-// 	return (false);
-// }
+	i = 0;
+	j = 0;
+	if (type == NULL || ifs == NULL)
+		return (false);
+	while (type[i] != '\0')
+	{
+		while (ifs[j] != '\0')
+		{
+			if (IS_SUBSTITUTED == (type[i] - '0') && \
+				ifs[j] == word[i])
+				return (true);
+			j++;
+		}
+		j = 0;
+		i++;
+	}	
+	return (false);
+}
 
-// bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs)
-// {
-// 	t_token_type	f_quote;
+bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs)
+{
+	size_t	i;
 
-// 	while (word_list != NULL)
-// 	{
-// 		if (word_list->type == TOKEN_SINGLE_QUOTE || \
-// 			word_list->type == TOKEN_DOUBLE_QUOTE)
-// 		{
-// 			f_quote = word_list->type;
-// 			while (f_quote != word_list->type)
-// 			{
-// 				word_list = word_list->next;
-// 				if (word_list == NULL)
-// 					return (false);
-// 			}
-// 		}
-// 		else
-// 		{
-// 			if (expand_is_word_splitting(word_list->word, ifs) && \
-// 				word_list->is_expand)
-// 				return (true);
-// 		}
-// 		word_list = word_list->next;
-// 	}
-// 	return (false);
-// }
+	i = 0;
+	if (word_list->type == NULL)
+		return (false);
+	while (word_list->type[i] != '\0')
+	{
+		if (IS_DOUBLE_QUOTED == (word_list->type[i] - '0'))
+		{
+			i++;
+			while (IS_DOUBLE_QUOTED != (word_list->type[i] - '0'))
+				i++;
+		}
+		else
+		{
+			if (expand_is_word_splitting(word_list->word, word_list->type, ifs))
+				return (true);
+		}
+		i++;
+	}
+	// exit(9);
+	return (false);
+}
 
 bool	expand_is_empty_ifs(char *ifs)
 {
@@ -114,6 +111,8 @@ char	*expand_check_ifs_default_char(char *ifs)
 	f_space = 0;
 	f_tab = 0;
 	f_new_line = 0;
+	if (ifs == NULL)
+		return (try_strdup(""));
 	while (*ifs != '\0')
 	{
 		if (*ifs == SPACE)

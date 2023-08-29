@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 15:16:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:04:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ int main(void)
 	word_list_left = NULL;
 	// word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
 	word_list_new_tail(&word_list_left, debug_new_word_list("\"$A\"", 0, WORD));
+	word_list_new_tail(&word_list_left, debug_new_word_list("$A\"dddd\"", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$\'$A\'", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("\'gg$A\'++++\'$Agg\'", 1, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("$Agg--??gg$A", 1, WORD));
-	word_list_new_tail(&word_list_left, debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD));
-	word_list_new_tail(&word_list_left, debug_new_word_list("$aaaa", 1, WORD));
-	word_list_new_tail(&word_list_left, debug_new_word_list("bat", 1, WORD));
+	// word_list_new_tail(&word_list_left, debug_new_word_list("$aaaa", 1, WORD));
+	// word_list_new_tail(&word_list_left, debug_new_word_list("bat", 1, WORD));
+	// word_list_new_tail(&word_list_left, debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD));
 
 	redirect_list_left = debug_new_redirect_list("<", 2, PS_REDIRECTING_INPUT);
 	redirect_list_left->next = debug_new_redirect_list("$out", 3, PS_FILE);
@@ -92,10 +93,10 @@ int main(void)
 	expansion(node, &data);
 
 	debug_printf_word_list(node->left_hand->command_list->word_list);
-	debug_printf_word_list(node->right_hand->command_list->word_list);
+	// debug_printf_word_list(node->right_hand->command_list->word_list);
 
-	debug_printf_redirect(node->left_hand->command_list->redirect_list);
-	debug_printf_redirect(node->right_hand->command_list->redirect_list);
+	// debug_printf_redirect(node->left_hand->command_list->redirect_list);
+	// debug_printf_redirect(node->right_hand->command_list->redirect_list);
 	// if (word_list_left == NULL)
 	// 	printf("ok");
 	// printf("%s\n", node->command_list->word_list->word);

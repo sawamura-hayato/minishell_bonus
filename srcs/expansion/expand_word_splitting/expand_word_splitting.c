@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 18:13:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:14:03 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,28 +335,28 @@
 // 	free(check_ifs_default_char);
 // }
 
-// // int main(void)
-// // {
-// // 	// printf("ifs   %s\n", expand_check_ifs_default_char("aa df ae e"));
-// // 	// printf("ifs   %s\n", expand_check_ifs_default_char("aa df ae\nne"));
-// // 	t_word_list	*word_list;
-// // 	word_list = debug_new_word_list("word_splitting", 1, WORD);
-// // 	word_list->is_expand = true;
+// int main(void)
+// {
+// 	// printf("ifs   %s\n", expand_check_ifs_default_char("aa df ae e"));
+// 	// printf("ifs   %s\n", expand_check_ifs_default_char("aa df ae\nne"));
+// 	t_word_list	*word_list;
+// 	word_list = debug_new_word_list("word_splitting", 1, WORD);
+// 	word_list->is_expand = true;
 
-// // 	// quote flagがない場合
-// // 	// // printf("ifs   %s\n", expand_check_ifs_default_char("aa df\tae e\t"));
-// // 	// // printf("ifs   %s\n", expand_check_ifs_default_char("aadf\taee\n"));
-// // 	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "fa\n"), "word_splitting");
-// // 	// debug_bool_printf_test(expand_is_word_splitting_word_list(word_list, " t "), "word_splitting");
-// // 	// debug_bool_printf_test(expand_is_word_splitting_word_list(word_list, "_"), "word_splitting");
+// 	// quote flagがない場合
+// 	// // printf("ifs   %s\n", expand_check_ifs_default_char("aa df\tae e\t"));
+// 	// // printf("ifs   %s\n", expand_check_ifs_default_char("aadf\taee\n"));
+// 	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "fa\n"), "word_splitting");
+// 	// debug_bool_printf_test(expand_is_word_splitting_word_list(word_list, " t "), "word_splitting");
+// 	// debug_bool_printf_test(expand_is_word_splitting_word_list(word_list, "_"), "word_splitting");
 
-// // 	// quote flagがある場合
-// // 	// word_list = debug_new_word_list("\"", 1, TOKEN_DOUBLE_QUOTE);
-// // 	// word_list->is_expand = true;
-// // 	// word_list->next = debug_new_word_list("word_splitting", 1, WORD);
-// // 	// word_list->next->next = debug_new_word_list("\"", 1, TOKEN_DOUBLE_QUOTE);
-// // 	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "fa\n"), "word_splitting");
-// // 	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, " t "), "word_splitting");
-// // 	debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, NULL), "word_splitting");
-// // 	return (0);
-// // }
+// 	// quote flagがある場合
+// 	// word_list = debug_new_word_list("\"", 1, TOKEN_DOUBLE_QUOTE);
+// 	// word_list->is_expand = true;
+// 	// word_list->next = debug_new_word_list("word_splitting", 1, WORD);
+// 	// word_list->next->next = debug_new_word_list("\"", 1, TOKEN_DOUBLE_QUOTE);
+// 	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, "fa\n"), "word_splitting");
+// 	// debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, " t "), "word_splitting");
+// 	debug_bool_printf_test(!expand_is_word_splitting_word_list(word_list, NULL), "word_splitting");
+// 	return (0);
+// }

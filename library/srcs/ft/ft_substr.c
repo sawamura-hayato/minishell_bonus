@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 17:52:52 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/04 15:55:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 22:22:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ static char	*ft_substred(const char *s, unsigned int start, size_t end)
 char	*ft_substr(char const *s, unsigned int start, size_t end)
 {
 	size_t	s_len;
-	// size_t	diff_len;
+	size_t	diff_len;
 
 	if (s == NULL)
 		return (NULL);
 	s_len = ft_strlen(s);
 	if ((size_t) start >= s_len || end == 0)
 		return (try_strdup(""));
-	// diff_len = s_len - start;
-	// if (diff_len <= end)
-	// 	return (ft_substred(s, start, diff_len));
+	diff_len = s_len - start;
+	if (diff_len <= end)
+		return (ft_substred(s, start, diff_len));
 	return (ft_substred(s, start, end));
 }
 

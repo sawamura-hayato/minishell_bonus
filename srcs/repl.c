@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:52:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:10:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	read_eval_print_loop(t_data *d)
 	t_token	*token;
 	t_ast	*ast;
 
+	ast = NULL;
 	while (true)
 	{
 		reset_vars(d);
@@ -87,7 +88,7 @@ void	read_eval_print_loop(t_data *d)
 		}
 		token = tokenize(line);
 		// debug_print_token(token);
-		ast = parse(&token,d);
+		// ast = parse(&token,d);
 		// debug_print_ast(ast);
 		if (heredoc(ast, d))
 			exec_command(ast, EXEC_START, d);
