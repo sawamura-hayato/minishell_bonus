@@ -6,18 +6,18 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:24:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 08:50:57 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t end);
-char	*try_strdup(const char *s1);
+char *try_substr(char const *s, size_t start, size_t len);
+char *try_strdup(const char *s1);
 
-t_word_list	*expand_new_word_list(t_word_list *node, size_t i, t_word_list *next_node)
+t_word_list *expand_new_word_list(t_word_list *node, size_t i, t_word_list *next_node)
 {
-	t_word_list	*new_word_list;
+	t_word_list *new_word_list;
 
 	new_word_list = try_malloc(sizeof(t_word_list));
 	i++;
@@ -25,12 +25,12 @@ t_word_list	*expand_new_word_list(t_word_list *node, size_t i, t_word_list *next
 	new_word_list->type = try_strdup(&(node->type[i]));
 	new_word_list->tk_type = WORD;
 	new_word_list->next = next_node;
-    return (new_word_list);
+	return (new_word_list);
 }
 
-t_word_list	*expand_new_null_word_list(t_word_list *next_node)
+t_word_list *expand_new_null_word_list(t_word_list *next_node)
 {
-	t_word_list	*new_word_list;
+	t_word_list *new_word_list;
 
 	new_word_list = try_malloc(sizeof(t_word_list));
 	new_word_list->word = try_strdup("");
@@ -40,11 +40,11 @@ t_word_list	*expand_new_null_word_list(t_word_list *next_node)
 	return (new_word_list);
 }
 
-void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
+void expand_word_splitting_word_list(t_word_list *node, char *ifs)
 {
-	t_word_list	*word_list;
-	size_t		i;
-	char		*ifs_default_char;
+	t_word_list *word_list;
+	size_t i;
+	char *ifs_default_char;
 
 	i = 0;
 	word_list = node;
@@ -65,8 +65,8 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 			else
 			{
 				word_list->next = expand_new_word_list(word_list, i, word_list->next);
-				word_list->word = ft_substr(word_list->word, 0, i);
-				word_list->type = ft_substr(word_list->type, 0, i);
+				word_list->word = try_substr(word_list->word, 0, i);
+				word_list->type = try_substr(word_list->type, 0, i);
 			}
 			break;
 		}

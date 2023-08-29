@@ -6,18 +6,18 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:37:24 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 08:50:57 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t end);
-char	*try_strdup(const char *s1);
+char *try_strdup(const char *s1);
+char *try_substr(char const *s, size_t start, size_t len);
 
-t_redirect_list	*expand_new_redirect_list(t_redirect_list *node, size_t i, t_redirect_list *next_node)
+t_redirect_list *expand_new_redirect_list(t_redirect_list *node, size_t i, t_redirect_list *next_node)
 {
-	t_redirect_list	*new_redirect_list;
+	t_redirect_list *new_redirect_list;
 
 	new_redirect_list = try_malloc(sizeof(t_redirect_list));
 	i++;
@@ -25,12 +25,12 @@ t_redirect_list	*expand_new_redirect_list(t_redirect_list *node, size_t i, t_red
 	new_redirect_list->type = try_strdup(&(node->type[i]));
 	new_redirect_list->re_type = PS_FILE;
 	new_redirect_list->next = next_node;
-    return (new_redirect_list);
+	return (new_redirect_list);
 }
 
-t_redirect_list	*expand_new_null_redirect_list(t_redirect_list *next_node)
+t_redirect_list *expand_new_null_redirect_list(t_redirect_list *next_node)
 {
-	t_redirect_list	*new_redirect_list;
+	t_redirect_list *new_redirect_list;
 
 	new_redirect_list = try_malloc(sizeof(t_redirect_list));
 	new_redirect_list->word = try_strdup("");
@@ -40,11 +40,11 @@ t_redirect_list	*expand_new_null_redirect_list(t_redirect_list *next_node)
 	return (new_redirect_list);
 }
 
-void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)
+void expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)
 {
-	t_redirect_list	*redirect_list;
-	size_t		i;
-	char		*ifs_default_char;
+	t_redirect_list *redirect_list;
+	size_t i;
+	char *ifs_default_char;
 
 	i = 0;
 	redirect_list = node;
@@ -65,8 +65,8 @@ void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)
 			else
 			{
 				redirect_list->next = expand_new_redirect_list(redirect_list, i, redirect_list->next);
-				redirect_list->word = ft_substr(redirect_list->word, 0, i);
-				redirect_list->type = ft_substr(redirect_list->type, 0, i);
+				redirect_list->word = try_substr(redirect_list->word, 0, i);
+				redirect_list->type = try_substr(redirect_list->type, 0, i);
 			}
 			break;
 		}

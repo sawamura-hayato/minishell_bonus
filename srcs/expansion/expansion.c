@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:53:37 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 08:53:06 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int main(void)
 	//記号対応
 	word_list_left = NULL;
 	// word_list_left = debug_new_word_list("$\'$A\'", 0, WORD);
+	word_list_new_tail(&word_list_left, debug_new_word_list("$A", 0, WORD));
 	word_list_new_tail(&word_list_left, debug_new_word_list("\"$A\"", 0, WORD));
 	// word_list_new_tail(&word_list_left, debug_new_word_list("$A\"dddd\"", 0, WORD));
 	// word_list_new_tail(&word_list_left, debug_new_word_list("$\"$A\"", 0, WORD));
