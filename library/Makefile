@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/27 21:07:46 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/29 14:41:37 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,6 @@ SRCS_DIR = srcs
 
 FT_DIR = ft
 SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
-			$(SRCS_DIR)/$(FT_DIR)/ft_substr.c \
-			$(SRCS_DIR)/$(FT_DIR)/ft_strtrim.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_is_operator.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_is_special_char.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_isspace.c \
