@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 20:45:33 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/30 01:56:56 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,6 @@ void	ignore_signal(t_data *d);
 
 int	g_signal_num = 0;
 
-static void	add_line_history(char *line)
-{
-	if (line[0] == NULL_CHAR)
-		return ;
-	add_history(line);
-}
-
 static bool	is_only_spaces(char *line)
 {
 	while (*line)
@@ -52,7 +45,10 @@ static char	*read_line(t_data *d)
 {
 	char	*line;
 
+	reset_vars(d);
+	set_signal_readline(d);
 	line = readline(PROMPT);
+	ignore_signal(d);
 	get_signal_num(d);
 	if (line == NULL)
 		eof(d);
@@ -61,7 +57,7 @@ static char	*read_line(t_data *d)
 		free(line);
 		return (NULL);
 	}
-	add_line_history(line);
+	add_history(line);
 	return (line);
 }
 
@@ -81,10 +77,7 @@ void	read_eval_print_loop(t_data *d)
 	rl_outstream = stderr;
 	while (true)
 	{
-		reset_vars(d);
-		set_signal_readline(d);
 		line = read_line(d);
-		ignore_signal(d);
 		if (line == NULL)
 		{
 			end_command(line, d);
