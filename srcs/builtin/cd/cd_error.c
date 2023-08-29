@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 17:37:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 14:58:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 20:40:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	cd_put_error_no_pwd(char *path, t_data *d)
 	char	*msg;
 
 	d->exit_status = EXIT_FAILURE;
-	msg = try_strdup("chdir: error retrieving current directory: \
-		getcwd: cannot access parent directories: Permission denied\ncd: ");
+	msg = try_strdup("chdir: error retrieving current directory: getcwd: "
+			"cannot access parent directories: Permission denied\ncd: ");
 	msg = try_strjoin_free(msg, path);
 	msg = try_strjoin_free(msg, ": Permission denied\n");
 	free(path);
