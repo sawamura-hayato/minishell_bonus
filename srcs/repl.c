@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 22:25:51 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:09:04 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*read_line(t_data *d)
 static void	free_all_data(t_token *token, t_ast *ast)
 {
 	token_free_all_tokens(token);
-	if(ast != NULL)
+	if (ast != NULL)
 		ast_free_all_nodes(ast);
 }
 
@@ -89,13 +89,7 @@ void	read_eval_print_loop(t_data *d)
 		}
 		token = tokenize(line);
 		ast = parse(&token, d);
-    if(d->syntax_flag == true)
-		{
-			free_all_data(token, NULL);
-			end_command(line, d);
-			continue ;
-		}
-		if (heredoc(ast, d))
+		if (d->syntax_flag == false && heredoc(ast, d))
 			exec_command(ast, EXEC_START, d);
 		free_all_data(token, ast);
 		end_command(line, d);

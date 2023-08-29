@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 13:58:27 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 18:36:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 16:15:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@
 #include <readline/history.h>
 
 void	signal_put_error(const char *f, t_data *d);
-
-// static void	handler(int signum)
-// {
-// 	g_signal_num = signum;
-// 	if (signum == SIGINT)
-// 		write(STDERR_FILENO, "\n", 1);
-// 	else if (signum == SIGQUIT)
-// 		write(STDERR_FILENO, "Quit: 3\n", 8);
-// }
 
 void	set_signal_exec(t_data *d)
 {
