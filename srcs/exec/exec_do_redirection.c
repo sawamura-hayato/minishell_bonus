@@ -44,7 +44,7 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 {
 	int						fd;
 	char					*file;
-	const t_redirect_type	type = r_node->type;
+	const t_redirect_type	type = r_node->re_type;
 
 	r_node = r_node->next;
 	file = r_node->word;
@@ -86,13 +86,13 @@ bool	exec_do_redirection(t_ast *node, t_data *d)
 	r_node = node->command_list->redirect_list;
 	while (r_node != NULL)
 	{
-		if (r_node->type == PS_REDIRECTING_INPUT)
+		if (r_node->re_type == PS_REDIRECTING_INPUT)
 			r_node = exec_redirect_input(r_node, d);
-		else if (r_node->type == PS_REDIRECTING_OUTPUT
-			|| r_node->type == PS_APPENDING_OUTPUT)
+		else if (r_node->re_type == PS_REDIRECTING_OUTPUT
+			|| r_node->re_type == PS_APPENDING_OUTPUT)
 			r_node = exec_redirect_output(node->command_list, r_node, d);
-		else if (r_node->type == PS_DELIMITER
-			|| r_node->type == PS_QUOTE_DELIMITER)
+		else if (r_node->re_type == PS_DELIMITER
+			|| r_node->re_type == PS_QUOTE_DELIMITER)
 			r_node = exec_redirect_heredoc(r_node, d);
 		if (r_node == NULL)
 			return (false);

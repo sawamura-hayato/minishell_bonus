@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/28 14:20:51 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/28 20:16:04 by tyamauch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
@@ -42,7 +42,10 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
- 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c
+ 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/free_parse.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c
 
  HEREDOC_DIR = heredoc
  SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
