@@ -22,8 +22,6 @@ SRCS_DIR = srcs
 
 FT_DIR = ft
 SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
-			$(SRCS_DIR)/$(FT_DIR)/ft_substr.c \
-			$(SRCS_DIR)/$(FT_DIR)/ft_strtrim.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_is_operator.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_is_special_char.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_isspace.c \

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 16:15:40 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 22:55:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,34 +93,6 @@ void	exec_fork(t_ast *node, t_data *d);
  * @param d 環境変数と終了ステータス
  */
 void	exec_pipe(t_ast *node, t_data *d);
-
-/**
- * @brief この関数はforkを実行し、子プロセスを生成する。
- *
- * exec_fork()を実行する。
- * exec_wait_child_process()で終了ステータスを取得する。
- * 終了ステータスが0（正常終了）の場合、trueを返す。
- *
- * @param node 構文木のnode
- * @param d 環境変数と終了ステータス
- * @return true コマンドを実行した結果、終了ステータスが0の場合、trueを返す
- * @return false コマンドを実行した結果、終了ステータスが0以外の場合、falseを返す
- */
-// bool exec_l_and(t_ast *node, t_data *d);
-
-/**
- * @brief この関数はforkを実行し、子プロセスを生成する。
- *
- * exec_fork()を実行する。
- * exec_wait_child_process()で終了ステータスを取得する。
- * 終了ステータスが0（正常終了）以外の場合、trueを返す。
- *
- * @param node 構文木のnode
- * @param d 環境変数と終了ステータス
- * @return true コマンドを実行した結果、終了ステータスが0以外の場合、trueを返す
- * @return false コマンドを実行した結果、終了ステータスが0の場合、falseを返す
- */
-// bool exec_l_or(t_ast *node, t_data *d);
 
 /**
  * @brief この関数は子プロセス内でコマンドを実行する。

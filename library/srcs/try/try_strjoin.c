@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_strjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 15:31:28 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/15 15:38:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:40:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*try_check_null_strjoin(char const *s1, char const *s2)
 char	*try_strjoin(char const *s1, char const *s2)
 {
 	char	*new_str;
-	
+
 	if (s1 == NULL || s2 == NULL)
 		return (try_check_null_strjoin(s1, s2));
 	new_str = try_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));

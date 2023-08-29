@@ -75,7 +75,7 @@ void	read_eval_print_loop(t_data *d)
 	t_token	*token;
 	t_ast	*ast;
 
-	
+	rl_outstream = stderr;
 	while (true)
 	{
 		reset_vars(d);
@@ -88,18 +88,15 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		// debug_print_token(token);
-		ast = parse(&token,d);
-		if(d->syntax_flag == true)
+		ast = parse(&token, d);
+    if(d->syntax_flag == true)
 		{
 			free_all_data(token, NULL);
 			end_command(line, d);
 			continue ;
 		}
-		// debug_print_ast(ast);)
-		heredoc(ast, d);
-		exec_command(ast, EXEC_START, d);
-		
+		if (heredoc(ast, d))
+			exec_command(ast, EXEC_START, d);
 		free_all_data(token, ast);
 		end_command(line, d);
 	}
