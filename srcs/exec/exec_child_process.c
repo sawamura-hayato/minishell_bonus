@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 20:59:50 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 16:59:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	char	*filepath;
 
 	set_signal_exec(d);
-	if (node->command_list->word_list != NULL && exec_is_builtin(node))
+	if (exec_is_builtin(node))
 		return (builtin(node, pipefd, false, d));
 	argv = exec_make_argv(node);
 	filepath = exec_make_filepath(node, d);
@@ -103,9 +103,12 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 		try_close(node->command_list->fd, d);
 	}
 	exec_pipefd(node, pipefd, d);
-	if (node->command_list->word_list == NULL)
+	if (argv == NULL)
 		exit(EXIT_SUCCESS);
+	// dprintf(STDERR_FILENO, "%s\n", *argv);
 	exec_is_error(*argv, filepath, d);
-	execve(filepath, (char *const *)argv, envs_make_envp(d->envs_hashmap));
+	// dprintf(STDERR_FILENO, "%s\n", *argv);
+	// dprintf(STDERR_FILENO, "path=%s\n", filepath);
+	execve(filepath, argv, envs_make_envp(d->envs_hashmap));
 	exec_put_error_cmd_not_found(*argv, d);
 }

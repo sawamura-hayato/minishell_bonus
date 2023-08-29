@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 21:53:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 17:09:00 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
-#define CUR_DIR "./"
-#define PRE_DIR "../"
+#define CURDIR "./"
+#define PREDIR "../"
 #define DOT "."
 #define DOTDOT ".."
 
 bool	cd_iserror(char **argv);
 void	cd_put_error_too_many_args(t_data *d);
-bool	cd_is_cdpath(char *path);
 void	cd_cdpath(const char *og_path, char *path, t_data *d);
 char	*cd_delete_dot_firstcomp(char *path, t_data *d);
 void	cd_convert_path_and_exec(const char *og_path, char *path,
@@ -65,12 +64,16 @@ static void	cd_oldpwd(t_data *d)
 	cd_update(try_strdup(d->oldpwd), true, d);
 }
 
-bool	cd_is_cdpath(char *path)
+static bool	is_path(const char *command)
 {
 	return (
-		*path != '/'
-		&& ft_strncmp(path, DOT, ft_strlen(DOT) != 0)
-		&& ft_strncmp(path, DOTDOT, ft_strlen(DOTDOT) != 0)
+		ft_strncmp(command, CURDIR, ft_strlen(CURDIR)) == 0
+		|| ft_strncmp(command, PREDIR, ft_strlen(PREDIR)) == 0
+		|| (ft_strncmp(command, DOT, ft_strlen(DOT)) == 0
+			&& *(command + ft_strlen(DOT)) == '\0')
+		|| (ft_strncmp(command, DOTDOT, ft_strlen(DOTDOT)) == 0
+			&& *(command + ft_strlen(DOTDOT)) == '\0')
+		|| *command == '/'
 	);
 }
 
@@ -83,7 +86,7 @@ char	**builtin_cd(char **argv, t_data *d)
 		return (cd_nodir(argv, d));
 	else if (ft_strcmp(argv[1], "-") == 0)
 		cd_oldpwd(d);
-	else if (cd_is_cdpath(argv[1]))
+	else if (!is_path(argv[1]))
 		cd_cdpath(argv[1], try_strdup(argv[1]), d);
 	else
 		cd_convert_path_and_exec(argv[1], try_strdup(argv[1]), d, false);

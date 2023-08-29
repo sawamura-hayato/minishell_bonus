@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_make_filepath.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:17:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 11:44:35 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/29 16:57:38 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #define COLON ":"
 #define D_COLON "::"
+#define DOT_COMP "./"
+#define DOTDOT_COMP "../"
 
 char	*exec_get_filepath(char *path, char *command, char *last_colon);
 bool	exec_is_commnad_with_permission(char *filepath);
@@ -50,6 +52,11 @@ static char	*add_currentpath_single_colon(char *path)
 
 static bool	is_absolute_path_with_permission(t_ast *node)
 {
+	const char	*cmd = node->command_list->word_list->word;
+
+	if (*cmd != '/' && ft_strncmp(cmd, DOT_COMP, ft_strlen(DOT_COMP)) != 0
+		&& ft_strncmp(cmd, DOTDOT_COMP, ft_strlen(DOTDOT_COMP)) != 0)
+		return (false);
 	return (
 		exec_is_commnad_with_permission(node->command_list->word_list->word)
 	);

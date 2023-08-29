@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:59:46 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 13:31:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 16:13:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,11 @@
  * @param node 構文木のnode
  * @param d 環境変数と終了ステータス
  */
-#include <stdio.h>
 void	exec_pipe(t_ast *node, t_data *d)
 {
 	pid_t	pid;
 	int		pipefd[2];
 
-	// dprintf(STDERR_FILENO, "pipe\n");
 	try_pipe(pipefd);
 	pid = try_fork();
 	if (pid == 0)
