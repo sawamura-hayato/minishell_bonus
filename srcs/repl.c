@@ -75,6 +75,7 @@ void	read_eval_print_loop(t_data *d)
 	t_token	*token;
 	t_ast	*ast;
 
+	rl_outstream = stderr;
 	while (true)
 	{
 		reset_vars(d);
