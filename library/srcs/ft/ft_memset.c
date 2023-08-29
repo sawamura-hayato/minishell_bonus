@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:52:36 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/26 15:50:55 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/26 15:57:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "init.h"
+#include "stdlib.h"
 
-int	main(void)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	t_data				d;
-	extern const char	**environ;
+	unsigned char	*new_b;
+	size_t			i;
 
-	envs_init(environ, &d);
-	read_eval_print_loop(&d);
-	return (0);
+	new_b = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		new_b[i] = c;
+		i++;
+	}
+	return (new_b);
 }

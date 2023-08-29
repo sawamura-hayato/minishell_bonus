@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   try_calloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:27:58 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/03 20:15:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/26 15:50:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <limits.h>
 #include <stdint.h>
 
-void	ft_bzero(void *s, size_t n)
+static void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*casted_s;
 	size_t			i;

@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 19:21:14 by tyamauch         ###   ########.fr       */
-/*   Updated: 2023/08/26 00:16:44 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/29 00:55:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +44,18 @@ typedef enum e_ast_node_type
 
 typedef struct s_word_list
 {
-	char *word;
-	char *type;
-	t_token_type tk_type;
-	struct s_word_list *next;
+	char 				*word;
+	char				*type;
+	t_token_type		tk_type;
+	struct s_word_list	*next;
 } t_word_list;
 
 typedef struct s_redirect_list
 {
-	char				*word;
-	char  				*type;
-	t_redirect_type		re_type;
-	bool is_ambiguous_error; //初期値はfalse
+	char					*word;
+	char					*type;
+	t_redirect_type			re_type;
+	bool					is_ambiguous_error;
 	struct s_redirect_list	*next;
 }						t_redirect_list;
 
@@ -70,11 +69,11 @@ typedef struct s_command
 
 typedef struct s_ast
 {
-	t_ast_node_type		type;
-	struct s_command	*command_list;
-	struct s_ast		*left_hand;
-	struct s_ast		*right_hand;
-}						t_ast;
+	t_ast_node_type type;
+	struct s_command *command_list;
+	struct s_ast *left_hand;
+	struct s_ast *right_hand;
+} t_ast;
 
 //t_ast関連
 t_ast					*parse(t_token **current_token, t_data *d);

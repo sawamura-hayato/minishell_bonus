@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   expand_get_exit_status.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:52:36 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/25 22:30:51 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/25 22:32:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "init.h"
+char *try_itoa(int n);
 
-int	main(void)
+char *expand_get_exit_status(char **word, unsigned int exit_status)
 {
-	t_data				d;
-	extern const char	**environ;
-
-	envs_init(environ, &d);
-	read_eval_print_loop(&d);
-	return (0);
+	(*word)++;
+	return (try_itoa(exit_status));
 }

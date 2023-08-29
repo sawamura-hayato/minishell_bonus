@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 21:08:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 00:55:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ bool	ft_is_operator(char c);
 int		ft_is_space(char c);
 bool	ft_is_special_char(char c);
 void	*ft_memchr(const void *s, int c, size_t n);
+void	*ft_memset(void *b, int c, size_t len);
 bool	ft_isupper(char c);
 bool	ft_islower(char c);
 int		ft_strcmp(const char *s1, const char *s2);

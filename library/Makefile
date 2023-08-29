@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/27 21:07:46 by tterao           ###   ########.fr        #
+#    Updated: 2023/08/29 00:55:31 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_islower.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_isupper.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_memchr.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_memset.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strncmp.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strcmp_ignorecase.c	\

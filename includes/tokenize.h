@@ -3,12 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 23:05:15 by tyamauch         ###   ########.fr       */
-/*   Updated: 2023/08/26 22:35:33 by tyamauch         ###   ########.fr       */
-/*   Updated: 2023/08/27 15:48:19 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 00:55:26 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +62,7 @@ size_t token_get_special_word_size(char *line);
 // get_current_token.c
 char *token_get_current_word(char *line, size_t size);
 void token_get_current_token(t_token **head, char **line);
-char	*token_get_type_word(char *word);
+char	*token_get_type_word(char *word, bool is_expand);
 
 // set_flag.c
 t_quote token_set_flag_quote(char quote);

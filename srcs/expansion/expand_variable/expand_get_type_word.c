@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   expand_get_type_word.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 14:11:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:52:36 by hsawamur         ###   ########.fr       */
+/*   Created: 2023/08/25 22:54:53 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/25 22:57:14 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "init.h"
+// #include 
 
-int	main(void)
-{
-	t_data				d;
-	extern const char	**environ;
-
-	envs_init(environ, &d);
-	read_eval_print_loop(&d);
-	return (0);
-}
+// try_strdup.c
+// 展開した値は memchar.c -> 1
+// 展開してない値は -> 0
+// char	*expand_get_expand_type_word(char *word)
+// {
+	
+// }
