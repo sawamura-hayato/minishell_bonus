@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:52:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/28 22:25:51 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static char	*read_line(t_data *d)
 static void	free_all_data(t_token *token, t_ast *ast)
 {
 	token_free_all_tokens(token);
-	(void)ast;
+	if(ast != NULL)
+		ast_free_all_nodes(ast);
 }
 
 void	read_eval_print_loop(t_data *d)
@@ -74,6 +75,7 @@ void	read_eval_print_loop(t_data *d)
 	t_token	*token;
 	t_ast	*ast;
 
+	
 	while (true)
 	{
 		reset_vars(d);
@@ -88,9 +90,16 @@ void	read_eval_print_loop(t_data *d)
 		token = tokenize(line);
 		// debug_print_token(token);
 		ast = parse(&token,d);
-		// debug_print_ast(ast);
-		if (heredoc(ast, d))
-			exec_command(ast, EXEC_START, d);
+		if(d->syntax_flag == true)
+		{
+			free_all_data(token, NULL);
+			end_command(line, d);
+			continue ;
+		}
+		// debug_print_ast(ast);)
+		heredoc(ast, d);
+		exec_command(ast, EXEC_START, d);
+		
 		free_all_data(token, ast);
 		end_command(line, d);
 	}
