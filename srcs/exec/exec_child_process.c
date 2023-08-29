@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 16:59:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 17:18:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**exec_make_argv(t_ast *node)
 	{
 		if (w_node->word != NULL)
 		{
-			arr[index] = w_node->word;
+			arr[index] = try_strdup(w_node->word);
 			index++;
 		}
 		w_node = w_node->next;
