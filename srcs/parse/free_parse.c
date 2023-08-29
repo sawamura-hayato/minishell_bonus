@@ -12,7 +12,7 @@
 
 #include "parse.h"
 
-static void	word_list_free(t_word_list *head)
+void	word_list_free(t_word_list *head)
 {
 	t_word_list	*node;
 	t_word_list	*tmp;
@@ -28,7 +28,7 @@ static void	word_list_free(t_word_list *head)
 	}
 }
 
-static void	redirect_list_free(t_redirect_list *head)
+void	redirect_list_free(t_redirect_list *head)
 {
 	t_redirect_list	*node;
 	t_redirect_list	*tmp;
@@ -42,6 +42,18 @@ static void	redirect_list_free(t_redirect_list *head)
 		free(node);
 		node = tmp;
 	}
+}
+
+void *ast_free_node(t_ast *node)
+{
+	if (node->type == PS_COMMAND)
+	{
+		word_list_free(node->command_list->word_list);
+		redirect_list_free(node->command_list->redirect_list);
+		free(node->command_list);
+	}
+	free(node);
+	return (NULL);
 }
 
 void	*ast_free_all_nodes(t_ast *node)

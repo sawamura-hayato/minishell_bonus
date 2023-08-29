@@ -52,11 +52,17 @@ t_ast	*parse(t_token **current_token, t_data *d)
 		if (token == NULL || !ast_is_opereter(token->tk_type))
 			break ;
 		type = set_ast_node_type(token);
+		/* if(token_next(&token, d) == NULL || d->syntax_flag) */
+       /* return (ast_free_all_nodes(left_node)); */
 		token_next(&token, d);
 		right_node = ast_command_node(&token, d);
 		if (d->syntax_flag)
 		{
-			printf("test2\n");
+			printf("test\n");
+			/* ast_free_node(right_node); */
+			word_list_free(right_node->command_list->word_list);
+			redirect_list_free(right_node->command_list->redirect_list);
+			free(right_node->command_list);
 			free(right_node);
 			return (ast_free_all_nodes(left_node));
 		}
