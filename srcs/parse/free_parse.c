@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:55:37 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 22:23:48 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:13:01 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	*ast_free_right_node(t_ast *node)
 
 void	*ast_free_all_nodes(t_ast *node)
 {
+	
 	if (node != NULL && node->left_hand != NULL)
 		ast_free_all_nodes(node->left_hand);
 	if (node != NULL && node->right_hand != NULL)
@@ -63,8 +64,8 @@ void	*ast_free_all_nodes(t_ast *node)
 	{
 		word_list_free(node->command_list->word_list);
 		redirect_list_free(node->command_list->redirect_list);
-		free(node->command_list);
 	}
+	free(node->command_list);
 	free(node);
 	return (NULL);
 }

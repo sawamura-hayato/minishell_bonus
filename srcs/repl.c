@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 16:09:04 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 20:45:33 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static char	*read_line(t_data *d)
 	if (line == NULL)
 		eof(d);
 	if (is_only_spaces(line))
+	{
+		free(line);
 		return (NULL);
+	}
 	add_line_history(line);
 	return (line);
 }
