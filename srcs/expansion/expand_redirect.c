@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:05:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:53:10 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ static void	expand_get_expanded_word_delimiter(char **token, char **type, t_data
 void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 {
 	t_redirect_list *node;
+	char			*ifs;
+	bool			is_empty_ifs;
+	
 
 	node = *redirect_list;
 	while (node != NULL)
@@ -70,13 +73,21 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 		if (node->re_type == PS_FILE && ft_strchr(node->word, '$'))
 		{
 			expand_variable_redirect_list(node, d);
-			// expand_word_splitting_redirect_list(node, d);
+			ifs = envs_get_value("IFS", d->envs_hashmap);
+			is_empty_ifs = expand_is_empty_ifs(ifs);
+				// exit(0);
+			if (!node->is_ambiguous_error)
+			{
+				// printf("ok   %s\n", node->word);
+				if (!is_empty_ifs && expand_is_word_splitting_word(node->word, node->type, ifs))
+					expand_word_splitting_redirect_list(node, ifs);
+				if (expand_is_delete_quotation_word(node->type))
+					expand_delete_quotation_redirect_list(node);
+			}
 			// expand_filename(node);
 			// expand_word_splitting_word_list(node, d);
 			// expand_filename(node);
 			// printf("type %s, word %s\n", node->type, node->word);
-			if (!node->is_ambiguous_error && expand_is_delete_quotation_word(node->type))
-				expand_delete_quotation_redirect_list(node);
 		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 		{

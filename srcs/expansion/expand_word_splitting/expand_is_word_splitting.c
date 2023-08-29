@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 17:22:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:49:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		printf(const char *format, ...);
 # define SPACE ' '
 # define TAB '\t'
 # define NEW_LINE '\n'
-
 
 bool	expand_is_word_splitting(char *word, char *type, char *ifs)
 {
@@ -42,24 +41,26 @@ bool	expand_is_word_splitting(char *word, char *type, char *ifs)
 	return (false);
 }
 
-bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs)
+bool	expand_is_word_splitting_word(char *word, char *type, char *ifs)
 {
 	size_t	i;
 
 	i = 0;
-	if (word_list->type == NULL)
+	if (type == NULL)
 		return (false);
-	while (word_list->type[i] != '\0')
+	while (type[i] != '\0')
 	{
-		if (IS_DOUBLE_QUOTED == (word_list->type[i] - '0'))
+		if (IS_DOUBLE_QUOTED == (type[i] - '0'))
 		{
 			i++;
-			while (IS_DOUBLE_QUOTED != (word_list->type[i] - '0'))
+			while (IS_DOUBLE_QUOTED != (type[i] - '0'))
 				i++;
 		}
 		else
 		{
-			if (expand_is_word_splitting(word_list->word, word_list->type, ifs))
+			printf("word   %s\n", word);
+			printf("type   %s\n", type);
+			if (expand_is_word_splitting(word, type, ifs))
 				return (true);
 		}
 		i++;

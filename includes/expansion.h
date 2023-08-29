@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 17:07:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:28:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,15 @@ void expand_word_splitting(t_ast *node, t_data *d);
 
 // bool	expand_is_word_splitting(char *token, char *ifs);
 bool	expand_is_word_splitting(char *word, char *type, char *ifs);
-bool	expand_is_word_splitting_word_list(t_word_list *word_list, char *ifs);
+bool	expand_is_word_splitting_word(char *word, char *type, char *ifs);
 bool	expand_is_empty_ifs(char *ifs);
 // char	*expand_set_ifs_default_char(int f_space, int f_tab, int f_new_line);
-char *expand_check_ifs_default_char(char *ifs);
-void expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_default_char);
+char	*expand_check_ifs_default_char(char *ifs);
+void	expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_default_char);
+bool	expand_is_quoted(char *type, size_t size);
+bool	expand_have_ifs(char *word, char *ifs);
+void	expand_word_splitting_word_list(t_word_list *node, char *ifs);
+void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs);
 
 // expand_filename.c
 void expand_filename(t_ast *node);
