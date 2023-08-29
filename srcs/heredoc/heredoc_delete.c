@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:49 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 20:58:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 22:42:43 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,30 @@ void	heredoc_delete_quote(t_redirect_list *delimiter)
 	char	*old_delimiter;
 	char	*new_delimiter;
 	size_t	i;
+	bool flag;
+	char c;
 
 	old_delimiter = delimiter->word;
-	new_delimiter = try_calloc(get_size(delimiter->word) + 1, sizeof(char));
+	/* new_delimiter = try_calloc(get_size(delimiter->word) + 1, sizeof(char)); */
+	new_delimiter = try_calloc(1, sizeof(char));
 	i = 0;
+	flag = false;
 	while (*old_delimiter != '\0')
 	{
-		if (is_quotation(*old_delimiter) == false)
+		if (is_quotation(*old_delimiter) == false || flag == true)
 		{
-			new_delimiter[i] = *old_delimiter;
-			i++;
+			if(*old_delimiter != c)
+			{
+				new_delimiter[i] = ft_try_strjoin(new_delimiter,*old_delimiter);
+				i++;
+			}
+			else
+				flag = false;
+		}
+		else
+		{
+			flag = true;
+			c = *old_delimiter;
 		}
 		old_delimiter++;
 	}
