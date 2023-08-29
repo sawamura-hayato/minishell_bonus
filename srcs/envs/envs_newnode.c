@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_newnode.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:43:48 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/17 14:21:12 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/25 15:41:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ t_envs	*envs_get_node(const char *_key, t_envs **envs_hashmap)
 {
 	t_envs	*node;
 
+	// printf("IFS   %s\n", _key);
+	// if ((*envs_hashmap) != NULL)
+	// 	printf("envs value   %s\n", (*envs_hashmap)->value);
+	// printf("envs value   %s\n", envs_hashmap[envs_get_hashmap_index(_key[0])]->value);
 	node = envs_hashmap[envs_get_hashmap_index(_key[0])];
 	while (node != NULL)
 	{

@@ -6,12 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 22:19:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:22:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "tokenize.h"
+
+void	*ft_memset(void *b, int c, size_t len);
 
 static char	token_set_type_word(char c)
 {
@@ -37,17 +39,26 @@ char	*token_get_current_word(char *line, size_t	size)
 	return (word);
 }
 
-char	*token_get_type_word(char *word)
+char	*token_get_type_word(char *word, bool is_expand)
 {
 	char	*type_word;
+	size_t	len;
 	size_t	i;
 
-	type_word = try_calloc(ft_strlen(word) + 1, sizeof(char));
-	i = 0;
-	while (word[i] != '\0')
+	if (word == NULL)
+		return (NULL);
+	len = ft_strlen(word);
+	type_word = try_calloc((len + 1), sizeof(char));
+	if (is_expand)
+		type_word = ft_memset(type_word, '1', len);
+	else
 	{
-		type_word[i] = token_set_type_word(word[i]);
-		i++;
+		i = 0;
+		while (word[i] != '\0')
+		{
+			type_word[i] = token_set_type_word(word[i]);
+			i++;
+		}
 	}
 	return (type_word);
 }

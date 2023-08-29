@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 21:13:43 by tyamauch         ###   ########.fr       */
-/*   Updated: 2023/08/26 00:16:44 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/29 00:55:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +164,4 @@ void						*ast_free_right_left_nodes(t_ast *left_node,
 /* 	< infile */
 
 /* | command1 command2 comamnd3 command4 */
-
 #endif

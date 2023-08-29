@@ -3,6 +3,17 @@
 
 int printf(const char *format, ...);
 
+void	debug_bool_printf_test(bool flag, char *msg)
+{
+	static size_t i = 0;
+
+	printf("[test: %zu]\n", i++);
+	if (flag)
+		printf("\e[0;32mok\033[0m: %s\n", msg);
+	else
+		printf("\e[0;31mko\033[0m: %s\n", msg);
+}
+
 void debug_printf_test(char *testA, char *testB)
 {
 	static size_t i = 0;
@@ -27,7 +38,8 @@ void debug_printf_word_list(t_word_list *word_list)
 {
 	while (word_list != NULL)
 	{
-		printf("word   %s\n", word_list->word);
+		printf("word %s\n", word_list->word);
+		printf("type %s\n", word_list->type);
 		word_list = word_list->next;
 	}
 }
@@ -55,7 +67,10 @@ void debug_printf_redirect(t_redirect_list *redirect)
 {
 	while (redirect != NULL)
 	{
-		printf("redirect   %s\n", redirect->word);
+		printf("redirect word   %s\n", redirect->word);
+		printf("redirect type   %s\n", redirect->type);
+		if (redirect->is_ambiguous_error)
+			printf("ambiguous_error\n");
 		redirect = redirect->next;
 	}
 }
@@ -79,14 +94,15 @@ void debug_free_redirect(t_redirect_list *redirect)
 	free(redirect);
 }
 
-t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_list_type type)
+t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_type type)
 {
 	t_redirect_list *new_redirect_list;
 
 	new_redirect_list = try_malloc(sizeof(t_redirect_list));
 	new_redirect_list->word = word;
-	new_redirect_list->index = index;
-	new_redirect_list->type = type;
+	new_redirect_list->re_type = type;
+	new_redirect_list->type = token_get_type_word(word, false);
+	new_redirect_list->is_ambiguous_error = false;
 	new_redirect_list->next = NULL;
 	return (new_redirect_list);
 }
@@ -97,8 +113,8 @@ t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type)
 
 	new_word_list = try_malloc(sizeof(t_word_list));
 	new_word_list->word = word;
-	new_word_list->index = index;
-	new_word_list->type = type;
+	new_word_list->tk_type = type;
+	new_word_list->type = token_get_type_word(word, false);
 	new_word_list->next = NULL;
 	return (new_word_list);
 }
