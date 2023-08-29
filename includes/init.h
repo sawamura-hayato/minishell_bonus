@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:15:31 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 17:34:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/28 21:56:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	int		exit_status;
 	int		dupped_stdinfd;
 	bool	syntax_flag;
+	bool	sigint_flag;
 	char	*pwd;
 	char	*oldpwd;
 }	t_data;

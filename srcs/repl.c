@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/08/29 17:10:15 by hsawamur         ###   ########.fr       */
+=======
+/*   Updated: 2023/08/29 20:45:33 by tyamauch         ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +61,10 @@ static char	*read_line(t_data *d)
 	if (line == NULL)
 		eof(d);
 	if (is_only_spaces(line))
+	{
+		free(line);
 		return (NULL);
+	}
 	add_line_history(line);
 	return (line);
 }
@@ -65,7 +72,8 @@ static char	*read_line(t_data *d)
 static void	free_all_data(t_token *token, t_ast *ast)
 {
 	token_free_all_tokens(token);
-	(void)ast;
+	if (ast != NULL)
+		ast_free_all_nodes(ast);
 }
 
 void	read_eval_print_loop(t_data *d)
@@ -74,7 +82,7 @@ void	read_eval_print_loop(t_data *d)
 	t_token	*token;
 	t_ast	*ast;
 
-	ast = NULL;
+	rl_outstream = stderr;
 	while (true)
 	{
 		reset_vars(d);
@@ -87,10 +95,8 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		// debug_print_token(token);
-		// ast = parse(&token,d);
-		// debug_print_ast(ast);
-		if (heredoc(ast, d))
+		ast = parse(&token, d);
+		if (d->syntax_flag == false && heredoc(ast, d))
 			exec_command(ast, EXEC_START, d);
 		free_all_data(token, ast);
 		end_command(line, d);

@@ -13,8 +13,9 @@
 #include "exec_command.h"
 #include "builtins.h"
 #define SIGINT_EXITSTATUS 130
+#define SIGQUIT_EXITSTATUS 131
 
-void	set_signal_exec(t_data *d);
+void	put_sigquit_line(t_data *d);
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -65,18 +66,21 @@ static t_operator	get_right_operator(t_operator operator)
 
 static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
 {
-
 	if (node->left_hand != NULL)
 		exec_command(node->left_hand, get_left_operator(node->type), d);
 	if (node->type == PS_LOGICAL_AND)
 	{
 		exec_wait_child_process(node->left_hand, d);
+		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 		if (d->exit_status == EXIT_SUCCESS)
 			exec_command(node->right_hand, get_right_operator(operator), d);
 	}
 	else if (node->type == PS_LOGICAL_OR)
 	{
 		exec_wait_child_process(node->left_hand, d);
+		if (d->exit_status == SIGQUIT_EXITSTATUS)
+			put_sigquit_line(d);
+		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 		if (d->exit_status != EXIT_SUCCESS
 			&& d->exit_status != SIGINT_EXITSTATUS)
 			exec_command(node->right_hand, get_right_operator(operator), d);

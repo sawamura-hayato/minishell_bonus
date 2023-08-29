@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_is_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:11:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 11:12:59 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/29 17:10:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,18 @@
 #define CURDIR "./"
 #define PREDIR "../"
 #define DOTDOT ".."
-#define AB_PATH "/"
 
 void	exec_put_error_is_dir(const char *command, t_data *d);
 void	exec_put_error_cmd_not_found(const char *command, t_data *d);
 void	exec_put_error_no_file(const char *command, t_data *d);
 void	exec_put_error_no_permission(const char *command, t_data *d);
+bool	is_path(const char *command);
 
-static bool	is_path(const char *command)
+bool	is_path(const char *command)
 {
 	return (
 		ft_strncmp(command, CURDIR, ft_strlen(CURDIR)) == 0
 		|| ft_strncmp(command, PREDIR, ft_strlen(PREDIR)) == 0
-		|| (ft_strncmp(command, DOTDOT, ft_strlen(DOTDOT)) == 0
-			&& *(command + ft_strlen(DOTDOT)) == '\0')
 		|| *command == '/'
 	);
 }

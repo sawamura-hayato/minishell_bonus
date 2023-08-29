@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 15:49:07 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 23:56:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	command_redirect_list(t_redirect_list **head,
 		d->syntax_flag = true;
 		ast_syntax_error(d, NULL);
 	}
-	else if (redirect_flag == true && node->re_type == -1)
+	else if (redirect_flag == true && node->re_type == (t_redirect_type)(-1))
 	{
 		d->syntax_flag = true;
 		ast_syntax_error(d, token);

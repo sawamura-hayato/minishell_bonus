@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 14:07:28 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/17 14:19:41 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 22:08:24 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	export_set_oldpwd(const char *key, t_data *d)
 	char	*new_oldpwd;
 
 	if (ft_strcmp(key, "OLDPWD") != 0)
+	{
+		free((char *)key);
 		return ;
+	}
 	new_oldpwd = envs_get_value((char *)key, d->envs_hashmap);
 	free(d->oldpwd);
 	d->oldpwd = new_oldpwd;

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 22:08:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 16:04:33 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/29 16:34:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exec_put_error_is_dir(const char *command, t_data *d)
 
 	msg = try_strjoin(command, ": Is a directory\n");
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
@@ -29,6 +30,7 @@ void	exec_put_error_no_file(const char *command, t_data *d)
 
 	msg = try_strjoin(command, ": No such file or directory\n");
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
@@ -38,6 +40,7 @@ void	exec_put_error_no_permission(const char *command, t_data *d)
 
 	msg = try_strjoin(command, ": Permission denied\n");
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
@@ -47,6 +50,7 @@ void	exec_put_error_cmd_not_found(const char *command, t_data *d)
 
 	msg = try_strjoin(command, ": command not found\n");
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
+	free(msg);
 	exit(COMMAND_NOT_FOUND);
 }
 

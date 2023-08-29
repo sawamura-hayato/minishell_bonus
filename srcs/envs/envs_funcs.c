@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/25 15:37:03 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/29 21:10:47 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,26 @@ void	envs_modify(char *_key, char *new_value, t_envs **envs_hashmap)
 	if (node != NULL)
 	{
 		free(node->value);
-		node->value = try_strdup(new_value);
+		free(_key);
+		node->value = new_value;
 	}
 	else
-		envs_newnode(try_strdup(_key), try_strdup(new_value), envs_hashmap);
+		envs_newnode(_key, new_value, envs_hashmap);
 }
 
 void	envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap)
 {
 	t_envs	*node;
-	char	*new_value;
 
 	node = envs_get_node(_key, envs_hashmap);
 	if (node != NULL)
 	{
-		new_value = try_strjoin(node->value, adding_value);
-		free(node->value);
-		node->value = new_value;
+		node->value = try_strjoin_free(node->value, adding_value);
+		free(_key);
+		free(adding_value);
 	}
 	else
-		envs_newnode(try_strdup(_key), try_strdup(adding_value), envs_hashmap);
+		envs_newnode(_key, adding_value, envs_hashmap);
 }
 
 void	envs_delete(char *_key, t_envs **envs_hashmap)
@@ -74,9 +74,7 @@ char	*envs_get_value(const char *_key, t_envs **envs_hashmap)
 	t_envs	*target;
 
 	target = envs_get_node(_key, envs_hashmap);
-	if (target == NULL)
-		return (NULL);
-	if (target->value == NULL)
+	if (target == NULL || target->value == NULL)
 		return (NULL);
 	return (try_strdup(target->value));
 }

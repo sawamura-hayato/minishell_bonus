@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 00:57:42 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 20:49:52 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ t_ast	*parse(t_token **current_token, t_data *d)
 		if (token == NULL || !ast_is_opereter(token->tk_type))
 			break ;
 		type = set_ast_node_type(token);
-		if (token_next(&token, d) == NULL)
-			right_node = ast_command_node(&token, d);
+		token_next(&token, d);
+		right_node = ast_command_node(&token, d);
 		if (d->syntax_flag)
-			return (ast_free_all_nodes(left_node));
+			return (ast_free_right_left_nodes(left_node, right_node));
 		left_node = ast_operator_node(type, left_node, right_node, d);
 		if (d->syntax_flag)
 			return (ast_free_all_nodes(left_node));
