@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 15:53:18 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 16:52:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	read_eval_print_loop(t_data *d)
 		ast = parse(&token, d);
 		if (d->syntax_flag == false && heredoc(ast, d))
 		{
-			expansion(ast, d);
+			// expansion(ast, d);
 			exec_command(ast, EXEC_START, d);
 		}
 		free_all_data(token, ast);

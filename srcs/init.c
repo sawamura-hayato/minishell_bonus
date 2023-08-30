@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 00:22:15 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/29 23:56:25 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:52:32 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	end_command(char *line, t_data *d)
 {
 	if (d->sigint_flag)
 		try_write(STDERR_FILENO, "\n", 1, d);
-	if (d->exit_status == SIGQUIT_EXITSTATUS)
-		put_sigquit_line(d);
 	free(line);
 	try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 	try_close(d->dupped_stdinfd, d);
