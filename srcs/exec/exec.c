@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:56:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:09:07 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ bool	exec_is_builtin(t_ast *node)
 {
 	char	*command;
 
-	if (node->command_list->word_list == NULL)
+	if (node->command_list->word_list == NULL
+		|| node->command_list->word_list->word == NULL)
 		return (false);
 	command = node->command_list->word_list->word;
 	return (

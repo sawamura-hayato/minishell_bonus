@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:17:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 16:57:38 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 16:10:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char	*exec_make_filepath(t_ast *node, t_data *d)
 {
 	char	*path;
 
-	if (node->command_list->word_list == NULL)
+	if (node->command_list->word_list == NULL
+		|| node->command_list->word_list->word == NULL)
 		return (NULL);
 	if (is_absolute_path_with_permission(node))
 		return (try_strdup(node->command_list->word_list->word));
