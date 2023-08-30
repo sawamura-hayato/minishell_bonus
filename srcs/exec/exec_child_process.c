@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 17:18:06 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 16:10:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	exec_pipefd(node, pipefd, d);
 	if (argv == NULL)
 		exit(EXIT_SUCCESS);
-	// dprintf(STDERR_FILENO, "%s\n", *argv);
 	exec_is_error(*argv, filepath, d);
-	// dprintf(STDERR_FILENO, "%s\n", *argv);
-	// dprintf(STDERR_FILENO, "path=%s\n", filepath);
 	execve(filepath, argv, envs_make_envp(d->envs_hashmap));
 	exec_put_error_cmd_not_found(*argv, d);
 }

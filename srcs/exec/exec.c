@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 00:56:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:53:03 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ bool	exec_is_builtin(t_ast *node)
 {
 	char	*command;
 
-	if (node->command_list->word_list == NULL)
+	if (node->command_list->word_list == NULL
+		|| node->command_list->word_list->word == NULL)
 		return (false);
 	command = node->command_list->word_list->word;
 	return (
@@ -118,5 +119,9 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 			exec_fork(node, d);
 	}
 	if (operator == EXEC_START)
+	{
 		exec_wait_child_process(node, d);
+		if (d->exit_status == SIGQUIT_EXITSTATUS)
+			put_sigquit_line(d);
+	}
 }

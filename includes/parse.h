@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:55:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:07:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void						debug_print_ast(t_ast *node);
 // t_command関連
 void						command_word_list(t_word_list **word_list,
 								t_token **current_token, t_data *d);
-void						command_redirect_list(t_redirect_list 
+void						command_redirect_list(t_redirect_list
 								**redirect_list,
 								t_token **current_token, t_data *d,
 								bool redirect_flag);
@@ -101,7 +101,7 @@ void						redirect_set_type(t_redirect_list **head,
 								t_redirect_list *node, t_token *token);
 void						redirect_set_type_word(t_redirect_list *last_node,
 								t_redirect_list *node, t_token *token);
-t_redirect_list				*redirect_list_get_last_node(t_redirect_list 
+t_redirect_list				*redirect_list_get_last_node(t_redirect_list
 								**head);
 bool						is_redirect_operator(t_redirect_list *node);
 
@@ -118,50 +118,5 @@ t_ast_node_type				set_ast_node_type(t_token *token);
 void						*ast_free_node(t_ast *node);
 void						*ast_free_right_left_nodes(t_ast *left_node,
 								t_ast *right_node);
-/* ls infileC a b */
-/* | ls */
 
-/* 		ls infile a b */
-/* 		<< eof<Makefile> out */
-/* 	>> apend */
-/* | ls a b c d */
-
-/* 	1 ls 2 infile 3 > 4a 5b 6 << 7eof < */
-/* 	Makefile */
-/* | ls 1ls 2infile 5b 3 > 4a << eof < Makefile */
-
-/* 	cat infiile */
-/* | */
-/* ls */
-
-/* -- ---------------------- */
-
-/* cmd1 */
-/* | cmd2 */
-/* || cmd3 | cmd4 */
-
-/* 	| */
-/* || cmd4 | cmd3 cmd1 cmd2-- ---------------------- */
-
-/* 	cmd1 */
-/* 	| (cmd2 || cmd3) | cmd4 */
-
-/* 	| cmd1 | */
-/* || cmd4 cmd2 cmd3-- ---------------------- */
-
-/* ------------------------(a || b) && */
-/* ls */
-
-/* && */
-/* || ls a b-- ---------------------- */
-
-/* | | command4 | comamnd3 command1 command2 */
-
-/* | comamnd3 command1 command2 */
-
-/* | command1 command2 */
-
-/* 	< infile */
-
-/* | command1 command2 comamnd3 command4 */
 #endif
