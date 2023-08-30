@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:49 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 22:42:43 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:35:54 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,36 @@ static bool	is_quotation(char c)
 	return (c == '\'' || c == '\"');
 }
 
-static size_t	get_size(char *word)
-{
-	size_t	count;
+/* static size_t	get_size(char *word) */
+/* { */
+/* 	size_t	count; */
 
-	count = 0;
-	while (*word != '\0')
-	{
-		if (is_quotation(*word) == false)
-			count++;
-		word++;
-	}
-	return (count);
+/* 	count = 0; */
+/* 	while (*word != '\0') */
+/* 	{ */
+/* 		if (is_quotation(*word) == false) */
+/* 			count++; */
+/* 		word++; */
+/* 	} */
+/* 	return (count); */
+/* } */
+static char * quoreted_delimiter(char *head,char *old_delimiter,char quote)
+{
+		char *quorted_delimiter;
+		size_t i;
+		size_t start;
+
+		i = 0;
+		start = (size_t)(old_delimiter - head);
+		while(*old_delimiter != '\0' || *old_delimiter != quote)
+ 		{
+				if(quote == '\0' && is_quotation(*old_delimiter))
+								break;
+				old_delimiter++;
+				i++;
+		}
+		quorted_delimiter = try_substr(head,start,i);
+		return(quoreted_delimiter);
 }
 
 void	heredoc_delete_quote(t_redirect_list *delimiter)
