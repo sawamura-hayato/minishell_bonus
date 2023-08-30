@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 15:10:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:06:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char *expand_convert_dollar_word(char **word, t_data *d)
 	if (**word == '\0')
 		return (try_strdup(expand_word));
 	if (f_quote == SINGLE_QUOTE_FLAG || f_quote == DOUBLE_QUOTE_FLAG)
-		expand_word = expand_get_delete_dollar_quote(word, f_quote, d);
+		expand_word = expand_get_delete_dollar_quote(word, f_quote);
 	else if (**word == '?')
 		expand_word = expand_get_exit_status(word, d->exit_status);
 	else
