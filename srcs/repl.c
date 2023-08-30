@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 01:56:56 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/30 13:31:43 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	is_only_spaces(char *line)
 	return (true);
 }
 
-static char	*read_line(t_data *d)
+static char	*_readline(t_data *d)
 {
 	char	*line;
 
@@ -77,7 +77,7 @@ void	read_eval_print_loop(t_data *d)
 	rl_outstream = stderr;
 	while (true)
 	{
-		line = read_line(d);
+		line = _readline(d);
 		if (line == NULL)
 		{
 			end_command(line, d);

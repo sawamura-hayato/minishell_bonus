@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_cdpath.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 22:40:47 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/30 13:33:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static char	*join_path(char *eachpath, char *path)
 	return (eachpath);
 }
 
-#include <stdio.h>
 bool	cd_is_dir_with_permission(char *path, char *dirpath)
 {
 	struct stat	sb;
@@ -88,13 +87,11 @@ static void	cd_cdpath_loop(const char *og_path, char *path,
 	return (cd_cdpath_loop(og_path, path, colon, d));
 }
 
-#include <stdio.h>
 void	cd_cdpath(const char *og_path, char *path, t_data *d)
 {
 	char	*cdpath;
 
 	cdpath = envs_get_value("CDPATH", d->envs_hashmap);
-	// printf("%s\n", cdpath);
 	if (cdpath == NULL || *cdpath == '\0')
 	{
 		free(cdpath);
