@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 15:52:32 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 21:05:50 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void expansion(t_ast *node, t_data *d)
 		expansion(node->right_hand, d);
 	if (node->command_list != NULL)
 		expand_command_list(node, d);
-	else
-		printf("operator\n");
+	// else
+	// 	printf("operator\n");
 }
 
 

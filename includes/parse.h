@@ -6,14 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 16:07:40 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 20:51:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "ft.h"
 # include "init.h"
 # include "library.h"
 # include "tokenize.h"

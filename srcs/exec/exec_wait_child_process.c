@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 19:40:37 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:31:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 	exec_wait_child_node(node, d);
 	if (node->type != PS_COMMAND)
 		return ;
-	if (node->command_list->pid == -1 && d->exit_status != SIGINT_EXITSTATUS)
+	if (node->command_list->pid == -1 && d->exit_status != SIGINT_EXITSTATUS
+		&& d->exit_status != SIGQUIT_EXITSTATUS)
 		d->exit_status = EXIT_FAILURE;
-	else if (node->command_list->pid == -1)
-		;
-	else
+	else if (node->command_list->pid != -1)
 	{
 		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
 			return ;
