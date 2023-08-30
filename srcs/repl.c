@@ -6,20 +6,19 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 13:31:43 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 15:53:18 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenize.h"
 #include "parse.h"
-#include "exec_command.h"
 #include "heredoc.h"
+#include "expansion.h"
+#include "exec_command.h"
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdbool.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
@@ -86,7 +85,10 @@ void	read_eval_print_loop(t_data *d)
 		token = tokenize(line);
 		ast = parse(&token, d);
 		if (d->syntax_flag == false && heredoc(ast, d))
+		{
+			expansion(ast, d);
 			exec_command(ast, EXEC_START, d);
+		}
 		free_all_data(token, ast);
 		end_command(line, d);
 	}
