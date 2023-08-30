@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:09:17 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/28 15:01:37 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 13:45:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 #define DDDCS "//../"
 #define D_SL "//"
 
-char	*cd_delete_dotdot(char *path, char *last_ddc);
 char	*cd_get_pre_comp(char *path, char *ddc);
 bool	cd_is_slash_comp(char *pre_comp, char *ddc);
+char	*cd_delete_dotdot(char *path, char *last_ddc, bool *nonexistant_path);
 
-#include <stdio.h>
 bool	is_dotdotcomp(char *path)
 {
 	return (
@@ -33,7 +32,7 @@ bool	is_dotdotcomp(char *path)
 	);
 }
 
-static bool	cd_is_dir(char *path, char *dirpath)
+static bool	cd_is_dir(char *path, char *dirpath, bool *nonexistant_path)
 {
 	struct stat	sb;
 	bool		is_dir;
@@ -42,6 +41,7 @@ static bool	cd_is_dir(char *path, char *dirpath)
 	{
 		free(dirpath);
 		free(path);
+		*nonexistant_path = true;
 		return (false);
 	}
 	if (S_ISDIR(sb.st_mode))
@@ -66,13 +66,13 @@ char	*skip_consecutive_slashes(char *path)
 	return (path);
 }
 
-static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc)
+static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc, bool *nonexistant_path)
 {
 	char		*newpath;
 
 	if (cd_is_slash_comp(pre_comp, ddc))
-		return (cd_delete_dotdot(path, (ddc + ft_strlen(ddc))));
-	if (!cd_is_dir(path, try_substr(path, 0, ddc - path)))
+		return (cd_delete_dotdot(path, (ddc + ft_strlen(ddc)), nonexistant_path));
+	if (!cd_is_dir(path, try_substr(path, 0, ddc - path), nonexistant_path))
 		return (NULL);
 	if (pre_comp != path)
 	{
@@ -85,11 +85,11 @@ static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc)
 		newpath = try_strjoin_free(newpath, (ddc + ft_strlen(DDC) + 1));
 	}
 	free(path);
-	return (cd_delete_dotdot(newpath, newpath));
+	return (cd_delete_dotdot(newpath, newpath, nonexistant_path));
 }
 
 
-char	*cd_delete_dotdot(char *path, char *last_ddc)
+char	*cd_delete_dotdot(char *path, char *last_ddc, bool *nonexistant_path)
 {
 	char			*ddc;
 	char			*pre_comp;
@@ -99,11 +99,11 @@ char	*cd_delete_dotdot(char *path, char *last_ddc)
 	if (ddc == NULL)
 		return (path);
 	if (!is_dotdotcomp(ddc) || ddc == path)
-		return (cd_delete_dotdot(path, ddc + ddc_len));
-	if (!cd_is_dir(path, try_substr(path, 0, ddc - path)))
+		return (cd_delete_dotdot(path, ddc + ddc_len, nonexistant_path));
+	if (!cd_is_dir(path, try_substr(path, 0, ddc - path), nonexistant_path))
 		return (NULL);
 	pre_comp = cd_get_pre_comp(path, ddc);
 	if (is_dotdotcomp(pre_comp))
-		return (cd_delete_dotdot(path, (ddc + ddc_len)));
-	return (cd_make_newpath(path, pre_comp, ddc));
+		return (cd_delete_dotdot(path, (ddc + ddc_len), nonexistant_path));
+	return (cd_make_newpath(path, pre_comp, ddc, nonexistant_path));
 }

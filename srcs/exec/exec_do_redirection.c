@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 21:49:50 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 18:18:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 
 	node = node->next;
 	file = node->word;
-	if (node->is_ambiguous_error)
+	if (node->is_ambiguous_error || file == NULL)
 	{
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
@@ -48,7 +48,7 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 
 	r_node = r_node->next;
 	file = r_node->word;
-	if (r_node->is_ambiguous_error)
+	if (r_node->is_ambiguous_error || file == NULL)
 	{
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
@@ -59,6 +59,8 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 		fd = try_open(open(file, O_CREAT | O_WRONLY | O_APPEND, 0644), file, d);
 	if (fd == -1)
 		return (NULL);
+	if (command_list->fd != STDOUT_FILENO)
+		try_close(command_list->fd, d);
 	command_list->fd = fd;
 	return (r_node);
 }

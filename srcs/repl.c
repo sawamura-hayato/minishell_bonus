@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 08:45:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:52:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenize.h"
 #include "parse.h"
-#include "exec_command.h"
 #include "heredoc.h"
+#include "expansion.h"
+#include "exec_command.h"
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdbool.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 void	reset_vars(t_data *d);
 void	end_command(char *line, t_data *d);
@@ -29,13 +28,6 @@ void	get_signal_num(t_data *d);
 void	ignore_signal(t_data *d);
 
 int	g_signal_num = 0;
-
-static void	add_line_history(char *line)
-{
-	if (line[0] == NULL_CHAR)
-		return ;
-	add_history(line);
-}
 
 static bool	is_only_spaces(char *line)
 {
@@ -48,11 +40,14 @@ static bool	is_only_spaces(char *line)
 	return (true);
 }
 
-static char	*read_line(t_data *d)
+static char	*_readline(t_data *d)
 {
 	char	*line;
 
+	reset_vars(d);
+	set_signal_readline(d);
 	line = readline(PROMPT);
+	ignore_signal(d);
 	get_signal_num(d);
 	if (line == NULL)
 		eof(d);
@@ -61,7 +56,7 @@ static char	*read_line(t_data *d)
 		free(line);
 		return (NULL);
 	}
-	add_line_history(line);
+	add_history(line);
 	return (line);
 }
 
@@ -81,10 +76,7 @@ void	read_eval_print_loop(t_data *d)
 	rl_outstream = stderr;
 	while (true)
 	{
-		reset_vars(d);
-		set_signal_readline(d);
-		line = read_line(d);
-		ignore_signal(d);
+		line = _readline(d);
 		if (line == NULL)
 		{
 			end_command(line, d);
@@ -93,7 +85,10 @@ void	read_eval_print_loop(t_data *d)
 		token = tokenize(line);
 		ast = parse(&token, d);
 		if (d->syntax_flag == false && heredoc(ast, d))
+		{
+			// expansion(ast, d);
 			exec_command(ast, EXEC_START, d);
+		}
 		free_all_data(token, ast);
 		end_command(line, d);
 	}
