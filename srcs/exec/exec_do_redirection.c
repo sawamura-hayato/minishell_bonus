@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 18:18:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 20:31:59 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 	command_list->fd = fd;
 	return (r_node);
 }
-
 
 /**
  * @brief この関数はredirectionを実行する
