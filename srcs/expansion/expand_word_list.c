@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:47:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:24:10 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void expand_word_list(t_word_list **word_list, t_data *d)
 			{
 				// exit(0);
 				expand_word_splitting_word_list(node, ifs);
+				// expand_filename_word_list();
 				
 			}
 			if (expand_is_delete_quotation_word(node->type))

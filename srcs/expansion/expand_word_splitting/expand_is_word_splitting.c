@@ -6,16 +6,15 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:49:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:43:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-int		printf(const char *format, ...);
 
-# define SPACE ' '
-# define TAB '\t'
-# define NEW_LINE '\n'
+#define SPACE ' '
+#define TAB '\t'
+#define NEW_LINE '\n'
 
 bool	expand_is_word_splitting(char *word, char *type, char *ifs)
 {
@@ -58,14 +57,11 @@ bool	expand_is_word_splitting_word(char *word, char *type, char *ifs)
 		}
 		else
 		{
-			printf("word   %s\n", word);
-			printf("type   %s\n", type);
 			if (expand_is_word_splitting(word, type, ifs))
 				return (true);
 		}
 		i++;
 	}
-	// exit(9);
 	return (false);
 }
 

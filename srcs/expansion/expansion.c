@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 08:53:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:25:24 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int main(void)
 	// word_list_new_tail(&word_list_left, debug_new_word_list("bat", 1, WORD));
 	// word_list_new_tail(&word_list_left, debug_new_word_list("\"$Agg\"\"gg$A\"", 1, WORD));
 
-	redirect_list_left = debug_new_redirect_list("<", 2, PS_REDIRECTING_INPUT);
+	redirect_list_left = debug_new_redirect_list("<*", 2, PS_REDIRECTING_INPUT);
 	redirect_list_left->next = debug_new_redirect_list("$out", 3, PS_FILE);
 
 	left_node = debug_new_ast(debug_new_command(word_list_left, redirect_list_left), PS_COMMAND);

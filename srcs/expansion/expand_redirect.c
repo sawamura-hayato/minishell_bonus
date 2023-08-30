@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 23:53:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 10:24:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,51 @@ static void	expand_get_expanded_word_delimiter(char **token, char **type, t_data
 	*type = join_type_word;
 }
 
+bool	expand_is_filename(char *word, char *type)
+{
+	size_t	i;
+
+	i = 0;
+	if (type == NULL)
+		return (false);
+	while (type[i] != '\0')
+	{
+		if (word[i] == '*')
+			return (true);
+		i++;
+	}	
+	return (false);
+}
+				// printf("ok   %s\n", node->word);
+bool	expand_is_filename_word(char *word, char *type)
+{
+	size_t	i;
+
+	i = 0;
+	if (type == NULL)
+		return (false);
+	while (type[i] != '\0')
+	{
+		if (IS_DOUBLE_QUOTED == (type[i] - '0'))
+		{
+			i++;
+			while (IS_DOUBLE_QUOTED != (type[i] - '0'))
+				i++;
+		}
+		else
+		{
+			if (expand_is_filename(word, type))
+				return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+// void	expand_filename_redirect_list(node)
+// {
+	
+// }
+
 void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 {
 	t_redirect_list *node;
@@ -78,8 +123,12 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 				// exit(0);
 			if (!node->is_ambiguous_error)
 			{
-				// printf("ok   %s\n", node->word);
-				if (!is_empty_ifs && expand_is_word_splitting_word(node->word, node->type, ifs))
+				if (expand_is_filename_word(node->word, node->type))
+					printf("ok   %s\n", node->word);
+					// expand_filename_redirect_list(node);
+				if (node->is_ambiguous_error && \
+					!is_empty_ifs &&
+					expand_is_word_splitting_word(node->word, node->type, ifs))
 					expand_word_splitting_redirect_list(node, ifs);
 				if (expand_is_delete_quotation_word(node->type))
 					expand_delete_quotation_redirect_list(node);
