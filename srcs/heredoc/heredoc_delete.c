@@ -19,35 +19,57 @@ static bool	is_quotation(char c)
 	return (c == '\'' || c == '\"');
 }
 
-static size_t	get_size(char *word)
-{
-	size_t	count;
+/* static size_t	get_size(char *word) */
+/* { */
+/* 	size_t	count; */
 
-	count = 0;
-	while (*word != '\0')
-	{
-		if (is_quotation(*word) == false)
-			count++;
-		word++;
-	}
-	return (count);
+/* 	count = 0; */
+/* 	while (*word != '\0') */
+/* 	{ */
+/* 		if (is_quotation(*word) == false) */
+/* 			count++; */
+/* 		word++; */
+/* 	} */
+/* 	return (count); */
+/* } */
+static char * quoreted_delimiter(char *head,char *old_delimiter,char quote)
+{
+		char *quorted_delimiter;
+		size_t i;
+		size_t start;
+
+		i = 0;
+		start = (size_t)(old_delimiter - head);
+		while(*old_delimiter != '\0' || *old_delimiter != quote)
+ 		{
+				if(quote == '\0' && is_quotation(*old_delimiter))
+								break;
+				old_delimiter++;
+				i++;
+		}
+		quorted_delimiter = try_substr(head,start,i);
+		return(quoreted_delimiter);
 }
 
 void	heredoc_delete_quote(t_redirect_list *delimiter)
 {
 	char	*old_delimiter;
 	char	*new_delimiter;
-	size_t	i;
+	bool quote_flag;
+	char quote;
 
 	old_delimiter = delimiter->word;
-	new_delimiter = try_calloc(get_size(delimiter->word) + 1, sizeof(char));
-	i = 0;
+	new_delimiter = NULL;
+	quote_flag = false;
+	quote = '\0';
 	while (*old_delimiter != '\0')
 	{
-		if (is_quotation(*old_delimiter) == false)
+		if (is_quotation(*old_delimiter) == false || quote_flag ==true)
+				quoreted_delimiter(delimiter->word,old_delimiter,quote);
+		else	
 		{
-			new_delimiter[i] = *old_delimiter;
-			i++;
+			quote_flag = !quote_flag ;
+			quote = *old_delimiter;
 		}
 		old_delimiter++;
 	}
