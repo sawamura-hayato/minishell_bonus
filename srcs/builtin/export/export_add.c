@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:08:49 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 22:08:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 18:58:47 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,19 @@ static bool	is_underline(char *key)
 	return (false);
 }
 
-bool	export_add(char *str, t_data *d)
+void	export_add(char *str, t_data *d)
 {
 	t_export_operator	op;
 	char				*key;
 
 	if (export_is_error(str, d))
-		return (false);
+		return ;
 	op = export_get_operator(str);
 	if (op == NEW)
 	{
 		key = export_get_key(str, op);
 		if (is_underline(key))
-			return (true);
+			return ;
 		envs_newnode(key, export_get_value(str),
 			d->envs_hashmap);
 	}
@@ -94,10 +94,9 @@ bool	export_add(char *str, t_data *d)
 	{
 		key = export_get_key(str, op);
 		if (is_underline(key))
-			return (true);
-		envs_addstr(export_get_key(str, op), export_get_value(str),
+			return ;
+		envs_addstr(key, export_get_value(str),
 			d->envs_hashmap);
 	}
-	export_set_oldpwd(key, d);
-	return (true);
+	export_set_oldpwd(export_get_key(str, op), d);
 }

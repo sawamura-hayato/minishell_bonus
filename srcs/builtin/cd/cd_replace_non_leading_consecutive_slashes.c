@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:59:00 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 18:09:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 15:02:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static char	*get_end_slashes(char *start)
 	return (start);
 }
 
-//////test//////t/e/s/t///test
 char	*cd_replace_non_leading_consecutive_slashes(char *path)
 {
 	char	*newpath;

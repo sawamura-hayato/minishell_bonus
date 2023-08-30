@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:53:37 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/29 21:10:47 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 18:52:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ void	envs_delete(char *_key, t_envs **envs_hashmap)
 	t_envs	*target;
 
 	node = envs_hashmap[envs_get_hashmap_index(_key[0])];
-	if (node == NULL || ft_strcmp(node->key, _key) == 0)
+	if (node == NULL)
+		return ;
+	if (ft_strcmp(node->key, _key) == 0)
 	{
-		envs_hashmap[envs_get_hashmap_index(_key[0])] = NULL;
+		envs_hashmap[envs_get_hashmap_index(_key[0])] = node->next;
 		envs_free_node(node);
 		return ;
 	}

@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_get_pre_comp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 17:16:41 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/25 18:58:40 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/30 14:57:59 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 #include <stdlib.h>
-//../../../..test/../////test../
-//..test/../../..test/../////test../
-///////../////../../..test/../////test../
+
 char	*skip_r_consecutive_slashes(char *path, char *ddc)
 {
 	while (ddc != path)
@@ -48,7 +46,6 @@ char	*get_precomp_start(char *path, char *pre_comp)
 	return (pre_comp);
 }
 
-#include <stdio.h>
 char	*cd_get_pre_comp(char *path, char *ddc)
 {
 	char	*pre_comp;

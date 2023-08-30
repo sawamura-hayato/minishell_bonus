@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_cdpath.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 22:40:47 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/30 15:29:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d);
 void	cd_convert_path_and_exec(const char *og_path, char *path,
 			t_data *d, bool is_cdpath);
 void	cd_put_error_no_pwd(char *path, t_data *d);
+char	*cd_newcdpath(char *cdpath, char *colon);
 
 
 static char	*join_path(char *eachpath, char *path)
@@ -31,7 +32,6 @@ static char	*join_path(char *eachpath, char *path)
 	return (eachpath);
 }
 
-#include <stdio.h>
 bool	cd_is_dir_with_permission(char *path, char *dirpath)
 {
 	struct stat	sb;
@@ -44,9 +44,9 @@ bool	cd_is_dir_with_permission(char *path, char *dirpath)
 		return (false);
 	}
 	if (S_ISDIR(sb.st_mode) && access(dirpath, X_OK) == 0)
-		return (true);
+		has_permission = true;
 	if (S_ISLNK(sb.st_mode) && access(dirpath, X_OK) == 0)
-		return (true);
+		has_permission = true;
 	if (has_permission)
 		free(path);
 	else
@@ -88,17 +88,16 @@ static void	cd_cdpath_loop(const char *og_path, char *path,
 	return (cd_cdpath_loop(og_path, path, colon, d));
 }
 
-#include <stdio.h>
 void	cd_cdpath(const char *og_path, char *path, t_data *d)
 {
 	char	*cdpath;
 
 	cdpath = envs_get_value("CDPATH", d->envs_hashmap);
-	// printf("%s\n", cdpath);
 	if (cdpath == NULL || *cdpath == '\0')
 	{
 		free(cdpath);
 		return (cd_convert_path_and_exec(og_path, path, d, false));
 	}
 	cd_cdpath_loop(og_path, path, cdpath, d);
+	free(cdpath);
 }
