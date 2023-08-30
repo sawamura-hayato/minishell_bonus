@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:58:20 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/22 19:26:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 15:01:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,10 @@ static char	*cd_delete_trailing_slash(char *path)
 	return (newpath);
 }
 
-#include <stdio.h>
 char	*cd_delete_slash(char *path)
 {
 	path = cd_delete_trailing_slash(path);
-	// printf("%s\n", path);
 	path = cd_replace_non_leading_consecutive_slashes(path);
-	// printf("%s\n", path);
 	path = cd_delete_leading_slashes(path);
-	// printf("%s\n\n", path);
 	return (path);
 }

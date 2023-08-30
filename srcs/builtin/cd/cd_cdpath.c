@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:38:47 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 13:33:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 14:51:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ bool	cd_is_dir_with_permission(char *path, char *dirpath)
 		return (false);
 	}
 	if (S_ISDIR(sb.st_mode) && access(dirpath, X_OK) == 0)
-		return (true);
+		has_permission = true;
 	if (S_ISLNK(sb.st_mode) && access(dirpath, X_OK) == 0)
-		return (true);
+		has_permission = true;
 	if (has_permission)
 		free(path);
 	else
