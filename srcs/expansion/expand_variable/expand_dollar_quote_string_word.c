@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_dollar_quote_string_word_list.c             :+:      :+:    :+:   */
+/*   expand_dollar_quote_string_word.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 14:38:33 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:08:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // - クウォート削除してはいけないのに削除されてる
 // - 単語分割への影響はない（クウォートだから）
 
-char *expand_get_delete_dollar_quote(char **word, t_quote f_quote, t_data *d)
+char *expand_get_delete_dollar_quote(char **word, t_quote f_quote)
 {
 	char *expand_word;
 	size_t size;

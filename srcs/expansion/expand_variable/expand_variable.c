@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/27 20:13:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:05:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool expand_is_variable_word(char *word)
 
 void expand_variable_word_list(t_word_list *word_list, t_data *d)
 {
-	char *expand_word;
+	// char *expand_word;
 
 	if (expand_is_variable_word(word_list->word))
 	{
@@ -67,10 +67,6 @@ void expand_variable_word_list(t_word_list *word_list, t_data *d)
 		// printf("expand   %s\n", expand_word);
 	}
 }
-
-//"  aa"
-//"  aa  d"bb
-//cc"  aa  d"bb
 
 bool expand_is_ambiguous_error(char *redirect_word, char *redirect_type, char *ifs)
 {
@@ -121,12 +117,10 @@ bool expand_is_ambiguous_error(char *redirect_word, char *redirect_type, char *i
 void expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 {
 	char *word;
-	char *expand_word;
+	// char *expand_word;
 	char *ifs;
-	bool is_empty_ifs;
 
 	ifs = envs_get_value("IFS", d->envs_hashmap);
-	is_empty_ifs = expand_is_empty_ifs(ifs);
 
 	// is_abi trueかつ展開前の値が入る
 	// 条件 expand_word_splitting

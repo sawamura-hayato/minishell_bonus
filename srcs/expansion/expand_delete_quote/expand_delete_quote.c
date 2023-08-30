@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 14:39:09 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 15:21:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:15:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	redirect_list_delete_target_type(t_word_list *word_list, t_token_type taget
 // クウォートがあるかどうか確認する(番号)
 //　当たっら削除する
 
-static bool	is_type_quotation(int type)
+bool	expand_is_type_quotation(int type)
 {
 	if (type == IS_SINGLE_QUOTED || type == IS_DOUBLE_QUOTED)
 		return (true);
@@ -34,7 +34,7 @@ static size_t	expand_get_size_delete_quotation_word(char *word)
 	i = 0;
 	while (word[i] != '\0')
 	{
-		if (!is_type_quotation(word[i] - '0'))
+		if (!expand_is_type_quotation(word[i] - '0'))
 			size++;
 		i++;
 	}
@@ -50,7 +50,7 @@ bool	expand_is_delete_quotation_word(char *word)
 		return (false);
 	while (word[i] != '\0')
 	{
-		if (is_type_quotation(word[i] - '0'))
+		if (expand_is_type_quotation(word[i] - '0'))
 			return (true);
 		i++;
 	}
@@ -72,7 +72,7 @@ void	expand_delete_quotation_word_list(t_word_list *word_list)
 	// printf("old type %s\n", word_list->type);
 	while (word_list->type[i] != '\0')
 	{
-		if (!is_type_quotation(word_list->type[i] - '0'))
+		if (!expand_is_type_quotation(word_list->type[i] - '0'))
 		{
 			// printf("c %c\n", word_list->word[i]);
 			// printf("c %c\n", new_word[new_index]);
@@ -105,7 +105,7 @@ void	expand_delete_quotation_redirect_list(t_redirect_list *redirect_list)
 	new_index = 0;
 	while (redirect_list->type[i] != '\0')
 	{
-		if (!is_type_quotation(redirect_list->type[i] - '0'))
+		if (!expand_is_type_quotation(redirect_list->type[i] - '0'))
 		{
 			printf("c %c\n", redirect_list->word[i]);
 			new_word[new_index] = redirect_list->word[i];
@@ -121,7 +121,7 @@ void	expand_delete_quotation_redirect_list(t_redirect_list *redirect_list)
 	// free(redirect_list->word);
 	// free(redirect_list->type);
 	redirect_list->word = new_word;
-	redirect_list->type = new_word;
+	redirect_list->type = new_type;
 	// printf("new word %s\n", new_word);
 	// printf("new type %s\n", new_type);
 }

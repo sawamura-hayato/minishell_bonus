@@ -98,6 +98,7 @@ t_redirect_list *debug_new_redirect_list(char *word, size_t index, t_redirect_ty
 {
 	t_redirect_list *new_redirect_list;
 
+	(void)index;
 	new_redirect_list = try_malloc(sizeof(t_redirect_list));
 	new_redirect_list->word = word;
 	new_redirect_list->re_type = type;
@@ -111,6 +112,7 @@ t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type)
 {
 	t_word_list *new_word_list;
 
+	(void)index;
 	new_word_list = try_malloc(sizeof(t_word_list));
 	new_word_list->word = word;
 	new_word_list->tk_type = type;
