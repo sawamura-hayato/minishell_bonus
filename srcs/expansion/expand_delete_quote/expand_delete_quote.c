@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   expand_delete_quote.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 14:39:09 by hsawamur          #+#    #+#             */
 /*   Updated: 2023/08/31 17:59:13 by tyamauch         ###   ########.fr       */
