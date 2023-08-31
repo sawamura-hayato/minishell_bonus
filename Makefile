@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Updated: 2023/08/31 17:16:20 by hsawamur         ###   ########.fr        #
+#    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
+#    Updated: 2023/08/31 18:19:40 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 # CFLAGS += -g
@@ -32,6 +32,7 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/linear_linked_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_token.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_current_word_size.c \
+		$(SRCS_DIR)/$(TOKENIZE_DIR)/get_type_word.c \
 		$(SRCS_DIR)/$(TOKENIZE_DIR)/tokenize.c
 
  PARSE_DIR = parse
