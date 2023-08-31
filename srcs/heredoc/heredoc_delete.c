@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:49 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/31 12:22:08 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:52:52 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static bool	is_quotation(char c)
 	return (c == '\'' || c == '\"');
 }
 
-static char	*quoted_delimiter(char *head, char **old_delimiter, char quote)
+static char	*quoted_delimiter(char *head, char **old_delimiter, char *quote,
+		bool *quote_flag)
 {
 	char	*quoted_delimiter;
 	char	*word_p;
@@ -29,9 +30,15 @@ static char	*quoted_delimiter(char *head, char **old_delimiter, char quote)
 	i = 0;
 	word_p = *old_delimiter;
 	start = (size_t)(word_p - head);
-	while (*word_p != '\0' && *word_p != quote)
+	while (*word_p != '\0' && *word_p != *quote)
 	{
-		if ((quote == '\0' && is_quotation(*word_p)) || *word_p == quote)
+		if (*quote == '\0' && is_quotation(*word_p))
+		{
+			*quote = *word_p;
+			*quote_flag = !(*quote_flag);
+			break ;
+		}
+		if (*word_p == *quote)
 			break ;
 		word_p++;
 		i++;
@@ -52,11 +59,12 @@ static char	*make_new_delimiter(char *head, char *old_delimiter,
 	{
 		if (is_quotation(*old_delimiter) == false || quote_flag == true)
 		{
-			tmp = quoted_delimiter(head, &old_delimiter, quote);
+			tmp = quoted_delimiter(head, &old_delimiter, &quote, &quote_flag);
 			if (new_delimiter == NULL)
-				new_delimiter = try_strdup_free(tmp);
+				new_delimiter = try_strdup(tmp);
 			else
 				new_delimiter = try_strjoin_free(new_delimiter, tmp);
+			free(tmp);
 		}
 		else
 		{
