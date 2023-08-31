@@ -19,67 +19,68 @@ static bool	is_quotation(char c)
 	return (c == '\'' || c == '\"');
 }
 
-static char * quoted_delimiter(char *head,char **old_delimiter,char quote)
+static char	*quoted_delimiter(char *head, char **old_delimiter, char quote)
 {
-		char *quoted_delimiter;
-		char *word_p;
-		size_t i;
-		size_t start;
+	char	*quoted_delimiter;
+	char	*word_p;
+	size_t	i;
+	size_t	start;
 
-		i = 0;
-		word_p = *old_delimiter;
-		start = (size_t)(word_p - head);
-		while(*word_p != '\0' && *word_p != quote)
- 		{
-				if((quote == '\0' && is_quotation(*word_p))
-						|| *word_p == quote)
-								break;
-				word_p++;
-				i++;
-		}
-		quoted_delimiter = try_substr(head,start,i);
-		*old_delimiter = word_p;
-		return(quoted_delimiter);
+	i = 0;
+	word_p = *old_delimiter;
+	start = (size_t)(word_p - head);
+	while (*word_p != '\0' && *word_p != quote)
+	{
+		if ((quote == '\0' && is_quotation(*word_p)) || *word_p == quote)
+			break ;
+		word_p++;
+		i++;
+	}
+	quoted_delimiter = try_substr(head, start, i);
+	*old_delimiter = word_p;
+	return (quoted_delimiter);
 }
 
-static char *make_new_delimiter(char *head,char *old_delimiter,char *new_delimiter,bool quote_flag)
+static char	*make_new_delimiter(char *head, char *old_delimiter,
+		char *new_delimiter, bool quote_flag)
 {
-	char 	quote;
-	char 	*tmp;
+	char	quote;
+	char	*tmp;
 
 	quote = '\0';
 	while (*old_delimiter != '\0')
 	{
 		if (is_quotation(*old_delimiter) == false || quote_flag == true)
 		{
-			tmp = quoted_delimiter(head,&old_delimiter,quote);
-			if(new_delimiter == NULL)
+			tmp = quoted_delimiter(head, &old_delimiter, quote);
+			if (new_delimiter == NULL)
 				new_delimiter = try_strdup_free(tmp);
 			else
-				new_delimiter = try_strjoin_free(new_delimiter,tmp);
+				new_delimiter = try_strjoin_free(new_delimiter, tmp);
 		}
 		else
 		{
 			quote_flag = !quote_flag;
 			quote = *old_delimiter;
 		}
-		if(*old_delimiter == '\0')
-			break;
+		if (*old_delimiter == '\0')
+			break ;
 		old_delimiter++;
 	}
-	return(new_delimiter);
+	return (new_delimiter);
 }
 
 void	heredoc_delete_quote(t_redirect_list *delimiter)
 {
 	char	*old_delimiter;
 	char	*new_delimiter;
-	bool 	quote_flag;
+	bool	quote_flag;
 
 	old_delimiter = delimiter->word;
 	new_delimiter = NULL;
 	quote_flag = false;
-	new_delimiter = make_new_delimiter(delimiter->word,&(*old_delimiter),&(*new_delimiter),quote_flag);
+	new_delimiter = make_new_delimiter(delimiter->word, &(*old_delimiter),
+			&(*new_delimiter), quote_flag);
 	free(delimiter->word);
 	delimiter->word = new_delimiter;
 }
