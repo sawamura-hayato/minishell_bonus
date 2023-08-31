@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:57:35 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 20:43:47 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:59:53 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	token_is_quotation_closed(t_token *token)
 			double_q_count++;
 		i++;
 	}
-	if ((single_q_count % 2) == 0 && (double_q_count % 2) == 0)
+	if ((single_q_count % 2) == 0 || (double_q_count % 2) == 0)
 		return (true);
 	else
 		return (false);

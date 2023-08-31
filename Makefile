@@ -13,8 +13,6 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -g
-# CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
@@ -44,7 +42,6 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_word_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
- 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/free_parse.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c
 
