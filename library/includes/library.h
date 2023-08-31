@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 12:08:31 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:11:51 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 void	*try_malloc(size_t size);
 void	*try_calloc(size_t count, size_t size);
 char	*try_strdup(const char *s1);
-char	*try_strdup_free(char *s1);
 char	*try_substr(char const *s, size_t start, size_t len);
 char	*try_strjoin(char const *s1, char const *s2);
 ssize_t	try_write(int fildes, const void *buf, size_t nbyte, t_data *d);
