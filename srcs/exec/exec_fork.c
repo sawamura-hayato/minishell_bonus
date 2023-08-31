@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:46:09 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/31 09:33:47 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 22:44:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	exec_fork(t_ast *node, t_data *d)
 	{
 		node->command_list->pid = pid;
 		exec_close_fd(node->command_list, d);
+		try_close(STDIN_FILENO, d);
 	}
 }
