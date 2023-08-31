@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/31 12:06:18 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/31 18:11:36 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 
 TRY_DIR = try
 SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
-			$(SRCS_DIR)/$(TRY_DIR)/try_strdup_free.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_calloc.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_malloc.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_substr.c \
@@ -54,7 +53,6 @@ SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_dup2.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_open.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_close.c \
-			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_chdir.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_stat.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_pipe.c	\
