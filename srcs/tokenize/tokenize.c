@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 11:46:16 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 22:20:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:32:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_token	*tokenize(const char *line)
 	tmp_line = (char *)line;
 	while (*tmp_line != '\0')
 	{
-
 		token_get_current_token(&head, &tmp_line);
 	}
 	return (head);

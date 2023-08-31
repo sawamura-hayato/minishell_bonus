@@ -73,7 +73,8 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 	while (word_list->word[i] != '\0')
 	{
 		if (expand_is_str_in_char(ifs, word_list->word[i]) && \
-			!expand_is_quoted(word_list->type, i) && word_list->type[i] == '1')
+			!expand_is_quoted(word_list->type, i) && \
+			IS_SUBSTITUTED == word_list->type[i] - '0')
 		{
 			expand_can_get_word_splitting_word_list(word_list, ifs, i);
 			break ;
