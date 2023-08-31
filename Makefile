@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 11:01:17 by hsawamur          #+#    #+#              #
 #    Updated: 2023/08/30 21:03:49 by tterao           ###   ########.fr        #

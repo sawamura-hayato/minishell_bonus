@@ -6,18 +6,17 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:24:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:36:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void expand_word_list(t_word_list **word_list, t_data *d)
+void	expand_word_list(t_word_list **word_list, t_data *d)
 {
-	// t_word_list *pre_node;
-	t_word_list *node;
-	char *ifs;
-	bool is_empty_ifs;
+	t_word_list	*node;
+	char		*ifs;
+	bool		is_empty_ifs;
 
 	node = *word_list;
 	while (node != NULL)
@@ -25,19 +24,15 @@ void expand_word_list(t_word_list **word_list, t_data *d)
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
 		{
 			expand_variable_word_list(node, d);
-			// word_splittingできるかどうかチェックする関数
 			ifs = envs_get_value("IFS", d->envs_hashmap);
 			is_empty_ifs = expand_is_empty_ifs(ifs);
-			if (!is_empty_ifs && expand_is_word_splitting_word(node->word, node->type, ifs))
-			{
-				// exit(0);
+			if (!is_empty_ifs && \
+				expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_word_list(node, ifs);
-				// expand_filename_word_list();
-				
-			}
-			if (expand_is_delete_quotation_word(node->type))
-				expand_delete_quotation_word_list(node);
 		}
+		if (node->tk_type == WORD && \
+			expand_is_delete_quotation_word(node->type))
+			expand_delete_quotation_word_list(node);
 		node = node->next;
 	}
 }
