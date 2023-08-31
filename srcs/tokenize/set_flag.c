@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_flag.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:45:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/28 20:52:20 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:13:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenize.h"
 
-t_quote token_set_flag_quote(char quote)
+t_quote	token_set_flag_quote(char quote)
 {
 	if ('\'' == quote)
 		return (SINGLE_QUOTE_FLAG);
@@ -21,7 +21,7 @@ t_quote token_set_flag_quote(char quote)
 	return (DEFAULT);
 }
 
-t_token_type token_set_flag_token(char *line)
+t_token_type	token_set_flag_token(char *line)
 {
 	if (ft_strlen(line) > 2)
 		return (WORD);
@@ -41,20 +41,3 @@ t_token_type token_set_flag_token(char *line)
 		return (REDIRECT);
 	return (WORD);
 }
-
-// #include <stdio.h>
-// int main()
-// {
-// 	char *str="||D";
-// 	printf("OR   %d\n", token_set_flag_token(str));
-// 	str="&&D";
-// 	printf("AND   %d\n", token_set_flag_token(str));
-// 	str="|D";
-// 	printf("PIPE   %d\n", token_set_flag_token(str));
-// 	str="\'D";
-// 	printf("SING   %d\n", token_set_flag_token(str));
-// 	str="\"d";
-// 	printf("DOUB   %d\n", token_set_flag_token(str));
-// 	str="d|D";
-// 	printf("WORD   %d\n", token_set_flag_token(str));
-// }
