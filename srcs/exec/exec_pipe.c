@@ -6,11 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:59:46 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 16:13:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 09:33:29 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
+
+void	exec_close_fd(t_command *command, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。親プロセスは子プロセスの実行結果を受け取る。
@@ -35,6 +37,7 @@ void	exec_pipe(t_ast *node, t_data *d)
 	else
 	{
 		node->command_list->pid = pid;
+		exec_close_fd(node->command_list, d);
 		try_dup2(pipefd[R], STDIN_FILENO, d);
 		try_close(pipefd[W], d);
 		try_close(pipefd[R], d);

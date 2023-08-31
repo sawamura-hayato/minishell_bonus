@@ -13,7 +13,6 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "ft.h"
 # include "init.h"
 # include "library.h"
 # include "tokenize.h"

@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word_list_word_splitting.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:46:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 09:51:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-
-char	*try_substr(char const *s, size_t start, size_t len);
-char	*try_strdup(const char *s1);
+#include "library.h"
 
 t_word_list	*expand_new_word_list(t_word_list *node, size_t i, \
 									t_word_list *next_node)

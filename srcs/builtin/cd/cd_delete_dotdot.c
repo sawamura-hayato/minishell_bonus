@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 14:09:17 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 13:45:45 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 20:07:34 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 #include <stdlib.h>
 #define DDC "/.."
 #define DDCS "/../"
-#define DDDC "//.."
-#define DDDCS "//../"
-#define D_SL "//"
 
 char	*cd_get_pre_comp(char *path, char *ddc);
 bool	cd_is_slash_comp(char *pre_comp, char *ddc);
@@ -24,11 +21,16 @@ char	*cd_delete_dotdot(char *path, char *last_ddc, bool *nonexistant_path);
 
 bool	is_dotdotcomp(char *path)
 {
+	const char	*dddc = "//..";
+	const char	*dddcs = "//../";
+
 	return (
-		(ft_strncmp(path, DDC, ft_strlen(DDC)) == 0 && *(path + ft_strlen(DDC)) == '\0')
+		(ft_strncmp(path, DDC, ft_strlen(DDC)) == 0
+			&& *(path + ft_strlen(DDC)) == '\0')
 		|| ft_strncmp(path, DDCS, ft_strlen(DDCS)) == 0
-		|| (ft_strncmp(path, DDDC, ft_strlen(DDDC)) == 0 && *(path + ft_strlen(DDDC)) == '\0')
-		|| ft_strncmp(path, DDDCS, ft_strlen(DDDCS)) == 0
+		|| (ft_strncmp(path, dddc, ft_strlen(dddc)) == 0
+			&& *(path + ft_strlen(dddc)) == '\0')
+		|| ft_strncmp(path, dddcs, ft_strlen(dddcs)) == 0
 	);
 }
 
@@ -66,12 +68,14 @@ char	*skip_consecutive_slashes(char *path)
 	return (path);
 }
 
-static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc, bool *nonexistant_path)
+static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc,
+							bool *nonexistant_path)
 {
 	char		*newpath;
 
 	if (cd_is_slash_comp(pre_comp, ddc))
-		return (cd_delete_dotdot(path, (ddc + ft_strlen(ddc)), nonexistant_path));
+		return (
+			cd_delete_dotdot(path, (ddc + ft_strlen(ddc)), nonexistant_path));
 	if (!cd_is_dir(path, try_substr(path, 0, ddc - path), nonexistant_path))
 		return (NULL);
 	if (pre_comp != path)
@@ -87,7 +91,6 @@ static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc, bool *nonexi
 	free(path);
 	return (cd_delete_dotdot(newpath, newpath, nonexistant_path));
 }
-
 
 char	*cd_delete_dotdot(char *path, char *last_ddc, bool *nonexistant_path)
 {

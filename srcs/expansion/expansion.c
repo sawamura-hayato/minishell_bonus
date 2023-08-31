@@ -6,15 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 15:52:32 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 10:00:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "parse.h"
 #include "tokenize.h"
-
-int printf(const char *format, ...);
 
 void	expand_command_list(t_ast *node, t_data *d)
 {
@@ -23,7 +21,7 @@ void	expand_command_list(t_ast *node, t_data *d)
 }
 
 
-void expansion(t_ast *node, t_data *d)
+void	expansion(t_ast *node, t_data *d)
 {
 	if (node->left_hand != NULL)
 		expansion(node->left_hand, d);
@@ -31,8 +29,6 @@ void expansion(t_ast *node, t_data *d)
 		expansion(node->right_hand, d);
 	if (node->command_list != NULL)
 		expand_command_list(node, d);
-	else
-		printf("operator\n");
 }
 
 
