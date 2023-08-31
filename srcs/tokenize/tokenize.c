@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 11:46:16 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/24 22:20:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:04:58 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@ t_token	*tokenize(const char *line)
 	head = NULL;
 	tmp_line = (char *)line;
 	while (*tmp_line != '\0')
-	{
-
 		token_get_current_token(&head, &tmp_line);
-	}
 	return (head);
 }
-
-// int main(void)
-// {
-// 	size_t size;
-
-// 	size = token_get_current_word_size("echo");
-// 	printf("size   %zu\n", size);
-// 	return (0);
-// }

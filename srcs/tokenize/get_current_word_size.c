@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_current_word_size.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 22:58:47 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/25 16:51:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:00:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,21 @@ size_t	token_get_special_word_size(char *line)
 	return (size);
 }
 
+static size_t	get_size(char *line, t_quote f_quote, size_t size)
+{
+	size++;
+	while (f_quote != token_set_flag_quote(line[size]))
+	{
+		if (line[size] == '\0')
+		{
+			size--;
+			break ;
+		}
+		size++;
+	}
+	return (size);
+}
+
 size_t	token_get_current_word_size(char *line)
 {
 	size_t	size;
@@ -84,21 +99,10 @@ size_t	token_get_current_word_size(char *line)
 	{
 		f_quote = token_set_flag_quote(line[size]);
 		if (f_quote != DEFAULT)
-		{
-			size++;
-			while (f_quote != token_set_flag_quote(line[size]))
-			{
-				if (line[size] == '\0')
-				{
-					size--;
-					break;
-				}
-				size++;
-			}
-		}
+			size = get_size(line, f_quote, size);
 		else if (ft_isspace(line[size]) || \
 					ft_is_special_char(line[size]))
-			break;
+			break ;
 		size++;
 	}
 	size += token_get_special_word_size(line);

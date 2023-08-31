@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_current_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 16:22:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 10:55:16 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	token_set_type_word(char c)
 {
 	if (c == '\'')
 		return (IS_SINGLE_QUOTED + '0');
-	else if  (c == '\"')
+	else if (c == '\"')
 		return (IS_DOUBLE_QUOTED + '0');
 	return (DEFAULT_CHAR_TYPE + '0');
 }
