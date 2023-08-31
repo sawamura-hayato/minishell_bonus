@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 14:39:09 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 17:59:13 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:02:10 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	expand_delete_quotation_word_list(t_word_list *word_list)
 		}
 		i++;
 	}
+	free(word_list->word);
+	free(word_list->type);
 	word_list->word = new_word;
 	word_list->type = new_type;
 }
