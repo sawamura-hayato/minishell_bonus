@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word_list_word_splitting.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 09:51:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 14:09:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,16 @@ static void	expand_can_get_word_splitting_word_list(t_word_list *word_list, \
 													char *ifs, size_t i)
 {
 	char	*ifs_default_char;
+	char	*word;
+	char	*type;
 
 	ifs_default_char = expand_check_ifs_default_char(ifs);
+	word = word_list->word;
+	type = word_list->type;
 	if (i == 0)
 	{
-		while (word_list->word[i] != '\0' && \
-				!expand_is_str_in_char(ifs, word_list->word[i]))
+		while (word[i] != '\0' && \
+				!expand_is_str_in_char(ifs, word[i]))
 		{
 			if (!expand_is_str_in_char(ifs_default_char, word_list->word[i]))
 				word_list->next = expand_new_null_word_list(word_list->next);
@@ -58,9 +62,12 @@ static void	expand_can_get_word_splitting_word_list(t_word_list *word_list, \
 	else
 	{
 		word_list->next = expand_new_word_list(word_list, i, word_list->next);
-		word_list->word = try_substr(word_list->word, 0, i);
-		word_list->type = try_substr(word_list->type, 0, i);
+		word_list->word = try_substr(word, 0, i);
+		word_list->type = try_substr(type, 0, i);
 	}
+	free(ifs_default_char);
+	free(word);
+	free(type);
 }
 
 void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
