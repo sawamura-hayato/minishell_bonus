@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 16:09:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:00:31 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,21 @@ int		ft_isspace(char c);
 
 static size_t	expand_get_string_to_dollar_or_symbol_size(char *word)
 {
-	size_t size;
+	size_t	size;
 
 	size = 0;
-	while (word[size] != '\0' && (!export_is_symbol(word[size])) &&
-		   (!ft_isspace(word[size])))
+	while (word[size] != '\0' && \
+			(!export_is_symbol(word[size])) && \
+			(!ft_isspace(word[size])))
 		size++;
 	return (size);
 }
 
 char	*expand_get_string_to_dollar_or_symbol(char **word)
 {
-	char *str;
-	size_t size;
-	size_t i;
+	char	*str;
+	size_t	size;
+	size_t	i;
 
 	size = expand_get_string_to_dollar_or_symbol_size(*word);
 	i = 0;
@@ -48,7 +49,7 @@ char	*expand_get_string_to_dollar_or_symbol(char **word)
 
 static size_t	expand_get_str_to_dollar_size(char *word)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (word[i] != '\0' && word[i] != '$')
@@ -68,9 +69,9 @@ static size_t	expand_get_str_to_dollar_size(char *word)
 
 char	*expand_get_str_to_dollar(char **word)
 {
-	char *str;
-	size_t size;
-	size_t i;
+	char	*str;
+	size_t	size;
+	size_t	i;
 
 	i = 0;
 	size = expand_get_str_to_dollar_size(*word);

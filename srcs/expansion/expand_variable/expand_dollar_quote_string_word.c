@@ -6,21 +6,17 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 17:08:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:04:00 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-//クウォートの問題
-// - クウォート削除してはいけないのに削除されてる
-// - 単語分割への影響はない（クウォートだから）
-
-char *expand_get_delete_dollar_quote(char **word, t_quote f_quote)
+char	*expand_get_delete_dollar_quote(char **word, t_quote f_quote)
 {
-	char *expand_word;
-	size_t size;
-	size_t i;
+	char	*expand_word;
+	size_t	size;
+	size_t	i;
 
 	size = 0;
 	(*word)++;
@@ -34,77 +30,5 @@ char *expand_get_delete_dollar_quote(char **word, t_quote f_quote)
 		i++;
 	}
 	(*word) += size + 1;
-	// if (expand_is_variable_word(expand_word) && f_quote == DOUBLE_QUOTE_FLAG)
-	// 	expand_word = expand_get_expanded_token(expand_word, d);
 	return (expand_word);
 }
-
-// void expand_dollar_quote_string_word_list(t_word_list *head)
-// {
-// 	t_word_list *node;
-// 	size_t f_quote;
-// 	size_t i;
-// 	size_t size;
-
-// 	node = head;
-// 	i = 0;
-// 	size = 0;
-// 	while (node->word[i] != '\0')
-// 	{
-// 		if (node->word[i] == '$')
-// 		{
-// 			f_quote = node->type[++i] - '0';
-// 			if (f_quote == IS_SINGLE_QUOTED ||
-// 				f_quote == DOUBLE_QUOTE_FLAG)
-// 			{
-// 				while (f_quote != node->type[++i] - '0')
-// 					size++;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (false);
-// }
-
-// bool expand_is_dollar_quote_string_word_list(t_word_list *head)
-// {
-// 	t_word_list *node;
-// 	size_t f_quote;
-// 	size_t i;
-
-// 	node = head;
-// 	i = 0;
-// 	while (node->word[i] != '\0')
-// 	{
-// 		if (node->word[i] == '$')
-// 		{
-// 			f_quote = node->type[++i] - '0';
-// 			if (f_quote == IS_SINGLE_QUOTED ||
-// 				f_quote == DOUBLE_QUOTE_FLAG)
-// 				return (true);
-// 		}
-// 		i++;
-// 	}
-// 	return (false);
-// }
-
-// void expand_can_dollar_quote_string_word_list(t_word_list *head)
-// {
-// 	if (expand_is_dollar_quote_string_word_list(head))
-// 		expand_dollar_quote_string_word_list(head);
-// }
-
-// "$'echo'echo$'echo'"
-// "020000200000200002"
-
-// "echo"
-// "echo$'echo'"
-
-// "echoecho"
-// "$'echo'"
-
-// "echoechoecho"
-// "000000000000"
-
-// echo $"ec   c"
-// ec   c

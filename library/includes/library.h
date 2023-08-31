@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 08:50:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:23:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int try_sigaction(int signum, const struct sigaction *act,
 // ft
 char *ft_strchr(const char *s, int c);
 size_t ft_strlen(const char *str);
-char *ft_substr(char const *s, unsigned int start, size_t len);
 char *ft_strtrim(char const *s1, char const *set);
 bool ft_is_operator(char c);
 int ft_is_space(char c);

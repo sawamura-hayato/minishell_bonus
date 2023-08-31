@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 08:49:16 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:58:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void expand_word_splitting(t_ast *node, t_data *d);
 bool	expand_is_word_splitting(char *word, char *type, char *ifs);
 bool	expand_is_word_splitting_word(char *word, char *type, char *ifs);
 bool	expand_is_empty_ifs(char *ifs);
+
 // char	*expand_set_ifs_default_char(int f_space, int f_tab, int f_new_line);
 char	*expand_check_ifs_default_char(char *ifs);
 void	expand_splitting_word_list(t_word_list **word_list, char *ifs, char *ifs_default_char);
@@ -92,11 +93,13 @@ size_t expand_filename_word_list_size(t_word_list *word_list);
 void expand_can_get_filename_word_list(t_word_list *word_list);
 
 // expand_delete_quote.c
-void expand_delete_quotation(t_ast *node);
+void	expand_delete_quotation(t_ast *node);
 void	expand_delete_quotation_word_list(t_word_list *word_list);
 void	expand_delete_quotation_redirect_list(t_redirect_list *redirect_list);
 bool	expand_is_delete_quotation_word(char *word);
 bool	expand_is_type_quotation(int type);
+void	expand_get_joined(char **expand, char **join_word, \
+							char **join_type, bool is_expand);
 
 char	*try_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t end);

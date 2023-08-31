@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_debug.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/31 12:42:37 by hsawamur          #+#    #+#             */
+/*   Updated: 2023/08/31 12:42:38 by hsawamur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include "expansion.h"
 #include "parse.h"
 
-int printf(const char *format, ...);
+int	printf(const char *format, ...);
 
 void	debug_bool_printf_test(bool flag, char *msg)
 {
@@ -131,9 +145,9 @@ t_command *debug_new_command(t_word_list *word_list, t_redirect_list *redirect_l
 	return (new_command);
 }
 
-t_ast *debug_new_ast(t_command *command, t_ast_node_type type)
+t_ast	*debug_new_ast(t_command *command, t_ast_node_type type)
 {
-	t_ast *new_ast;
+	t_ast	*new_ast;
 
 	new_ast = try_malloc(sizeof(t_ast));
 	new_ast->command_list = command;

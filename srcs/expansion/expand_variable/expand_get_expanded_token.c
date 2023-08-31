@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/29 17:06:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:05:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ char *expand_get_expand_word(char **word, t_envs **envs)
 
 	target_word = expand_get_string_to_dollar_or_symbol(word);
 	target_value = envs_get_value(target_word, envs);
+	free(target_word);
 	return (target_value);
 }
 
-char *expand_convert_dollar_word(char **word, t_data *d)
+char	*expand_convert_dollar_word(char **word, t_data *d)
 {
 	char *expand_word;
 	t_quote f_quote;
@@ -38,42 +39,36 @@ char *expand_convert_dollar_word(char **word, t_data *d)
 		expand_word = expand_get_exit_status(word, d->exit_status);
 	else
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
-	// printf("expand %s\n", expand_word);
 	return (expand_word);
 }
-
-// typeを作る　voidにしてchar *token, char *typeにポインタ文字列入れる
 
 void	expand_get_expanded_token(char **token, char **type, t_data *d)
 {
 	char	*tmp;
 	char	*expand_word;
 	char	*join_word;
-	char	*join_type_word;
+	char	*join_type;
 
 	join_word = NULL;
-	join_type_word = NULL;
+	join_type = NULL;
 	tmp = *token;
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')
 		{
 			expand_word = expand_convert_dollar_word(&tmp, d);
-			join_word = try_strjoin_free(join_word, expand_word);
-			join_type_word = try_strjoin_free(join_type_word, token_get_type_word(expand_word, true));
-			free(expand_word);
+			expand_get_joined(&expand_word, &join_word, &join_type, true);
 		}
 		else
 		{
 			expand_word = expand_get_str_to_dollar(&tmp);
-			join_word = try_strjoin_free(join_word, expand_word);
-			join_type_word = try_strjoin_free(join_type_word, token_get_type_word(expand_word, false));
-			free(expand_word);
+			expand_get_joined(&expand_word, &join_word, &join_type, false);
 		}
 	}
-	// printf("word     %s\n", join_word);
+	free(*token);
+	free(*type);
 	*token = join_word;
-	*type = join_type_word;
+	*type = join_type;
 }
 
 // int main(void)

@@ -6,14 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:41:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/30 21:24:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-
-char	*try_strdup(const char *s1);
-char	*try_substr(char const *s, size_t start, size_t len);
+#include "library.h"
 
 t_redirect_list	*expand_new_redirect_list(t_redirect_list *node,
 											size_t i,

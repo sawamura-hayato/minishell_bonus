@@ -6,14 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:46:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:22:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-
-char	*try_substr(char const *s, size_t start, size_t len);
-char	*try_strdup(const char *s1);
+#include "library.h"
 
 t_word_list	*expand_new_word_list(t_word_list *node, size_t i, \
 									t_word_list *next_node)
@@ -75,7 +73,8 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 	while (word_list->word[i] != '\0')
 	{
 		if (expand_is_str_in_char(ifs, word_list->word[i]) && \
-			!expand_is_quoted(word_list->type, i) && word_list->type[i] == '1')
+			!expand_is_quoted(word_list->type, i) && \
+			IS_SUBSTITUTED == word_list->type[i] - '0')
 		{
 			expand_can_get_word_splitting_word_list(word_list, ifs, i);
 			break ;
