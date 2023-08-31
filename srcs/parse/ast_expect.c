@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:51:18 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 21:39:12 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:32:24 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,4 @@ void	ast_expect(t_token **current_token, t_data *d)
 		ast_syntax_error(d, token);
 		return ;
 	}
-	/* token = token->next; */
 }
