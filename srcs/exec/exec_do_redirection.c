@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 20:31:59 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 09:34:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 
 void			exec_put_error_ambiguous_redirect(char *file, t_data *d);
 t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d);
+
+void	exec_close_fd(t_command *command, t_data *d)
+{
+	if (command->fd != STDOUT_FILENO)
+		try_close(command->fd, d);
+}
 
 static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 {
@@ -50,6 +56,7 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 	file = r_node->word;
 	if (r_node->is_ambiguous_error || file == NULL)
 	{
+		exec_close_fd(command_list, d);
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
 	}
@@ -57,10 +64,9 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 		fd = try_open(open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644), file, d);
 	else
 		fd = try_open(open(file, O_CREAT | O_WRONLY | O_APPEND, 0644), file, d);
+	exec_close_fd(command_list, d);
 	if (fd == -1)
 		return (NULL);
-	if (command_list->fd != STDOUT_FILENO)
-		try_close(command_list->fd, d);
 	command_list->fd = fd;
 	return (r_node);
 }

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 21:31:37 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 09:24:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ void	put_sigquit_line(t_data *d)
 
 	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 }
-
-// static bool	is_signaled(t_data *d)
-// {
-// 	return (d->exit_status == SIGINT_EXITSTATUS
-// 		|| d->exit_status == SIGQUIT_EXITSTATUS);
-// }
 
 static void	exec_wait_child_node(t_ast *node, t_data *d)
 {
