@@ -6,11 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:46:09 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 16:14:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 09:33:47 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
+
+void	exec_close_fd(t_command *command, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -28,5 +30,8 @@ void	exec_fork(t_ast *node, t_data *d)
 	if (pid == 0)
 		exec_child_process(node, NULL, d);
 	else
+	{
 		node->command_list->pid = pid;
+		exec_close_fd(node->command_list, d);
+	}
 }

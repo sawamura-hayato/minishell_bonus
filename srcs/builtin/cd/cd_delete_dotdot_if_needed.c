@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd_delete_dotdot_if_needed.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 18:55:50 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/25 20:38:44 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:36:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 #include <stdlib.h>
 #define DDC "/.."
-#define D_SL "//"
 
 bool	is_dotdotcomp(char *path);
 char	*skip_consecutive_slashes(char *path);

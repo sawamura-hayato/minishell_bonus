@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redirect_list_word_splittitng.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 21:24:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 09:50:53 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

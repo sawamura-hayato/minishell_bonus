@@ -6,14 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 13:06:08 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 18:27:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 20:09:36 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "library.h"
 #include <stdlib.h>
-
 
 static bool	is_noption(char *str)
 {

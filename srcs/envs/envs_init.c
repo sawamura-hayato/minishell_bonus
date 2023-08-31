@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 20:46:35 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 10:17:27 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static char	*get_shlvl_value(char *value, t_data *d)
 	}
 	else
 		return (try_itoa(++shlvl));
-
 }
 
 static void	init_three_envs(t_data *d)
