@@ -6,8 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 18:16:26 by tyamauch         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2023/08/31 17:49:38 by hsawamur         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "expansion.h"
@@ -15,18 +14,15 @@
 void	expand_word_list(t_word_list **word_list, t_data *d)
 {
 	t_word_list	*node;
-	char		*ifs;
-
-	node = *word_list;
+  
+  node = *word_list;
 	while (node != NULL)
 	{
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
 			expand_variable_word_list(node, d);
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))
-		{
 			expand_delete_quotation_word_list(node);
-		}
 		node = node->next;
 	}
 }

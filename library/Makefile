@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/31 18:08:00 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/08/31 18:11:36 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_dup2.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_open.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_close.c \
-			$(SRCS_DIR)/$(TRY_DIR)/try_strjoin_free.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_chdir.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_stat.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_pipe.c	\

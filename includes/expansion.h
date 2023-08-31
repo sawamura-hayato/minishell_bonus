@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 14:04:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:04:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ char			*expand_get_expand_word(char **word, t_envs **envs);
 bool			expand_is_str_in_char(char *str, char c);
 void			expand_get_joined(char **expand, char **join_word, \
 							char **join_type, bool is_expand);
+bool			expand_is_ambiguous_error(char *redirect_word, \
+									char *redirect_type, \
+									char *ifs);
 
 // new_word_list.c
 void			word_list_new_head(t_word_list **head,
