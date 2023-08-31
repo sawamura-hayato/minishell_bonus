@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 21:20:10 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/26 19:49:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 12:39:02 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
-
 
 ssize_t	try_write(int fildes, const void *buf, size_t nbyte, t_data *d)
 {
