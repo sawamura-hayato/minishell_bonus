@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_current_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/26 16:22:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:31:43 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	token_set_type_word(char c)
 {
 	if (c == '\'')
 		return (IS_SINGLE_QUOTED + '0');
-	else if  (c == '\"')
+	else if (c == '\"')
 		return (IS_DOUBLE_QUOTED + '0');
 	return (DEFAULT_CHAR_TYPE + '0');
 }
@@ -39,6 +39,35 @@ char	*token_get_current_word(char *line, size_t	size)
 	return (word);
 }
 
+char	*token_get_is_expand_type_word(char *word, size_t len)
+{
+	char	*type_word;
+	t_quote	f_quote;
+	size_t	i;
+
+	if (word == NULL)
+		return (NULL);
+	type_word = try_calloc((len + 1), sizeof(char));
+	i = 0;
+	while (word[i] != '\0')
+	{
+		f_quote = token_set_flag_quote(word[i]);
+		while (f_quote != DEFAULT)
+		{
+			type_word[i] = token_set_type_word(word[i]);
+			i++;
+			if (f_quote == token_set_flag_quote(word[i]))
+			{
+				i++;
+				break;
+			}
+		}
+		type_word[i] = token_set_type_word(word[i]);
+		i++;
+	}
+	return (type_word);
+}
+
 char	*token_get_type_word(char *word, bool is_expand)
 {
 	char	*type_word;
@@ -50,7 +79,7 @@ char	*token_get_type_word(char *word, bool is_expand)
 	len = ft_strlen(word);
 	type_word = try_calloc((len + 1), sizeof(char));
 	if (is_expand)
-		type_word = ft_memset(type_word, '1', len);
+		type_word = token_get_is_expand_type_word(word, len);
 	else
 	{
 		i = 0;

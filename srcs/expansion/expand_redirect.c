@@ -6,15 +6,15 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:24:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:03:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-static char *expand_convert_dollar_word_delimiter(char **word, t_data *d)
+static char	*expand_convert_dollar_word_delimiter(char **word, t_data *d)
 {
-	char *expand_word;
+	char	*expand_word;
 
 	expand_word = *word;
 	(*word)++;
@@ -27,90 +27,42 @@ static char *expand_convert_dollar_word_delimiter(char **word, t_data *d)
 	return (expand_word);
 }
 
-// typeを作る　voidにしてchar *token, char *typeにポインタ文字列入れる
-
-static void	expand_get_expanded_word_delimiter(char **token, char **type, t_data *d)
+static void	expand_get_expanded_word_delimiter(char **token, \
+												char **type, \
+												t_data *d)
 {
+	char	*expand;
 	char	*tmp;
-	char	*expand_word;
 	char	*join_word;
-	char	*join_type_word;
+	char	*join_type;
 
 	join_word = NULL;
-	join_type_word = NULL;
+	join_type = NULL;
 	tmp = *token;
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')
 		{
-			expand_word = expand_convert_dollar_word_delimiter(&tmp, d);
-			join_word = try_strjoin_free(join_word, expand_word);
-			join_type_word = try_strjoin_free(join_type_word, token_get_type_word(expand_word, true));
-			free(expand_word);
+			expand = expand_convert_dollar_word_delimiter(&tmp, d);
+			expand_get_joined(&expand, &join_word, &join_type, true);
 		}
 		else
 		{
-			expand_word = expand_get_str_to_dollar(&tmp);
-			join_word = try_strjoin_free(join_word, expand_word);
-			join_type_word = try_strjoin_free(join_type_word, token_get_type_word(expand_word, false));
-			free(expand_word);
+			expand = expand_get_str_to_dollar(&tmp);
+			expand_get_joined(&expand, &join_word, &join_type, false);
 		}
 	}
+	free(*token);
+	free(*type);
 	*token = join_word;
-	*type = join_type_word;
+	*type = join_type;
 }
-
-bool	expand_is_filename(char *word, char *type)
-{
-	size_t	i;
-
-	i = 0;
-	if (type == NULL)
-		return (false);
-	while (type[i] != '\0')
-	{
-		if (word[i] == '*')
-			return (true);
-		i++;
-	}	
-	return (false);
-}
-				// printf("ok   %s\n", node->word);
-bool	expand_is_filename_word(char *word, char *type)
-{
-	size_t	i;
-
-	i = 0;
-	if (type == NULL)
-		return (false);
-	while (type[i] != '\0')
-	{
-		if (IS_DOUBLE_QUOTED == (type[i] - '0'))
-		{
-			i++;
-			while (IS_DOUBLE_QUOTED != (type[i] - '0'))
-				i++;
-		}
-		else
-		{
-			if (expand_is_filename(word, type))
-				return (true);
-		}
-		i++;
-	}
-	return (false);
-}
-// void	expand_filename_redirect_list(node)
-// {
-	
-// }
 
 void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 {
-	t_redirect_list *node;
+	t_redirect_list	*node;
 	char			*ifs;
 	bool			is_empty_ifs;
-	
 
 	node = *redirect_list;
 	while (node != NULL)
@@ -120,84 +72,16 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 			expand_variable_redirect_list(node, d);
 			ifs = envs_get_value("IFS", d->envs_hashmap);
 			is_empty_ifs = expand_is_empty_ifs(ifs);
-				// exit(0);
-			if (!node->is_ambiguous_error)
-			{
-				if (expand_is_filename_word(node->word, node->type))
-					printf("ok   %s\n", node->word);
-					// expand_filename_redirect_list(node);
-				if (node->is_ambiguous_error && \
-					!is_empty_ifs &&
-					expand_is_word_splitting_word(node->word, node->type, ifs))
-					expand_word_splitting_redirect_list(node, ifs);
-				if (expand_is_delete_quotation_word(node->type))
-					expand_delete_quotation_redirect_list(node);
-			}
-			// expand_filename(node);
-			// expand_word_splitting_word_list(node, d);
-			// expand_filename(node);
-			// printf("type %s, word %s\n", node->type, node->word);
+			if (!node->is_ambiguous_error && \
+				!is_empty_ifs && \
+				expand_is_word_splitting_word(node->word, node->type, ifs))
+				expand_word_splitting_redirect_list(node, ifs);
 		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
-		{
-			//単純な展開クウォート削除も行わない関数作成
 			expand_get_expanded_word_delimiter(&(node->word), &(node->type), d);
-		}
-		// exit(0);
+		if (node->re_type == PS_FILE && \
+			expand_is_delete_quotation_word(node->type))
+			expand_delete_quotation_redirect_list(node);
 		node = node->next;
 	}
 }
-
-// bool expand_is_tokens(char *expand_word)
-// {
-// 	bool f_space;
-
-// 	f_space = false;
-// 	while (*expand_word != '\0')
-// 	{
-// 		if (f_space)
-// 			return (true);
-// 		if (ft_isspace(*expand_word))
-// 			f_space = true;
-// 		expand_word++;
-// 	}
-// 	return (false);
-// }
-
-// void expand_token_redirect_list(t_redirect_list *redirect_list, t_data *d, t_redirect_type is_quote)
-// {
-// 	char *expand_word;
-
-// 	expand_word = expand_get_expanded_token(redirect_list->word, d);
-// 	// 環境変数がない場合, トークンが複数に分かれる場合
-// 	if (is_quote != PS_REDIRECT_DOUBLE_QUOTE &&
-// 		(expand_word == NULL || expand_is_tokens(expand_word)))
-// 	{
-// 		free(expand_word);
-// 		// token->is_abm_error = true;
-// 	}
-// 	else
-// 	{
-// 		// free(redirect_list->word);
-// 		redirect_list->word = expand_word;
-// 	}
-// }
-
-// void expand_variable_redirect_list(t_redirect_list *head, t_data *d)
-// {
-// 	t_redirect_list *node;
-
-// 	node = expand_can_dollar_quote_string_redirect(&head);
-// 	while (node != NULL)
-// 	{
-// 		if (node->re_type == TOKEN_SINGLE_QUOTE)
-// 		{
-// 			node = node->next;
-// 			while (node->re_type != TOKEN_SINGLE_QUOTE)
-// 				node = node->next;
-// 		}
-// 		if (node->type != TOKEN_SINGLE_QUOTE && ft_strchr(node->word, '$'))
-// 			expand_token_redirect_list(node, d, node->re_type);
-// 		node = node->next;
-// 	}
-// }
