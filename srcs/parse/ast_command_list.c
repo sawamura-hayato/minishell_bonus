@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/30 20:34:34 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/31 12:32:00 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	ast_command_node->type = set_ast_node_type(token);
 	if (ast_command_node->type != PS_COMMAND)
 		ast_syntax_error(d, token);
-	if (token->tk_type == TK_OPEN_PARENTHESIS 
-			|| token->tk_type == TK_CLOSE_PARENTHESIS)
+	if (token->tk_type == TK_OPEN_PARENTHESIS
+		|| token->tk_type == TK_CLOSE_PARENTHESIS)
 		ast_syntax_error(d, token);
 	return (ast_command_list(ast_command_node, current_token, d));
 }

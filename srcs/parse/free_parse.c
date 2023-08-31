@@ -55,7 +55,6 @@ static void	*ast_free_right_node(t_ast *node)
 
 void	*ast_free_all_nodes(t_ast *node)
 {
-	
 	if (node != NULL && node->left_hand != NULL)
 		ast_free_all_nodes(node->left_hand);
 	if (node != NULL && node->right_hand != NULL)
