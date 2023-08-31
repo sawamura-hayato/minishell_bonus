@@ -13,6 +13,9 @@ search/
 # objs file
 *.o
 
+# sh file
+*.sh
+
 # other directory or file
 .DS_Store
 .DS_Store?
