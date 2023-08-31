@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 13:00:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 14:03:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ static char	*expand_convert_dollar_word_delimiter(char **word, t_data *d)
 	else
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
 	return (expand_word);
-}
-
-void	expand_get_joined(char **expand, char **join_word, \
-							char **join_type, bool is_expand)
-{
-	*join_word = try_strjoin_free(*join_word, *expand);
-	*join_type = try_strjoin_free(*join_type, \
-								token_get_type_word(*expand, is_expand));
-	free(*expand);
 }
 
 static void	expand_get_expanded_word_delimiter(char **token, \
