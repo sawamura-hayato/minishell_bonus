@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 15:11:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:39:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ char	*expand_get_expand_word(char **word, t_envs **envs)
 	target_word = expand_get_string_to_dollar_or_symbol(word);
 	target_value = envs_get_value(target_word, envs);
 	free(target_word);
+	target_word = NULL;
 	return (target_value);
 }
 
 char	*expand_convert_dollar_word(char **word, t_data *d)
 {
-	char *expand_word;
+	char	*expand_word;
 	t_quote f_quote;
 
 	expand_word = *word;
@@ -49,21 +50,15 @@ char	*expand_convert_dollar_word(char **word, t_data *d)
 		return (try_strdup(expand_word));
 	if (f_quote == SINGLE_QUOTE_FLAG || f_quote == DOUBLE_QUOTE_FLAG)
 	{
-		printf("expand %p\n", expand_word);
 		expand_word = expand_get_delete_dollar_quote(word, f_quote);
-		printf("expand %p\n", expand_word);
 	}
 	else if (**word == '?')
 	{
-		printf("expand %p\n", expand_word);
 		expand_word = expand_get_exit_status(word, d->exit_status);
-		printf("expand %p\n", expand_word);
 	}
 	else
 	{
-		printf("expand %p\n", expand_word);
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
-		printf("expand %p\n", expand_word);
 	}
 	return (expand_word);
 }
@@ -78,8 +73,6 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 	join_word = NULL;
 	join_type = NULL;
 	tmp = *token;
-	printf("token %p\n", *token);
-	printf("type  %p\n", *type);
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')

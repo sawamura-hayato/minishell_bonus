@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 14:09:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:13:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ static void	expand_can_get_word_splitting_word_list(t_word_list *word_list, \
 	if (i == 0)
 	{
 		while (word[i] != '\0' && \
-				!expand_is_str_in_char(ifs, word[i]))
+				expand_is_str_in_char(ifs, word[i]))
 		{
-			if (!expand_is_str_in_char(ifs_default_char, word_list->word[i]))
+			if (!expand_is_str_in_char(ifs_default_char, word[i]))
 				word_list->next = expand_new_null_word_list(word_list->next);
+			(word_list->word)++;
+			(word_list->type)++;
 			i++;
 		}
 	}
@@ -64,10 +66,10 @@ static void	expand_can_get_word_splitting_word_list(t_word_list *word_list, \
 		word_list->next = expand_new_word_list(word_list, i, word_list->next);
 		word_list->word = try_substr(word, 0, i);
 		word_list->type = try_substr(type, 0, i);
+		free(ifs_default_char);
+		// free(word);
+		// free(type);
 	}
-	free(ifs_default_char);
-	free(word);
-	free(type);
 }
 
 void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
@@ -88,6 +90,6 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 		}
 		i++;
 	}
-	if (expand_have_ifs(word_list->next->word, ifs))
+	if (word_list->next != NULL && expand_have_ifs(word_list->next->word, ifs))
 		expand_word_splitting_word_list(word_list->next, ifs);
 }

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 12:07:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:37:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ bool	expand_is_variable_word(char *word)
 void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 {
 	if (expand_is_variable_word(word_list->word))
+	{
 		expand_get_expanded_token(&(word_list->word), &(word_list->type), d);
+	}
 }
 
 bool	expand_is_ambiguous_error(char *redirect_word, \
