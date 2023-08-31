@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 14:43:48 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/30 14:42:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 17:15:31 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap)
 	if (node != NULL)
 	{
 		free(_key);
+		if (_value == NULL && node->value != NULL)
+			return ;
 		free(node->value);
 		node->value = _value;
 	}
