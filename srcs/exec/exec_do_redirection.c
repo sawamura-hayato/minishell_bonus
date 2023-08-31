@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/31 09:34:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 09:40:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 	file = r_node->word;
 	if (r_node->is_ambiguous_error || file == NULL)
 	{
-		exec_close_fd(command_list, d);
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
 	}
