@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_get_str_to_dollar.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 09:49:56 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 17:39:13 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static size_t	expand_get_str_to_dollar_size(char *word)
 	{
 		if (word[i] == '\'')
 		{
-			while (word[++i] == '\'')
+			while (word[++i] != '\'')
 			{
 				if (word[i] == '\0')
 					return (i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_current_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 15:45:50 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/31 16:36:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,15 @@ char	*token_get_is_expand_type_word(char *word, size_t len)
 	while (word[i] != '\0')
 	{
 		f_quote = token_set_flag_quote(word[i]);
-		while (f_quote != DEFAULT)
+		if (f_quote != DEFAULT)
 		{
 			type_word[i] = token_set_type_word(word[i]);
+			while (f_quote != token_set_flag_quote(word[++i]))
+				type_word[i] = IS_SUBSTITUTED + '0';
+			type_word[i] = token_set_type_word(word[i]);
 			i++;
-			if (f_quote == token_set_flag_quote(word[i]))
-			{
-				i++;
-				break;
-			}
 		}
-		type_word[i] = token_set_type_word(word[i]);
+		type_word[i] = IS_SUBSTITUTED + '0';
 		i++;
 	}
 	return (type_word);
@@ -73,6 +71,7 @@ char	*token_get_type_word(char *word, bool is_expand)
 	char	*type_word;
 	size_t	len;
 	size_t	i;
+	t_quote	f_quote;
 
 	if (word == NULL)
 		return (NULL);
@@ -85,7 +84,20 @@ char	*token_get_type_word(char *word, bool is_expand)
 		i = 0;
 		while (word[i] != '\0')
 		{
+			f_quote = token_set_flag_quote(word[i]);
 			type_word[i] = token_set_type_word(word[i]);
+			while (f_quote != DEFAULT)
+			{
+				i++;
+				if (word[i] == '\0')
+					return (type_word);
+				else if (f_quote == token_set_flag_quote(word[i]))
+				{
+					type_word[i] = token_set_type_word(word[i]);
+					break;
+				}
+				type_word[i] = '0';
+			}
 			i++;
 		}
 	}
