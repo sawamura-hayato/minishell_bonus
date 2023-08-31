@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_delete_quote.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 14:39:09 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 17:23:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:49:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	expand_delete_quotation_word_list(t_word_list *word_list)
 		}
 		i++;
 	}
-	// free(word_list->word);
-	// free(word_list->type);
 	word_list->word = new_word;
 	word_list->type = new_type;
 }
