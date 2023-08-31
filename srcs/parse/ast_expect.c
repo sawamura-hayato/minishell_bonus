@@ -6,21 +6,21 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:51:18 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 22:00:41 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/08/29 21:39:12 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-void	ast_expect(t_token **current_token, char op, t_data *d)
+void	ast_expect(t_token **current_token, t_data *d)
 {
 	t_token	*token;
 
 	token = *current_token;
-	if (token->type != WORD || token->word[0] != op)
+	if (token->tk_type != TK_CLOSE_PARENTHESIS)
 	{
 		ast_syntax_error(d, token);
 		return ;
 	}
-	token = token->next;
+	/* token = token->next; */
 }

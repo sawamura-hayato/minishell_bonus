@@ -6,19 +6,19 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:59:00 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 15:02:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 20:06:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 #include <stdlib.h>
-#define D_SL "//"
 
 static char	*get_first_target_slashes(char *path)
 {
-	char	*cons_slash;
+	char		*cons_slash;
+	const char	*dsl = "//";
 
-	cons_slash = ft_strstr(path, D_SL);
+	cons_slash = ft_strstr(path, dsl);
 	if (path != cons_slash)
 		return (cons_slash);
 	while (*cons_slash != '\0')
@@ -27,7 +27,7 @@ static char	*get_first_target_slashes(char *path)
 			break ;
 		cons_slash++;
 	}
-	cons_slash = ft_strstr(cons_slash, D_SL);
+	cons_slash = ft_strstr(cons_slash, dsl);
 	return (cons_slash);
 }
 
@@ -55,7 +55,8 @@ char	*cd_replace_non_leading_consecutive_slashes(char *path)
 	if (cons_slash == NULL)
 		return (path);
 	end_slash = get_end_slashes(cons_slash);
-	newpath = try_strjoin_free(try_substr(path, 0, cons_slash - path), end_slash);
+	newpath = try_strjoin_free(
+			try_substr(path, 0, cons_slash - path), end_slash);
 	free(path);
 	return (cd_replace_non_leading_consecutive_slashes(newpath));
 }

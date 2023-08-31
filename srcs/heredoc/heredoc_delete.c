@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_delete.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   heredoc_delete.c                                   :+:      :+:    :+:   */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:49 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/27 20:58:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 19:15:39 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,41 +19,72 @@ static bool	is_quotation(char c)
 	return (c == '\'' || c == '\"');
 }
 
-static size_t	get_size(char *word)
-{
-	size_t	count;
+/* static size_t	get_size(char *word) */
+/* { */
+/* 	size_t	count; */
 
-	count = 0;
-	while (*word != '\0')
-	{
-		if (is_quotation(*word) == false)
-			count++;
-		word++;
-	}
-	return (count);
+/* 	count = 0; */
+/* 	while (*word != '\0') */
+/* 	{ */
+/* 		if (is_quotation(*word) == false) */
+/* 			count++; */
+/* 		word++; */
+/* 	} */
+/* 	return (count); */
+/* } */
+static char * quoted_delimiter(char *head,char **old_delimiter,char quote)
+{
+		char *quoted_delimiter;
+		char *word_p;
+		size_t i;
+		size_t start;
+
+		i = 0;
+		word_p = *old_delimiter;
+		start = (size_t)(word_p - head);
+		while(*word_p != '\0' || *word_p != quote)
+ 		{
+				if(quote == '\0' && is_quotation(*word_p))
+								break;
+				word_p++;
+				i++;
+		}
+		quoted_delimiter = try_substr(head,start,i);
+		return(quoted_delimiter);
 }
 
 void	heredoc_delete_quote(t_redirect_list *delimiter)
 {
 	char	*old_delimiter;
 	char	*new_delimiter;
-	size_t	i;
+	bool 	quote_flag;
+	char 	quote;
+	char 	*tmp;
 
 	old_delimiter = delimiter->word;
-	new_delimiter = try_calloc(get_size(delimiter->word) + 1, sizeof(char));
-	i = 0;
+	new_delimiter = NULL;
+	quote_flag = false;
+	quote = '\0';
 	while (*old_delimiter != '\0')
 	{
-		if (is_quotation(*old_delimiter) == false)
+		if (is_quotation(*old_delimiter) == false || quote_flag == true)
+			tmp = quoted_delimiter(delimiter->word,&old_delimiter,quote);
+		else
 		{
-			new_delimiter[i] = *old_delimiter;
-			i++;
+			quote_flag = !quote_flag ;
+			quote = *old_delimiter;
 		}
 		old_delimiter++;
 	}
+	if(new_delimiter == NULL)
+	{
+		new_delimiter = try_strdup(tmp);
+		free(tmp);
+	}
+	else
+		try_strjoin_free(new_delimiter,tmp);
 	free(delimiter->word);
 	delimiter->word = new_delimiter;
-	// printf("%s\n", new_delimiter);
 }
 
 void	redirect_delete(t_command *command, t_redirect_list *target)

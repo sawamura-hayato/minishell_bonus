@@ -6,14 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 16:07:40 by tterao           ###   ########.fr       */
+/*   Updated: 2023/08/30 19:21:44 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "ft.h"
 # include "init.h"
 # include "library.h"
 # include "tokenize.h"
@@ -110,7 +109,7 @@ bool						ast_is_opereter(t_token_type type);
 bool						token_is_quotation(t_token *token);
 
 bool						token_is_quotation_closed(t_token *token);
-void						ast_expect(t_token **current_token, char op,
+void						ast_expect(t_token **current_token,
 								t_data *d);
 t_token						*token_next(t_token **current_token, t_data *d);
 void						ast_syntax_error(t_data *d, t_token *token);
