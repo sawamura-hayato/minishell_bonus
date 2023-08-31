@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 14:03:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:49:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 				!is_empty_ifs && \
 				expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_redirect_list(node, ifs);
+			free(ifs);
 		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 			expand_get_expanded_word_delimiter(&(node->word), &(node->type), d);

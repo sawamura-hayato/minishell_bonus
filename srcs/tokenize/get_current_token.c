@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 12:31:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 15:45:50 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ char	*token_get_type_word(char *word, bool is_expand)
 	if (word == NULL)
 		return (NULL);
 	len = ft_strlen(word);
-	type_word = try_calloc((len + 1), sizeof(char));
 	if (is_expand)
 		type_word = token_get_is_expand_type_word(word, len);
 	else
 	{
+		type_word = try_calloc((len + 1), sizeof(char));
 		i = 0;
 		while (word[i] != '\0')
 		{
