@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   expand_get_str_to_ifs.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:40:02 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/08/31 09:50:02 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdbool.h>
 #include "expansion.h"
+#include "library.h"
 
-void	*try_calloc(size_t count, size_t size);
 bool	export_is_symbol(char c);
-int		ft_isspace(char c);
 
 static size_t	expand_get_string_to_dollar_or_symbol_size(char *word)
 {
