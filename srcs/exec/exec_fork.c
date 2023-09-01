@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec_fork.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:46:09 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/31 22:44:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/01 14:56:55 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 
 void	exec_close_fd(t_command *command, t_data *d);
+void	exec_exit_if_redirect_failed(t_ast *node, int *pipefd, t_data *d);
 
 /**
  * @brief この関数はforkを実行し、子プロセスを生成する。
@@ -28,7 +29,10 @@ void	exec_fork(t_ast *node, t_data *d)
 
 	pid = try_fork();
 	if (pid == 0)
+	{
+		exec_exit_if_redirect_failed(node, NULL, d);
 		exec_child_process(node, NULL, d);
+	}
 	else
 	{
 		node->command_list->pid = pid;
