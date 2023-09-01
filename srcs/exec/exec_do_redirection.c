@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/01 15:05:24 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/01 16:36:25 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 
 	node = node->next;
 	file = node->word;
-	if (node->is_ambiguous_error || file == NULL)
+	if (node->is_ambiguous_error)
 	{
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
@@ -54,7 +54,7 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 
 	r_node = r_node->next;
 	file = r_node->word;
-	if (r_node->is_ambiguous_error || file == NULL)
+	if (r_node->is_ambiguous_error)
 	{
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
