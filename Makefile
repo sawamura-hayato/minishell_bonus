@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/31 18:10:32 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/02 17:16:16 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -fsanitize=address -g
 
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
