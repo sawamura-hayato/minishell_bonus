@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_wait_child_process.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/31 09:24:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/01 15:33:40 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "library.h"
 #define SIGNAL_EXITSTATUS 128
 #define SIGINT_EXITSTATUS 130
-#define SIGQUIT_EXITSTATUS 131
 
 void	put_sigquit_line(t_data *d)
 {
@@ -47,9 +46,6 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 	exec_wait_child_node(node, d);
 	if (node->type != PS_COMMAND)
 		return ;
-	if (node->command_list->pid == -1 && d->exit_status != SIGINT_EXITSTATUS
-		&& d->exit_status != SIGQUIT_EXITSTATUS)
-		d->exit_status = EXIT_FAILURE;
 	else if (node->command_list->pid != -1)
 	{
 		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
