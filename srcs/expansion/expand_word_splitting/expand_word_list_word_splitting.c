@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/02 18:36:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/02 19:18:41 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ t_word_list	*expand_new_word_list_skip_ifs_char(char *word, char *type, char *if
 	new_word_list = try_malloc(sizeof(t_word_list));
 	new_word_list->word = try_strdup(&word[i]);
 	new_word_list->type = try_strdup(&type[i]);
-	printf("%s\n", new_word_list->word);
-	printf("%s\n", new_word_list->type);
+	printf("if=%s\n", new_word_list->word);
+	printf("if=%s\n", new_word_list->type);
 	new_word_list->tk_type = WORD;
 	new_word_list->next = next_node;
 	free(word);
@@ -110,6 +110,8 @@ static void	expand_can_get_word_splitting_word_list(t_word_list *word_list,
 		word_list->next = expand_new_word_list(word_list, i, word_list->next);
 		word_list->word = try_substr(word, 0, i);
 		word_list->type = try_substr(type, 0, i);
+		printf("else=%s\n", word_list->word);
+		printf("else=%s\n", word_list->type);
 		free(word);
 		free(type);
 	}

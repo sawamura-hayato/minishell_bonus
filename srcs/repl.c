@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 17:26:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/02 19:13:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	read_eval_print_loop(t_data *d)
 		if (d->syntax_flag == false && heredoc(ast, d))
 		{
 			expansion(ast, d);
+			debug_print_ast(ast);
 			exec_command(ast, EXEC_START, d);
 		}
 		free_all_data(token, ast);

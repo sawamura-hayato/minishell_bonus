@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
-#    Updated: 2023/09/02 17:16:16 by tterao           ###   ########.fr        #
+#    Updated: 2023/09/02 18:55:17 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/command_redirect_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/free_parse.c \
- 		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c
+ 		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c	\
+ 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c
 
  HEREDOC_DIR = heredoc
  SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
