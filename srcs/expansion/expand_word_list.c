@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 10:14:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:03:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 	{
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
 			expand_variable_word_list(node, d);
+		printf("word %s\n", node->word);
+		printf("type %s\n", node->type);
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))
 			expand_delete_quotation_word_list(node);

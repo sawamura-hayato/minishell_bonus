@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 09:46:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 12:52:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,18 @@ void			redirect_delete_target(t_redirect_list **head,
 char			*expand_get_exit_status(char **word, unsigned int exit_status);
 
 // expand_get_str_to_dollar.c
-char			*expand_get_str_to_dollar(char **word, char **type);
+char			*expand_get_str_to_dollar(char **word, char *type);
 char			*expand_get_string_to_dollar_or_symbol(char **word);
+
+void			expand_get_joined_convert_dollar_word(char **join_word, \
+													char **join_type, \
+													char **tmp, \
+													t_data *d);
+
+void			expand_get_joined_str_to_dollar(char **join_word, \
+													char **join_type, \
+													char **tmp, \
+													char **tmp_type);
 
 // expand_word_splitting.c
 // IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割

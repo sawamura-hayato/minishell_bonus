@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 09:51:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:14:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ static size_t	expand_get_str_to_dollar_size(char *word, char *type)
 	return (i);
 }
 
-char	*expand_get_str_to_dollar(char **word, char **type)
+char	*expand_get_str_to_dollar(char **word, char *type)
 {
 	char	*str;
 	size_t	size;
 	size_t	i;
 
 	i = 0;
-	size = expand_get_str_to_dollar_size(*word, *type);
+	size = expand_get_str_to_dollar_size(*word, type);
 	str = try_calloc(size + 1, sizeof(char));
 	while (i < size)
 	{
@@ -82,6 +82,5 @@ char	*expand_get_str_to_dollar(char **word, char **type)
 		i++;
 	}
 	*word += size;
-	*type += size;
 	return (str);
 }

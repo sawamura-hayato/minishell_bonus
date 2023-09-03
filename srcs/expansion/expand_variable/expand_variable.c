@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 10:15:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:31:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-bool expand_is_str_in_char(char *str, char c)
+bool	expand_is_str_in_char(char *str, char c)
 {
 	if (str == NULL)
 		return (false);
@@ -25,10 +25,10 @@ bool expand_is_str_in_char(char *str, char c)
 	return (false);
 }
 
-bool expand_is_variable_word(char *word, char *type)
+bool	expand_is_variable_word(char *word, char *type)
 {
-	int f_quote;
-	size_t i;
+	int		f_quote;
+	size_t	i;
 
 	i = 0;
 	if (type == NULL)
@@ -54,7 +54,7 @@ bool expand_is_variable_word(char *word, char *type)
 	return (false);
 }
 
-void expand_variable_word_list(t_word_list *word_list, t_data *d)
+void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 {
 	if (expand_is_variable_word(word_list->word, word_list->type))
 	{
@@ -62,19 +62,19 @@ void expand_variable_word_list(t_word_list *word_list, t_data *d)
 	}
 }
 
-void expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
+void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 {
-	char *word;
-	char *ifs;
+	char	*word;
+	char	*ifs;
 
 	ifs = envs_get_value("IFS", d->envs_hashmap);
 	word = redirect_list->word;
 	if (expand_is_variable_word(redirect_list->word, redirect_list->type))
 	{
-		expand_get_expanded_token(&(redirect_list->word),
-								  &(redirect_list->type), d);
-		if (expand_is_ambiguous_error(redirect_list->word,
-									  redirect_list->type, ifs))
+		expand_get_expanded_token(&(redirect_list->word), \
+									&(redirect_list->type), d);
+		if (expand_is_ambiguous_error(redirect_list->word, \
+									redirect_list->type, ifs))
 		{
 			redirect_list->is_ambiguous_error = true;
 			redirect_list->word = word;
