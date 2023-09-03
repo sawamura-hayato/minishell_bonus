@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/31 12:32:00 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:51:42 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ static t_command	*command_list_init_node(void)
 t_ast	*ast_command_node(t_token **current_token, t_data *d)
 {
 	t_ast	*ast_command_node;
+	t_ast	*node;
 	t_token	*token;
 
 	ast_command_node = ast_init_node();
 	token = *current_token;
+	node = NULL;
 	if (token == NULL)
 	{
 		ast_syntax_error(d, token);
@@ -37,9 +39,20 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	ast_command_node->type = set_ast_node_type(token);
 	if (ast_command_node->type != PS_COMMAND)
 		ast_syntax_error(d, token);
-	if (token->tk_type == TK_OPEN_PARENTHESIS
-		|| token->tk_type == TK_CLOSE_PARENTHESIS)
-		ast_syntax_error(d, token);
+	if (token->tk_type == TK_OPEN_PARENTHESIS)
+	{
+		printf("current token1:%s\n",(*current_token)->word);
+		token_next(current_token,d);
+		node = parse(current_token, d);
+		printf("current token2:%s\n",(*current_token)->word);
+		token_next(current_token,d);
+		token_next(current_token,d);
+		token_next(current_token,d);
+		token_next(current_token,d);
+		printf("current token3:%s\n",(*current_token)->word);
+		ast_expect(current_token,d);
+		return (node);
+	}
 	return (ast_command_list(ast_command_node, current_token, d));
 }
 
@@ -54,7 +67,8 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 	command_list_node = command_list_init_node();
 	redirect_flag = false;
 	ast_command_node->command_list = command_list_node;
-	while (token != NULL && !ast_is_opereter(token->tk_type))
+	while ((token != NULL && !ast_is_opereter(token->tk_type)) 
+			|| (token->tk_type == TK_CLOSE_PARENTHESIS))
 	{
 		if (token_is_redirect(token->tk_type) || redirect_flag)
 		{

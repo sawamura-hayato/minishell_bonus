@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 12:41:07 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:57:10 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ t_ast_node_type	set_ast_node_type(t_token *token);
 void			*ast_free_node(t_ast *node);
 void			*ast_free_right_left_nodes(t_ast *left_node,
 					t_ast *right_node);
+void debug_print_ast(t_ast *node);
 
 #endif

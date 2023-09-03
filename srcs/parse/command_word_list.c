@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:55:00 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 00:57:21 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:52:47 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	command_word_list(t_word_list **head, t_token **current_token,
 		d->syntax_flag = true;
 		ast_syntax_error(d, token);
 	}
+	else if(token->tk_type == TK_CLOSE_PARENTHESIS)
+		return;
 	else
 	{
 		word_node = word_list_init_node(token);
