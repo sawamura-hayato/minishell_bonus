@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 11:09:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:38:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,7 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 	while (node != NULL)
 	{
 		if (node->re_type == PS_FILE && ft_strchr(node->word, '$'))
-		{
 			expand_variable_redirect_list(node, d);
-		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 			expand_get_expanded_word_delimiter(&(node->word), &(node->type), d);
 		if (node->re_type == PS_FILE && \

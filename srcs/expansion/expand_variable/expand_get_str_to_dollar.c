@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 13:14:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:20:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static size_t	expand_get_str_to_dollar_size(char *word, char *type)
 	i = 0;
 	while (type[i] != '\0' && word[i] != '$')
 	{
-		if (IS_SINGLE_QUOTED == type[i] - '0')
+		if (IS_SINGLE_QUOTED == type[i])
 		{
-			while (IS_SINGLE_QUOTED != type[++i] - '0')
+			while (IS_SINGLE_QUOTED != type[++i])
 			{
 				if (type[i] == '\0')
 					return (i);
@@ -74,6 +74,8 @@ char	*expand_get_str_to_dollar(char **word, char *type)
 	size_t	i;
 
 	i = 0;
+	if (type == NULL)
+		return (NULL);
 	size = expand_get_str_to_dollar_size(*word, type);
 	str = try_calloc(size + 1, sizeof(char));
 	while (i < size)

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 09:25:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:53:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 # include <stdio.h>
 
-# define DEFAULT_CHAR_TYPE (0)
-# define IS_SUBSTITUTED (1)
-# define IS_SINGLE_QUOTED (2)
-# define IS_DOUBLE_QUOTED (3)
+# define DEFAULT_CHAR_TYPE '0'
+# define IS_SUBSTITUTED '1'
+# define IS_SINGLE_QUOTED '2'
+# define IS_DOUBLE_QUOTED '3'
 
 typedef enum e_token_type
 {

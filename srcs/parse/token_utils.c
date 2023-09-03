@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:57:35 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/31 19:26:21 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:55:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ bool	token_is_quotation_closed(t_token *token)
 	s = (char *)token->type;
 	while (s[i])
 	{
-		if (token->type[i] == (IS_SINGLE_QUOTED + '0'))
+		if (token->type[i] == (IS_SINGLE_QUOTED))
 			single_q_count++;
-		if (token->type[i] == (IS_DOUBLE_QUOTED + '0'))
+		if (token->type[i] == (IS_DOUBLE_QUOTED))
 			double_q_count++;
 		i++;
 	}

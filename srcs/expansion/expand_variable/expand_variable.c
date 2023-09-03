@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 10:31:59 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:55:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	expand_is_str_in_char(char *str, char c)
 
 bool	expand_is_variable_word(char *word, char *type)
 {
-	int		f_quote;
+	char	f_quote;
 	size_t	i;
 
 	i = 0;
@@ -35,10 +35,10 @@ bool	expand_is_variable_word(char *word, char *type)
 		return (false);
 	while (type[i] != '\0')
 	{
-		f_quote = type[i] - '0';
+		f_quote = type[i];
 		if (IS_SINGLE_QUOTED == f_quote)
 		{
-			while (IS_SINGLE_QUOTED != (type[++i] - '0'))
+			while (IS_SINGLE_QUOTED != (type[++i]))
 			{
 				if (type[i] == '\0')
 					return (false);
@@ -77,7 +77,7 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 									redirect_list->type, ifs))
 		{
 			redirect_list->is_ambiguous_error = true;
-			redirect_list->word = word;
+			redirect_list->word = try_strdup(word);
 		}
 	}
 }

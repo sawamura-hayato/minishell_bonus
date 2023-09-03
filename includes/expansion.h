@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 12:52:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:54:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void			expand_delete_quotation_word_list(t_word_list *word_list);
 void			expand_delete_quotation_redirect_list(
 					t_redirect_list *redirect_list);
 bool			expand_is_delete_quotation_word(char *word);
-bool			expand_is_type_quotation(int type);
+bool			expand_is_type_quotation(char type);
 
 char			*try_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t end);

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:36:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 13:15:09 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:51:44 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static	char	*get_type_str_to_dollar(char *expand_word, char **type)
 	i = 0;
 	while (expand_word[i] != '\0')
 	{
-		printf("type %c\n", (*type)[i]);
 		if ((*type)[i] == '0')
 			new_type[i] = '1';
 		else

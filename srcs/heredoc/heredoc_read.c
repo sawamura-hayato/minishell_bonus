@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/03 12:52:57 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:18:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	get_delimiter_word_and_type(t_redirect_list *delimiter, \
 {
 	delimiter->word = set_heredoc_string(str, is_start);
 	delimiter->type = token_get_all_expand_type_word(delimiter->word);
+	printf("type %s\n", delimiter->word);
+	printf("type %s\n", delimiter->type);
 }
 
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
