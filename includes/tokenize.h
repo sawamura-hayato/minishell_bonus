@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 11:10:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/03 19:58:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define IS_SUBSTITUTED (1)
 # define IS_SINGLE_QUOTED (2)
 # define IS_DOUBLE_QUOTED (3)
+# define IS_IN_QUOTED '4'
 
 typedef enum e_token_type
 {

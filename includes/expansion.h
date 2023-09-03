@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 18:04:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 20:15:26 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,17 @@ void			expand_word_splitting_redirect_list(t_redirect_list *node,
 
 // expand_filename.c
 void			expand_filename(t_ast *node);
-void			expand_filename_word_list(t_word_list *word_list);
-void			expand_filename_redirect_list(t_redirect_list redirect_list);
+void			expand_filename_word_list(t_word_list *node,t_data *d);
+void			expand_filename_redirect(t_redirect_list *node,t_data *d);
+
+//＊以下まで設計自由に変更してください！
 bool			expand_is_wildcard(char *word);
 bool			expand_is_filename_word(char *word, char *target);
 void			word_list_insert_target(t_word_list *word_list, char *taget);
 bool			expand_is_filename_word(char *word, char *target);
 size_t			expand_filename_word_list_size(t_word_list *word_list);
 void			expand_can_get_filename_word_list(t_word_list *word_list);
+//＊
 
 // expand_delete_quote.c
 void			expand_delete_quotation(t_ast *node);
@@ -109,7 +112,9 @@ void			expand_delete_quotation_redirect_list(
 					t_redirect_list *redirect_list);
 bool			expand_is_delete_quotation_word(char *word);
 bool			expand_is_type_quotation(int type);
+size_t			expand_get_size_delete_quotation_word(char *word);
 
+//library
 char			*try_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t end);
 
