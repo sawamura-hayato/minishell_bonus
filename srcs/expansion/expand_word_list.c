@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 16:46:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 20:17:32 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))
 			expand_delete_quotation_word_list(node);
+		//expand_is_filename（現在適当）
+		if (node->tk_type == WORD && ft_strchr(node->word, '*'))
+			expand_filename_word_list(node, d);
 		node = node->next;
 	}
 }

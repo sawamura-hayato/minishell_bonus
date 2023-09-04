@@ -6,13 +6,12 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 19:44:04 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 11:55:50 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 20:19:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "expansion.h"
-// #include <stdio.h>
-// #include <dirent.h>
+#include "expansion.h"
+#include <dirent.h>
 
 // // 展開の流れ
 // // 1. 展開できるかどうかをチェックする
@@ -132,6 +131,25 @@
 // 		word_list = word_list->next;
 // 	}
 // }
+// void	expand_check_in_quote_type_and_delete_quote(char **type)
+// {
+	
+// }
+
+void	expand_filename_word_list(t_word_list *node, t_data *d)
+{
+	(void)node;
+	(void)d;
+	return ;
+}
+void	expand_filename_redirect(t_redirect_list *node,t_data *d)
+{
+	(void)node;
+	(void)d;
+	return ;
+}
+
+
 
 // void	expand_filename(t_ast *node)
 // {
