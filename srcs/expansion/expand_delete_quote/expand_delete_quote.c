@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 14:39:09 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 20:03:25 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:54:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-bool	expand_is_type_quotation(int type)
+bool	expand_is_type_quotation(char type)
 {
 	if (type == IS_SINGLE_QUOTED || type == IS_DOUBLE_QUOTED)
 		return (true);

@@ -7,12 +7,14 @@
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
 #    Updated: 2023/09/03 20:19:08 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/03 19:32:21 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+# CFLAGS += -fsanitize=address
 
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
@@ -66,6 +68,7 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/delete_redirect.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_is_abm_error.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_get_variable.c \
 
 EXPANSION_WORD_SPLIT_DIR = expand_word_splitting
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_splitting.c \

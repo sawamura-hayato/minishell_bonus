@@ -6,13 +6,11 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 18:23:06 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 10:47:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:51:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
-
-int		printf(const char *format, ...);
 
 void	word_list_new_head(t_word_list **head, t_word_list *new_word_list)
 {

@@ -33,12 +33,14 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 {
 	char	*expand;
 	char	*tmp;
+	char	*tmp_type;
 	char	*join_word;
 	char	*join_type;
 
 	join_word = NULL;
 	join_type = NULL;
 	tmp = *token;
+	tmp_type = *type;
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')
@@ -47,10 +49,8 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 			expand_get_joined(&expand, &join_word, &join_type, true);
 		}
 		else
-		{
-			expand = expand_get_str_to_dollar(&tmp);
-			expand_get_joined(&expand, &join_word, &join_type, false);
-		}
+			expand_get_joined_str_to_dollar(&join_word, &join_type, \
+												&tmp, &tmp_type);
 	}
 	free(*token);
 	free(*type);
@@ -66,9 +66,7 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 	while (node != NULL)
 	{
 		if (node->re_type == PS_FILE && ft_strchr(node->word, '$'))
-		{
 			expand_variable_redirect_list(node, d);
-		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 			expand_get_expanded_word_delimiter(&(node->word), &(node->type), d);
 		if (node->re_type == PS_FILE && \

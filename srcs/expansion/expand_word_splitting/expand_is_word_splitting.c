@@ -29,7 +29,7 @@ bool	expand_is_word_splitting(char *word, char *type, char *ifs)
 	{
 		while (ifs[j] != '\0')
 		{
-			if (IS_SUBSTITUTED == (type[i]) && \
+			if (IS_SUBSTITUTED == type[i] && \
 				ifs[j] == word[i])
 				return (true);
 			j++;
@@ -49,10 +49,10 @@ bool	expand_is_word_splitting_word(char *word, char *type, char *ifs)
 		return (false);
 	while (type[i] != '\0')
 	{
-		if (IS_DOUBLE_QUOTED == (type[i]))
+		if (IS_DOUBLE_QUOTED == type[i])
 		{
 			i++;
-			while (IS_DOUBLE_QUOTED != (type[i]))
+			while (IS_DOUBLE_QUOTED != type[i])
 				i++;
 		}
 		else

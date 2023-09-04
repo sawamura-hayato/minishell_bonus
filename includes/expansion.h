@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 20:15:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:54:05 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_word_list		*expand_can_dollar_quote_string_word_list(t_word_list **head);
 t_redirect_list	*expand_can_dollar_quote_string_redirect(
 					t_redirect_list **head);
 char			*expand_get_delete_dollar_quote(char **word, t_quote f_quote);
-bool			expand_is_variable_word(char *word);
+bool			expand_is_variable_word(char *word, char *type);
 char			*expand_get_expand_word(char **word, t_envs **envs);
 
 bool			expand_is_str_in_char(char *str, char c);
@@ -71,8 +71,18 @@ void			redirect_delete_target(t_redirect_list **head,
 char			*expand_get_exit_status(char **word, unsigned int exit_status);
 
 // expand_get_str_to_dollar.c
-char			*expand_get_str_to_dollar(char **word);
+char			*expand_get_str_to_dollar(char **word, char *type);
 char			*expand_get_string_to_dollar_or_symbol(char **word);
+
+void			expand_get_joined_convert_dollar_word(char **join_word, \
+													char **join_type, \
+													char **tmp, \
+													t_data *d);
+
+void			expand_get_joined_str_to_dollar(char **join_word, \
+													char **join_type, \
+													char **tmp, \
+													char **tmp_type);
 
 // expand_word_splitting.c
 // IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割

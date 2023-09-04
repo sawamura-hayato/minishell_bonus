@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/30 21:30:33 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/01 14:50:43 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,17 @@ static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
  */
 void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
+	bool	rd_success;
+
 	exec_child_node(node, operator, d);
 	if (node->type == PS_COMMAND)
 	{
-		if (exec_do_redirection(node, d) == false)
-			return ;
+		node->command_list->redirect_success = exec_do_redirection(node, d);
+		rd_success = node->command_list->redirect_success;
 		if (operator == EXEC_PIPE)
 			exec_pipe(node, d);
+		else if (!rd_success && operator == EXEC_START && exec_is_builtin(node))
+			return ;
 		else if (operator == EXEC_START && exec_is_builtin(node))
 			return (builtin(node, NULL, true, d));
 		else

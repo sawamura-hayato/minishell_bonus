@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 18:32:14 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 12:41:44 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,22 @@ char	*expand_convert_dollar_word(char **word, t_data *d)
 void	expand_get_expanded_token(char **token, char **type, t_data *d)
 {
 	char	*tmp;
-	char	*expand_word;
+	char	*tmp_type;
 	char	*join_word;
 	char	*join_type;
 
 	join_word = NULL;
 	join_type = NULL;
 	tmp = *token;
+	tmp_type = *type;
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')
-		{
-			expand_word = expand_convert_dollar_word(&tmp, d);
-			expand_get_joined(&expand_word, &join_word, &join_type, true);
-		}
+			expand_get_joined_convert_dollar_word(&join_word, \
+													&join_type, &tmp, d);
 		else
-		{
-			expand_word = expand_get_str_to_dollar(&tmp);
-			expand_get_joined(&expand_word, &join_word, &join_type, false);
-		}
+			expand_get_joined_str_to_dollar(&join_word, \
+											&join_type, &tmp, &tmp_type);
 	}
 	free(*token);
 	free(*type);

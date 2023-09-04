@@ -15,12 +15,26 @@
 void	expand_word_list(t_word_list **word_list, t_data *d)
 {
 	t_word_list	*node;
+	char		*ifs;
+	bool		is_empty_ifs;
 
 	node = *word_list;
 	while (node != NULL)
 	{
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
+		{
 			expand_variable_word_list(node, d);
+			ifs = envs_get_value("IFS", d->envs_hashmap);
+            is_empty_ifs = expand_is_empty_ifs(ifs);
+            if (!is_empty_ifs && \
+                expand_is_word_splitting_word(node->word, node->type, ifs))
+            {
+				
+                expand_word_splitting_word_list(node, ifs);
+            }
+            free(ifs);
+		}
+		debug_printf_word_list(node);
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))
 			expand_delete_quotation_word_list(node);
