@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/04 16:36:56 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:15:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,32 @@
 static size_t	get_star_index(const char *star_str, char *type, size_t i)
 {
 	char	*star;
+	size_t	add_index;
 
 	star = ft_strchr(&star_str[i], '*');
 	if (star == NULL)
 		return (0);
-	i = star - &star_str[i];
-	type += i;
+	add_index = star - &star_str[i];
+	type += add_index;
 	if (*type != IS_IN_QUOTED)
-		return (i);
-	return (get_star_index(star, type, i));
+		return (add_index + i);
+	return (get_star_index(star, type, add_index + 1));
 }
 
 bool	is_last_component_matching(char *star_comp, char *file)
 {
 	bool	is_match;
+	char	*tmp;
 
-	while (ft_strstr(file + 1, star_comp) != NULL)
-		file += 1;
+	tmp = file;
+	while (ft_strstr(file, star_comp) != NULL)
+	{
+		tmp = file;
+		file++;
+	}
+	file = tmp;
+	// printf("star=%s\n", star_comp);
+	// printf("file=%s\n\n", file);
 	is_match = ft_strcmp(star_comp, file);
 	free(star_comp);
 	return (is_match == 0);
@@ -44,21 +53,23 @@ static bool	expand_star_wordlist_loop(const char *star_str, char *type, char *fi
 	char	*star_comp;
 
 	next_star = get_star_index(star_str, type, i);
-	if (next_star != 0 && (next_star - i) == 1)
-		return (expand_star_wordlist_loop(star_str, type, file, next_star));
+	// if (next_star != 0 && (next_star - i) == 1)
+	// 	return (expand_star_wordlist_loop(star_str, type, file, next_star + 1));
 	if (next_star != 0)
 		star_comp = try_substr(star_str, i, next_star - i);
 	else
 		return (is_last_component_matching(try_strdup(&star_str[i]), file));
-	printf("star=%s\n", star_comp);
-	printf("file=%s\n\n", file);
+	// printf("star str=%s\n", star_str);
+	// printf("i=%zu next=%zu\n", i, next_star);
+	// printf("loop star=%s\n", star_comp);
+	// printf("loop file=%s\n\n", file);
 	file = ft_strstr(file, star_comp);
 	if (file != NULL)
 		file += ft_strlen(star_comp);
 	free(star_comp);
 	if (file == NULL)
 		return (false);
-	return (expand_star_wordlist_loop(star_str, type, file, i));
+	return (expand_star_wordlist_loop(star_str, type, file, next_star + 1));
 }
 
 static t_word_list	*newnode(const char *file, t_word_list *nextnode)
@@ -71,13 +82,11 @@ static t_word_list	*newnode(const char *file, t_word_list *nextnode)
 	newnode->word = try_strdup(file);
 	newnode->type = try_calloc(len + 1, sizeof(char));
 	ft_memset(newnode->type, '1', len);
-	// printf("word=%s\n", newnode->word);
-	// printf("type=%s\n", newnode->type);
 	newnode->next = nextnode;
 	return (newnode);
 }
 
-t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, const char *file, t_data *d)
+t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, char *file, t_data *d)
 {
 	size_t	first_star_index;
 
@@ -85,9 +94,10 @@ t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, con
 	first_star_index = get_star_index(star_node->word, (char *)file, 0);
 	if (star_node->word[0] == '*')
 		first_star_index = 1;
-	else if (ft_strncmp(star_node->word, file, first_star_index) != 0)
+	else if (ft_strncmp(star_node->word, file, first_star_index - 1) != 0)
 		return (node);
-	if (expand_star_wordlist_loop(star_node->word, star_node->type, (char *)file, first_star_index))
+	if (expand_star_wordlist_loop(star_node->word, star_node->type,
+			&file[first_star_index], first_star_index + 1))
 	{
 		node->next = newnode(file, node->next);
 		node = node->next;

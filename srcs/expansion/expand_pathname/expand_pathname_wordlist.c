@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/04 15:36:13 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/04 16:49:48 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, const char *file, t_data *d);
+t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, char *file, t_data *d);
 
 static bool	have_star(t_word_list *node)
 {
