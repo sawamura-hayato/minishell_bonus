@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_pathname.c                                  :+:      :+:    :+:   */
+/*   expand_pathname_wordlist.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:29:27 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/03 21:06:26 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/04 14:39:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-# define IS_IN_QUOTED '4'
+t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, const char *file, t_data *d);
+
 static bool	have_star(t_word_list *node)
 {
 	size_t	i;
@@ -32,20 +33,23 @@ static bool	have_star(t_word_list *node)
 	return (false);
 }
 
-void	expand_pathname(t_word_list *node, t_data *d)
+void	expand_pathname_wordlist(t_word_list *node, t_data *d)
 {
 	DIR				*dirp;
 	struct dirent	*entry;
+	t_word_list		*star_node;
 
-	expand_delete_quotation_word_list(node);
 	if (!have_star(node))
 		return ;
 	dirp = try_opendir(".", d);
+	if (dirp == NULL)
+		return ;
 	entry = try_readdir(dirp, d);
+	star_node = node;
 	while (entry != NULL)
 	{
 		if (*(entry->d_name) != '.')
-			expand_star(node, entry->d_name, d);
+			node = expand_star_wordlist(star_node, node, entry->d_name, d);
 		entry = try_readdir(dirp, d);
 	}
 	// 展開された場合、元の＊のnodeを削除する

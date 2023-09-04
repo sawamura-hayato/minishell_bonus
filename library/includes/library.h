@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 20:16:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/04 14:05:34 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include "init.h"
 # include <signal.h>
+# include <dirent.h>
 
 // try
 void			*try_malloc(size_t size);

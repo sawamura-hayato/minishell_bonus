@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
-#    Updated: 2023/09/03 20:19:08 by hsawamur         ###   ########.fr        #
-#    Updated: 2023/09/03 19:32:21 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/04 14:51:08 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address -g
 
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
@@ -79,6 +79,10 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_spl
 
 EXPANSION_FILENAME_DIR = expand_filename
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_FILENAME_DIR)/expand_filename.c \
+
+EXPANSION_PATHNAME_DIR = expand_pathname
+SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_PATHNAME_DIR)/expand_pathname_wordlist.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_PATHNAME_DIR)/expand_star_wordlist.c
 
 EXPANSION_DELETE_QUOTE = expand_delete_quote
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_DELETE_QUOTE)/expand_delete_quote.c \

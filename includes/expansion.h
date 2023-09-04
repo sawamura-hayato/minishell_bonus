@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 13:54:05 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/04 14:41:01 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,16 @@ size_t			expand_filename_word_list_size(t_word_list *word_list);
 void			expand_can_get_filename_word_list(t_word_list *word_list);
 //＊
 
+// expand_pathname_wordlist.c
+void			expand_pathname_wordlist(t_word_list *node, t_data *d);
+
 // expand_delete_quote.c
 void			expand_delete_quotation(t_ast *node);
 void			expand_delete_quotation_word_list(t_word_list *word_list);
 void			expand_delete_quotation_redirect_list(
 					t_redirect_list *redirect_list);
 bool			expand_is_delete_quotation_word(char *word);
-bool			expand_is_type_quotation(int type);
+bool			expand_is_type_quotation(char type);
 size_t			expand_get_size_delete_quotation_word(char *word);
 
 //library
