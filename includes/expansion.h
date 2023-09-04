@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 14:41:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/04 15:36:10 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void			expand_can_get_filename_word_list(t_word_list *word_list);
 //＊
 
 // expand_pathname_wordlist.c
-void			expand_pathname_wordlist(t_word_list *node, t_data *d);
+t_word_list		*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d);
 
 // expand_delete_quote.c
 void			expand_delete_quotation(t_ast *node);

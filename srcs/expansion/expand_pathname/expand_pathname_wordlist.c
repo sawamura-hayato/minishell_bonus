@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_pathname_wordlist.c                                  :+:      :+:    :+:   */
+/*   expand_pathname_wordlist.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 18:29:27 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/04 14:39:44 by tterao           ###   ########.fr       */
+/*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
+/*   Updated: 2023/09/04 15:36:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ static bool	have_star(t_word_list *node)
 	return (false);
 }
 
-void	expand_pathname_wordlist(t_word_list *node, t_data *d)
+t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d)
 {
 	DIR				*dirp;
 	struct dirent	*entry;
 	t_word_list		*star_node;
 
 	if (!have_star(node))
-		return ;
+		return (node->next);
 	dirp = try_opendir(".", d);
 	if (dirp == NULL)
-		return ;
+		return (node->next);
 	entry = try_readdir(dirp, d);
 	star_node = node;
 	while (entry != NULL)
@@ -52,6 +52,7 @@ void	expand_pathname_wordlist(t_word_list *node, t_data *d)
 			node = expand_star_wordlist(star_node, node, entry->d_name, d);
 		entry = try_readdir(dirp, d);
 	}
-	// 展開された場合、元の＊のnodeを削除する
-	// delete_node();
+	if (star_node != node)
+		word_list_delete_target(&head, star_node);
+	return (node->next);
 }

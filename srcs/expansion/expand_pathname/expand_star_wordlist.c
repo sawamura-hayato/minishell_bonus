@@ -56,8 +56,8 @@ static t_word_list	*newnode(const char *file, t_word_list *nextnode)
 	newnode->word = try_strdup(file);
 	newnode->type = try_calloc(len + 1, sizeof(char));
 	ft_memset(newnode->type, '1', len);
-	printf("word=%s\n", newnode->word);
-	printf("type=%s\n", newnode->type);
+	// printf("word=%s\n", newnode->word);
+	// printf("type=%s\n", newnode->type);
 	newnode->next = nextnode;
 	return (newnode);
 }
