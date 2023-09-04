@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/04 16:49:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:23:55 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,20 @@ static bool	have_star(t_word_list *node)
 		i++;
 	}
 	return (false);
+}
+
+bool	only_stars(t_word_list *node)
+{
+	size_t	i;
+
+	i = 0;
+	while (node->word[i] != '\0')
+	{
+		if (node->word[i] != '*' || node->type[i] == IS_IN_QUOTED)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d)
