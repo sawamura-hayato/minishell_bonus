@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_star_wordlist.c                                      :+:      :+:    :+:   */
+/*   expand_star_wordlist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/03 20:42:15 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/04 14:35:26 by tterao           ###   ########.fr       */
+/*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
+/*   Updated: 2023/09/04 16:36:56 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,37 @@ static size_t	get_star_index(const char *star_str, char *type, size_t i)
 	return (get_star_index(star, type, i));
 }
 
+bool	is_last_component_matching(char *star_comp, char *file)
+{
+	bool	is_match;
+
+	while (ft_strstr(file + 1, star_comp) != NULL)
+		file += 1;
+	is_match = ft_strcmp(star_comp, file);
+	free(star_comp);
+	return (is_match == 0);
+}
+
 static bool	expand_star_wordlist_loop(const char *star_str, char *type, char *file, size_t i)
 {
 	size_t	next_star;
 	char	*star_comp;
 
 	next_star = get_star_index(star_str, type, i);
+	if (next_star != 0 && (next_star - i) == 1)
+		return (expand_star_wordlist_loop(star_str, type, file, next_star));
 	if (next_star != 0)
 		star_comp = try_substr(star_str, i, next_star - i);
 	else
-		star_comp = try_strdup(&star_str[i]);
+		return (is_last_component_matching(try_strdup(&star_str[i]), file));
+	printf("star=%s\n", star_comp);
+	printf("file=%s\n\n", file);
 	file = ft_strstr(file, star_comp);
+	if (file != NULL)
+		file += ft_strlen(star_comp);
 	free(star_comp);
 	if (file == NULL)
 		return (false);
-	if (next_star == 0)
-		return (true);
 	return (expand_star_wordlist_loop(star_str, type, file, i));
 }
 
