@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:36:13 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 00:58:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:55:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	redirect_set_type_word(t_redirect_list *last_node,
 		node->re_type = PS_FILE;
 	else if (type == PS_HERE_DOCUMENTS)
 	{
-		if ((ft_strrchr(token->type, IS_SINGLE_QUOTED + '0') != NULL)
-			|| ft_strrchr(token->type, IS_DOUBLE_QUOTED + '0') != NULL)
+		if ((ft_strrchr(token->type, IS_SINGLE_QUOTED) != NULL)
+			|| ft_strrchr(token->type, IS_DOUBLE_QUOTED) != NULL)
 			node->re_type = PS_QUOTE_DELIMITER;
 		else
 			node->re_type = PS_DELIMITER;

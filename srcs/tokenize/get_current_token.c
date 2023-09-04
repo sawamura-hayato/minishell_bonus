@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_current_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 18:15:52 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/03 13:57:34 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	*ft_memset(void *b, int c, size_t len);
 char	token_set_type_word(char c)
 {
 	if (c == '\'')
-		return (IS_SINGLE_QUOTED + '0');
+		return (IS_SINGLE_QUOTED);
 	else if (c == '\"')
-		return (IS_DOUBLE_QUOTED + '0');
-	return (DEFAULT_CHAR_TYPE + '0');
+		return (IS_DOUBLE_QUOTED);
+	return (DEFAULT_CHAR_TYPE);
 }
 
 char	*token_get_current_word(char *line, size_t	size)
@@ -56,11 +56,11 @@ char	*token_get_is_expand_type_word(char *word, size_t len)
 		{
 			type_word[i] = token_set_type_word(word[i]);
 			while (f_quote != token_set_flag_quote(word[++i]))
-				type_word[i] = IS_SUBSTITUTED + '0';
+				type_word[i] = IS_SUBSTITUTED;
 			type_word[i] = token_set_type_word(word[i]);
 			i++;
 		}
-		type_word[i] = IS_SUBSTITUTED + '0';
+		type_word[i] = IS_SUBSTITUTED;
 		i++;
 	}
 	return (type_word);
