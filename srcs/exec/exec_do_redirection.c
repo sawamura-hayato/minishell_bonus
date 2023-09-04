@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_do_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:42:23 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/31 09:40:46 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/01 16:36:25 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)
 
 	node = node->next;
 	file = node->word;
-	if (node->is_ambiguous_error || file == NULL)
+	if (node->is_ambiguous_error)
 	{
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
@@ -54,7 +54,7 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 
 	r_node = r_node->next;
 	file = r_node->word;
-	if (r_node->is_ambiguous_error || file == NULL)
+	if (r_node->is_ambiguous_error)
 	{
 		exec_put_error_ambiguous_redirect(file, d);
 		return (NULL);
@@ -63,9 +63,9 @@ static t_redirect_list	*exec_redirect_output(t_command *command_list,
 		fd = try_open(open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644), file, d);
 	else
 		fd = try_open(open(file, O_CREAT | O_WRONLY | O_APPEND, 0644), file, d);
-	exec_close_fd(command_list, d);
 	if (fd == -1)
 		return (NULL);
+	exec_close_fd(command_list, d);
 	command_list->fd = fd;
 	return (r_node);
 }

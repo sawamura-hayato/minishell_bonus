@@ -6,13 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 17:39:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:20:21 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <stdbool.h>
 #include "library.h"
+#include "tokenize.h"
 
 bool	export_is_symbol(char c);
 
@@ -46,18 +47,18 @@ char	*expand_get_string_to_dollar_or_symbol(char **word)
 	return (str);
 }
 
-static size_t	expand_get_str_to_dollar_size(char *word)
+static size_t	expand_get_str_to_dollar_size(char *word, char *type)
 {
 	size_t	i;
 
 	i = 0;
-	while (word[i] != '\0' && word[i] != '$')
+	while (type[i] != '\0' && word[i] != '$')
 	{
-		if (word[i] == '\'')
+		if (IS_SINGLE_QUOTED == type[i])
 		{
-			while (word[++i] != '\'')
+			while (IS_SINGLE_QUOTED != type[++i])
 			{
-				if (word[i] == '\0')
+				if (type[i] == '\0')
 					return (i);
 			}
 		}
@@ -66,14 +67,16 @@ static size_t	expand_get_str_to_dollar_size(char *word)
 	return (i);
 }
 
-char	*expand_get_str_to_dollar(char **word)
+char	*expand_get_str_to_dollar(char **word, char *type)
 {
 	char	*str;
 	size_t	size;
 	size_t	i;
 
 	i = 0;
-	size = expand_get_str_to_dollar_size(*word);
+	if (type == NULL)
+		return (NULL);
+	size = expand_get_str_to_dollar_size(*word, type);
 	str = try_calloc(size + 1, sizeof(char));
 	while (i < size)
 	{
