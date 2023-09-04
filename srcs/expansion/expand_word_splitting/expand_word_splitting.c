@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 17:16:02 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:47:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	expand_is_quoted(char *type, size_t size)
 	f_quote = false;
 	while (i < size)
 	{
-		if (IS_DOUBLE_QUOTED == type[i] - '0')
+		if (IS_DOUBLE_QUOTED == type[i])
 			f_quote = !f_quote;
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 14:05:25 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/03 19:18:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,7 @@
 #include <readline/history.h>
 #define HEREDOC_PROMPT "> "
 
-static void	all_free(char *s1, char *s2)
-{
-	free(s1);
-	free(s2);
-}
-
-// char	*heredoc_read(t_data *d)
-// {
-// 	char	buff[BUFFER_SIZE + 1];
-// 	char	*line;
-// 	ssize_t	read_bytes;
-
-// 	line = NULL;
-// 	try_write(STDERR_FILENO, "> ", ft_strlen(HEREDOC_PROMPT), d);
-// 	read_bytes = BUFFER_SIZE + 1;
-// 	while (read_bytes > BUFFER_SIZE)
-// 	{
-// 		read_bytes = read(STDIN_FILENO, buff, BUFFER_SIZE);
-// 		if (read_bytes == -1 || read_bytes == 0)
-// 			return (NULL);
-// 		buff[read_bytes] = '\0';
-// 		if (line == NULL)
-// 			line = try_strdup(buff);
-// 		else
-// 			line = try_strjoin_free(line, buff);
-// 	}
-// 	return (line);
-// }
+void			all_free(char *s1, char *s2);
 
 static void	heredoc_put_warning(char *buff, const char *delimiter, t_data *d)
 {
@@ -80,6 +53,15 @@ static char	*join_heredoc_string(char *buff, char *str, bool *is_start)
 	return (str);
 }
 
+static void	get_delimiter_word_and_type(t_redirect_list *delimiter, \
+										char *str, bool is_start)
+{
+	delimiter->word = set_heredoc_string(str, is_start);
+	delimiter->type = token_get_all_expand_type_word(delimiter->word);
+	printf("type %s\n", delimiter->word);
+	printf("type %s\n", delimiter->type);
+}
+
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 {
 	char	*str;
@@ -101,7 +83,7 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 		{
 			heredoc_put_warning(buff, delimiter->word, d);
 			all_free(buff, delimiter->word);
-			delimiter->word = set_heredoc_string(str, is_start);
+			get_delimiter_word_and_type(delimiter, str, is_start);
 			break ;
 		}
 		str = join_heredoc_string(buff, str, &is_start);

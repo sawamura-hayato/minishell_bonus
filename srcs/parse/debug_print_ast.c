@@ -18,13 +18,13 @@ void debug_print_ast(t_ast *node)
     while(word_p != NULL)
     {
         printf("word_list:[%s] ", word_p->word);
-        printf("type:[%d]\n", word_p->type);
+        printf("type:[%s]\n", word_p->type);
         word_p = word_p->next;
     }
     while(redirect_p !=NULL)
     {
         printf("redirect_list:[%s] ",redirect_p->word);
-        printf("type:[%d]\n",redirect_p->type);
+        printf("type:[%s]\n",redirect_p->type);
         redirect_p = redirect_p->next;
     }
     printf("===========debug==================\n");

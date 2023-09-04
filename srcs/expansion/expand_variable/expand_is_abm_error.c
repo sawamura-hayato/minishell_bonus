@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:01:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 18:01:42 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 13:33:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	expand_is_ambiguous_error(char *redirect_word, \
 	size_t	i;
 
 	if (redirect_word == NULL || redirect_type == NULL)
-		return (false);
+		return (true);
 	i = 0;
 	while (redirect_word[i] != '\0')
 	{

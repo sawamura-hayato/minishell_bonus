@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_type_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 17:54:09 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/31 18:15:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/03 09:26:24 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ static char	*get_type_word(char *word, size_t len)
 		}
 		i++;
 	}
+	return (type_word);
+}
+
+char	*token_get_all_expand_type_word(char *word)
+{
+	char	*type_word;
+	size_t	len;
+
+	len = ft_strlen(word);
+	type_word = try_calloc((len + 1), sizeof(char));
+	type_word = ft_memset(type_word, '1', len);
 	return (type_word);
 }
 

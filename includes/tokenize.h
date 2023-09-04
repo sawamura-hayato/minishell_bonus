@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:17 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 11:10:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/03 13:53:07 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 # include <stdio.h>
 
-# define DEFAULT_CHAR_TYPE (0)
-# define IS_SUBSTITUTED (1)
-# define IS_SINGLE_QUOTED (2)
-# define IS_DOUBLE_QUOTED (3)
+# define DEFAULT_CHAR_TYPE '0'
+# define IS_SUBSTITUTED '1'
+# define IS_SINGLE_QUOTED '2'
+# define IS_DOUBLE_QUOTED '3'
 
 typedef enum e_token_type
 {
@@ -63,6 +63,7 @@ size_t			token_get_special_word_size(char *line);
 char			*token_get_current_word(char *line, size_t size);
 void			token_get_current_token(t_token **head, char **line);
 char			*token_get_type_word(char *word, bool is_expand);
+char			*token_get_all_expand_type_word(char *word);
 
 // set_flag.c
 t_quote			token_set_flag_quote(char quote);

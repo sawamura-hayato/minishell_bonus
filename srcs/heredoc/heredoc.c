@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 00:52:07 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/03 12:51:46 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 void	get_signal_num(t_data *d);
 void	set_signal_heredoc(t_data *d);
 void	ignore_signal(t_data *d);
+
+void	all_free(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+}
 
 bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 {
