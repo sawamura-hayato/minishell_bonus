@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 15:02:30 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:59:38 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ size_t	expand_get_star_index(const char *star_str, char *type, size_t i)
 		return (0);
 	add_index = star - &star_str[i];
 	if (type[i + add_index] != IS_IN_QUOTED)
-		return (add_index + i);
+		return (i + add_index);
 	// if (add_index == 0)
 	// 	add_index++;
 	// printf("strstr%s\n\n", &star_str[add_index + i]);
@@ -44,7 +44,10 @@ bool	is_last_component_matching(char *star_comp, char *file)
 	char	*tmp;
 
 	if (*star_comp == '\0')
+	{
+		free(star_comp);
 		return (true);
+	}
 	tmp = file;
 	// printf("sarcomp=%s\n", star_comp);
 	while (ft_strstr(file, star_comp) != NULL)

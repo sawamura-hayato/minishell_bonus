@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:02:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 15:49:38 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:11:49 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ t_redirect_list	*expand_pathname_redirectlist(t_redirect_list **head,
 	}
 	else
 		delete_expanded_nodes(head, node);
+	try_closedir(dirp, d);
 	return (node->next);
 }
