@@ -66,6 +66,31 @@ bool	token_is_quotation_closed(t_token *token)
 		return (false);
 }
 
+bool	token_is_parentheis_closed(t_token *token)
+{
+	size_t	i;
+	size_t	open_p_count;
+	size_t	close_p_count;
+	char	*s;
+
+	i = 0;
+	open_p_count = 0;
+	close_p_count = 0;
+	s = token->word;
+	while (s[i])
+	{
+		if (s[i]->tk_type == TK_OPEN_PARENTHESIS)
+						open_p_count++;
+		if (s[i]->tk_type == TK_CLOSE_PARENTHESIS)
+						close_p_count++;
+		i++;
+	}
+	if(open_p_count == close_p_count)
+		return (true);
+	else
+		return (false);
+}
+
 bool	token_is_redirect(t_token_type type)
 {
 	if (type == REDIRECT)
@@ -73,3 +98,4 @@ bool	token_is_redirect(t_token_type type)
 	else
 		return (false);
 }
+

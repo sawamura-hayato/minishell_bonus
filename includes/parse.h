@@ -107,6 +107,7 @@ bool			ast_is_opereter(t_token_type type);
 bool			token_is_quotation(t_token *token);
 
 bool			token_is_quotation_closed(t_token *token);
+bool			token_is_parentheis_closed(t_token *token);
 void			ast_expect(t_token **current_token, t_data *d);
 t_token			*token_next(t_token **current_token, t_data *d);
 void			ast_syntax_error(t_data *d, t_token *token);

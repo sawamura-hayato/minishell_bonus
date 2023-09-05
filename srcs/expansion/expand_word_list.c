@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 20:17:32 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:33:14 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
             if (!is_empty_ifs && \
                 expand_is_word_splitting_word(node->word, node->type, ifs))
             {
-				
+
                 expand_word_splitting_word_list(node, ifs);
             }
             free(ifs);
 		}
-		debug_printf_word_list(node);
+		// debug_printf_word_list(node);
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))
 			expand_delete_quotation_word_list(node);
 		//expand_is_filename（現在適当）
-		if (node->tk_type == WORD && ft_strchr(node->word, '*'))
-			expand_filename_word_list(node, d);
-		node = node->next;
+		// if (node->tk_type == WORD && ft_strchr(node->word, '*'))
+		// 	expand_filename_word_list(node, d);
+		node = expand_pathname_wordlist(*word_list, node, d);
 	}
 }
 
