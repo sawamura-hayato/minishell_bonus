@@ -71,6 +71,7 @@ void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
 	t_token	*token;
+	t_token	*tmp;
 	t_ast	*ast;
 
 	rl_outstream = stderr;
@@ -83,7 +84,8 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		ast = parse(&token, d);
+		tmp = token;
+		ast = parse(&tmp, d);
 		debug_print_ast(ast);
 		if (d->syntax_flag == false && heredoc(ast, d))
 		{

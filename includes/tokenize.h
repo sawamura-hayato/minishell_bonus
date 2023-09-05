@@ -23,6 +23,7 @@
 # define IS_SUBSTITUTED '1'
 # define IS_SINGLE_QUOTED '2'
 # define IS_DOUBLE_QUOTED '3'
+# define IS_IN_QUOTED '4'
 
 typedef enum e_token_type
 {

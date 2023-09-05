@@ -60,14 +60,16 @@ static bool	write_loop(t_redirect_list *node, int fd, t_data *d)
 	is_success = true;
 	w_len = WRITE_BYTES;
 	i = 1;
-	while (w_len == WRITE_BYTES && i != SIZE_T_MAX)
+	/* while (w_len == WRITE_BYTES && i != SIZE_T_MAX) */
+	while (w_len == WRITE_BYTES && i != SSIZE_MAX)
 	{
 		if (word_len >= (WRITE_BYTES * i))
 			w_len = WRITE_BYTES;
 		else
 			w_len = word_len - (WRITE_BYTES * (i - 1));
 		w_bytes = try_write(fd, &(node->word[(i - 1) * WRITE_BYTES]), w_len, d);
-		if (w_bytes == -1 || i == SIZE_T_MAX)
+		/* if (w_bytes == -1 || i == SIZE_T_MAX) */
+		if (w_bytes == -1 || i == SSIZE_MAX)
 			heredoc_put_error(d);
 		i++;
 	}

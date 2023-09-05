@@ -1,0 +1,586 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/takachin/42/minishell_bonus/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(LIBRARY_AFILE)	Makefile	/^$(LIBRARY_AFILE):$/;"	t
+$(NAME)	Makefile	/^$(NAME): $(OBJS) $(LIBRARY_AFILE)$/;"	t
+$(NAME)	library/Makefile	/^$(NAME): $(OBJS)$/;"	t
+$(OBJS_DIR)/%.o	Makefile	/^$(OBJS_DIR)\/%.o: $(SRCS_DIR)\/%.c$/;"	t
+$(OBJS_DIR)/%.o	library/Makefile	/^$(OBJS_DIR)\/%.o: $(SRCS_DIR)\/%.c$/;"	t
+ADD	srcs/builtin/export/export_add.c	/^	ADD,$/;"	e	enum:e_export_operator	file:
+AR	library/Makefile	/^AR = ar$/;"	m
+ARFLAGS	library/Makefile	/^ARFLAGS = -r$/;"	m
+ARGS_NUM	srcs/builtin/cd/cd_error.c	/^#define ARGS_NUM /;"	d	file:
+BUFFER_SIZE	includes/heredoc.h	/^# define BUFFER_SIZE /;"	d
+BUILTINS_H	includes/builtins.h	/^# define BUILTINS_H$/;"	d
+BUILTIN_DIR	Makefile	/^BUILTIN_DIR = $(SRCS_DIR)\/builtin$/;"	m
+CARRAIGE_RETURN	library/srcs/ft/ft_isspace.c	/^#define CARRAIGE_RETURN /;"	d	file:
+CC	Makefile	/^CC = cc$/;"	m
+CC	library/Makefile	/^CC = cc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -Wall -Wextra -Werror$/;"	m
+CFLAGS	library/Makefile	/^CFLAGS = -Wall -Wextra -Werror$/;"	m
+CLOSE_PARENTHESIS	library/srcs/ft/ft_is_special_char.c	/^#define CLOSE_PARENTHESIS /;"	d	file:
+COLON	srcs/exec/exec_get_filepath.c	/^#define COLON /;"	d	file:
+COLON	srcs/exec/exec_make_filepath.c	/^#define COLON /;"	d	file:
+COMMAND_NOT_EXECUTABLE	includes/exec_command.h	/^	COMMAND_NOT_EXECUTABLE = 126,$/;"	e	enum:e_exit_status
+COMMAND_NOT_FOUND	includes/exec_command.h	/^	COMMAND_NOT_FOUND = 127,$/;"	e	enum:e_exit_status
+CURDIR	srcs/builtin/cd/cd.c	/^#define CURDIR /;"	d	file:
+CURDIR	srcs/exec/exec_is_error.c	/^#define CURDIR /;"	d	file:
+CUR_DIR	srcs/builtin/cd/cd_delete_dot.c	/^#define CUR_DIR /;"	d	file:
+DDC	srcs/builtin/cd/cd_delete_dotdot.c	/^#define DDC /;"	d	file:
+DDC	srcs/builtin/cd/cd_delete_dotdot_if_needed.c	/^#define DDC /;"	d	file:
+DDCS	srcs/builtin/cd/cd_delete_dotdot.c	/^#define DDCS /;"	d	file:
+DEFAULT	includes/tokenize.h	/^	DEFAULT,$/;"	e	enum:e_quote
+DEFAULT_CHAR_TYPE	includes/tokenize.h	/^# define DEFAULT_CHAR_TYPE /;"	d
+DOT	srcs/builtin/cd/cd.c	/^#define DOT /;"	d	file:
+DOT	srcs/builtin/cd/cd_delete_dot.c	/^#define DOT /;"	d	file:
+DOT	srcs/builtin/cd/cd_delete_dot_slash.c	/^#define DOT /;"	d	file:
+DOTDOT	srcs/builtin/cd/cd.c	/^#define DOTDOT /;"	d	file:
+DOTDOT	srcs/builtin/cd/cd_delete_dot.c	/^#define DOTDOT /;"	d	file:
+DOTDOT	srcs/exec/exec_is_error.c	/^#define DOTDOT /;"	d	file:
+DOTDOT_COMP	srcs/exec/exec_make_filepath.c	/^#define DOTDOT_COMP /;"	d	file:
+DOT_COMP	srcs/exec/exec_make_filepath.c	/^#define DOT_COMP /;"	d	file:
+DOUBLE_QUOTE_FLAG	includes/tokenize.h	/^	DOUBLE_QUOTE_FLAG$/;"	e	enum:e_quote
+DS	srcs/builtin/cd/cd_delete_dot_slash.c	/^#define DS /;"	d	file:
+D_COLON	srcs/exec/exec_make_filepath.c	/^#define D_COLON /;"	d	file:
+ENVS_DIR	Makefile	/^ENVS_DIR = $(SRCS_DIR)\/envs$/;"	m
+EXEC_COMMAND_H	includes/exec_command.h	/^# define EXEC_COMMAND_H$/;"	d
+EXEC_DIR	Makefile	/^EXEC_DIR = exec$/;"	m
+EXEC_END	includes/exec_command.h	/^	EXEC_END,$/;"	e	enum:e_operator
+EXEC_LOGICAL_AND	includes/exec_command.h	/^	EXEC_LOGICAL_AND,$/;"	e	enum:e_operator
+EXEC_LOGICAL_OR	includes/exec_command.h	/^	EXEC_LOGICAL_OR,$/;"	e	enum:e_operator
+EXEC_PIPE	includes/exec_command.h	/^	EXEC_PIPE,$/;"	e	enum:e_operator
+EXEC_START	includes/exec_command.h	/^	EXEC_START,$/;"	e	enum:e_operator
+EXIT_NUMERIC_ARG	srcs/builtin/exit/exit_error.c	/^	EXIT_NUMERIC_ARG = 2,$/;"	e	enum:__anonef268b520103	file:
+EXPANSION_DELETE_QUOTE	Makefile	/^EXPANSION_DELETE_QUOTE = expand_delete_quote$/;"	m
+EXPANSION_DIR	Makefile	/^EXPANSION_DIR = expansion$/;"	m
+EXPANSION_FILENAME_DIR	Makefile	/^EXPANSION_FILENAME_DIR = expand_filename$/;"	m
+EXPANSION_H	includes/expansion.h	/^# define EXPANSION_H$/;"	d
+EXPANSION_VARI_DIR	Makefile	/^EXPANSION_VARI_DIR = expand_variable$/;"	m
+EXPANSION_WORD_SPLIT_DIR	Makefile	/^EXPANSION_WORD_SPLIT_DIR = expand_word_splitting$/;"	m
+FALSE	library/srcs/ft/ft_isspace.c	/^#define FALSE /;"	d	file:
+FORM_FEED	library/srcs/ft/ft_isspace.c	/^#define FORM_FEED /;"	d	file:
+FT_DIR	library/Makefile	/^FT_DIR = ft$/;"	m
+HASHMAP_SIZE	includes/init.h	/^	HASHMAP_SIZE = 27,$/;"	e	enum:__anon1c81aa150103
+HEREDOC_DIR	Makefile	/^ HEREDOC_DIR = heredoc$/;"	m
+HEREDOC_H	includes/heredoc.h	/^# define HEREDOC_H$/;"	d
+HEREDOC_PROMPT	srcs/heredoc/heredoc_read.c	/^#define HEREDOC_PROMPT /;"	d	file:
+H_TAB	library/srcs/ft/ft_isspace.c	/^#define H_TAB /;"	d	file:
+INCLUDES	Makefile	/^INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)\/$(INCLUDES_DIR) -I$(RL_DIR)\/include$/;"	m
+INCLUDES	library/Makefile	/^INCLUDES = -I$(INCLUDES_DIR) -I..\/includes # 相対パスで指定しないほうがいい、解/;"	m
+INCLUDES_DIR	Makefile	/^INCLUDES_DIR = includes$/;"	m
+INCLUDES_DIR	library/Makefile	/^INCLUDES_DIR = includes$/;"	m
+INIT_H	includes/init.h	/^# define INIT_H$/;"	d
+IS_DOUBLE_QUOTED	includes/tokenize.h	/^# define IS_DOUBLE_QUOTED /;"	d
+IS_SINGLE_QUOTED	includes/tokenize.h	/^# define IS_SINGLE_QUOTED /;"	d
+IS_SUBSTITUTED	includes/tokenize.h	/^# define IS_SUBSTITUTED /;"	d
+LIBRARY_AFILE	Makefile	/^LIBRARY_AFILE = $(LIBRARY_DIR)\/library.a$/;"	m
+LIBRARY_DIR	Makefile	/^LIBRARY_DIR = library$/;"	m
+LIBRARY_H	library/includes/library.h	/^# define LIBRARY_H$/;"	d
+LOGICAL_AND	library/srcs/ft/ft_is_operator.c	/^#define LOGICAL_AND /;"	d	file:
+LOGICAL_AND	library/srcs/ft/ft_is_special_char.c	/^#define LOGICAL_AND /;"	d	file:
+LOGICAL_OR	library/srcs/ft/ft_is_operator.c	/^#define LOGICAL_OR /;"	d	file:
+LOGICAL_OR	library/srcs/ft/ft_is_special_char.c	/^#define LOGICAL_OR /;"	d	file:
+MINISHELL_H	includes/minishell.h	/^# define MINISHELL_H$/;"	d
+NAME	Makefile	/^NAME = minishell$/;"	m
+NAME	library/Makefile	/^NAME = library.a$/;"	m
+NEW	srcs/builtin/export/export_add.c	/^	NEW,$/;"	e	enum:e_export_operator	file:
+NEWLINE	library/srcs/ft/ft_isspace.c	/^#define NEWLINE /;"	d	file:
+NEW_LINE	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^#define NEW_LINE /;"	d	file:
+NULL_CHAR	includes/minishell.h	/^# define NULL_CHAR /;"	d
+OBJS	Makefile	/^OBJS = $(patsubst $(SRCS_DIR)\/%.c,$(OBJS_DIR)\/%.o,$(SRCS))$/;"	m
+OBJS	library/Makefile	/^OBJS = $(patsubst $(SRCS_DIR)\/%.c,$(OBJS_DIR)\/%.o,$(SRCS))$/;"	m
+OBJS_DIR	Makefile	/^OBJS_DIR = objs$/;"	m
+OBJS_DIR	library/Makefile	/^OBJS_DIR = objs$/;"	m
+OPEN_PARENTHESIS	library/srcs/ft/ft_is_special_char.c	/^#define OPEN_PARENTHESIS /;"	d	file:
+PARSE_DIR	Makefile	/^ PARSE_DIR = parse$/;"	m
+PARSE_H	includes/parse.h	/^# define PARSE_H$/;"	d
+PREDIR	srcs/builtin/cd/cd.c	/^#define PREDIR /;"	d	file:
+PREDIR	srcs/exec/exec_is_error.c	/^#define PREDIR /;"	d	file:
+PRE_DIR	srcs/builtin/cd/cd_delete_dot.c	/^#define PRE_DIR /;"	d	file:
+PROMPT	includes/minishell.h	/^# define PROMPT /;"	d
+PS_APPENDING_OUTPUT	includes/parse.h	/^	PS_APPENDING_OUTPUT,$/;"	e	enum:e_redirect_type
+PS_COMMAND	includes/parse.h	/^	PS_COMMAND,$/;"	e	enum:e_ast_node_type
+PS_DELIMITER	includes/parse.h	/^	PS_DELIMITER,$/;"	e	enum:e_redirect_type
+PS_FILE	includes/parse.h	/^	PS_FILE,$/;"	e	enum:e_redirect_type
+PS_HERE_DOCUMENTS	includes/parse.h	/^	PS_HERE_DOCUMENTS,$/;"	e	enum:e_redirect_type
+PS_LOGICAL_AND	includes/parse.h	/^	PS_LOGICAL_AND,$/;"	e	enum:e_ast_node_type
+PS_LOGICAL_OR	includes/parse.h	/^	PS_LOGICAL_OR,$/;"	e	enum:e_ast_node_type
+PS_PIPE	includes/parse.h	/^	PS_PIPE,$/;"	e	enum:e_ast_node_type
+PS_QUOTE_DELIMITER	includes/parse.h	/^	PS_QUOTE_DELIMITER,$/;"	e	enum:e_redirect_type
+PS_REDIRECTING_INPUT	includes/parse.h	/^	PS_REDIRECTING_INPUT,$/;"	e	enum:e_redirect_type
+PS_REDIRECTING_OUTPUT	includes/parse.h	/^	PS_REDIRECTING_OUTPUT,$/;"	e	enum:e_redirect_type
+R	includes/exec_command.h	/^	R = 0,$/;"	e	enum:e_pipefd
+REDIRECT	includes/tokenize.h	/^	REDIRECT,$/;"	e	enum:e_token_type
+REDIRECTING_INPUT	library/srcs/ft/ft_is_special_char.c	/^#define REDIRECTING_INPUT /;"	d	file:
+REDIRECTING_OUTPUT	library/srcs/ft/ft_is_special_char.c	/^#define REDIRECTING_OUTPUT /;"	d	file:
+REPLACING_SLASH_NUM	srcs/builtin/cd/cd_delete_leading_slashes.c	/^#define REPLACING_SLASH_NUM /;"	d	file:
+RL_DIR	Makefile	/^RL_DIR = $(shell brew --prefix readline)$/;"	m
+RL_FLAGS	Makefile	/^RL_FLAGS = -L$(RL_DIR)\/lib -lreadline$/;"	m
+RM	Makefile	/^RM = rm -rf$/;"	m
+RM	library/Makefile	/^RM = rm -rf$/;"	m
+SHLVL_MAX_VALUE	srcs/envs/envs_init.c	/^#define SHLVL_MAX_VALUE /;"	d	file:
+SIGINT_EXITSTATUS	srcs/exec/exec.c	/^#define SIGINT_EXITSTATUS /;"	d	file:
+SIGINT_EXITSTATUS	srcs/exec/exec_wait_child_process.c	/^#define SIGINT_EXITSTATUS /;"	d	file:
+SIGNAL_DIR	Makefile	/^SIGNAL_DIR = $(SRCS_DIR)\/signal$/;"	m
+SIGNAL_EXITSTATUS	srcs/exec/exec_wait_child_process.c	/^#define SIGNAL_EXITSTATUS /;"	d	file:
+SIGNAL_EXITSTATUS	srcs/signal/signal.c	/^#define SIGNAL_EXITSTATUS /;"	d	file:
+SIGNED	library/srcs/ft/ft_atoi.c	/^#define SIGNED /;"	d	file:
+SIGNED	library/srcs/ft/ft_atol.c	/^#define SIGNED /;"	d	file:
+SIGNED	srcs/builtin/exit/exit_overflow.c	/^#define SIGNED /;"	d	file:
+SIGQUIT_EXITSTATUS	srcs/exec/exec.c	/^#define SIGQUIT_EXITSTATUS /;"	d	file:
+SIGQUIT_EXITSTATUS	srcs/init.c	/^#define SIGQUIT_EXITSTATUS /;"	d	file:
+SINGLE_QUOTE_FLAG	includes/tokenize.h	/^	SINGLE_QUOTE_FLAG,$/;"	e	enum:e_quote
+SPACE	library/srcs/ft/ft_isspace.c	/^#define SPACE /;"	d	file:
+SPACE	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^#define SPACE /;"	d	file:
+SRCS	Makefile	/^SRCS = $(SRCS_DIR)\/main.c \\$/;"	m
+SRCS_DIR	Makefile	/^SRCS_DIR = srcs$/;"	m
+SRCS_DIR	library/Makefile	/^SRCS_DIR = srcs$/;"	m
+SYNTAX_ERROR	includes/parse.h	/^# define SYNTAX_ERROR /;"	d
+TAB	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^#define TAB /;"	d	file:
+TK_CLOSE_PARENTHESIS	includes/tokenize.h	/^	TK_CLOSE_PARENTHESIS$/;"	e	enum:e_token_type
+TK_LOGICAL_AND	includes/tokenize.h	/^	TK_LOGICAL_AND,$/;"	e	enum:e_token_type
+TK_LOGICAL_OR	includes/tokenize.h	/^	TK_LOGICAL_OR,$/;"	e	enum:e_token_type
+TK_OPEN_PARENTHESIS	includes/tokenize.h	/^	TK_OPEN_PARENTHESIS,$/;"	e	enum:e_token_type
+TK_PIPE	includes/tokenize.h	/^	TK_PIPE,$/;"	e	enum:e_token_type
+TOKENIZE_DIR	Makefile	/^TOKENIZE_DIR = tokenize$/;"	m
+TOKENIZE_H	includes/tokenize.h	/^# define TOKENIZE_H$/;"	d
+TOO_MANY_ARGS	srcs/builtin/exit/exit_error.c	/^	TOO_MANY_ARGS = 1,$/;"	e	enum:__anonef268b520103	file:
+TRUE	library/srcs/ft/ft_isspace.c	/^#define TRUE /;"	d	file:
+TRY_DIR	library/Makefile	/^TRY_DIR = try$/;"	m
+UNDERLINE	includes/init.h	/^	UNDERLINE = 26,$/;"	e	enum:__anon1c81aa150103
+UNSIGNED	library/srcs/ft/ft_atoi.c	/^#define UNSIGNED /;"	d	file:
+UNSIGNED	library/srcs/ft/ft_atol.c	/^#define UNSIGNED /;"	d	file:
+UNSIGNED	srcs/builtin/exit/exit_overflow.c	/^#define UNSIGNED /;"	d	file:
+V_TAB	library/srcs/ft/ft_isspace.c	/^#define V_TAB /;"	d	file:
+W	includes/exec_command.h	/^	W = 1,$/;"	e	enum:e_pipefd
+WORD	includes/tokenize.h	/^	WORD,$/;"	e	enum:e_token_type
+WRITE_BYTES	srcs/exec/exec_heredoc.c	/^#define WRITE_BYTES /;"	d	file:
+__anon1c81aa150103	includes/init.h	/^{$/;"	g
+__anonef268b520103	srcs/builtin/exit/exit_error.c	/^{$/;"	g	file:
+_readline	srcs/repl.c	/^static char	*_readline(t_data *d)$/;"	f	typeref:typename:char *	file:
+add_currentpath_double_colon	srcs/exec/exec_make_filepath.c	/^static char	*add_currentpath_double_colon(char *path)$/;"	f	typeref:typename:char *	file:
+add_currentpath_single_colon	srcs/exec/exec_make_filepath.c	/^static char	*add_currentpath_single_colon(char *path)$/;"	f	typeref:typename:char *	file:
+all	Makefile	/^all: $(NAME)$/;"	t
+all	library/Makefile	/^all: $(NAME)$/;"	t
+all_free	srcs/heredoc/heredoc.c	/^void	all_free(char *s1, char *s2)$/;"	f	typeref:typename:void
+ast_command_list	srcs/parse/ast_command_list.c	/^t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,$/;"	f	typeref:typename:t_ast *
+ast_command_node	srcs/parse/ast_command_list.c	/^t_ast	*ast_command_node(t_token **current_token, t_data *d)$/;"	f	typeref:typename:t_ast *
+ast_expect	srcs/parse/ast_expect.c	/^void	ast_expect(t_token **current_token, t_data *d)$/;"	f	typeref:typename:void
+ast_free_all_nodes	srcs/parse/free_parse.c	/^void	*ast_free_all_nodes(t_ast *node)$/;"	f	typeref:typename:void *
+ast_free_right_left_nodes	srcs/parse/free_parse.c	/^void	*ast_free_right_left_nodes(t_ast *left_node, t_ast *right_node)$/;"	f	typeref:typename:void *
+ast_free_right_node	srcs/parse/free_parse.c	/^static void	*ast_free_right_node(t_ast *node)$/;"	f	typeref:typename:void *	file:
+ast_init_node	srcs/parse/parse.c	/^t_ast	*ast_init_node(void)$/;"	f	typeref:typename:t_ast *
+ast_is_opereter	srcs/parse/ast_operator_node.c	/^bool	ast_is_opereter(t_token_type type)$/;"	f	typeref:typename:bool
+ast_operator_node	srcs/parse/ast_operator_node.c	/^t_ast	*ast_operator_node(t_ast_node_type type, t_ast *left_hand,$/;"	f	typeref:typename:t_ast *
+ast_syntax_error	srcs/parse/ast_error.c	/^void	ast_syntax_error(t_data *d, t_token *token)$/;"	f	typeref:typename:void
+builtin	srcs/builtin/builtin.c	/^void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)$/;"	f	typeref:typename:void
+builtin_cd	srcs/builtin/cd/cd.c	/^char	**builtin_cd(char **argv, t_data *d)$/;"	f	typeref:typename:char **
+builtin_echo	srcs/builtin/echo/echo.c	/^void	builtin_echo(char **argv, t_data *d)$/;"	f	typeref:typename:void
+builtin_env	srcs/builtin/env/env.c	/^void	builtin_env(char **argv, t_data *d)$/;"	f	typeref:typename:void
+builtin_exit	srcs/builtin/exit/exit.c	/^void	builtin_exit(char **argv, t_data *d)$/;"	f	typeref:typename:void
+builtin_export	srcs/builtin/export/export.c	/^void	builtin_export(char **argv, t_data *d)$/;"	f	typeref:typename:void
+builtin_pwd	srcs/builtin/pwd/pwd.c	/^void	builtin_pwd(t_data *d)$/;"	f	typeref:typename:void
+builtin_unset	srcs/builtin/unset/unset.c	/^void	builtin_unset(char **argv, t_data *d)$/;"	f	typeref:typename:void
+cd_cdpath	srcs/builtin/cd/cd_cdpath.c	/^void	cd_cdpath(const char *og_path, char *path, t_data *d)$/;"	f	typeref:typename:void
+cd_cdpath_loop	srcs/builtin/cd/cd_cdpath.c	/^static void	cd_cdpath_loop(const char *og_path, char *path,$/;"	f	typeref:typename:void	file:
+cd_convert_path_and_exec	srcs/builtin/cd/cd_convert_path.c	/^void	cd_convert_path_and_exec(const char *og_path, char *path,$/;"	f	typeref:typename:void
+cd_delete_dot_firstcomp	srcs/builtin/cd/cd_delete_dot.c	/^char	*cd_delete_dot_firstcomp(char *path, t_data *d)$/;"	f	typeref:typename:char *
+cd_delete_dot_slash	srcs/builtin/cd/cd_delete_dot_slash.c	/^char	*cd_delete_dot_slash(char *path, char *last_ds)$/;"	f	typeref:typename:char *
+cd_delete_dotdot	srcs/builtin/cd/cd_delete_dotdot.c	/^char	*cd_delete_dotdot(char *path, char *last_ddc, bool *nonexistant_path)$/;"	f	typeref:typename:char *
+cd_delete_dotdot_if_needed	srcs/builtin/cd/cd_delete_dotdot_if_needed.c	/^char	*cd_delete_dotdot_if_needed(char *path, char *last_ddc)$/;"	f	typeref:typename:char *
+cd_delete_last_dot	srcs/builtin/cd/cd_delete_dot_slash.c	/^static	char	*cd_delete_last_dot(char *path)$/;"	f	typeref:typename:char *	file:
+cd_delete_leading_slashes	srcs/builtin/cd/cd_delete_leading_slashes.c	/^char	*cd_delete_leading_slashes(char *path)$/;"	f	typeref:typename:char *
+cd_delete_slash	srcs/builtin/cd/cd_delete_slash.c	/^char	*cd_delete_slash(char *path)$/;"	f	typeref:typename:char *
+cd_delete_trailing_slash	srcs/builtin/cd/cd_delete_slash.c	/^static char	*cd_delete_trailing_slash(char *path)$/;"	f	typeref:typename:char *	file:
+cd_exec	srcs/builtin/cd/cd_exec.c	/^void	cd_exec(const char *og_path, char *path, bool is_cdpath, t_data *d)$/;"	f	typeref:typename:void
+cd_get_pre_comp	srcs/builtin/cd/cd_get_pre_comp.c	/^char	*cd_get_pre_comp(char *path, char *ddc)$/;"	f	typeref:typename:char *
+cd_is_dir	srcs/builtin/cd/cd_delete_dotdot.c	/^static bool	cd_is_dir(char *path, char *dirpath, bool *nonexistant_path)$/;"	f	typeref:typename:bool	file:
+cd_is_dir_with_permission	srcs/builtin/cd/cd_cdpath.c	/^bool	cd_is_dir_with_permission(char *path, char *dirpath)$/;"	f	typeref:typename:bool
+cd_is_slash_comp	srcs/builtin/cd/cd_get_pre_comp.c	/^bool	cd_is_slash_comp(char *pre_comp, char *ddc)$/;"	f	typeref:typename:bool
+cd_iserror	srcs/builtin/cd/cd_error.c	/^bool	cd_iserror(char **argv)$/;"	f	typeref:typename:bool
+cd_join_pwd	srcs/builtin/cd/cd_convert_path.c	/^static char	*cd_join_pwd(char *path, t_data *d)$/;"	f	typeref:typename:char *	file:
+cd_make_newpath	srcs/builtin/cd/cd_delete_dotdot.c	/^static char	*cd_make_newpath(char *path, char *pre_comp, char *ddc,$/;"	f	typeref:typename:char *	file:
+cd_nodir	srcs/builtin/cd/cd.c	/^static char	**cd_nodir(char **argv, t_data *d)$/;"	f	typeref:typename:char **	file:
+cd_oldpwd	srcs/builtin/cd/cd.c	/^static void	cd_oldpwd(t_data *d)$/;"	f	typeref:typename:void	file:
+cd_put_error_file	srcs/builtin/cd/cd_error.c	/^void	cd_put_error_file(const char *og_path, t_data *d)$/;"	f	typeref:typename:void
+cd_put_error_file_dir	srcs/builtin/cd/cd_error.c	/^void	cd_put_error_file_dir(const char *og_path, t_data *d)$/;"	f	typeref:typename:void
+cd_put_error_no_pwd	srcs/builtin/cd/cd_error.c	/^void	cd_put_error_no_pwd(char *path, t_data *d)$/;"	f	typeref:typename:void
+cd_put_error_too_many_args	srcs/builtin/cd/cd_error.c	/^void	cd_put_error_too_many_args(t_data *d)$/;"	f	typeref:typename:void
+cd_replace_non_leading_consecutive_slashes	srcs/builtin/cd/cd_replace_non_leading_consecutive_slashes.c	/^char	*cd_replace_non_leading_consecutive_slashes(char *path)$/;"	f	typeref:typename:char *
+cd_update	srcs/builtin/cd/cd_exec.c	/^void	cd_update(char *path, bool is_cdpath, t_data *d)$/;"	f	typeref:typename:void
+clean	Makefile	/^clean:$/;"	t
+clean	library/Makefile	/^clean:$/;"	t
+command_list	includes/parse.h	/^	struct s_command		*command_list;$/;"	m	struct:s_ast	typeref:struct:s_command *
+command_list_init_node	srcs/parse/ast_command_list.c	/^static t_command	*command_list_init_node(void)$/;"	f	typeref:typename:t_command *	file:
+command_redirect_list	srcs/parse/command_redirect_list.c	/^void	command_redirect_list(t_redirect_list **head,$/;"	f	typeref:typename:void
+command_word_list	srcs/parse/command_word_list.c	/^void	command_word_list(t_word_list **head, t_token **current_token,$/;"	f	typeref:typename:void
+create_token	srcs/tokenize/linear_linked_token.c	/^t_token	*create_token(char *word, t_token_type token_type)$/;"	f	typeref:typename:t_token *
+debug_bool_printf_test	srcs/expansion/expand_debug.c	/^void	debug_bool_printf_test(bool flag, char *msg)$/;"	f	typeref:typename:void
+debug_free_redirect	srcs/expansion/expand_debug.c	/^void debug_free_redirect(t_redirect_list *redirect)$/;"	f	typeref:typename:void
+debug_free_word_list	srcs/expansion/expand_debug.c	/^void debug_free_word_list(t_word_list *word_list)$/;"	f	typeref:typename:void
+debug_new_ast	srcs/expansion/expand_debug.c	/^t_ast	*debug_new_ast(t_command *command, t_ast_node_type type)$/;"	f	typeref:typename:t_ast *
+debug_new_command	srcs/expansion/expand_debug.c	/^t_command *debug_new_command(t_word_list *word_list, $/;"	f	typeref:typename:t_command *
+debug_new_redirect_list	srcs/expansion/expand_debug.c	/^t_redirect_list *debug_new_redirect_list(char *word, size_t index,$/;"	f	typeref:typename:t_redirect_list *
+debug_new_word_list	srcs/expansion/expand_debug.c	/^t_word_list *debug_new_word_list(char *word, size_t index, t_token_type type)$/;"	f	typeref:typename:t_word_list *
+debug_print_ast	srcs/parse/debug_print_ast.c	/^void debug_print_ast(t_ast *node)$/;"	f	typeref:typename:void
+debug_print_ast_tree	srcs/parse/debug_print_ast.c	/^void debug_print_ast_tree(t_ast *node)$/;"	f	typeref:typename:void
+debug_print_token	srcs/tokenize/linear_linked_token.c	/^void	debug_print_token(t_token *token_list)$/;"	f	typeref:typename:void
+debug_printf_redirect	srcs/expansion/expand_debug.c	/^void debug_printf_redirect(t_redirect_list *redirect)$/;"	f	typeref:typename:void
+debug_printf_test	srcs/expansion/expand_debug.c	/^void debug_printf_test(char *testA, char *testB)$/;"	f	typeref:typename:void
+debug_printf_word_list	srcs/expansion/expand_debug.c	/^void debug_printf_word_list(t_word_list *word_list)$/;"	f	typeref:typename:void
+delete_first_dot	srcs/builtin/cd/cd_delete_dot.c	/^static char	*delete_first_dot(const char *pwd, char *path)$/;"	f	typeref:typename:char *	file:
+delete_first_dotdot	srcs/builtin/cd/cd_delete_dot.c	/^static char	*delete_first_dotdot(const char *pwd, char *path)$/;"	f	typeref:typename:char *	file:
+dup_dot	srcs/builtin/cd/cd_cdpath.c	/^static	char	*dup_dot(char *colon, bool *is_cdpath)$/;"	f	typeref:typename:char *	file:
+dup_stdout_fd	srcs/builtin/builtin.c	/^static int	dup_stdout_fd(t_ast *node, int *pipefd, t_data *d)$/;"	f	typeref:typename:int	file:
+dupped_stdinfd	includes/init.h	/^	int		dupped_stdinfd;$/;"	m	struct:s_data	typeref:typename:int
+e_ast_node_type	includes/parse.h	/^typedef enum e_ast_node_type$/;"	g
+e_exit_status	includes/exec_command.h	/^enum e_exit_status$/;"	g
+e_export_operator	srcs/builtin/export/export_add.c	/^typedef enum e_export_operator$/;"	g	file:
+e_operator	includes/exec_command.h	/^typedef enum e_operator$/;"	g
+e_pipefd	includes/exec_command.h	/^enum e_pipefd$/;"	g
+e_quote	includes/tokenize.h	/^typedef enum e_quote$/;"	g
+e_redirect_type	includes/parse.h	/^typedef enum e_redirect_type$/;"	g
+e_token_type	includes/tokenize.h	/^typedef enum e_token_type$/;"	g
+echo_option	srcs/builtin/echo/echo.c	/^static char	**echo_option(char *argv[])$/;"	f	typeref:typename:char **	file:
+end_command	srcs/init.c	/^void	end_command(char *line, t_data *d)$/;"	f	typeref:typename:void
+env_put_error	srcs/builtin/env/env.c	/^static void	env_put_error(char *str, t_data *d)$/;"	f	typeref:typename:void	file:
+envs_addstr	srcs/envs/envs_funcs.c	/^void	envs_addstr(char *_key, char *adding_value, t_envs **envs_hashmap)$/;"	f	typeref:typename:void
+envs_delete	srcs/envs/envs_funcs.c	/^void	envs_delete(char *_key, t_envs **envs_hashmap)$/;"	f	typeref:typename:void
+envs_free_node	srcs/envs/envs_funcs.c	/^void	envs_free_node(t_envs *node)$/;"	f	typeref:typename:void
+envs_get_hashmap_index	srcs/envs/envs_newnode.c	/^size_t	envs_get_hashmap_index(char alpha)$/;"	f	typeref:typename:size_t
+envs_get_node	srcs/envs/envs_newnode.c	/^t_envs	*envs_get_node(const char *_key, t_envs **envs_hashmap)$/;"	f	typeref:typename:t_envs *
+envs_get_value	srcs/envs/envs_funcs.c	/^char	*envs_get_value(const char *_key, t_envs **envs_hashmap)$/;"	f	typeref:typename:char *
+envs_hashmap	includes/init.h	/^	t_envs	**envs_hashmap;$/;"	m	struct:s_data	typeref:typename:t_envs **
+envs_init	srcs/envs/envs_init.c	/^void	envs_init(const char **environ, t_data *d)$/;"	f	typeref:typename:void
+envs_make_envp	srcs/envs/envs_make_envp.c	/^char	**envs_make_envp(t_envs **envs_hashmap)$/;"	f	typeref:typename:char **
+envs_modify	srcs/envs/envs_funcs.c	/^void	envs_modify(char *_key, char *new_value, t_envs **envs_hashmap)$/;"	f	typeref:typename:void
+envs_newnode	srcs/envs/envs_newnode.c	/^void	envs_newnode(char *_key, char *_value, t_envs **envs_hashmap)$/;"	f	typeref:typename:void
+eof	srcs/signal/eof.c	/^void	eof(t_data *d)$/;"	f	typeref:typename:void
+exec_child_node	srcs/exec/exec.c	/^static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)$/;"	f	typeref:typename:void	file:
+exec_child_process	srcs/exec/exec_child_process.c	/^void	exec_child_process(t_ast *node, int *pipefd, t_data *d)$/;"	f	typeref:typename:void
+exec_close_fd	srcs/exec/exec_do_redirection.c	/^void	exec_close_fd(t_command *command, t_data *d)$/;"	f	typeref:typename:void
+exec_command	srcs/exec/exec.c	/^void	exec_command(t_ast *node, t_operator operator, t_data *d)$/;"	f	typeref:typename:void
+exec_delete_file_free	srcs/exec/exec_free.c	/^void	*exec_delete_file_free(char *file, t_data *d)$/;"	f	typeref:typename:void *
+exec_do_redirection	srcs/exec/exec_do_redirection.c	/^bool	exec_do_redirection(t_ast *node, t_data *d)$/;"	f	typeref:typename:bool
+exec_exit_if_redirect_failed	srcs/exec/exec_pipe.c	/^void	exec_exit_if_redirect_failed(t_ast *node, int *pipefd, t_data *d)$/;"	f	typeref:typename:void
+exec_fork	srcs/exec/exec_fork.c	/^void	exec_fork(t_ast *node, t_data *d)$/;"	f	typeref:typename:void
+exec_free_argv	srcs/exec/exec_free.c	/^void	exec_free_argv(char **argv)$/;"	f	typeref:typename:void
+exec_get_argv_size	srcs/exec/exec_child_process.c	/^static size_t	exec_get_argv_size(t_word_list *word_list)$/;"	f	typeref:typename:size_t	file:
+exec_get_filepath	srcs/exec/exec_get_filepath.c	/^char	*exec_get_filepath(char *path, char *command, char *last_colon)$/;"	f	typeref:typename:char *
+exec_is_builtin	srcs/exec/exec.c	/^bool	exec_is_builtin(t_ast *node)$/;"	f	typeref:typename:bool
+exec_is_commnad_with_permission	srcs/exec/exec_get_filepath.c	/^bool	exec_is_commnad_with_permission(char *filepath)$/;"	f	typeref:typename:bool
+exec_is_error	srcs/exec/exec_is_error.c	/^void	exec_is_error(const char *argv, const char *filepath, t_data *d)$/;"	f	typeref:typename:void
+exec_make_argv	srcs/exec/exec_child_process.c	/^char	**exec_make_argv(t_ast *node)$/;"	f	typeref:typename:char **
+exec_make_filepath	srcs/exec/exec_make_filepath.c	/^char	*exec_make_filepath(t_ast *node, t_data *d)$/;"	f	typeref:typename:char *
+exec_pipe	srcs/exec/exec_pipe.c	/^void	exec_pipe(t_ast *node, t_data *d)$/;"	f	typeref:typename:void
+exec_pipefd	srcs/exec/exec_child_process.c	/^static void	exec_pipefd(t_ast *node, int *pipefd, t_data *d)$/;"	f	typeref:typename:void	file:
+exec_put_error_ambiguous_redirect	srcs/exec/exec_put_error.c	/^void	exec_put_error_ambiguous_redirect(char *file, t_data *d)$/;"	f	typeref:typename:void
+exec_put_error_cmd_not_found	srcs/exec/exec_put_error.c	/^void	exec_put_error_cmd_not_found(const char *command, t_data *d)$/;"	f	typeref:typename:void
+exec_put_error_is_dir	srcs/exec/exec_put_error.c	/^void	exec_put_error_is_dir(const char *command, t_data *d)$/;"	f	typeref:typename:void
+exec_put_error_no_file	srcs/exec/exec_put_error.c	/^void	exec_put_error_no_file(const char *command, t_data *d)$/;"	f	typeref:typename:void
+exec_put_error_no_permission	srcs/exec/exec_put_error.c	/^void	exec_put_error_no_permission(const char *command, t_data *d)$/;"	f	typeref:typename:void
+exec_redirect_heredoc	srcs/exec/exec_heredoc.c	/^t_redirect_list	*exec_redirect_heredoc(t_redirect_list *node, t_data *d)$/;"	f	typeref:typename:t_redirect_list *
+exec_redirect_input	srcs/exec/exec_do_redirection.c	/^static t_redirect_list	*exec_redirect_input(t_redirect_list *node, t_data *d)$/;"	f	typeref:typename:t_redirect_list *	file:
+exec_redirect_output	srcs/exec/exec_do_redirection.c	/^static t_redirect_list	*exec_redirect_output(t_command *command_list,$/;"	f	typeref:typename:t_redirect_list *	file:
+exec_wait_child_node	srcs/exec/exec_wait_child_process.c	/^static void	exec_wait_child_node(t_ast *node, t_data *d)$/;"	f	typeref:typename:void	file:
+exec_wait_child_process	srcs/exec/exec_wait_child_process.c	/^void	exec_wait_child_process(t_ast *node, t_data *d)$/;"	f	typeref:typename:void
+exit_is_overflow	srcs/builtin/exit/exit_overflow.c	/^bool	exit_is_overflow(char *str)$/;"	f	typeref:typename:bool
+exit_isspace	srcs/builtin/exit/exit_overflow.c	/^bool	exit_isspace(char c)$/;"	f	typeref:typename:bool
+exit_put_error_numeric	srcs/builtin/exit/exit_error.c	/^void	exit_put_error_numeric(t_data *d, char *str)$/;"	f	typeref:typename:void
+exit_put_error_too_many_args	srcs/builtin/exit/exit_error.c	/^void	exit_put_error_too_many_args(t_data *d)$/;"	f	typeref:typename:void
+exit_status	includes/init.h	/^	int		exit_status;$/;"	m	struct:s_data	typeref:typename:int
+expand_can_get_word_splitting_redirect	srcs/expansion/expand_word_splitting/expand_redirect_list_word_splittitng.c	/^static void	expand_can_get_word_splitting_redirect(t_redirect_list *redirect,$/;"	f	typeref:typename:void	file:
+expand_can_get_word_splitting_word_list	srcs/expansion/expand_word_splitting/expand_word_list_word_splitting.c	/^static void	expand_can_get_word_splitting_word_list(t_word_list *word_list,$/;"	f	typeref:typename:void	file:
+expand_check_ifs_default_char	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^char	*expand_check_ifs_default_char(char *ifs)$/;"	f	typeref:typename:char *
+expand_command_list	srcs/expansion/expansion.c	/^void	expand_command_list(t_ast *node, t_data *d)$/;"	f	typeref:typename:void
+expand_convert_dollar_word	srcs/expansion/expand_variable/expand_get_expanded_token.c	/^char	*expand_convert_dollar_word(char **word, t_data *d)$/;"	f	typeref:typename:char *
+expand_convert_dollar_word_delimiter	srcs/expansion/expand_redirect.c	/^static char	*expand_convert_dollar_word_delimiter(char **word, t_data *d)$/;"	f	typeref:typename:char *	file:
+expand_delete_quotation_redirect_list	srcs/expansion/expand_delete_quote/expand_delete_quote.c	/^void	expand_delete_quotation_redirect_list(t_redirect_list *redirect_list)$/;"	f	typeref:typename:void
+expand_delete_quotation_word_list	srcs/expansion/expand_delete_quote/expand_delete_quote.c	/^void	expand_delete_quotation_word_list(t_word_list *word_list)$/;"	f	typeref:typename:void
+expand_get_delete_dollar_quote	srcs/expansion/expand_variable/expand_dollar_quote_string_word.c	/^char	*expand_get_delete_dollar_quote(char **word, t_quote f_quote)$/;"	f	typeref:typename:char *
+expand_get_exit_status	srcs/expansion/expand_variable/expand_get_exit_status.c	/^char	*expand_get_exit_status(char **word, unsigned int exit_status)$/;"	f	typeref:typename:char *
+expand_get_expand_word	srcs/expansion/expand_variable/expand_get_expanded_token.c	/^char	*expand_get_expand_word(char **word, t_envs **envs)$/;"	f	typeref:typename:char *
+expand_get_expanded_token	srcs/expansion/expand_variable/expand_get_expanded_token.c	/^void	expand_get_expanded_token(char **token, char **type, t_data *d)$/;"	f	typeref:typename:void
+expand_get_expanded_word_delimiter	srcs/expansion/expand_redirect.c	/^static void	expand_get_expanded_word_delimiter(char **token, \\$/;"	f	typeref:typename:void	file:
+expand_get_joined	srcs/expansion/expand_variable/expand_get_expanded_token.c	/^void	expand_get_joined(char **expand, char **join_word, \\$/;"	f	typeref:typename:void
+expand_get_joined_convert_dollar_word	srcs/expansion/expand_variable/expand_get_variable.c	/^void	expand_get_joined_convert_dollar_word(char **join_word, \\$/;"	f	typeref:typename:void
+expand_get_joined_str_to_dollar	srcs/expansion/expand_variable/expand_get_variable.c	/^void	expand_get_joined_str_to_dollar(char **join_word, \\$/;"	f	typeref:typename:void
+expand_get_size_delete_quotation_word	srcs/expansion/expand_delete_quote/expand_delete_quote.c	/^static size_t	expand_get_size_delete_quotation_word(char *word)$/;"	f	typeref:typename:size_t	file:
+expand_get_size_str_to_ifs	srcs/expansion/expand_word_splitting/expand_get_str_to_ifs.c	/^static size_t	expand_get_size_str_to_ifs(char *word, char *ifs)$/;"	f	typeref:typename:size_t	file:
+expand_get_str_to_dollar	srcs/expansion/expand_variable/expand_get_str_to_dollar.c	/^char	*expand_get_str_to_dollar(char **word, char *type)$/;"	f	typeref:typename:char *
+expand_get_str_to_dollar_size	srcs/expansion/expand_variable/expand_get_str_to_dollar.c	/^static size_t	expand_get_str_to_dollar_size(char *word, char *type)$/;"	f	typeref:typename:size_t	file:
+expand_get_str_to_ifs	srcs/expansion/expand_word_splitting/expand_get_str_to_ifs.c	/^char	*expand_get_str_to_ifs(char **word, char *ifs)$/;"	f	typeref:typename:char *
+expand_get_string_to_dollar_or_symbol	srcs/expansion/expand_variable/expand_get_str_to_dollar.c	/^char	*expand_get_string_to_dollar_or_symbol(char **word)$/;"	f	typeref:typename:char *
+expand_get_string_to_dollar_or_symbol	srcs/expansion/expand_word_splitting/expand_get_str_to_ifs.c	/^char	*expand_get_string_to_dollar_or_symbol(char **word)$/;"	f	typeref:typename:char *
+expand_get_string_to_dollar_or_symbol_size	srcs/expansion/expand_variable/expand_get_str_to_dollar.c	/^static size_t	expand_get_string_to_dollar_or_symbol_size(char *word)$/;"	f	typeref:typename:size_t	file:
+expand_get_string_to_dollar_or_symbol_size	srcs/expansion/expand_word_splitting/expand_get_str_to_ifs.c	/^static size_t	expand_get_string_to_dollar_or_symbol_size(char *word)$/;"	f	typeref:typename:size_t	file:
+expand_get_type_to_ifs	srcs/expansion/expand_word_splitting/expand_get_str_to_ifs.c	/^char	*expand_get_type_to_ifs(char **type, char *word)$/;"	f	typeref:typename:char *
+expand_have_ifs	srcs/expansion/expand_word_splitting/expand_word_splitting.c	/^bool	expand_have_ifs(char *word, char *ifs)$/;"	f	typeref:typename:bool
+expand_is_amb_error_unil	srcs/expansion/expand_variable/expand_is_abm_error.c	/^static bool	expand_is_amb_error_unil(char *word, char *type, \\$/;"	f	typeref:typename:bool	file:
+expand_is_ambiguous_error	srcs/expansion/expand_variable/expand_is_abm_error.c	/^bool	expand_is_ambiguous_error(char *redirect_word, \\$/;"	f	typeref:typename:bool
+expand_is_delete_quotation_word	srcs/expansion/expand_delete_quote/expand_delete_quote.c	/^bool	expand_is_delete_quotation_word(char *word)$/;"	f	typeref:typename:bool
+expand_is_empty_ifs	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^bool	expand_is_empty_ifs(char *ifs)$/;"	f	typeref:typename:bool
+expand_is_quoted	srcs/expansion/expand_word_splitting/expand_word_splitting.c	/^bool	expand_is_quoted(char *type, size_t size)$/;"	f	typeref:typename:bool
+expand_is_str_in_char	srcs/expansion/expand_variable/expand_variable.c	/^bool	expand_is_str_in_char(char *str, char c)$/;"	f	typeref:typename:bool
+expand_is_type_quotation	srcs/expansion/expand_delete_quote/expand_delete_quote.c	/^bool	expand_is_type_quotation(char type)$/;"	f	typeref:typename:bool
+expand_is_variable_word	srcs/expansion/expand_variable/expand_variable.c	/^bool	expand_is_variable_word(char *word, char *type)$/;"	f	typeref:typename:bool
+expand_is_word_splitting	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^bool	expand_is_word_splitting(char *word, char *type, char *ifs)$/;"	f	typeref:typename:bool
+expand_is_word_splitting_word	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^bool	expand_is_word_splitting_word(char *word, char *type, char *ifs)$/;"	f	typeref:typename:bool
+expand_new_null_redirect_list	srcs/expansion/expand_word_splitting/expand_redirect_list_word_splittitng.c	/^t_redirect_list	*expand_new_null_redirect_list(t_redirect_list *next_node)$/;"	f	typeref:typename:t_redirect_list *
+expand_new_null_word_list	srcs/expansion/expand_word_splitting/expand_word_list_word_splitting.c	/^t_word_list	*expand_new_null_word_list(t_word_list *next_node)$/;"	f	typeref:typename:t_word_list *
+expand_new_redirect_list	srcs/expansion/expand_word_splitting/expand_redirect_list_word_splittitng.c	/^t_redirect_list	*expand_new_redirect_list(t_redirect_list *node,$/;"	f	typeref:typename:t_redirect_list *
+expand_new_word_list	srcs/expansion/expand_word_splitting/expand_word_list_word_splitting.c	/^t_word_list	*expand_new_word_list(t_word_list *node, size_t i,$/;"	f	typeref:typename:t_word_list *
+expand_redirect_list	srcs/expansion/expand_redirect.c	/^void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)$/;"	f	typeref:typename:void
+expand_set_ifs_default_char	srcs/expansion/expand_word_splitting/expand_is_word_splitting.c	/^char	*expand_set_ifs_default_char(int f_space, int f_tab, int f_new_line)$/;"	f	typeref:typename:char *
+expand_variable_redirect_list	srcs/expansion/expand_variable/expand_variable.c	/^void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)$/;"	f	typeref:typename:void
+expand_variable_word_list	srcs/expansion/expand_variable/expand_variable.c	/^void	expand_variable_word_list(t_word_list *word_list, t_data *d)$/;"	f	typeref:typename:void
+expand_word_list	srcs/expansion/expand_word_list.c	/^void	expand_word_list(t_word_list **word_list, t_data *d)$/;"	f	typeref:typename:void
+expand_word_splitting_redirect_list	srcs/expansion/expand_word_splitting/expand_redirect_list_word_splittitng.c	/^void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)$/;"	f	typeref:typename:void
+expand_word_splitting_word_list	srcs/expansion/expand_word_splitting/expand_word_list_word_splitting.c	/^void	expand_word_splitting_word_list(t_word_list *node, char *ifs)$/;"	f	typeref:typename:void
+expansion	srcs/expansion/expansion.c	/^void	expansion(t_ast *node, t_data *d)$/;"	f	typeref:typename:void
+export_add	srcs/builtin/export/export_add.c	/^void	export_add(char *str, t_data *d)$/;"	f	typeref:typename:void
+export_get_key	srcs/builtin/export/export_add.c	/^static char	*export_get_key(const char *str, t_export_operator op)$/;"	f	typeref:typename:char *	file:
+export_get_operator	srcs/builtin/export/export_add.c	/^static t_export_operator	export_get_operator(char *str)$/;"	f	typeref:typename:t_export_operator	file:
+export_get_value	srcs/builtin/export/export_add.c	/^static char	*export_get_value(const char *str)$/;"	f	typeref:typename:char *	file:
+export_invalid_identifier	srcs/builtin/export/export_error.c	/^void	export_invalid_identifier(char *str, t_data *d)$/;"	f	typeref:typename:void
+export_is_error	srcs/builtin/export/export_is_error.c	/^bool	export_is_error(char *str, t_data *d)$/;"	f	typeref:typename:bool
+export_is_invalid_key	srcs/builtin/export/export_is_error.c	/^static bool	export_is_invalid_key(char *str, t_data *d)$/;"	f	typeref:typename:bool	file:
+export_is_invalid_operator	srcs/builtin/export/export_is_error.c	/^static bool	export_is_invalid_operator(char *str, t_data *d)$/;"	f	typeref:typename:bool	file:
+export_is_symbol	srcs/builtin/export/export_is_error.c	/^bool	export_is_symbol(char c)$/;"	f	typeref:typename:bool
+export_make_str	srcs/builtin/export/export_show.c	/^static char	*export_make_str(char *str, t_envs *node)$/;"	f	typeref:typename:char *	file:
+export_put_str	srcs/builtin/export/export_show.c	/^static void	export_put_str(char *str, t_data *d)$/;"	f	typeref:typename:void	file:
+export_set_oldpwd	srcs/builtin/export/export_set_oldpwd.c	/^void	export_set_oldpwd(const char *key, t_data *d)$/;"	f	typeref:typename:void
+export_show	srcs/builtin/export/export_show.c	/^void	export_show(t_data *d)$/;"	f	typeref:typename:void
+export_str	srcs/builtin/export/export_show.c	/^static char	*export_str(t_envs *node, char *str, size_t loop_index)$/;"	f	typeref:typename:char *	file:
+fclean	Makefile	/^fclean: clean$/;"	t
+fclean	library/Makefile	/^fclean: clean$/;"	t
+fd	includes/parse.h	/^	int						fd;$/;"	m	struct:s_command	typeref:typename:int
+finish_process	srcs/builtin/builtin.c	/^static void	finish_process(bool is_parent_process, t_data *d)$/;"	f	typeref:typename:void	file:
+free_all_data	srcs/repl.c	/^static void	free_all_data(t_token *token, t_ast *ast)$/;"	f	typeref:typename:void	file:
+ft_atoi	library/srcs/ft/ft_atoi.c	/^int	ft_atoi(const char *str)$/;"	f	typeref:typename:int
+ft_atol	library/srcs/ft/ft_atol.c	/^long	ft_atol(const char *str)$/;"	f	typeref:typename:long
+ft_bzero	library/srcs/try/try_calloc.c	/^static void	ft_bzero(void *s, size_t n)$/;"	f	typeref:typename:void	file:
+ft_is_operator	library/srcs/ft/ft_is_operator.c	/^bool	ft_is_operator(char c)$/;"	f	typeref:typename:bool
+ft_is_special_char	library/srcs/ft/ft_is_special_char.c	/^bool	ft_is_special_char(char c)$/;"	f	typeref:typename:bool
+ft_isdigit	library/srcs/ft/ft_isdigit.c	/^int	ft_isdigit(char c)$/;"	f	typeref:typename:int
+ft_islower	library/srcs/ft/ft_islower.c	/^bool	ft_islower(char c)$/;"	f	typeref:typename:bool
+ft_isspace	library/srcs/ft/ft_isspace.c	/^int	ft_isspace(char c)$/;"	f	typeref:typename:int
+ft_isupper	library/srcs/ft/ft_isupper.c	/^bool	ft_isupper(char c)$/;"	f	typeref:typename:bool
+ft_memchr	library/srcs/ft/ft_memchr.c	/^void	*ft_memchr(const void *s, int c, size_t n)$/;"	f	typeref:typename:void *
+ft_memcpy	library/srcs/try/try_strjoin.c	/^void	*ft_memcpy(void *dest, const void *src, size_t n)$/;"	f	typeref:typename:void *
+ft_memset	library/srcs/ft/ft_memset.c	/^void	*ft_memset(void *b, int c, size_t len)$/;"	f	typeref:typename:void *
+ft_strchr	library/srcs/ft/ft_strchr.c	/^char	*ft_strchr(const char *s, int c)$/;"	f	typeref:typename:char *
+ft_strcmp	library/srcs/ft/ft_strcmp.c	/^int	ft_strcmp(const char *s1, const char *s2)$/;"	f	typeref:typename:int
+ft_strcmp_ignorecase	library/srcs/ft/ft_strcmp_ignorecase.c	/^int	ft_strcmp_ignorecase(const char *s1, const char *s2)$/;"	f	typeref:typename:int
+ft_strlen	library/srcs/ft/ft_strlen.c	/^size_t	ft_strlen(const char *str)$/;"	f	typeref:typename:size_t
+ft_strncmp	library/srcs/ft/ft_strncmp.c	/^int	ft_strncmp(const char *s1, const char *s2, size_t n)$/;"	f	typeref:typename:int
+ft_strrchr	library/srcs/ft/ft_strrchr.c	/^char	*ft_strrchr(const char *s, int c)$/;"	f	typeref:typename:char *
+ft_strstr	library/srcs/ft/ft_strstr.c	/^char	*ft_strstr(const char *haystack, const char *needle)$/;"	f	typeref:typename:char *
+ft_tolower	library/srcs/ft/ft_strcmp_ignorecase.c	/^char	ft_tolower(char c)$/;"	f	typeref:typename:char
+g_signal_num	srcs/repl.c	/^int	g_signal_num = 0;$/;"	v	typeref:typename:int
+get_delimiter_word_and_type	srcs/heredoc/heredoc_read.c	/^static void	get_delimiter_word_and_type(t_redirect_list *delimiter, \\$/;"	f	typeref:typename:void	file:
+get_digit	library/srcs/try/try_itoa.c	/^static	size_t	get_digit(long num)$/;"	f	typeref:typename:size_t	file:
+get_end_comp	srcs/builtin/cd/cd_delete_dotdot_if_needed.c	/^static char	*get_end_comp(char *ddc)$/;"	f	typeref:typename:char *	file:
+get_end_slashes	srcs/builtin/cd/cd_replace_non_leading_consecutive_slashes.c	/^static char	*get_end_slashes(char *start)$/;"	f	typeref:typename:char *	file:
+get_envs_num	srcs/envs/envs_make_envp.c	/^static size_t	get_envs_num(t_envs **envs_hashmap)$/;"	f	typeref:typename:size_t	file:
+get_first_target_slashes	srcs/builtin/cd/cd_replace_non_leading_consecutive_slashes.c	/^static char	*get_first_target_slashes(char *path)$/;"	f	typeref:typename:char *	file:
+get_heredoc_tmpfile	srcs/exec/exec_heredoc.c	/^static char	*get_heredoc_tmpfile(void)$/;"	f	typeref:typename:char *	file:
+get_key	srcs/envs/envs_init.c	/^static char	*get_key(const char *str)$/;"	f	typeref:typename:char *	file:
+get_left_operator	srcs/exec/exec.c	/^static t_operator	get_left_operator(t_ast_node_type ast_type)$/;"	f	typeref:typename:t_operator	file:
+get_len	library/srcs/ft/ft_strcmp.c	/^static size_t	get_len(const char *s1, const char *s2)$/;"	f	typeref:typename:size_t	file:
+get_precomp_start	srcs/builtin/cd/cd_get_pre_comp.c	/^char	*get_precomp_start(char *path, char *pre_comp)$/;"	f	typeref:typename:char *
+get_right_operator	srcs/exec/exec.c	/^static t_operator	get_right_operator(t_operator operator)$/;"	f	typeref:typename:t_operator	file:
+get_shlvl_value	srcs/envs/envs_init.c	/^static char	*get_shlvl_value(char *value, t_data *d)$/;"	f	typeref:typename:char *	file:
+get_signal_num	srcs/signal/signal.c	/^void	get_signal_num(t_data *d)$/;"	f	typeref:typename:void
+get_size	srcs/tokenize/get_current_word_size.c	/^static size_t	get_size(char *line, t_quote f_quote, size_t size)$/;"	f	typeref:typename:size_t	file:
+get_trailing_slashes	srcs/builtin/cd/cd_delete_slash.c	/^static size_t	get_trailing_slashes(char *path)$/;"	f	typeref:typename:size_t	file:
+get_type_str_to_dollar	srcs/expansion/expand_variable/expand_get_variable.c	/^static	char	*get_type_str_to_dollar(char *expand_word, char **type)$/;"	f	typeref:typename:char *	file:
+get_type_word	srcs/tokenize/get_type_word.c	/^static char	*get_type_word(char *word, size_t len)$/;"	f	typeref:typename:char *	file:
+get_value	srcs/envs/envs_init.c	/^static char	*get_value(const char *str)$/;"	f	typeref:typename:char *	file:
+handler	srcs/signal/signal_heredoc.c	/^static void	handler(int signum)$/;"	f	typeref:typename:void	file:
+handler	srcs/signal/signal_readline.c	/^static void	handler(int signum)$/;"	f	typeref:typename:void	file:
+heredoc	srcs/heredoc/heredoc.c	/^bool	heredoc(t_ast *node, t_data *d)$/;"	f	typeref:typename:bool
+heredoc_delete_quote	srcs/heredoc/heredoc_delete.c	/^void	heredoc_delete_quote(t_redirect_list *delimiter)$/;"	f	typeref:typename:void
+heredoc_get_str	srcs/heredoc/heredoc.c	/^bool	heredoc_get_str(t_redirect_list *node, t_data *d)$/;"	f	typeref:typename:bool
+heredoc_put_error	srcs/exec/exec_heredoc.c	/^static void	heredoc_put_error(t_data *d)$/;"	f	typeref:typename:void	file:
+heredoc_put_warning	srcs/heredoc/heredoc_read.c	/^static void	heredoc_put_warning(char *buff, const char *delimiter, t_data *d)$/;"	f	typeref:typename:void	file:
+heredoc_read_loop	srcs/heredoc/heredoc_read.c	/^bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)$/;"	f	typeref:typename:bool
+heredoc_redirect_list	srcs/heredoc/heredoc.c	/^bool	heredoc_redirect_list(t_command *command, t_data *d)$/;"	f	typeref:typename:bool
+heredoc_signal_newline	srcs/heredoc/heredoc.c	/^static void	heredoc_signal_newline(t_data *d)$/;"	f	typeref:typename:void	file:
+ignore_signal	srcs/signal/signal.c	/^void	ignore_signal(t_data *d)$/;"	f	typeref:typename:void
+init_three_envs	srcs/envs/envs_init.c	/^static void	init_three_envs(t_data *d)$/;"	f	typeref:typename:void	file:
+insert_node	srcs/envs/envs_newnode.c	/^static void	insert_node(t_envs *new_node, t_envs **envs_hashmap)$/;"	f	typeref:typename:void	file:
+is_absolute_path_with_permission	srcs/exec/exec_make_filepath.c	/^static bool	is_absolute_path_with_permission(t_ast *node)$/;"	f	typeref:typename:bool	file:
+is_ambiguous_error	includes/parse.h	/^	bool					is_ambiguous_error;$/;"	m	struct:s_redirect_list	typeref:typename:bool
+is_dir	srcs/exec/exec_is_error.c	/^static bool	is_dir(const char *dirpath)$/;"	f	typeref:typename:bool	file:
+is_dotdotcomp	srcs/builtin/cd/cd_delete_dotdot.c	/^bool	is_dotdotcomp(char *path)$/;"	f	typeref:typename:bool
+is_file	srcs/exec/exec_is_error.c	/^static bool	is_file(const char *path)$/;"	f	typeref:typename:bool	file:
+is_non_digit_arg	srcs/builtin/exit/exit.c	/^static bool	is_non_digit_arg(char *str)$/;"	f	typeref:typename:bool	file:
+is_noption	srcs/builtin/echo/echo.c	/^static bool	is_noption(char *str)$/;"	f	typeref:typename:bool	file:
+is_only_spaces	srcs/repl.c	/^static bool	is_only_spaces(char *line)$/;"	f	typeref:typename:bool	file:
+is_overflow	library/srcs/ft/ft_atoi.c	/^static bool	is_overflow(long long sum, long long next_num, char sign)$/;"	f	typeref:typename:bool	file:
+is_overflow	library/srcs/ft/ft_atol.c	/^static bool	is_overflow(long long sum, long long next_num, char sign)$/;"	f	typeref:typename:bool	file:
+is_overflow_long	srcs/builtin/exit/exit_overflow.c	/^static bool	is_overflow_long(long long sum, long long next_num, char sign)$/;"	f	typeref:typename:bool	file:
+is_path	srcs/builtin/cd/cd.c	/^static bool	is_path(const char *command)$/;"	f	typeref:typename:bool	file:
+is_path	srcs/exec/exec_is_error.c	/^bool	is_path(const char *command)$/;"	f	typeref:typename:bool
+is_quotation	srcs/heredoc/heredoc_delete.c	/^static bool	is_quotation(char c)$/;"	f	typeref:typename:bool	file:
+is_redirect_operator	srcs/parse/redirect_set_type.c	/^bool	is_redirect_operator(t_redirect_list *node)$/;"	f	typeref:typename:bool
+is_space	library/srcs/ft/ft_atoi.c	/^static bool	is_space(char c)$/;"	f	typeref:typename:bool	file:
+is_space	library/srcs/ft/ft_atol.c	/^static bool	is_space(char c)$/;"	f	typeref:typename:bool	file:
+is_underline	srcs/builtin/export/export_add.c	/^static bool	is_underline(char *key)$/;"	f	typeref:typename:bool	file:
+iserror	library/srcs/ft/ft_atoi.c	/^static bool	iserror(const char *str)$/;"	f	typeref:typename:bool	file:
+iserror	library/srcs/ft/ft_atol.c	/^static bool	iserror(const char *str)$/;"	f	typeref:typename:bool	file:
+join_heredoc_string	srcs/heredoc/heredoc_read.c	/^static char	*join_heredoc_string(char *buff, char *str, bool *is_start)$/;"	f	typeref:typename:char *	file:
+join_path	srcs/builtin/cd/cd_cdpath.c	/^static char	*join_path(char *eachpath, char *path)$/;"	f	typeref:typename:char *	file:
+join_path_command	srcs/exec/exec_get_filepath.c	/^static char	*join_path_command(char *command, char *path)$/;"	f	typeref:typename:char *	file:
+key	includes/init.h	/^	char			*key;$/;"	m	struct:s_envs	typeref:typename:char *
+left_hand	includes/parse.h	/^	struct s_ast			*left_hand;$/;"	m	struct:s_ast	typeref:struct:s_ast *
+main	srcs/main.c	/^int	main(void)$/;"	f	typeref:typename:int
+make_new_delimiter	srcs/heredoc/heredoc_delete.c	/^static char	*make_new_delimiter(char *head, char *old_delimiter,$/;"	f	typeref:typename:char *	file:
+make_num	library/srcs/ft/ft_atoi.c	/^static int	make_num(const char *str, char sign)$/;"	f	typeref:typename:int	file:
+make_num	library/srcs/ft/ft_atol.c	/^static long	make_num(const char *str, char sign)$/;"	f	typeref:typename:long	file:
+make_str	library/srcs/try/try_itoa.c	/^static void	make_str(char *str, long num, size_t digit)$/;"	f	typeref:typename:void	file:
+make_str	srcs/builtin/echo/echo.c	/^static char	*make_str(char **argv)$/;"	f	typeref:typename:char *	file:
+make_str	srcs/builtin/env/env.c	/^static char	*make_str(char *str, t_envs *node)$/;"	f	typeref:typename:char *	file:
+make_str_with_keyvalue	srcs/envs/envs_make_envp.c	/^static char	*make_str_with_keyvalue(t_envs *node)$/;"	f	typeref:typename:char *	file:
+next	includes/init.h	/^	struct s_envs	*next;$/;"	m	struct:s_envs	typeref:struct:s_envs *
+next	includes/parse.h	/^	struct s_redirect_list	*next;$/;"	m	struct:s_redirect_list	typeref:struct:s_redirect_list *
+next	includes/parse.h	/^	struct s_word_list		*next;$/;"	m	struct:s_word_list	typeref:struct:s_word_list *
+next	includes/tokenize.h	/^	struct s_token	*next;$/;"	m	struct:s_token	typeref:struct:s_token *
+oldpwd	includes/init.h	/^	char	*oldpwd;$/;"	m	struct:s_data	typeref:typename:char *
+overflow_long	srcs/builtin/exit/exit_overflow.c	/^static bool	overflow_long(char *str, char sign)$/;"	f	typeref:typename:bool	file:
+parse	srcs/parse/parse.c	/^t_ast	*parse(t_token **current_token, t_data *d)$/;"	f	typeref:typename:t_ast *
+pid	includes/parse.h	/^	pid_t					pid;$/;"	m	struct:s_command	typeref:typename:pid_t
+put_error	srcs/builtin/pwd/pwd.c	/^static void	put_error(t_data *d)$/;"	f	typeref:typename:void	file:
+put_sigquit_line	srcs/exec/exec_wait_child_process.c	/^void	put_sigquit_line(t_data *d)$/;"	f	typeref:typename:void
+put_str	srcs/builtin/echo/echo.c	/^static void	put_str(char *str, bool n_option, t_data *d)$/;"	f	typeref:typename:void	file:
+put_str	srcs/builtin/env/env.c	/^static void	put_str(char *str, t_data *d)$/;"	f	typeref:typename:void	file:
+pwd	includes/init.h	/^	char	*pwd;$/;"	m	struct:s_data	typeref:typename:char *
+quoted_delimiter	srcs/heredoc/heredoc_delete.c	/^static char	*quoted_delimiter(char *head, char **old_delimiter, char *quote,$/;"	f	typeref:typename:char *	file:
+re	Makefile	/^re: fclean all$/;"	t
+re	library/Makefile	/^re: fclean all$/;"	t
+re_type	includes/parse.h	/^	t_redirect_type			re_type;$/;"	m	struct:s_redirect_list	typeref:typename:t_redirect_type
+read_eval_print_loop	srcs/repl.c	/^void	read_eval_print_loop(t_data *d)$/;"	f	typeref:typename:void
+redirect_delete	srcs/heredoc/heredoc_delete.c	/^void	redirect_delete(t_command *command, t_redirect_list *target)$/;"	f	typeref:typename:void
+redirect_delete_head	srcs/expansion/expand_variable/delete_redirect.c	/^void	redirect_delete_head(t_redirect_list **head)$/;"	f	typeref:typename:void
+redirect_delete_tail	srcs/expansion/expand_variable/delete_redirect.c	/^void	redirect_delete_tail(t_redirect_list **head)$/;"	f	typeref:typename:void
+redirect_delete_target	srcs/expansion/expand_variable/delete_redirect.c	/^void	redirect_delete_target(t_redirect_list **head, t_redirect_list *target)$/;"	f	typeref:typename:void
+redirect_free	srcs/expansion/expand_variable/delete_redirect.c	/^void	redirect_free(t_redirect_list *redirect)$/;"	f	typeref:typename:void
+redirect_init_node	srcs/parse/command_redirect_list.c	/^static t_redirect_list	*redirect_init_node(t_redirect_list **head,$/;"	f	typeref:typename:t_redirect_list *	file:
+redirect_list	includes/parse.h	/^	t_redirect_list			*redirect_list;$/;"	m	struct:s_command	typeref:typename:t_redirect_list *
+redirect_list_addback	srcs/parse/command_redirect_list.c	/^static void	redirect_list_addback(t_redirect_list **head,$/;"	f	typeref:typename:void	file:
+redirect_list_free	srcs/parse/free_parse.c	/^static void	redirect_list_free(t_redirect_list *head)$/;"	f	typeref:typename:void	file:
+redirect_list_get_last_node	srcs/parse/command_redirect_list.c	/^t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head)$/;"	f	typeref:typename:t_redirect_list *
+redirect_set_type	srcs/parse/redirect_set_type.c	/^void	redirect_set_type(t_redirect_list **head, t_redirect_list *node,$/;"	f	typeref:typename:void
+redirect_set_type_word	srcs/parse/redirect_set_type.c	/^void	redirect_set_type_word(t_redirect_list *last_node,$/;"	f	typeref:typename:void
+redirect_success	includes/parse.h	/^	bool					redirect_success;$/;"	m	struct:s_command	typeref:typename:bool
+reset_stdoutfd	srcs/builtin/builtin.c	/^static void	reset_stdoutfd(int fd, t_data *d)$/;"	f	typeref:typename:void	file:
+reset_vars	srcs/init.c	/^void	reset_vars(t_data *d)$/;"	f	typeref:typename:void
+right_hand	includes/parse.h	/^	struct s_ast			*right_hand;$/;"	m	struct:s_ast	typeref:struct:s_ast *
+s_ast	includes/parse.h	/^typedef struct s_ast$/;"	s
+s_command	includes/parse.h	/^typedef struct s_command$/;"	s
+s_data	includes/init.h	/^typedef struct s_data$/;"	s
+s_envs	includes/init.h	/^typedef struct s_envs$/;"	s
+s_redirect_list	includes/parse.h	/^typedef struct s_redirect_list$/;"	s
+s_token	includes/tokenize.h	/^typedef struct s_token$/;"	s
+s_word_list	includes/parse.h	/^typedef struct s_word_list$/;"	s
+set_ast_node_type	srcs/parse/parse.c	/^t_ast_node_type	set_ast_node_type(t_token *token)$/;"	f	typeref:typename:t_ast_node_type
+set_heredoc_string	srcs/heredoc/heredoc_read.c	/^static char	*set_heredoc_string(char *str, bool is_start)$/;"	f	typeref:typename:char *	file:
+set_heredoc_string_to_stdin	srcs/exec/exec_heredoc.c	/^static bool	set_heredoc_string_to_stdin(char *file, t_data *d)$/;"	f	typeref:typename:bool	file:
+set_signal_exec	srcs/signal/signal_exec.c	/^void	set_signal_exec(t_data *d)$/;"	f	typeref:typename:void
+set_signal_heredoc	srcs/signal/signal_heredoc.c	/^void	set_signal_heredoc(t_data *d)$/;"	f	typeref:typename:void
+set_signal_readline	srcs/signal/signal_readline.c	/^void	set_signal_readline(t_data *d)$/;"	f	typeref:typename:void
+sigint	srcs/signal/signal_heredoc.c	/^static void	sigint(t_data *d)$/;"	f	typeref:typename:void	file:
+sigint	srcs/signal/signal_readline.c	/^static void	sigint(t_data *d)$/;"	f	typeref:typename:void	file:
+sigint_flag	includes/init.h	/^	bool	sigint_flag;$/;"	m	struct:s_data	typeref:typename:bool
+signal_put_error	srcs/signal/signal.c	/^void	signal_put_error(const char *f, t_data *d)$/;"	f	typeref:typename:void
+sigquit	srcs/signal/signal_heredoc.c	/^static void	sigquit(t_data *d)$/;"	f	typeref:typename:void	file:
+sigquit	srcs/signal/signal_readline.c	/^static void	sigquit(t_data *d)$/;"	f	typeref:typename:void	file:
+skip_consecutive_slashes	srcs/builtin/cd/cd_delete_dotdot.c	/^char	*skip_consecutive_slashes(char *path)$/;"	f	typeref:typename:char *
+skip_r_consecutive_slashes	srcs/builtin/cd/cd_get_pre_comp.c	/^char	*skip_r_consecutive_slashes(char *path, char *ddc)$/;"	f	typeref:typename:char *
+skip_till_slash	srcs/builtin/cd/cd_get_pre_comp.c	/^static char	*skip_till_slash(char *path, char *pre_comp)$/;"	f	typeref:typename:char *	file:
+syntax_flag	includes/init.h	/^	bool	syntax_flag;$/;"	m	struct:s_data	typeref:typename:bool
+t_ast	includes/parse.h	/^}							t_ast;$/;"	t	typeref:struct:s_ast
+t_ast_node_type	includes/parse.h	/^}							t_ast_node_type;$/;"	t	typeref:enum:e_ast_node_type
+t_command	includes/parse.h	/^}							t_command;$/;"	t	typeref:struct:s_command
+t_data	includes/init.h	/^}	t_data;$/;"	t	typeref:struct:s_data
+t_envs	includes/init.h	/^}	t_envs;$/;"	t	typeref:struct:s_envs
+t_export_operator	srcs/builtin/export/export_add.c	/^}	t_export_operator;$/;"	t	typeref:enum:e_export_operator	file:
+t_operator	includes/exec_command.h	/^}	t_operator;$/;"	t	typeref:enum:e_operator
+t_quote	includes/tokenize.h	/^}	t_quote;$/;"	t	typeref:enum:e_quote
+t_redirect_list	includes/parse.h	/^}							t_redirect_list;$/;"	t	typeref:struct:s_redirect_list
+t_redirect_type	includes/parse.h	/^}							t_redirect_type;$/;"	t	typeref:enum:e_redirect_type
+t_token	includes/tokenize.h	/^}	t_token;$/;"	t	typeref:struct:s_token
+t_token_type	includes/tokenize.h	/^}	t_token_type;$/;"	t	typeref:enum:e_token_type
+t_word_list	includes/parse.h	/^}							t_word_list;$/;"	t	typeref:struct:s_word_list
+tk_type	includes/parse.h	/^	t_token_type			tk_type;$/;"	m	struct:s_word_list	typeref:typename:t_token_type
+tk_type	includes/tokenize.h	/^	t_token_type	tk_type;$/;"	m	struct:s_token	typeref:typename:t_token_type
+token_addback	srcs/tokenize/linear_linked_token.c	/^void	token_addback(t_token **head, t_token *new_token)$/;"	f	typeref:typename:void
+token_end	srcs/tokenize/linear_linked_token.c	/^t_token	*token_end(void)$/;"	f	typeref:typename:t_token *
+token_free_all_tokens	srcs/tokenize/linear_linked_token.c	/^void	token_free_all_tokens(t_token *token_list)$/;"	f	typeref:typename:void
+token_get_all_expand_type_word	srcs/tokenize/get_type_word.c	/^char	*token_get_all_expand_type_word(char *word)$/;"	f	typeref:typename:char *
+token_get_current_token	srcs/tokenize/get_current_token.c	/^void	token_get_current_token(t_token **head, \\$/;"	f	typeref:typename:void
+token_get_current_word	srcs/tokenize/get_current_token.c	/^char	*token_get_current_word(char *line, size_t	size)$/;"	f	typeref:typename:char *
+token_get_current_word_size	srcs/tokenize/get_current_word_size.c	/^size_t	token_get_current_word_size(char *line)$/;"	f	typeref:typename:size_t
+token_get_is_expand_type_word	srcs/tokenize/get_current_token.c	/^char	*token_get_is_expand_type_word(char *word, size_t len)$/;"	f	typeref:typename:char *
+token_get_operator_size	srcs/tokenize/get_current_word_size.c	/^size_t	token_get_operator_size(char *line)$/;"	f	typeref:typename:size_t
+token_get_redirect_list_size	srcs/tokenize/get_current_word_size.c	/^size_t	token_get_redirect_list_size(char *line)$/;"	f	typeref:typename:size_t
+token_get_special_word_size	srcs/tokenize/get_current_word_size.c	/^size_t	token_get_special_word_size(char *line)$/;"	f	typeref:typename:size_t
+token_get_type_word	srcs/tokenize/get_type_word.c	/^char	*token_get_type_word(char *word, bool is_expand)$/;"	f	typeref:typename:char *
+token_is_quotation	srcs/parse/token_utils.c	/^bool	token_is_quotation(t_token *token)$/;"	f	typeref:typename:bool
+token_is_quotation_closed	srcs/parse/token_utils.c	/^bool	token_is_quotation_closed(t_token *token)$/;"	f	typeref:typename:bool
+token_is_redirect	srcs/parse/token_utils.c	/^bool	token_is_redirect(t_token_type type)$/;"	f	typeref:typename:bool
+token_next	srcs/parse/token_utils.c	/^t_token	*token_next(t_token **current_token, t_data *d)$/;"	f	typeref:typename:t_token *
+token_set_flag_quote	srcs/tokenize/set_flag.c	/^t_quote	token_set_flag_quote(char quote)$/;"	f	typeref:typename:t_quote
+token_set_flag_token	srcs/tokenize/set_flag.c	/^t_token_type	token_set_flag_token(char *line)$/;"	f	typeref:typename:t_token_type
+token_set_type_word	srcs/tokenize/get_current_token.c	/^char	token_set_type_word(char c)$/;"	f	typeref:typename:char
+tokenize	srcs/tokenize/tokenize.c	/^t_token	*tokenize(const char *line)$/;"	f	typeref:typename:t_token *
+try_calloc	library/srcs/try/try_calloc.c	/^void	*try_calloc(size_t count, size_t size)$/;"	f	typeref:typename:void *
+try_chdir	library/srcs/try/try_chdir.c	/^bool	try_chdir(const char *og_path, const char *path, t_data *d)$/;"	f	typeref:typename:bool
+try_check_null_strjoin	library/srcs/try/try_strjoin.c	/^static char	*try_check_null_strjoin(char const *s1, char const *s2)$/;"	f	typeref:typename:char *	file:
+try_close	library/srcs/try/try_close.c	/^void	try_close(int fildes, t_data *d)$/;"	f	typeref:typename:void
+try_dup	library/srcs/try/try_dup.c	/^int	try_dup(int fildes, t_data *d)$/;"	f	typeref:typename:int
+try_dup2	library/srcs/try/try_dup2.c	/^void	try_dup2(int fildes, int fildes2, t_data *d)$/;"	f	typeref:typename:void
+try_fork	library/srcs/try/try_fork.c	/^pid_t	try_fork(void)$/;"	f	typeref:typename:pid_t
+try_itoa	library/srcs/try/try_itoa.c	/^char	*try_itoa(int n)$/;"	f	typeref:typename:char *
+try_malloc	library/srcs/try/try_malloc.c	/^void	*try_malloc(size_t size)$/;"	f	typeref:typename:void *
+try_open	library/srcs/try/try_open.c	/^int	try_open(int open_value, char *file, t_data *d)$/;"	f	typeref:typename:int
+try_pipe	library/srcs/try/try_pipe.c	/^void	try_pipe(int *pipefd)$/;"	f	typeref:typename:void
+try_sigaction	library/srcs/try/try_sigaction.c	/^int	try_sigaction(int signum, const struct sigaction *act,$/;"	f	typeref:typename:int
+try_stat	library/srcs/try/try_stat.c	/^bool	try_stat(const char *path, struct stat *sb, t_data *d)$/;"	f	typeref:typename:bool
+try_strdup	library/srcs/try/try_strdup.c	/^char	*try_strdup(const char *s1)$/;"	f	typeref:typename:char *
+try_strjoin	library/srcs/try/try_strjoin.c	/^char	*try_strjoin(char const *s1, char const *s2)$/;"	f	typeref:typename:char *
+try_strjoin_free	library/srcs/try/try_strjoin_free.c	/^char	*try_strjoin_free(char *free_str, const char *str2)$/;"	f	typeref:typename:char *
+try_substr	library/srcs/try/try_substr.c	/^char	*try_substr(char const *s, size_t start, size_t len)$/;"	f	typeref:typename:char *
+try_unlink	library/srcs/try/try_unlink.c	/^void	try_unlink(const char *pathname, t_data *d)$/;"	f	typeref:typename:void
+try_waitpid	library/srcs/try/try_waitpid.c	/^pid_t	try_waitpid(pid_t pid, int *wstatus, int options, t_data *d)$/;"	f	typeref:typename:pid_t
+try_write	library/srcs/try/try_write.c	/^ssize_t	try_write(int fildes, const void *buf, size_t nbyte, t_data *d)$/;"	f	typeref:typename:ssize_t
+type	includes/parse.h	/^	char					*type;$/;"	m	struct:s_redirect_list	typeref:typename:char *
+type	includes/parse.h	/^	char					*type;$/;"	m	struct:s_word_list	typeref:typename:char *
+type	includes/parse.h	/^	t_ast_node_type			type;$/;"	m	struct:s_ast	typeref:typename:t_ast_node_type
+type	includes/tokenize.h	/^	char			*type;$/;"	m	struct:s_token	typeref:typename:char *
+updata_env_var	srcs/builtin/cd/cd_exec.c	/^static void	updata_env_var(const char *key, const char *value, t_data *d)$/;"	f	typeref:typename:void	file:
+value	includes/init.h	/^	char			*value;$/;"	m	struct:s_envs	typeref:typename:char *
+word	includes/parse.h	/^	char					*word;$/;"	m	struct:s_redirect_list	typeref:typename:char *
+word	includes/parse.h	/^	char					*word;$/;"	m	struct:s_word_list	typeref:typename:char *
+word	includes/tokenize.h	/^	char			*word;$/;"	m	struct:s_token	typeref:typename:char *
+word_list	includes/parse.h	/^	t_word_list				*word_list;$/;"	m	struct:s_command	typeref:typename:t_word_list *
+word_list_addback	srcs/parse/command_word_list.c	/^static void	word_list_addback(t_word_list **head, t_word_list *new_node)$/;"	f	typeref:typename:void	file:
+word_list_delete_head	srcs/expansion/expand_variable/delete_word_list.c	/^void	word_list_delete_head(t_word_list **head)$/;"	f	typeref:typename:void
+word_list_delete_tail	srcs/expansion/expand_variable/delete_word_list.c	/^void	word_list_delete_tail(t_word_list **head)$/;"	f	typeref:typename:void
+word_list_delete_target	srcs/expansion/expand_variable/delete_word_list.c	/^void	word_list_delete_target(t_word_list **head, t_word_list *target)$/;"	f	typeref:typename:void
+word_list_free	srcs/expansion/expand_variable/delete_word_list.c	/^void	word_list_free(t_word_list *word_list)$/;"	f	typeref:typename:void
+word_list_free	srcs/parse/free_parse.c	/^static void	word_list_free(t_word_list *head)$/;"	f	typeref:typename:void	file:
+word_list_init_node	srcs/parse/command_word_list.c	/^static t_word_list	*word_list_init_node(t_token *token)$/;"	f	typeref:typename:t_word_list *	file:
+word_list_new_head	srcs/expansion/expand_word_splitting/new_word_list.c	/^void	word_list_new_head(t_word_list **head, t_word_list *new_word_list)$/;"	f	typeref:typename:void
+word_list_new_tail	srcs/expansion/expand_word_splitting/new_word_list.c	/^void	word_list_new_tail(t_word_list **head, t_word_list *new_word_list)$/;"	f	typeref:typename:void
+word_list_new_target	srcs/expansion/expand_word_splitting/new_word_list.c	/^void	word_list_new_target(t_word_list **head, t_word_list *target, \\$/;"	f	typeref:typename:void
+write_loop	srcs/exec/exec_heredoc.c	/^static bool	write_loop(t_redirect_list *node, int fd, t_data *d)$/;"	f	typeref:typename:bool	file:

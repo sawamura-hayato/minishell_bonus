@@ -33,7 +33,8 @@ void	*try_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
-	if (count != 0 && (SIZE_T_MAX / count) < size)
+	/* if (count != 0 && (SIZE_T_MAX / count) < size) */
+	if (count != 0 && (SSIZE_MAX / count) < size)
 		return (try_calloc(0, 0));
 	ptr = try_malloc(count * size);
 	ft_bzero(ptr, count * size);

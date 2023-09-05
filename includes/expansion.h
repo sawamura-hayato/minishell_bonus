@@ -121,7 +121,7 @@ void			expand_delete_quotation_word_list(t_word_list *word_list);
 void			expand_delete_quotation_redirect_list(
 					t_redirect_list *redirect_list);
 bool			expand_is_delete_quotation_word(char *word);
-bool			expand_is_type_quotation(int type);
+bool			expand_is_type_quotation(char type);
 size_t			expand_get_size_delete_quotation_word(char *word);
 
 //library
