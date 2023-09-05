@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 17:58:08 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 18:11:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,4 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 	}
 	if (d->exit_status == SIGINT_EXITSTATUS)
 		d->sigint_flag = true;
-	if (d->exit_status == SIGQUIT_EXITSTATUS)
-		d->sigquit_flag = true;
 }

@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 00:22:15 by tatyu             #+#    #+#             */
-/*   Updated: 2023/09/05 17:53:27 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 18:11:20 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	reset_vars(t_data *d)
 	d->dupped_stdinfd = try_dup(STDIN_FILENO, d);
 	d->syntax_flag = false;
 	d->sigint_flag = false;
-	d->sigquit_flag = false;
 	g_signal_num = 0;
 }
 
