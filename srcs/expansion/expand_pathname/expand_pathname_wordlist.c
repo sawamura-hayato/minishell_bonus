@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 14:08:44 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:46:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	expand_only_stars(t_word_list *node)
 	return (true);
 }
 
-t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node,
+t_word_list	*expand_pathname_wordlist(t_word_list **head, t_word_list *node,
 									t_data *d)
 {
 	DIR				*dirp;
@@ -69,6 +69,6 @@ t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node,
 		entry = try_readdir(dirp, d);
 	}
 	if (star_node != node)
-		word_list_delete_target(&head, star_node);
+		word_list_delete_target(head, star_node);
 	return (node->next);
 }

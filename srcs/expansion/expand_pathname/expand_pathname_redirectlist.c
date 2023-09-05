@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:02:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 15:08:10 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:49:38 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	delete_expanded_nodes(t_redirect_list **head, t_redirect_list *node)
 	redirect_delete_target(head, node->next);
 }
 
-t_redirect_list	*expand_pathname_redirectlist(t_redirect_list *head,
+t_redirect_list	*expand_pathname_redirectlist(t_redirect_list **head,
 					t_redirect_list *node, t_data *d)
 {
 	DIR					*dirp;
@@ -77,10 +77,10 @@ t_redirect_list	*expand_pathname_redirectlist(t_redirect_list *head,
 	if (expand_eachfile(dirp, entry, node, d))
 	{
 		tmp = node->next;
-		redirect_delete_target(&head, node);
+		redirect_delete_target(head, node);
 		node = tmp;
 	}
 	else
-		delete_expanded_nodes(&head, node);
+		delete_expanded_nodes(head, node);
 	return (node->next);
 }
