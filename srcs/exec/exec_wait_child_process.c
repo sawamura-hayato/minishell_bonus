@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_wait_child_process.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/01 15:33:40 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/05 17:58:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "library.h"
 #define SIGNAL_EXITSTATUS 128
 #define SIGINT_EXITSTATUS 130
+#define SIGQUIT_EXITSTATUS 131
 
 void	put_sigquit_line(t_data *d)
 {
@@ -57,4 +58,6 @@ void	exec_wait_child_process(t_ast *node, t_data *d)
 	}
 	if (d->exit_status == SIGINT_EXITSTATUS)
 		d->sigint_flag = true;
+	if (d->exit_status == SIGQUIT_EXITSTATUS)
+		d->sigquit_flag = true;
 }

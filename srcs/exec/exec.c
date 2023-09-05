@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/01 14:50:43 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/05 17:55:39 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
 			&& d->exit_status != SIGINT_EXITSTATUS)
 			exec_command(node->right_hand, get_right_operator(operator), d);
 	}
-	else if (node->right_hand != NULL)
+	else if (node->right_hand != NULL && !d->sigint_flag && !d->sigquit_flag)
 		exec_command(node->right_hand, get_right_operator(operator), d);
 }
 
