@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 13:22:50 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 14:08:44 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
 				char *file);
 
-static bool	have_star(t_word_list *node)
+bool	expand_have_star_wordlist(t_word_list *node)
 {
 	size_t	i;
 
@@ -55,7 +55,7 @@ t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node,
 	struct dirent	*entry;
 	t_word_list		*star_node;
 
-	if (!have_star(node))
+	if (!expand_have_star_wordlist(node))
 		return (node->next);
 	dirp = try_opendir(".", d);
 	if (dirp == NULL)
