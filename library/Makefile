@@ -6,7 +6,7 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/08/31 18:11:36 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/03 20:18:03 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,9 @@ SRCS +=  $(SRCS_DIR)/$(TRY_DIR)/try_strdup.c \
 			$(SRCS_DIR)/$(TRY_DIR)/try_fork.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_waitpid.c	\
 			$(SRCS_DIR)/$(TRY_DIR)/try_unlink.c	\
-			$(SRCS_DIR)/$(TRY_DIR)/try_sigaction.c
+			$(SRCS_DIR)/$(TRY_DIR)/try_sigaction.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_opendir.c	\
+			$(SRCS_DIR)/$(TRY_DIR)/try_readdir.c
 
 # the writing below converts only operator using the pattern match(%) in this code.
 # OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_word_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:36:12 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 12:02:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:30:54 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	word_list_delete_target(t_word_list **head, t_word_list *target)
 	t_word_list	*node;
 
 	node = *head;
-	while (node->next != NULL && ft_strcmp(node->next->word, target->word))
+	while (node->next != NULL && node->next != target)
 		node = node->next;
 	if (node->next != NULL)
 	{
