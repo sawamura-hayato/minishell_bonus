@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expand_star_wordlist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 02:02:58 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/05 13:22:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "library.h"
 
-bool	only_stars(t_word_list *node);
+bool	expand_only_stars(t_word_list *node);
 
 static size_t	get_star_index(const char *star_str, char *type, size_t i)
 {
@@ -60,7 +60,8 @@ bool	is_last_component_matching(char *star_comp, char *file)
 	return (is_match == 0);
 }
 
-static bool	expand_star_wordlist_loop(const char *star_str, char *type, char *file, size_t i)
+static bool	expand_star_wordlist_loop(const char *star_str, char *type,
+										char *file, size_t i)
 {
 	size_t	next_star;
 	char	*star_comp;
@@ -99,20 +100,21 @@ static t_word_list	*newnode(const char *file, t_word_list *nextnode)
 	return (newnode);
 }
 
-t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, char *file, t_data *d)
+t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
+									char *file)
 {
 	size_t	first_star_index;
 	size_t	file_index;
 
-	(void)d;
 	file_index = 0;
-	if (only_stars(star_node))
+	if (expand_only_stars(star_node))
 	{
 		node->next = newnode(file, node->next);
 		return (node->next);
 	}
 	first_star_index = get_star_index(star_node->word, (char *)file, 0);
-	if (first_star_index != 0 && ft_strncmp(star_node->word, file, first_star_index) != 0)
+	if (first_star_index != 0
+		&& ft_strncmp(star_node->word, file, first_star_index) != 0)
 		return (node);
 	if (first_star_index != 0)
 	{

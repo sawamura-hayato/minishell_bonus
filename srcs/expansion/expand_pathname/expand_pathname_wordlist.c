@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/04 18:23:55 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 13:22:50 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node, char *file, t_data *d);
+t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
+				char *file);
 
 static bool	have_star(t_word_list *node)
 {
@@ -33,7 +34,7 @@ static bool	have_star(t_word_list *node)
 	return (false);
 }
 
-bool	only_stars(t_word_list *node)
+bool	expand_only_stars(t_word_list *node)
 {
 	size_t	i;
 
@@ -47,7 +48,8 @@ bool	only_stars(t_word_list *node)
 	return (true);
 }
 
-t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d)
+t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node,
+									t_data *d)
 {
 	DIR				*dirp;
 	struct dirent	*entry;
@@ -63,7 +65,7 @@ t_word_list	*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_da
 	while (entry != NULL)
 	{
 		if (*(entry->d_name) != '.')
-			node = expand_star_wordlist(star_node, node, entry->d_name, d);
+			node = expand_star_wordlist(star_node, node, entry->d_name);
 		entry = try_readdir(dirp, d);
 	}
 	if (star_node != node)
