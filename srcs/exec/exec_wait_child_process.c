@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 20:29:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 20:44:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #define SIGNAL_EXITSTATUS 128
 #define SIGINT_EXITSTATUS 130
 #define SIGQUIT_EXITSTATUS 131
+
+static bool	exec_wait(t_ast *node, t_data *d);
 
 void	put_sigquit_line(t_data *d)
 {
@@ -27,9 +29,9 @@ static void	exec_wait_child_node(t_ast *node, t_data *d)
 {
 	if (node->left_hand != NULL && node->type != PS_LOGICAL_AND
 		&& node->type != PS_LOGICAL_OR)
-		exec_wait_child_process(node->left_hand, d);
+		exec_wait(node->left_hand, d);
 	if (node->right_hand != NULL)
-		exec_wait_child_process(node->right_hand, d);
+		exec_wait(node->right_hand, d);
 }
 
 /**
@@ -40,27 +42,30 @@ static void	exec_wait_child_node(t_ast *node, t_data *d)
  *
  * @param node 構文木のnode
  */
-static void	exec_wait(t_ast *node, t_data *d)
+static bool	exec_wait(t_ast *node, t_data *d)
 {
 	int	status;
 
 	exec_wait_child_node(node, d);
 	if (node->type != PS_COMMAND)
-		return ;
+		return (true);
 	else if (node->command_list->pid != -1)
 	{
 		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
-			return ;
+			return (false);
 		if (WIFSIGNALED(status))
 			d->exit_status = SIGNAL_EXITSTATUS + WTERMSIG(status);
 		else if (WIFEXITED(status))
 			d->exit_status = WEXITSTATUS(status);
+		return (true);
 	}
+	return (false);
 }
 
 void	exec_wait_child_process(t_ast *node, t_data *d)
 {
-	exec_wait(node, d);
+	if (!exec_wait(node, d))
+		return ;
 	if (d->exit_status == SIGINT_EXITSTATUS)
 		try_write(STDERR_FILENO, "\n", 1, d);
 	if (d->exit_status == SIGQUIT_EXITSTATUS)
