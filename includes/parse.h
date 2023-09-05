@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 19:08:24 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:16:31 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ bool			ast_is_opereter(t_token_type type);
 bool			token_is_quotation(t_token *token);
 
 bool			token_is_quotation_closed(t_token *token);
-bool			token_is_parentheis_closed(t_token *token);
+bool			token_is_parentheis(t_token *token);
 void			ast_expect(t_token **current_token, t_data *d);
 t_token			*token_next(t_token **current_token, t_data *d);
 void			ast_syntax_error(t_data *d, t_token *token);

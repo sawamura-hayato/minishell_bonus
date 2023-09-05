@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 21:57:41 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:53:07 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	read_eval_print_loop(t_data *d)
 		token = tokenize(line);
 		tmp = token;
 		ast = parse(&tmp, d);
-		debug_print_ast(ast);
+		/* debug_print_ast(ast); */
 		if (d->syntax_flag == false && heredoc(ast, d))
 		{
 			expansion(ast, d);

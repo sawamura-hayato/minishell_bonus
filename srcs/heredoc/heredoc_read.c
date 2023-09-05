@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/03 19:18:04 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:56:24 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 			break ;
 		}
 		str = join_heredoc_string(buff, str, &is_start);
-		token_get_all_expand_type_word(str);
 	}
+	token_get_all_expand_type_word(str);
 	return (true);
 }

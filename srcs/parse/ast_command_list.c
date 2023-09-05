@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/04 23:04:41 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/05 22:50:07 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,25 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	ast_command_node = ast_init_node();
 	token = *current_token;
 	node = NULL;
-	if (token == NULL)
+	/* if (token == NULL || token->tk_type == TK_CLOSE_PARENTHESIS) */
+	if (token->tk_type == TK_CLOSE_PARENTHESIS)
 	{
 		ast_syntax_error(d, token);
-		return (NULL);
+		return (ast_command_node);
+		/* return (NULL); */
 	}
 	ast_command_node->type = set_ast_node_type(token);
 	if (ast_command_node->type != PS_COMMAND)
 		ast_syntax_error(d, token);
 	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
+		printf("token %s\n",token->word);
 		token_next(current_token,d);
 		node = parse(current_token, d);
+		printf("token %s\n",token->word);
 		ast_expect(current_token,d);
+		token_next(current_token,d);
+		printf("token %s\n",token->word);
 		return (node);
 	}
 	return (ast_command_list(ast_command_node, current_token, d));
@@ -71,9 +77,11 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 		}
 		else
 			command_word_list(&(command_list_node->word_list), &token, d);
-		if (token_next(&token, d) == NULL || d->syntax_flag)
+		token = token->next;	
+		if (d->syntax_flag)
 			break ;
-		*current_token = token;
 	}
+	/* printf("token %s",token->word); */
+	*current_token = token;
 	return (ast_command_node);
 }
