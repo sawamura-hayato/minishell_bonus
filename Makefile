@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
 #    Updated: 2023/09/04 22:40:49 by tyamauch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME = minishell
 CC = cc
@@ -80,6 +81,10 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_spl
 
 EXPANSION_FILENAME_DIR = expand_filename
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_FILENAME_DIR)/expand_filename.c \
+
+EXPANSION_PATHNAME_DIR = expand_pathname
+SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_PATHNAME_DIR)/expand_pathname_wordlist.c \
+		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_PATHNAME_DIR)/expand_star_wordlist.c
 
 EXPANSION_DELETE_QUOTE = expand_delete_quote
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_DELETE_QUOTE)/expand_delete_quote.c \

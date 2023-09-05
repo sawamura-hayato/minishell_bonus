@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 19:19:06 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:44:01 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ bool			expand_is_filename_word(char *word, char *target);
 size_t			expand_filename_word_list_size(t_word_list *word_list);
 void			expand_can_get_filename_word_list(t_word_list *word_list);
 //＊
+
+// expand_pathname_wordlist.c
+t_word_list		*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d);
 
 // expand_delete_quote.c
 void			expand_delete_quotation(t_ast *node);

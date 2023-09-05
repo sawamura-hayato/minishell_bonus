@@ -58,8 +58,6 @@ static void	get_delimiter_word_and_type(t_redirect_list *delimiter, \
 {
 	delimiter->word = set_heredoc_string(str, is_start);
 	delimiter->type = token_get_all_expand_type_word(delimiter->word);
-	printf("type %s\n", delimiter->word);
-	printf("type %s\n", delimiter->type);
 }
 
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
@@ -87,6 +85,7 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 			break ;
 		}
 		str = join_heredoc_string(buff, str, &is_start);
+		token_get_all_expand_type_word(str);
 	}
 	return (true);
 }
