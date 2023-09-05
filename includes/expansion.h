@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 15:36:10 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 14:40:59 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,20 +100,6 @@ bool			expand_have_ifs(char *word, char *ifs);
 void			expand_word_splitting_word_list(t_word_list *node, char *ifs);
 void			expand_word_splitting_redirect_list(t_redirect_list *node,
 					char *ifs);
-
-// expand_filename.c
-void			expand_filename(t_ast *node);
-void			expand_filename_word_list(t_word_list *node,t_data *d);
-void			expand_filename_redirect(t_redirect_list *node,t_data *d);
-
-//＊以下まで設計自由に変更してください！
-bool			expand_is_wildcard(char *word);
-bool			expand_is_filename_word(char *word, char *target);
-void			word_list_insert_target(t_word_list *word_list, char *taget);
-bool			expand_is_filename_word(char *word, char *target);
-size_t			expand_filename_word_list_size(t_word_list *word_list);
-void			expand_can_get_filename_word_list(t_word_list *word_list);
-//＊
 
 // expand_pathname_wordlist.c
 t_word_list		*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d);
