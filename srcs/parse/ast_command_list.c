@@ -6,11 +6,14 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/06 18:38:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/06 20:08:18 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
+
+void	ast_expect_word(t_token **current_token, t_data *d);
+void	ast_expect_operator(t_token **current_token, t_data *d);
 
 static t_command	*command_list_init_node(void)
 {
@@ -51,19 +54,9 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 		return (node);
 	}
 	return (ast_command_list(ast_command_node, current_token, d));
-}
-
-void	ast_expect_word(t_token **current_token, t_data *d)
-{
-	t_token	*token;
-
-	token = *current_token;
-if ((!d->syntax_flag) && (token == NULL || token->tk_type != WORD))
-	{
-		ast_syntax_error(d, token);
-		*current_token = token->next;
-		return ;
-	}
+	// node = ast_command_list(ast_command_node, current_token, d);
+	// ast_expect_operator(current_token, d);
+	// return (node);
 }
 
 t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
@@ -73,8 +66,8 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 	t_command	*command_list_node;
 	bool		redirect_flag;
 
-	token = *current_token;
 	ast_expect_word(current_token, d);
+	token = *current_token;
 	command_list_node = command_list_init_node();
 	redirect_flag = false;
 	ast_command_node->command_list = command_list_node;
@@ -88,8 +81,11 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 		}
 		else if (token->tk_type == TK_CLOSE_PARENTHESIS && (token->next == NULL || ast_is_opereter(token->next->tk_type)))
 			break ;
-		else if (token->tk_type == TK_CLOSE_PARENTHESIS)
-			d->syntax_flag = true;
+		else if (token->tk_type == TK_CLOSE_PARENTHESIS || token->tk_type == TK_OPEN_PARENTHESIS)
+		{
+			ast_syntax_error(d, token);
+			break ;
+		}
 		else
 			command_word_list(&(command_list_node->word_list), &token, d);
 		token = token->next;
