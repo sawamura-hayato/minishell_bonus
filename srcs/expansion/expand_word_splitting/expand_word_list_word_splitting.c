@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 13:06:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:34:04 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_word_list	*expand_new_word_list(t_word_list *node, size_t i,
 
 	new_word_list = try_malloc(sizeof(t_word_list));
 	i++;
-	//word_init固定
 	new_word_list->word = try_strdup(&(node->word[i]));
 	new_word_list->type = try_strdup(&(node->type[i]));
 	new_word_list->tk_type = WORD;
@@ -43,11 +42,11 @@ t_word_list	*expand_new_null_word_list(t_word_list *next_node)
 static void	expand_can_get_word_splitting_word_list(t_word_list **word_list,
 													char *ifs, size_t i)
 {
-	t_word_list	*next_word_list;
+	t_word_list	*next;
 	char		*word;
 	char		*type;
 
-	next_word_list = (*word_list)->next;
+	next = (*word_list)->next;
 	word = (*word_list)->word;
 	type = (*word_list)->type;
 	if (i == 0)
@@ -62,7 +61,7 @@ static void	expand_can_get_word_splitting_word_list(t_word_list **word_list,
 	}
 	else
 	{
-		(*word_list)->next = expand_new_word_list((*word_list), i, next_word_list);
+		(*word_list)->next = expand_new_word_list((*word_list), i, next);
 		(*word_list)->word = try_substr(word, 0, i);
 		(*word_list)->type = try_substr(type, 0, i);
 		free(word);
@@ -89,8 +88,8 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 		}
 		i++;
 	}
-	if (word_list != NULL && expand_is_word_splitting_word(word_list->word, word_list->type, ifs))
-	{
+	if (word_list != NULL && expand_is_word_splitting_word(word_list->word, 
+															word_list->type, 
+															ifs))
 		expand_word_splitting_word_list(word_list, ifs);
-	}
 }

@@ -6,11 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 12:41:44 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:42:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+static void	promote_type_pointer(char **type, char *s_word, char *e_word)
+{
+	while (s_word != e_word)
+	{
+		(*type)++;
+		s_word++;
+	}
+}
 
 void	expand_get_joined(char **expand, char **join_word, \
 							char **join_type, bool is_expand)
@@ -37,28 +46,25 @@ char	*expand_get_expand_word(char **word, t_envs **envs)
 	return (target_value);
 }
 
-char	*expand_convert_dollar_word(char **word, t_data *d)
+char	*expand_convert_dollar_word(char **word, char **type, t_data *d)
 {
 	char	*expand_word;
+	char	*tmp_word;
 	t_quote	f_quote;
 
+	tmp_word = *word;
 	expand_word = *word;
 	(*word)++;
 	f_quote = token_set_flag_quote((*word)[0]);
 	if (**word == '\0')
 		return (try_strdup(expand_word));
 	if (f_quote == SINGLE_QUOTE_FLAG || f_quote == DOUBLE_QUOTE_FLAG)
-	{
 		expand_word = expand_get_delete_dollar_quote(word, f_quote);
-	}
 	else if (**word == '?')
-	{
 		expand_word = expand_get_exit_status(word, d->exit_status);
-	}
 	else
-	{
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
-	}
+	promote_type_pointer(type, tmp_word, *word);
 	return (expand_word);
 }
 
@@ -68,6 +74,7 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 	char	*tmp_type;
 	char	*join_word;
 	char	*join_type;
+	char	*expand_word;
 
 	join_word = NULL;
 	join_type = NULL;
@@ -76,10 +83,14 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 	while (*tmp != '\0')
 	{
 		if (*tmp == '$')
-			expand_get_joined_convert_dollar_word(&join_word, \
-													&join_type, &tmp, d);
+		{
+			expand_word = expand_convert_dollar_word(&tmp, &tmp_type, d);
+			expand_get_joined_convert_dollar_word(&join_word, 
+													&join_type, expand_word);
+			free(expand_word);
+		}
 		else
-			expand_get_joined_str_to_dollar(&join_word, \
+			expand_get_joined_str_to_dollar(&join_word, 
 											&join_type, &tmp, &tmp_type);
 	}
 	free(*token);
