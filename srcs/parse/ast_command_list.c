@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 17:40:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/07 18:32:37 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 			redirect_flag = !redirect_flag;
 		}
 		else if (token->tk_type == TK_OPEN_PARENTHESIS)
-			ast_syntax_error(d, token);
+			ast_syntax_error(d, token->next);
 		else
 			command_word_list(&(command_list_node->word_list), &token, d);
 		token = token->next;
