@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/05 18:44:01 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 20:13:47 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "library.h"
 # include "parse.h"
+# include "heredoc.h"
 # include "init.h"
 # include <stdlib.h>
 
