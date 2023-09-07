@@ -6,7 +6,7 @@
 /*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:58:31 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 18:08:05 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:45:29 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ast_syntax_error(t_data *d, t_token *token)
 {
 	char	*msg;
 
-	if(d->syntax_flag == true)
-		return;
+	if (d->syntax_flag == true)
+		return ;
 	if (token == NULL)
 	{
 		msg = try_strdup("syntax error near unexpected token `newline'\n");

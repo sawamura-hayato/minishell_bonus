@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 18:32:37 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:51:55 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 		*current_token = token;
 		return (node);
 	}
+	ast_expect(WORD, current_token, d);
 	return (ast_command_list(ast_command_node, current_token, d));
 }
 
@@ -56,7 +57,6 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 	t_command	*command_list_node;
 	bool		redirect_flag;
 
-	ast_expect(WORD, current_token, d);
 	token = *current_token;
 	command_list_node = command_list_init_node();
 	redirect_flag = false;

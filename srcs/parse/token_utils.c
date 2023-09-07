@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:57:35 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/05 22:13:11 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:42:20 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ bool	token_is_quotation_closed(t_token *token)
 
 bool	token_is_parentheis(t_token *token)
 {
-	if((token->tk_type == TK_OPEN_PARENTHESIS)
+	if ((token->tk_type == TK_OPEN_PARENTHESIS)
 		|| (token->tk_type == TK_CLOSE_PARENTHESIS))
 		return (true);
 	else
@@ -82,4 +82,3 @@ bool	token_is_redirect(t_token_type type)
 	else
 		return (false);
 }
-
