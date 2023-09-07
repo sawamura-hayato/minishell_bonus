@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 19:20:21 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:09:10 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static size_t	expand_get_str_to_dollar_size(char *word, char *type)
 	size_t	i;
 
 	i = 0;
-	while (type[i] != '\0' && word[i] != '$')
+	while (word[i] != '\0' && word[i] != '$')
 	{
 		if (IS_SINGLE_QUOTED == type[i])
 		{
@@ -62,7 +62,8 @@ static size_t	expand_get_str_to_dollar_size(char *word, char *type)
 					return (i);
 			}
 		}
-		i++;
+		else
+			i++;
 	}
 	return (i);
 }

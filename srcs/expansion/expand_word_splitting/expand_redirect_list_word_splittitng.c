@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redirect_list_word_splittitng.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 09:50:53 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/07 15:17:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,33 @@ t_redirect_list	*expand_new_null_redirect_list(t_redirect_list *next_node)
 	return (new_redirect_list);
 }
 
-static void	expand_can_get_word_splitting_redirect(t_redirect_list *redirect,
+static void	expand_can_get_word_splitting_redirect(t_redirect_list **redirect,
 														char *ifs, size_t i)
 {
-	char	*ifs_default_char;
+	t_redirect_list	*next;
+	char			*word;
+	char			*type;
 
-	ifs_default_char = expand_check_ifs_default_char(ifs);
+	next = (*redirect)->next;
+	word = (*redirect)->word;
+	type = (*redirect)->type;
 	if (i == 0)
 	{
-		while (redirect->word[i] != '\0' && \
-				!expand_is_str_in_char(ifs, redirect->word[i]))
-		{
-			if (!expand_is_str_in_char(ifs_default_char, redirect->word[i]))
-				redirect->next = expand_new_null_redirect_list(redirect->next);
+		while (word[i] != '\0' && \
+				expand_is_str_in_char(ifs, word[i]))
 			i++;
-		}
+		(*redirect)->word = try_strdup(&(word[i]));
+		(*redirect)->type = try_strdup(&(type[i]));
 	}
 	else
 	{
-		redirect->next = expand_new_redirect_list(redirect, i, redirect->next);
-		redirect->word = try_substr(redirect->word, 0, i);
-		redirect->type = try_substr(redirect->type, 0, i);
+		(*redirect)->next = expand_new_redirect_list((*redirect), i, next);
+		(*redirect)->word = try_substr(word, 0, i);
+		(*redirect)->type = try_substr(type, 0, i);
+		(*redirect) = (*redirect)->next;
 	}
+	free(word);
+	free(type);
 }
 
 void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)
@@ -75,13 +80,14 @@ void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)
 	{
 		if (expand_is_str_in_char(ifs, redirect_list->word[i]) && \
 			!expand_is_quoted(redirect_list->type, i) && \
-			redirect_list->type[i] == '1')
+			IS_SUBSTITUTED == redirect_list->type[i])
 		{
-			expand_can_get_word_splitting_redirect(redirect_list, ifs, i);
+			expand_can_get_word_splitting_redirect(&redirect_list, ifs, i);
 			break ;
 		}
 		i++;
 	}
-	if (expand_have_ifs(redirect_list->next->word, ifs))
-		expand_word_splitting_redirect_list(redirect_list->next, ifs);
+	if (expand_is_word_splitting_word(redirect_list->word, \
+										redirect_list->type, ifs))
+		expand_word_splitting_redirect_list(redirect_list, ifs);
 }

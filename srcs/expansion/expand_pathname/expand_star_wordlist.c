@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   expand_star_wordlist.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
 /*   Updated: 2023/09/05 15:59:38 by tterao           ###   ########.fr       */
@@ -21,20 +21,11 @@ size_t	expand_get_star_index(const char *star_str, char *type, size_t i)
 	size_t	add_index;
 
 	star = ft_strchr(&star_str[i], '*');
-	// printf("star_str=%s\n", star_str);
-	// printf("%zu\n", i);
-	// printf("star=%s\n", &star_str[i]);
-	// printf("star=%s\n", star);
-	// if (star == &star_str[i])
-	// 	return (expand_get_star_index(star_str, type, i + 1));
 	if (star == NULL)
 		return (0);
 	add_index = star - &star_str[i];
 	if (type[i + add_index] != IS_IN_QUOTED)
 		return (i + add_index);
-	// if (add_index == 0)
-	// 	add_index++;
-	// printf("strstr%s\n\n", &star_str[add_index + i]);
 	return (expand_get_star_index(star_str, type, add_index + i + 1));
 }
 
@@ -49,15 +40,12 @@ bool	is_last_component_matching(char *star_comp, char *file)
 		return (true);
 	}
 	tmp = file;
-	// printf("sarcomp=%s\n", star_comp);
 	while (ft_strstr(file, star_comp) != NULL)
 	{
 		tmp = file;
 		file++;
 	}
 	file = tmp;
-	// printf("star=%s\n", star_comp);
-	// printf("file=%s\n\n", file);
 	is_match = ft_strcmp(star_comp, file);
 	free(star_comp);
 	return (is_match == 0);
@@ -70,16 +58,12 @@ bool	expand_star_loop(const char *star_str, char *type,
 	char	*star_comp;
 
 	next_star = expand_get_star_index(star_str, type, i);
-	// printf("i=%zu next=%zu\n", i, next_star);
 	if (next_star != 0)
 		star_comp = try_substr(star_str, i, next_star - i);
 	else if (i == 0 && star_str[i] == '*' && type[i] != IS_IN_QUOTED)
 		return (expand_star_loop(star_str, type, file, next_star + 1));
 	else
 		return (is_last_component_matching(try_strdup(&star_str[i]), file));
-	// printf("star str=%s\n", star_str);
-	// printf("loop star=%s\n", star_comp);
-	// printf("loop file=%s\n\n", file);
 	file = ft_strstr(file, star_comp);
 	if (file != NULL)
 		file += ft_strlen(star_comp);
