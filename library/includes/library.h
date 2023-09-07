@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 14:05:34 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 16:10:22 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int				try_sigaction(int signum, const struct sigaction *act,
 					struct sigaction *oldact, t_data *d);
 DIR				*try_opendir(const char *name, t_data *d);
 struct dirent	*try_readdir(DIR *dirp, t_data *d);
+void			try_closedir(DIR *dirp, t_data *d);
 
 // ft
 char			*ft_strchr(const char *s, int c);
