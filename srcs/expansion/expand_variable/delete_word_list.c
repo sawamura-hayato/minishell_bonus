@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:36:12 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 15:30:54 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:53:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	word_list_free(t_word_list *word_list)
 {
+	free(word_list->word);
+	free(word_list->type);
 	free(word_list);
 }
 
@@ -48,6 +50,12 @@ void	word_list_delete_target(t_word_list **head, t_word_list *target)
 	t_word_list	*tmp;
 	t_word_list	*node;
 
+	if (*head == target)
+	{
+		*head = target->next;
+		word_list_free(target);
+		return ;
+	}
 	node = *head;
 	while (node->next != NULL && node->next != target)
 		node = node->next;

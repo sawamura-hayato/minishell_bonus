@@ -31,10 +31,8 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 		}
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))
-		{
 			expand_delete_quotation_word_list(node);
-		}
-		node = expand_pathname_wordlist(*word_list, node, d);
+		node = expand_pathname_wordlist(word_list, node, d);
 	}
 }
 

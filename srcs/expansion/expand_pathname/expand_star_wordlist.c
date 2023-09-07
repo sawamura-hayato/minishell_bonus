@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/07 15:13:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:59:38 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 bool	expand_only_stars(t_word_list *node);
 
-static size_t	get_star_index(const char *star_str, char *type, size_t i)
+size_t	expand_get_star_index(const char *star_str, char *type, size_t i)
 {
 	char	*star;
 	size_t	add_index;
@@ -25,8 +25,8 @@ static size_t	get_star_index(const char *star_str, char *type, size_t i)
 		return (0);
 	add_index = star - &star_str[i];
 	if (type[i + add_index] != IS_IN_QUOTED)
-		return (add_index + i);
-	return (get_star_index(star_str, type, add_index + i + 1));
+		return (i + add_index);
+	return (expand_get_star_index(star_str, type, add_index + i + 1));
 }
 
 bool	is_last_component_matching(char *star_comp, char *file)
@@ -35,7 +35,10 @@ bool	is_last_component_matching(char *star_comp, char *file)
 	char	*tmp;
 
 	if (*star_comp == '\0')
+	{
+		free(star_comp);
 		return (true);
+	}
 	tmp = file;
 	while (ft_strstr(file, star_comp) != NULL)
 	{
@@ -48,17 +51,17 @@ bool	is_last_component_matching(char *star_comp, char *file)
 	return (is_match == 0);
 }
 
-static bool	expand_star_wordlist_loop(const char *star_str, char *type,
+bool	expand_star_loop(const char *star_str, char *type,
 										char *file, size_t i)
 {
 	size_t	next_star;
 	char	*star_comp;
 
-	next_star = get_star_index(star_str, type, i);
+	next_star = expand_get_star_index(star_str, type, i);
 	if (next_star != 0)
 		star_comp = try_substr(star_str, i, next_star - i);
 	else if (i == 0 && star_str[i] == '*' && type[i] != IS_IN_QUOTED)
-		return (expand_star_wordlist_loop(star_str, type, file, next_star + 1));
+		return (expand_star_loop(star_str, type, file, next_star + 1));
 	else
 		return (is_last_component_matching(try_strdup(&star_str[i]), file));
 	file = ft_strstr(file, star_comp);
@@ -67,7 +70,7 @@ static bool	expand_star_wordlist_loop(const char *star_str, char *type,
 	free(star_comp);
 	if (file == NULL)
 		return (false);
-	return (expand_star_wordlist_loop(star_str, type, file, next_star + 1));
+	return (expand_star_loop(star_str, type, file, next_star + 1));
 }
 
 static t_word_list	*newnode(const char *file, t_word_list *nextnode)
@@ -96,7 +99,7 @@ t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
 		node->next = newnode(file, node->next);
 		return (node->next);
 	}
-	first_star_index = get_star_index(star_node->word, (char *)file, 0);
+	first_star_index = expand_get_star_index(star_node->word, (char *)file, 0);
 	if (first_star_index != 0
 		&& ft_strncmp(star_node->word, file, first_star_index) != 0)
 		return (node);
@@ -105,7 +108,7 @@ t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
 		file_index = first_star_index;
 		first_star_index++;
 	}
-	if (expand_star_wordlist_loop(star_node->word, star_node->type,
+	if (expand_star_loop(star_node->word, star_node->type,
 			&file[file_index], first_star_index))
 	{
 		node->next = newnode(file, node->next);
