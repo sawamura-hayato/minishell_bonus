@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:52:54 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 17:26:15 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/07 21:09:21 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ t_ast	*ast_operator_node(t_ast_node_type type, t_ast *left_hand,
 {
 	t_ast	*ast_operator_node;
 
-	if (right_hand == NULL)
+	if (right_hand == NULL || d->syntax_flag)
 	{
+		ast_free_right_left_nodes(left_hand, right_hand);
 		ast_syntax_error(d, NULL);
 		return (NULL);
 	}
