@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/04 15:33:14 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/05 15:45:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 		//expand_is_filename（現在適当）
 		// if (node->tk_type == WORD && ft_strchr(node->word, '*'))
 		// 	expand_filename_word_list(node, d);
-		node = expand_pathname_wordlist(*word_list, node, d);
+		node = expand_pathname_wordlist(word_list, node, d);
 	}
 }
 

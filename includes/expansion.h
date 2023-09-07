@@ -116,7 +116,10 @@ void			expand_can_get_filename_word_list(t_word_list *word_list);
 //＊
 
 // expand_pathname_wordlist.c
-t_word_list		*expand_pathname_wordlist(t_word_list *head, t_word_list *node, t_data *d);
+t_word_list		*expand_pathname_wordlist(t_word_list **head,
+					t_word_list *node, t_data *d);
+t_redirect_list	*expand_pathname_redirectlist(t_redirect_list **head,
+					t_redirect_list *node, t_data *d);
 
 // expand_delete_quote.c
 void			expand_delete_quotation(t_ast *node);

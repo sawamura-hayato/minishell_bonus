@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:54:13 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/31 12:01:53 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:53:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	redirect_free(t_redirect_list *redirect)
 {
+	free(redirect->word);
+	free(redirect->type);
 	free(redirect);
 }
 
@@ -48,8 +50,14 @@ void	redirect_delete_target(t_redirect_list **head, t_redirect_list *target)
 	t_redirect_list	*tmp;
 	t_redirect_list	*node;
 
+	if (*head == target)
+	{
+		*head = target->next;
+		redirect_free(target);
+		return ;
+	}
 	node = *head;
-	while (node->next != NULL && ft_strcmp(node->next->word, target->word))
+	while (node->next != NULL && node->next != target)
 		node = node->next;
 	if (node->next != NULL)
 	{
