@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 17:35:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:42:09 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,32 +61,28 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 {
 	t_redirect_list	*node;
-	// char			*ifs;
+	char			*ifs;
 
 	node = *redirect_list;
 	while (node != NULL)
 	{
 		if (node->re_type == PS_FILE && ft_strchr(node->word, '$'))
 		{
-			printf("ok be");
 			expand_variable_redirect_list(node, d);
-			printf("ok af\n");
-			// ifs = envs_get_value("IFS", d->envs_hashmap);
-			// if (!node->is_ambiguous_error)
-			// {
-			// 	if (node->is_ambiguous_error && 
-			// 		!expand_is_empty_ifs(ifs) && 
-			// 		expand_is_word_splitting_word(node->word, node->type, ifs))
-			// 		expand_word_splitting_redirect_list(node, ifs);
-			// }
+			ifs = envs_get_value("IFS", d->envs_hashmap);
+			if (!node->is_ambiguous_error)
+			{
+				if (node->is_ambiguous_error && \
+					!expand_is_empty_ifs(ifs) && \
+					expand_is_word_splitting_word(node->word, node->type, ifs))
+					expand_word_splitting_redirect_list(node, ifs);
+			}
 		}
 		else if (node->re_type == PS_DELIMITER && ft_strchr(node->word, '$'))
 			expand_get_expanded_word_delimiter(&(node->word), &(node->type), d);
-		if (node->re_type == PS_FILE && 
+		if (node->re_type == PS_FILE && \
 			expand_is_delete_quotation_word(node->type))
-		{
-			expand_delete_quotation_redirect_list(node);
-		}
+			expand_delete_quotation_redirect(node);
 		node = node->next;
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:36:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 16:34:00 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:26:17 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-static	char	*get_type_str_to_dollar(char *expand_word, char **type)
+static char	*get_type_str_to_dollar(char *expand_word, char **type)
 {
 	char	*new_type;
 	size_t	i;
@@ -31,9 +31,9 @@ static	char	*get_type_str_to_dollar(char *expand_word, char **type)
 	return (new_type);
 }
 
-void	expand_get_joined_convert_dollar_word(char **join_word, \
-												char **join_type, \
-												char *expand_word)
+void	expand_get_joined_str(char **join_word,
+						char **join_type,
+						char *expand_word)
 {
 	char	*type;
 
@@ -43,10 +43,10 @@ void	expand_get_joined_convert_dollar_word(char **join_word, \
 	free(type);
 }
 
-void	expand_get_joined_str_to_dollar(char **join_word, \
-											char **join_type, \
-											char **tmp, \
-											char **tmp_type)
+void	expand_get_joined_str_to_dollar(char **join_word,
+									char **join_type,
+									char **tmp,
+									char **tmp_type)
 {
 	char	*expand_word;
 	char	*type;

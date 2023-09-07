@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 17:42:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:26:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	promote_type_pointer(char **type, char *s_word, char *e_word)
 	}
 }
 
-void	expand_get_joined(char **expand, char **join_word, \
+void	expand_get_joined(char **expand, char **join_word,
 							char **join_type, bool is_expand)
 {
 	char	*type;
@@ -85,16 +85,14 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 		if (*tmp == '$')
 		{
 			expand_word = expand_convert_dollar_word(&tmp, &tmp_type, d);
-			expand_get_joined_convert_dollar_word(&join_word, 
-													&join_type, expand_word);
+			expand_get_joined_str(&join_word, &join_type, expand_word);
 			free(expand_word);
 		}
 		else
-			expand_get_joined_str_to_dollar(&join_word, 
-											&join_type, &tmp, &tmp_type);
+			expand_get_joined_str_to_dollar(&join_word, &join_type, \
+												&tmp, &tmp_type);
 	}
-	free(*token);
-	free(*type);
+	all_free(*token, *type);
 	*token = join_word;
 	*type = join_type;
 }
