@@ -37,7 +37,6 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  PARSE_DIR = parse
  SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
- 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \
@@ -46,7 +45,8 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/free_parse.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c	\
- 		$(SRCS_DIR)/$(PARSE_DIR)/ast_debug.c
+ 		# $(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
+ 		# $(SRCS_DIR)/$(PARSE_DIR)/ast_debug.c
 
  HEREDOC_DIR = heredoc
  SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \
@@ -56,9 +56,9 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 EXPANSION_DIR = expansion
 
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/expansion.c \
-		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/expand_redirect.c \
+		# $(SRCS_DIR)/$(EXPANSION_DIR)/expand_debug.c \
 
 EXPANSION_VARI_DIR = expand_variable
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_VARI_DIR)/expand_variable.c \
