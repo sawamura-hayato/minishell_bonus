@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_operator_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:52:54 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/28 22:00:44 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:26:15 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_ast	*ast_operator_node(t_ast_node_type type, t_ast *left_hand,
 		ast_syntax_error(d, NULL);
 		return (NULL);
 	}
-	ast_operator_node = ast_init_node();
-	ast_operator_node->type = type;
+	ast_operator_node = ast_init_node(type);
 	ast_operator_node->left_hand = left_hand;
 	ast_operator_node->right_hand = right_hand;
 	return (ast_operator_node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/05 22:16:31 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:36:06 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ typedef struct s_ast
 
 // t_ast関連
 t_ast			*parse(t_token **current_token, t_data *d);
+t_ast			*ast_make_ast(t_token **current_token, t_data *d);
 t_ast			*ast_command_node(t_token **current_token, t_data *d);
 t_ast			*ast_command_list(t_ast *ast_command_node,
 					t_token **current_token, t_data *d);
 t_ast			*ast_operator_node(t_ast_node_type type, t_ast *left_hand,
 					t_ast *right_hand, t_data *d);
-t_ast			*ast_init_node(void);
+t_ast			*ast_init_node(t_ast_node_type type);
 void			ast_addback(t_ast **head, t_ast *new_node);
 void			*ast_free_all_nodes(t_ast *node);
 
@@ -108,7 +109,8 @@ bool			token_is_quotation(t_token *token);
 
 bool			token_is_quotation_closed(t_token *token);
 bool			token_is_parentheis(t_token *token);
-void			ast_expect(t_token **current_token, t_data *d);
+void			ast_expect(t_token_type expecting_type,
+					t_token **current_token, t_data *d);
 t_token			*token_next(t_token **current_token, t_data *d);
 void			ast_syntax_error(t_data *d, t_token *token);
 t_ast_node_type	set_ast_node_type(t_token *token);

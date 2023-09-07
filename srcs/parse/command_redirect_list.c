@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_redirect_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 23:56:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:48:10 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_redirect_list	*redirect_list_get_last_node(t_redirect_list **head)
 	t_redirect_list	*node;
 
 	node = *head;
-	while (node)
+	while (node != NULL)
 	{
 		if (node->next == NULL)
 			break ;

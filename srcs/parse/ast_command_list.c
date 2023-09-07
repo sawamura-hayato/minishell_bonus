@@ -6,14 +6,11 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/06 20:08:18 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/07 17:40:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-void	ast_expect_word(t_token **current_token, t_data *d);
-void	ast_expect_operator(t_token **current_token, t_data *d);
 
 static t_command	*command_list_init_node(void)
 {
@@ -31,7 +28,7 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	t_ast	*node;
 	t_token	*token;
 
-	ast_command_node = ast_init_node();
+	ast_command_node = ast_init_node(PS_COMMAND);
 	token = *current_token;
 	node = NULL;
 	if (token == NULL)
@@ -42,21 +39,14 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
 		token = token->next;
-		*current_token = token;
-		node = parse(current_token, d);
-		ast_expect(current_token, d);
-		token = *current_token;
-		// printf("token after expect: %s\n",token->word);
+		node = ast_make_ast(&token, d);
+		ast_expect(TK_CLOSE_PARENTHESIS, &token, d);
 		if (token != NULL)
 			token = token->next;
 		*current_token = token;
-		// printf("token %s\n",token->word);
 		return (node);
 	}
 	return (ast_command_list(ast_command_node, current_token, d));
-	// node = ast_command_list(ast_command_node, current_token, d);
-	// ast_expect_operator(current_token, d);
-	// return (node);
 }
 
 t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
@@ -66,12 +56,13 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 	t_command	*command_list_node;
 	bool		redirect_flag;
 
-	ast_expect_word(current_token, d);
+	ast_expect(WORD, current_token, d);
 	token = *current_token;
 	command_list_node = command_list_init_node();
 	redirect_flag = false;
 	ast_command_node->command_list = command_list_node;
-	while (token != NULL && !ast_is_opereter(token->tk_type) && !d->sigint_flag)
+	while (token != NULL && !ast_is_opereter(token->tk_type) && !d->syntax_flag
+		&& token->tk_type != TK_CLOSE_PARENTHESIS)
 	{
 		if (token_is_redirect(token->tk_type) || redirect_flag)
 		{
@@ -79,18 +70,12 @@ t_ast	*ast_command_list(t_ast *ast_command_node, t_token **current_token,
 				&token, d, redirect_flag);
 			redirect_flag = !redirect_flag;
 		}
-		else if (token->tk_type == TK_CLOSE_PARENTHESIS && (token->next == NULL || ast_is_opereter(token->next->tk_type)))
-			break ;
-		else if (token->tk_type == TK_CLOSE_PARENTHESIS || token->tk_type == TK_OPEN_PARENTHESIS)
-		{
+		else if (token->tk_type == TK_OPEN_PARENTHESIS)
 			ast_syntax_error(d, token);
-			break ;
-		}
 		else
 			command_word_list(&(command_list_node->word_list), &token, d);
 		token = token->next;
 	}
-	// printf("command list token %s\n",token->word);
 	*current_token = token;
 	return (ast_command_node);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/05 18:53:07 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:23:02 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
 	t_token	*token;
-	t_token	*tmp;
 	t_ast	*ast;
 
 	rl_outstream = stderr;
@@ -84,8 +83,7 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		tmp = token;
-		ast = parse(&tmp, d);
+		ast = parse(&token, d);
 		/* debug_print_ast(ast); */
 		if (d->syntax_flag == false && heredoc(ast, d))
 		{
