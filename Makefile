@@ -3,10 +3,9 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
-#    Updated: 2023/09/05 15:50:04 by tterao           ###   ########.fr        #
+#    Updated: 2023/09/05 14:40:26 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,9 +76,6 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_spl
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/new_word_list.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_redirect_list_word_splittitng.c \
 		$(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_WORD_SPLIT_DIR)/expand_word_list_word_splitting.c \
-
-EXPANSION_FILENAME_DIR = expand_filename
-SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_FILENAME_DIR)/expand_filename.c \
 
 EXPANSION_PATHNAME_DIR = expand_pathname
 SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_PATHNAME_DIR)/expand_pathname_wordlist.c \

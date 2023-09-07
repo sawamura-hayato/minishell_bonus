@@ -6,20 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 20:00:59 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 20:11:50 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/06 20:00:28 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-static void	expand_delete_quotation_word_list_until(t_word_list *word_list, 
-													char **new_word, 
+static void	expand_delete_quotation_word_list_until(t_word_list *word_list, \
+													char **new_word, \
 													char **new_type)
 {
 	size_t	i;
 	size_t	new_index;
 	bool	is_in_quote;
-	
+
 	i = 0;
 	new_index = 0;
 	is_in_quote = false;

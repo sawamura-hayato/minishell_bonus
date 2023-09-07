@@ -6,20 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:51:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 20:10:55 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:42:16 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-static void	expand_delete_quotation_redirect_until(t_redirect_list *redirect, 
-													char **new_word, 
+static void	expand_delete_quotation_redirect_until(t_redirect_list *redirect, \
+													char **new_word, \
 													char **new_type)
 {
 	size_t	i;
 	size_t	new_index;
 	bool	is_in_quote;
-	
+
 	i = 0;
 	new_index = 0;
 	is_in_quote = false;
@@ -40,18 +40,18 @@ static void	expand_delete_quotation_redirect_until(t_redirect_list *redirect,
 	}
 }
 
-void	expand_delete_quotation_redirect_list(t_redirect_list *redirect_list)
+void	expand_delete_quotation_redirect(t_redirect_list *redirect)
 {
 	char	*new_word;
 	char	*new_type;
 	size_t	size;
 
-	size = expand_get_size_delete_quotation_word(redirect_list->type);
+	size = expand_get_size_delete_quotation_word(redirect->type);
 	new_word = try_calloc(size + 1, sizeof(char));
 	new_type = try_calloc(size + 1, sizeof(char));
-	expand_delete_quotation_redirect_until(redirect_list, &new_word, &new_type);
-	free(redirect_list->word);
-	free(redirect_list->type);
-	redirect_list->word = new_word;
-	redirect_list->type = new_type;
+	expand_delete_quotation_redirect_until(redirect, &new_word, &new_type);
+	free(redirect->word);
+	free(redirect->type);
+	redirect->word = new_word;
+	redirect->type = new_type;
 }
