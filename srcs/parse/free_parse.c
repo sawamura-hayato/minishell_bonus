@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:55:37 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/03 16:37:40 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:24:51 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static void	*ast_free_right_node(t_ast *node)
 
 void	*ast_free_all_nodes(t_ast *node)
 {
+	if (node == NULL)
+		return (NULL);
 	if (node != NULL && node->left_hand != NULL)
 		ast_free_all_nodes(node->left_hand);
 	if (node != NULL && node->right_hand != NULL)

@@ -5,7 +5,7 @@
 #                                                     +:+ +:+         +:+      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/31 17:16:20 by hsawamur          #+#    #+#              #
-#    Updated: 2023/09/05 14:40:26 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/07 18:09:44 by tyamauch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
  PARSE_DIR = parse
  SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
+ 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
  		$(SRCS_DIR)/$(PARSE_DIR)/ast_operator_node.c \

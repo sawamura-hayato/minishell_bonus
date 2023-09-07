@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:57:35 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/03 13:55:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:42:20 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,15 @@ bool	token_is_quotation_closed(t_token *token)
 		i++;
 	}
 	if ((single_q_count % 2) == 0 && (double_q_count % 2) == 0)
+		return (true);
+	else
+		return (false);
+}
+
+bool	token_is_parentheis(t_token *token)
+{
+	if ((token->tk_type == TK_OPEN_PARENTHESIS)
+		|| (token->tk_type == TK_CLOSE_PARENTHESIS))
 		return (true);
 	else
 		return (false);

@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/29 20:49:52 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:48:23 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-t_ast	*ast_init_node(void)
+t_ast	*ast_init_node(t_ast_node_type type)
 {
 	t_ast	*node;
 
 	node = try_calloc(1, sizeof(t_ast));
+	node->type = type;
 	return (node);
 }
 
@@ -34,7 +35,7 @@ t_ast_node_type	set_ast_node_type(t_token *token)
 	return (type);
 }
 
-t_ast	*parse(t_token **current_token, t_data *d)
+t_ast	*ast_make_ast(t_token **current_token, t_data *d)
 {
 	t_token			*token;
 	t_ast			*left_node;
@@ -58,5 +59,21 @@ t_ast	*parse(t_token **current_token, t_data *d)
 		if (d->syntax_flag)
 			return (ast_free_all_nodes(left_node));
 	}
+	*current_token = token;
 	return (left_node);
+}
+
+t_ast	*parse(t_token **current_token, t_data *d)
+{
+	t_ast	*ast;
+	t_token	*token;
+
+	ast = ast_make_ast(current_token, d);
+	token = *current_token;
+	if (token != NULL)
+	{
+		ast_syntax_error(d, token);
+		ast = ast_free_all_nodes(ast);
+	}
+	return (ast);
 }
