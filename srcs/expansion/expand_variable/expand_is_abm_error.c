@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:01:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 13:33:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:46:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,25 @@
 static bool	expand_is_amb_error_unil(char *word, char *type, \
 										size_t i, char *ifs)
 {
-	char	*ifs_default_char;
+	bool	flag;
 
-	ifs_default_char = expand_check_ifs_default_char(ifs);
-	while (word[i] != '\0' && type[i] == '1' && \
-		expand_is_str_in_char(ifs, word[i]))
-	{
-		if (expand_is_str_in_char(ifs_default_char, word[i]))
-		{
-			i++;
-			continue ;
-		}
-		else
-			return (true);
-	}
+	flag = false;
 	while (word[i] != '\0' && type[i] == '1')
 	{
-		if (!expand_is_str_in_char(ifs, word[i]))
+		while (word[i] != '\0' && type[i] == '1' && \
+			expand_is_str_in_char(ifs, word[i]))
+			i++ ;
+		while (word[i] != '\0' && type[i] == '1')
 		{
-			i++;
-			continue ;
+			if (!expand_is_str_in_char(ifs, word[i]))
+			{
+				if (flag)
+					return (true);
+				i++;
+				continue ;
+			}
 		}
-		else
-			return (true);
+		flag = true;
 	}
 	return (false);
 }
@@ -59,11 +55,8 @@ bool	expand_is_ambiguous_error(char *redirect_word, \
 					!= DOUBLE_QUOTE_FLAG)
 				i++;
 		}
-		while (redirect_word[i] != '\0' && redirect_type[i] == '1')
-		{
-			if (expand_is_amb_error_unil(redirect_word, redirect_type, i, ifs))
-				return (true);
-		}
+		if (expand_is_amb_error_unil(redirect_word, redirect_type, i, ifs))
+			return (true);
 		if (redirect_word[i] == '\0')
 			break ;
 		i++;
