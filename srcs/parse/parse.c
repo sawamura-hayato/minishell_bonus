@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 18:07:45 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:48:23 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_ast	*parse(t_token **current_token, t_data *d)
 
 	ast = ast_make_ast(current_token, d);
 	token = *current_token;
-	if (!d->syntax_flag && token != NULL)
+	if (token != NULL)
 	{
 		ast_syntax_error(d, token);
 		ast = ast_free_all_nodes(ast);
