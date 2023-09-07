@@ -6,11 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/07 15:26:02 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/07 20:36:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+void	all_free(char *s1, char *s2);
 
 static void	promote_type_pointer(char **type, char *s_word, char *e_word)
 {
