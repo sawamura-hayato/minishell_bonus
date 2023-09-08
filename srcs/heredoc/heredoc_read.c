@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/05 18:56:24 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:58:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ static char	*join_heredoc_string(char *buff, char *str, bool *is_start)
 static void	get_delimiter_word_and_type(t_redirect_list *delimiter, \
 										char *str, bool is_start)
 {
+	char	*type;
+
+	type = delimiter->type;
 	delimiter->word = set_heredoc_string(str, is_start);
 	delimiter->type = token_get_all_expand_type_word(delimiter->word);
+	free(type);
 }
 
 bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
@@ -86,6 +90,5 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 		}
 		str = join_heredoc_string(buff, str, &is_start);
 	}
-	token_get_all_expand_type_word(str);
 	return (true);
 }
