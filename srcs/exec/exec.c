@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/01 14:50:43 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/09 01:28:13 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 			exec_pipe(node, d);
 		else if (!rd_success && operator == EXEC_START && exec_is_builtin(node))
 			return ;
-		else if (operator == EXEC_START && exec_is_builtin(node))
+		else if ((operator == EXEC_START || operator == EXEC_LOGICAL_AND
+			|| operator == EXEC_LOGICAL_OR) && exec_is_builtin(node))
 			return (builtin(node, NULL, true, d));
 		else
 			exec_fork(node, d);
