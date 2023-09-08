@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 16:34:35 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/08 21:59:26 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
 		{
 			expand_variable_word_list(node, d);
-			ifs = envs_get_value("IFS", d->envs_hashmap);
+			ifs = expand_get_ifs(d->envs_hashmap);
 			if (!expand_is_empty_ifs(ifs) && \
 				expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_word_list(node, ifs);

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 19:47:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:01:41 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ bool	expand_have_ifs(char *word, char *ifs)
 	if (word[i] == '\0')
 		return (false);
 	return (true);
+}
+
+char	*expand_get_ifs(t_envs **envs)
+{
+	char	*ifs;
+
+	ifs = envs_get_value("IFS", envs);
+	if (ifs == NULL)
+		ifs = try_strdup(" \t\n");
+	return (ifs);
 }
