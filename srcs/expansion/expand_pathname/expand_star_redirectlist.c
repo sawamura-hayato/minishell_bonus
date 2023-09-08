@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_star_redirectlist.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:24:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 15:02:37 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 02:33:42 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_redirect_list	*expand_star_redirectlist(t_redirect_list *star_node,
 		node->next = newnode(file, node->next);
 		return (node->next);
 	}
-	first_star_index = expand_get_star_index(star_node->word, (char *)file, 0);
+	first_star_index = expand_get_star_index(star_node->word, star_node->type, 0);
 	if (first_star_index != 0
 		&& ft_strncmp(star_node->word, file, first_star_index) != 0)
 		return (node);
