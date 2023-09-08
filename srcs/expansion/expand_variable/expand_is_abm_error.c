@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:01:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 17:46:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:43:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static bool	expand_is_amb_error_unil(char *word, char *type, \
 				i++;
 				continue ;
 			}
+			break ;
 		}
 		flag = true;
 	}
@@ -53,7 +54,8 @@ bool	expand_is_ambiguous_error(char *redirect_word, \
 		{
 			while (token_set_flag_quote(redirect_type[++i]) \
 					!= DOUBLE_QUOTE_FLAG)
-				i++;
+					;
+			i++;
 		}
 		if (expand_is_amb_error_unil(redirect_word, redirect_type, i, ifs))
 			return (true);
