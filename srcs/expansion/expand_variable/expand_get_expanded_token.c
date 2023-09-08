@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/07 20:36:39 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:02:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 		if (*tmp == '$')
 		{
 			expand_word = expand_convert_dollar_word(&tmp, &tmp_type, d);
+			printf("expand %s\n", expand_word);
 			expand_get_joined_str(&join_word, &join_type, expand_word);
 			free(expand_word);
 		}

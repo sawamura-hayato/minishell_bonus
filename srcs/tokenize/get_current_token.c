@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 15:18:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 13:57:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:08:50 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*token_get_current_word(char *line, size_t	size)
 char	*token_get_is_expand_type_word(char *word, size_t len)
 {
 	char	*type_word;
-	t_quote	f_quote;
 	size_t	i;
 
 	if (word == NULL)
@@ -51,15 +50,6 @@ char	*token_get_is_expand_type_word(char *word, size_t len)
 	i = 0;
 	while (word[i] != '\0')
 	{
-		f_quote = token_set_flag_quote(word[i]);
-		if (f_quote != DEFAULT)
-		{
-			type_word[i] = token_set_type_word(word[i]);
-			while (f_quote != token_set_flag_quote(word[++i]))
-				type_word[i] = IS_SUBSTITUTED;
-			type_word[i] = token_set_type_word(word[i]);
-			i++;
-		}
 		type_word[i] = IS_SUBSTITUTED;
 		i++;
 	}
