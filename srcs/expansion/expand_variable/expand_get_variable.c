@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:36:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/08 17:04:34 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/08 17:16:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ void	expand_get_joined_str(char **join_word,
 {
 	char	*type;
 
-	// printf("expand %s\n", *join_type);
 	type = token_get_type_word(expand_word, true);
-	printf("expand %s\n", type);
 	*join_word = try_strjoin_free(*join_word, expand_word);
 	*join_type = try_strjoin_free(*join_type, type);
 	free(type);
@@ -54,11 +52,7 @@ void	expand_get_joined_str_to_dollar(char **join_word,
 	char	*type;
 
 	expand_word = expand_get_str_to_dollar(tmp, *tmp_type);
-	printf("join_word %s\n", *join_word);
-	printf("join_type %s\n", *join_type);
-	printf("word      %s\n", expand_word);
 	type = get_type_str_to_dollar(expand_word, tmp_type);
-	printf("type      %s\n", type);
 	*join_word = try_strjoin_free(*join_word, expand_word);
 	*join_type = try_strjoin_free(*join_type, type);
 	free(expand_word);
