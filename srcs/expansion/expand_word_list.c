@@ -23,7 +23,7 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
 		{
 			expand_variable_word_list(node, d);
-			ifs = envs_get_value("IFS", d->envs_hashmap);
+			ifs = expand_get_ifs(d->envs_hashmap);
 			if (!expand_is_empty_ifs(ifs) && \
 				expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_word_list(node, ifs);

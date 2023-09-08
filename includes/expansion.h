@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/07 20:13:47 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/08 22:01:55 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ bool			expand_have_ifs(char *word, char *ifs);
 void			expand_word_splitting_word_list(t_word_list *node, char *ifs);
 void			expand_word_splitting_redirect_list(t_redirect_list *node, \
 														char *ifs);
+char			*expand_get_ifs(t_envs **envs);
 
 // expand_pathname_wordlist.c
 t_word_list		*expand_pathname_wordlist(t_word_list **head,
