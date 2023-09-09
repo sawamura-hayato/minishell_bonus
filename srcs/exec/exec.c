@@ -6,12 +6,13 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:43:14 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 19:04:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "builtins.h"
+#include <signal.h>
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
