@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/03 12:51:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:59:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 void	get_signal_num(t_data *d);
 void	set_signal_heredoc(t_data *d);
 void	ignore_signal(t_data *d);
+void	expand_delete_quotation_redirect(t_redirect_list *redirect);
 
 void	all_free(char *s1, char *s2)
 {
@@ -32,7 +33,7 @@ bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 	if (delimiter == NULL)
 		return (false);
 	if (delimiter->re_type == PS_QUOTE_DELIMITER)
-		heredoc_delete_quote(delimiter);
+		expand_delete_quotation_redirect(delimiter);
 	set_signal_heredoc(d);
 	try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 	return (heredoc_read_loop(delimiter, d));

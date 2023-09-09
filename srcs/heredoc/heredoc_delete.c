@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*                                                    +:+ +:+         +:+     */
 /*   heredoc_delete.c                                   :+:      :+:    :+:   */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:49 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/08/31 15:52:52 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:56:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static char	*quoted_delimiter(char *head, char **old_delimiter, char *quote,
 	}
 	quoted_delimiter = try_substr(head, start, i);
 	*old_delimiter = word_p;
+	
 	return (quoted_delimiter);
 }
 
