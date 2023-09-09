@@ -6,15 +6,12 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/09 18:01:46 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 18:21:05 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "library.h"
-#define SIGNAL_EXITSTATUS 128
-#define SIGINT_EXITSTATUS 130
-#define SIGQUIT_EXITSTATUS 131
 
 void	put_sigquit_line(t_data *d)
 {

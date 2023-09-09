@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:03:09 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 18:43:14 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,30 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 	}
 	if (operator == EXEC_START)
 		exec_wait_child_process(node, d);
+}
+
+/**
+ * @brief この関数はastの線形リストをそれぞれ実行する
+ * @param node astの線形リストnode
+ * @param d 環境変数と終了ステータス
+ */
+void	command_execution(t_ast_list *node, t_data *d)
+{
+	while (node != NULL)
+	{
+		if (node->type == AST_ROOT)
+			exec_command(node->ast, EXEC_START, d);
+		if ((node->type == AST_LOGICAL_AND && d->exit_status == EXIT_SUCCESS)
+			|| (node->type == AST_LOGICAL_OR && d->exit_status != EXIT_SUCCESS))
+		{
+			if (g_signal_num == SIGINT)
+			{
+				d->exit_status = SIGINT_EXITSTATUS;
+				break ;
+			}
+			exec_command(node->ast, EXEC_START, d);
+		}
+		node = node->next;
+		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
+	}
 }
