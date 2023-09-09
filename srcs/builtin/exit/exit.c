@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:11 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/15 19:52:05 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 01:15:01 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,19 @@ static bool	is_non_digit_arg(char *str)
 	return (false);
 }
 
-void	builtin_exit(char **argv, t_data *d)
+static void	_exit_(bool is_parent_process, t_data *d)
 {
 	const char	*msg = "exit\n";
 
-	if (argv[1] == NULL)
-	{
+	if (is_parent_process)
 		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
-		exit(d->exit_status);
-	}
+	exit(d->exit_status);
+}
+
+void	builtin_exit(char **argv, bool is_parent_process, t_data *d)
+{
+	if (argv[1] == NULL)
+		_exit_(is_parent_process, d);
 	if (is_non_digit_arg(argv[1]))
 		exit_put_error_numeric(d, argv[1]);
 	if (exit_is_overflow(argv[1]))
@@ -53,6 +57,5 @@ void	builtin_exit(char **argv, t_data *d)
 	if (argv[2] != NULL)
 		return (exit_put_error_too_many_args(d));
 	d->exit_status = (int)(unsigned char)ft_atol(argv[1]);
-	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
-	exit(d->exit_status);
+	_exit_(is_parent_process, d);
 }

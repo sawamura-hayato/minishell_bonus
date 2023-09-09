@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 12:42:06 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/27 15:39:11 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 01:08:06 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	builtin_pwd(t_data *d);
 void	builtin_export(char **argv, t_data *d);
 void	builtin_unset(char **argv, t_data *d);
 void	builtin_env(char **argv, t_data *d);
-void	builtin_exit(char **argv, t_data *d);
+void	builtin_exit(char **argv, bool is_parent_process, t_data *d);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:53:55 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/27 22:17:45 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 01:08:26 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	builtin(t_ast *node, int *pipefd, bool is_parent_process, t_data *d)
 	else if (ft_strcmp_ignorecase(argv[0], "env") == 0)
 		builtin_env(argv, d);
 	else if (ft_strcmp_ignorecase(argv[0], "exit") == 0)
-		builtin_exit(argv, d);
+		builtin_exit(argv, is_parent_process, d);
 	if (dupped_stdoutfd >= 0)
 		reset_stdoutfd(dupped_stdoutfd, d);
 	exec_free_argv(argv);
