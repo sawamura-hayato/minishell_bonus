@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/07 20:16:09 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:17:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,5 @@ bool	heredoc_redirect_list(t_command *command, t_data *d);
 
 bool	heredoc(t_ast *node, t_data *d);
 
-void    all_free(char *s1, char *s2); 
-
+void	all_free(char *s1, char *s2);
 #endif

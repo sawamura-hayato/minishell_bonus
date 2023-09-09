@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:45:44 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/09 16:16:43 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:16:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static t_word_list	*newnode(const char *file, t_word_list *nextnode)
 t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
 									char *file)
 {
-	size_t	first_star_index;
+	size_t	star_index;
 	size_t	file_index;
 
 	file_index = 0;
@@ -98,17 +98,17 @@ t_word_list	*expand_star_wordlist(t_word_list *star_node, t_word_list *node,
 		node->next = newnode(file, node->next);
 		return (node->next);
 	}
-	first_star_index = expand_get_star_index(star_node->word, star_node->type, 0);
-	if (first_star_index != 0
-		&& ft_strncmp(star_node->word, file, first_star_index) != 0)
+	star_index = expand_get_star_index(star_node->word, star_node->type, 0);
+	if (star_index != 0
+		&& ft_strncmp(star_node->word, file, star_index) != 0)
 		return (node);
-	if (first_star_index != 0)
+	if (star_index != 0)
 	{
-		file_index = first_star_index;
-		first_star_index++;
+		file_index = star_index;
+		star_index++;
 	}
 	if (expand_star_loop(star_node->word, star_node->type,
-			&file[file_index], first_star_index))
+			&file[file_index], star_index))
 	{
 		node->next = newnode(file, node->next);
 		node = node->next;

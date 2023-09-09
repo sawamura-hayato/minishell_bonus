@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_star_redirectlist.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:24:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/09 02:33:42 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/09 19:16:44 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool	only_stars(t_redirect_list *node)
 t_redirect_list	*expand_star_redirectlist(t_redirect_list *star_node,
 				t_redirect_list *node, char *file)
 {
-	size_t	first_star_index;
+	size_t	star_index;
 	size_t	file_index;
 
 	file_index = 0;
@@ -56,17 +56,17 @@ t_redirect_list	*expand_star_redirectlist(t_redirect_list *star_node,
 		node->next = newnode(file, node->next);
 		return (node->next);
 	}
-	first_star_index = expand_get_star_index(star_node->word, star_node->type, 0);
-	if (first_star_index != 0
-		&& ft_strncmp(star_node->word, file, first_star_index) != 0)
+	star_index = expand_get_star_index(star_node->word, star_node->type, 0);
+	if (star_index != 0
+		&& ft_strncmp(star_node->word, file, star_index) != 0)
 		return (node);
-	if (first_star_index != 0)
+	if (star_index != 0)
 	{
-		file_index = first_star_index;
-		first_star_index++;
+		file_index = star_index;
+		star_index++;
 	}
 	if (expand_star_loop(star_node->word, star_node->type,
-			&file[file_index], first_star_index))
+			&file[file_index], star_index))
 	{
 		node->next = newnode(file, node->next);
 		node = node->next;
