@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 17:33:06 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:31:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static char	*expand_convert_dollar_word_delimiter(char **word, t_data *d)
 
 	expand_word = *word;
 	(*word)++;
-	if (**word == '\0')
-		return (try_strdup(expand_word));
+	if (**word == '\0' || **word == '\'' || **word == '\"' || **word == '$')
+		return (try_strdup("$"));
 	if (**word == '?')
 		expand_word = expand_get_exit_status(word, d->exit_status);
 	else
@@ -55,6 +55,7 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 	}
 	free(*token);
 	free(*type);
+	// printf("word %s\n", join_word);
 	*token = join_word;
 	*type = join_type;
 }
