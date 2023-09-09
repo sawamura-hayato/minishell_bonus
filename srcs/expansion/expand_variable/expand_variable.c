@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/08 17:44:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:30:51 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 									redirect_list->type, ifs))
 		{
 			redirect_list->is_ambiguous_error = true;
+			free(redirect_list->word);
 			redirect_list->word = word;
+			free(redirect_list->type);
 		}
 		else
 			free(word);

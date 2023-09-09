@@ -6,21 +6,20 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 16:13:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:09:23 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "library.h"
 
-static bool	is_all_ifs(char *word, char *type, char *ifs)
+bool	expand_is_all_ifs(char *word, char *type, char *ifs)
 {
 	size_t	i;
 
 	i = 0;
 	while (word[i] != '\0' && type[i] == IS_SUBSTITUTED)
 	{
-		// printf("word %c\n", word[i]);
 		if (!expand_is_str_in_char(ifs, word[i]))
 			return (false);
 		i++;
@@ -39,7 +38,7 @@ t_word_list	*expand_new_word_list(t_word_list *node, size_t i,
 	i++;
 	next_word = try_strdup(&(node->word[i]));
 	next_type = try_strdup(&(node->type[i]));
-	if (is_all_ifs(next_word, next_type, ifs))
+	if (expand_is_all_ifs(next_word, next_type, ifs))
 	{
 		new_word_list->word = NULL;
 		new_word_list->type = NULL;
@@ -74,8 +73,6 @@ static void	expand_can_get_word_splitting_word_list(t_word_list **word_list,
 	t_word_list	*next;
 	char		*word;
 	char		*type;
-	// char		*sub_word;
-	// char		*sub_type;
 
 	next = (*word_list)->next;
 	word = (*word_list)->word;
@@ -118,19 +115,9 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 		}
 		i++;
 	}
-	printf("word %s\n", word_list->word);
-	printf("type %s\n", word_list->type);
 	if (word_list != NULL && \
 		expand_is_word_splitting_word(word_list->word, \
 										word_list->type, \
 										ifs))
 		expand_word_splitting_word_list(word_list, ifs);
-	// else
-	// {
-	// 	free(word_list->word);
-	// 	word_list->word = NULL;
-	// 	free(word_list->type);
-	// 	word_list->type = NULL;
-	// }
-	
 }
