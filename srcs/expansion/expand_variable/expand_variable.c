@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 17:30:51 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:05:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,11 @@ void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 	}
 }
 
-void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
+void	expand_variable_redirect_list(t_redirect_list *redirect_list, \
+										t_data *d, char *ifs)
 {
 	char	*word;
-	char	*ifs;
 
-	ifs = envs_get_value("IFS", d->envs_hashmap);
 	word = try_strdup(redirect_list->word);
 	if (expand_is_variable_word(redirect_list->word, redirect_list->type))
 	{
@@ -77,12 +76,9 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, t_data *d)
 									redirect_list->type, ifs))
 		{
 			redirect_list->is_ambiguous_error = true;
-			free(redirect_list->word);
 			redirect_list->word = word;
-			free(redirect_list->type);
 		}
 		else
 			free(word);
 	}
-	free(ifs);
 }
