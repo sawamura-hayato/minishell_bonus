@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/10 20:41:39 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/10 21:11:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void			ast_list_expect(t_token **current_token,
 t_token			*token_next(t_token **current_token, t_data *d);
 void			ast_syntax_error(t_data *d, t_token *token);
 t_ast_node_type	set_ast_node_type(t_token *token);
-void			*ast_free_ast_l1(t_ast_l1 *node);
+void			*ast_l1_free(t_ast_l1 *node);
 void			*ast_free_node(t_ast *node);
 void			*ast_free_right_left_nodes(t_ast *left_node,
 					t_ast *right_node);
