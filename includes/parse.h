@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/10 15:18:28 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/10 16:39:48 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_ast_list
 }							t_ast_list;
 
 // t_ast関連
-t_ast_list		*parse(t_token **current_token, t_data *d);
+t_ast_list		*parse(t_token *tk_head, t_data *d);
 t_ast			*ast_make_ast(t_token **current_token, t_data *d);
 t_ast			*ast_command_node(t_token **current_token, t_data *d);
 t_ast			*ast_command_list(t_ast *ast_command_node,
