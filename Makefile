@@ -6,13 +6,13 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/10 13:00:04 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/09/10 13:04:19 by tyamauch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address -g
 
 RL_DIR = $(shell brew --prefix readline)

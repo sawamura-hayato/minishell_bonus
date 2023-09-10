@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/10 12:28:48 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 13:18:32 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ t_ast_list	*parse(t_token **current_token, t_data *d)
 	{
 		if(token != *current_token)
 			ast_list_expect(&token,d);
-		else
-			*head = ast_list_init_node(token->tk_type);
 		if(d->syntax_flag)
 			break;
 		list_node = ast_list_init_node(token->tk_type);
 		list_node->ast = ast_make_ast(&token, d);
+		if(list_node->type == AST_ROOT)
+			head = &list_node;
 		ast_list_addback(head,list_node);
 	}
 	/* if (token != NULL || expext()) */
-	if (token != NULL )
+	if (token != NULL || d->syntax_flag == true)
 	{
 		ast_syntax_error(d, token);
 		ast = ast_free_all_nodes(ast);
