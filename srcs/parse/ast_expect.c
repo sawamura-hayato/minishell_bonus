@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:51:18 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/09 20:37:42 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:02:31 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ast_list_expect(t_token **current_token, t_data *d)
 	t_token	*token;
 
 	token = *current_token;
-	if (token == NULL || token->tk_type != TK_LOGICAL_OR
-			|| token->tk_type != TK_LOGICAL_AND)
+	if (token != NULL && token->tk_type != TK_LOGICAL_OR
+		&& token->tk_type != TK_LOGICAL_AND)
 	{
 		ast_syntax_error(d, token);
 		return ;

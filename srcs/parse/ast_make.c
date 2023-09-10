@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_make.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tyamauch <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 12:25:51 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/10 12:25:54 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 14:48:32 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_ast	*ast_make_ast(t_token **current_token, t_data *d)
 			break ;
 		type = set_ast_node_type(token);
 		if (type == PS_LOGICAL_AND || type == PS_LOGICAL_OR)
-			break;
+			break ;
 		token_next(&token, d);
 		right_node = ast_command_node(&token, d);
 		left_node = ast_operator_node(type, left_node, right_node, d);

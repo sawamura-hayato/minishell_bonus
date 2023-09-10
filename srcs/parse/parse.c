@@ -6,15 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/10 13:18:32 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 15:24:39 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-t_ast_list_type	set_ast_list_node_type(t_token_type tk_type)
+static t_ast_list_type	set_ast_list_node_type(t_token_type tk_type)
 {
-	t_ast_list_type ast_type;
+	t_ast_list_type	ast_type;
 
 	ast_type = AST_ROOT;
 	if (tk_type == TK_LOGICAL_AND)
@@ -24,12 +24,17 @@ t_ast_list_type	set_ast_list_node_type(t_token_type tk_type)
 	return (ast_type);
 }
 
-static t_ast_list	*ast_list_init_node(t_token_type tk_type)
+static t_ast_list	*ast_list_init_node(t_token *head, t_token *token)
 {
 	t_ast_list	*node;
 
 	node = try_calloc(1, sizeof(t_ast_list));
-	node->type = set_ast_list_node_type(tk_type);
+	if (head == token)
+		node->type = AST_ROOT;
+	else if (token->tk_type == TK_LOGICAL_AND)
+		node->type = AST_LOGICAL_AND;
+	else if (token->tk_type == TK_LOGICAL_OR)
+		node->type = AST_LOGICAL_OR;
 	return (node);
 }
 
@@ -38,7 +43,7 @@ static void	ast_list_addback(t_ast_list **head,
 {
 	t_ast_list	*node;
 
-	if(*head != NULL)
+	if (*head != NULL)
 		node = *head;
 	else
 		node = NULL;
@@ -59,34 +64,23 @@ static void	ast_list_addback(t_ast_list **head,
 		*head = new_node;
 	}
 }
-/* expect(); */
 
-/* t_ast	*parse(t_token **current_token, t_data *d) */
 t_ast_list	*parse(t_token **current_token, t_data *d)
 {
-	t_ast	*ast;
-	t_token	*token;
-	t_ast_list **head;
-	t_ast_list *list_node;
+	t_token		*token;
+	t_ast_list	*head;
+	t_ast_list	*list_node;
 
 	token = *current_token;
-	while(token)
+	head = NULL;
+	while (token != NULL && !d->syntax_flag)
 	{
-		if(token != *current_token)
-			ast_list_expect(&token,d);
-		if(d->syntax_flag)
-			break;
-		list_node = ast_list_init_node(token->tk_type);
+		list_node = ast_list_init_node(*current_token, token);
 		list_node->ast = ast_make_ast(&token, d);
-		if(list_node->type == AST_ROOT)
-			head = &list_node;
-		ast_list_addback(head,list_node);
+		ast_list_expect(&token, d);
+		ast_list_addback(&head, list_node);
 	}
-	/* if (token != NULL || expext()) */
-	if (token != NULL || d->syntax_flag == true)
-	{
-		ast_syntax_error(d, token);
-		ast = ast_free_all_nodes(ast);
-	}
-	return (*head);
+	if (d->syntax_flag == true)
+		list_node = ast_free_ast_list(head);
+	return (head);
 }
