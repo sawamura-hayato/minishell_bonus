@@ -6,23 +6,40 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/07 15:17:37 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:38:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "library.h"
 
+bool	expand_is_all_ifs(char *word, char *type, char *ifs);
+
 t_redirect_list	*expand_new_redirect_list(t_redirect_list *node,
 											size_t i,
-											t_redirect_list *next_node)
+											t_redirect_list *next_node,
+											char *ifs)
 {
 	t_redirect_list	*new_redirect_list;
+	char			*next_word;
+	char			*next_type;
 
 	new_redirect_list = try_malloc(sizeof(t_redirect_list));
 	i++;
-	new_redirect_list->word = try_strdup(&(node->word[i]));
-	new_redirect_list->type = try_strdup(&(node->type[i]));
+	next_word = try_strdup(&(node->word[i]));
+	next_type = try_strdup(&(node->type[i]));
+	if (expand_is_all_ifs(next_word, next_type, ifs))
+	{
+		new_redirect_list->word = NULL;
+		new_redirect_list->type = NULL;
+		free(next_word);
+		free(next_type);
+	}
+	else
+	{
+		new_redirect_list->word = next_word;
+		new_redirect_list->type = next_type;
+	}
 	new_redirect_list->re_type = PS_FILE;
 	new_redirect_list->next = next_node;
 	return (new_redirect_list);
@@ -60,7 +77,7 @@ static void	expand_can_get_word_splitting_redirect(t_redirect_list **redirect,
 	}
 	else
 	{
-		(*redirect)->next = expand_new_redirect_list((*redirect), i, next);
+		(*redirect)->next = expand_new_redirect_list((*redirect), i, next, ifs);
 		(*redirect)->word = try_substr(word, 0, i);
 		(*redirect)->type = try_substr(type, 0, i);
 		(*redirect) = (*redirect)->next;

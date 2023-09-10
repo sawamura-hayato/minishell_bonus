@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/07 20:16:09 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:04:37 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,6 @@ bool	heredoc_redirect_list(t_command *command, t_data *d);
 bool	heredoc_get_str(t_redirect_list *node, t_data *d);
 
 /**
- * @brief この関数は、delimiterのクォートを削除する。
- *
- * @param delimiter delimiterのnode
- */
-void	heredoc_delete_quote(t_redirect_list *delimiter);
-
-/**
  * @brief この関数は、targetのnodeを線形リストcommand->redirect_listから削除する。
  *
  *
@@ -92,6 +85,5 @@ bool	heredoc_redirect_list(t_command *command, t_data *d);
 
 bool	heredoc(t_ast *node, t_data *d);
 
-void    all_free(char *s1, char *s2); 
-
+void	all_free(char *s1, char *s2);
 #endif

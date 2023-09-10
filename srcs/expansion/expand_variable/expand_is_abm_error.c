@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:01:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/08 17:43:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:13:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,27 @@ static bool	expand_is_amb_error_unil(char *word, char *type, \
 			i++ ;
 		while (word[i] != '\0' && type[i] == '1')
 		{
-			if (!expand_is_str_in_char(ifs, word[i]))
-			{
-				if (flag)
-					return (true);
-				i++;
-				continue ;
-			}
-			break ;
+			if (flag)
+				return (true);
+			if (expand_is_str_in_char(ifs, word[i]))
+				break ;
+			i++;
 		}
 		flag = true;
 	}
 	return (false);
+}
+
+static size_t	get_not_quote_index(char *type, size_t i)
+{
+	if (token_set_flag_quote(type[i]) == DOUBLE_QUOTE_FLAG)
+	{
+		while (token_set_flag_quote(type[++i]) \
+				!= DOUBLE_QUOTE_FLAG)
+			;
+		i++;
+	}
+	return (i);
 }
 
 bool	expand_is_ambiguous_error(char *redirect_word, \
@@ -50,13 +59,7 @@ bool	expand_is_ambiguous_error(char *redirect_word, \
 	i = 0;
 	while (redirect_word[i] != '\0')
 	{
-		if (token_set_flag_quote(redirect_type[i]) == DOUBLE_QUOTE_FLAG)
-		{
-			while (token_set_flag_quote(redirect_type[++i]) \
-					!= DOUBLE_QUOTE_FLAG)
-					;
-			i++;
-		}
+		i = get_not_quote_index(redirect_word, i);
 		if (expand_is_amb_error_unil(redirect_word, redirect_type, i, ifs))
 			return (true);
 		if (redirect_word[i] == '\0')
