@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:55:37 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/10 15:16:03 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/10 20:42:39 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,15 @@ void	*ast_free_right_left_nodes(t_ast *left_node, t_ast *right_node)
 	return (NULL);
 }
 
-void	*ast_free_ast_list(t_ast_list *head)
+void	*ast_free_ast_l1(t_ast_l1 *node)
 {
-	t_ast_list	*node;
-	t_ast_list	*tmp;
-
-	node = head;
-	while (node != NULL)
-	{
-		ast_free_all_nodes(node->ast);
-		tmp = node;
-		node = node->next;
-		free(tmp);
-	}
+	if (node == NULL)
+		return (NULL);
+	if (node->left_hand != NULL)
+		ast_free_ast_l1(node->left_hand);
+	if (node->right_hand != NULL)
+		ast_free_ast_l1(node->right_hand);
+	ast_free_all_nodes(node->ast);
+	free(node);
 	return (NULL);
 }

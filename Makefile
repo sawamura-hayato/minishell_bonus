@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/10 13:04:19 by tyamauch         ###   ########.fr        #
+#    Updated: 2023/09/10 20:43:16 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,9 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/free_parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c	\
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_l1_layer1.c	\
 		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
-		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast_list.c
+		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast_l1.c
 
  HEREDOC_DIR = heredoc
  SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \

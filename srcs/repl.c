@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/10 16:50:43 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/10 20:40:26 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ static char	*_readline(t_data *d)
 	return (line);
 }
 
-static void	free_all_data(t_token *token, t_ast *ast_list)
+static void	free_all_data(t_token *token, t_ast_l1 *ast_l1)
 {
 	token_free_all_tokens(token);
-	ast_free_ast_list(ast_list);
+	ast_free_ast_l1(ast_l1);
 }
 
 void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
 	t_token	*token;
-	t_ast_list	*ast_list;
+	t_ast_l1	*ast_l1;
 
 	rl_outstream = stderr;
 	while (true)
@@ -82,14 +82,14 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		ast_list = parse(token, d);
-		debug_print_ast_list(ast_list);
+		ast_l1 = parse(token, d);
+		debug_print_ast_l1(ast_l1);
 		// if (d->syntax_flag == false && heredoc(ast, d))
 		// {
 		// 	expansion(ast, d);
 		// 	exec_command(ast, EXEC_START, d);
 		// }
-		free_all_data(token, ast_list);
+		free_all_data(token, ast_l1);
 		end_command(line, d);
 	}
 }

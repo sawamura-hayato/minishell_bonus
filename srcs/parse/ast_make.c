@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 12:25:51 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/10 16:40:23 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/10 19:46:27 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_ast_node_type	set_ast_node_type(t_token *token)
 	return (type);
 }
 
-t_ast	*ast_make_ast(t_token **current_token, t_data *d)
+t_ast	*ast_layer2(t_token **current_token, t_data *d)
 {
 	t_token			*token;
 	t_ast			*left_node;
