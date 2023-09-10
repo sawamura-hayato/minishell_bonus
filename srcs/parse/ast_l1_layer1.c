@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_l1_layer1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:54:28 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/10 20:43:29 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 00:13:47 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static t_ast_l1	*ast_l1_init(t_ast_l1_type type)
 	newnode = try_calloc(1, sizeof(t_ast_l1));
 	newnode->type = type;
 	return (newnode);
-
 }
 
 t_ast_l1	*ast_l1_operator_node(t_ast_l1_type type, t_ast_l1 *left,
@@ -47,6 +46,13 @@ t_ast_l1	*ast_l1_operator_node(t_ast_l1_type type, t_ast_l1 *left,
 {
 	t_ast_l1	*newnode;
 
+	if (right == NULL || d->syntax_flag)
+	{
+		ast_l1_free(left);
+		ast_l1_free(right);
+		ast_syntax_error(d, NULL);
+		return (NULL);
+	}
 	newnode = ast_l1_init(type);
 	newnode->left_hand = left;
 	newnode->right_hand = right;

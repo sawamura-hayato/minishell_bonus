@@ -14,6 +14,8 @@
 
 void	debug_print_ast_l1(t_ast_l1 *node)
 {
+	if (node == NULL)
+		return ;
 	if (node->left_hand != NULL)
 		debug_print_ast_l1(node->left_hand);
 	if (node->right_hand != NULL)

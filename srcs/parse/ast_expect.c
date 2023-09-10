@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ast_expect.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:51:18 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/10 16:01:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 00:08:31 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-void	ast_list_expect(t_token **current_token, t_data *d)
+void	ast_l1_expect(t_token **current_token, t_data *d)
 {
 	t_token	*token;
 
