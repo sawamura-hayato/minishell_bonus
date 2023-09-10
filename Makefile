@@ -6,14 +6,14 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/08 15:29:44 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/10 12:56:43 by tyamauch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -fsanitize=address -g
+CFLAGS += -fsanitize=address -g
 
 RL_DIR = $(shell brew --prefix readline)
 CFLAGS += -I$(READLINE_DIR)/include
@@ -36,6 +36,7 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 
  PARSE_DIR = parse
  SRCS += $(SRCS_DIR)/$(PARSE_DIR)/parse.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/ast_make.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_error.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_expect.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/ast_command_list.c \
@@ -45,6 +46,8 @@ SRCS += $(SRCS_DIR)/$(TOKENIZE_DIR)/set_flag.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/redirect_set_type.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/free_parse.c \
 		$(SRCS_DIR)/$(PARSE_DIR)/token_utils.c	\
+		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast.c \
+		$(SRCS_DIR)/$(PARSE_DIR)/debug_print_ast_list.c
 
  HEREDOC_DIR = heredoc
  SRCS += $(SRCS_DIR)/$(HEREDOC_DIR)/heredoc.c \

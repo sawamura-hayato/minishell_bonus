@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 19:21:57 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/08/14 19:22:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:17:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (s == NULL)
+		return (NULL);
 	while (*s != (char) c)
 	{
 		if (*s == '\0')

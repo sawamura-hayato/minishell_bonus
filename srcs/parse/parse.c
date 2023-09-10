@@ -6,75 +6,87 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 21:09:22 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 12:28:48 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-t_ast	*ast_init_node(t_ast_node_type type)
+t_ast_list_type	set_ast_list_node_type(t_token_type tk_type)
 {
-	t_ast	*node;
+	t_ast_list_type ast_type;
 
-	node = try_calloc(1, sizeof(t_ast));
-	node->type = type;
+	ast_type = AST_ROOT;
+	if (tk_type == TK_LOGICAL_AND)
+		ast_type = AST_LOGICAL_AND;
+	else if (tk_type == TK_LOGICAL_OR)
+		ast_type = AST_LOGICAL_OR;
+	return (ast_type);
+}
+
+static t_ast_list	*ast_list_init_node(t_token_type tk_type)
+{
+	t_ast_list	*node;
+
+	node = try_calloc(1, sizeof(t_ast_list));
+	node->type = set_ast_list_node_type(tk_type);
 	return (node);
 }
 
-t_ast_node_type	set_ast_node_type(t_token *token)
+static void	ast_list_addback(t_ast_list **head,
+		t_ast_list *new_node)
 {
-	t_ast_node_type	type;
+	t_ast_list	*node;
 
-	type = PS_COMMAND;
-	if (token->tk_type == TK_PIPE)
-		type = PS_PIPE;
-	else if (token->tk_type == TK_LOGICAL_AND)
-		type = PS_LOGICAL_AND;
-	else if (token->tk_type == TK_LOGICAL_OR)
-		type = PS_LOGICAL_OR;
-	return (type);
-}
-
-t_ast	*ast_make_ast(t_token **current_token, t_data *d)
-{
-	t_token			*token;
-	t_ast			*left_node;
-	t_ast			*right_node;
-	t_ast_node_type	type;
-
-	token = *current_token;
-	left_node = ast_command_node(&token, d);
-	if (d->syntax_flag)
-		return (ast_free_all_nodes(left_node));
-	while (true)
+	if(*head != NULL)
+		node = *head;
+	else
+		node = NULL;
+	while (node != NULL)
 	{
-		if (token == NULL || !ast_is_opereter(token->tk_type))
+		if (node->next == NULL)
 			break ;
-		type = set_ast_node_type(token);
-		token_next(&token, d);
-		if (type == PS_LOGICAL_AND || type == PS_LOGICAL_OR)
-			right_node = ast_make_ast(&token, d);
-		else
-			right_node = ast_command_node(&token, d);
-		left_node = ast_operator_node(type, left_node, right_node, d);
-		if (d->syntax_flag)
-			return (ast_free_all_nodes(left_node));
+		node = node->next;
 	}
-	*current_token = token;
-	return (left_node);
+	if (node != NULL)
+	{
+		node->next = new_node;
+		new_node->next = NULL;
+	}
+	else
+	{
+		new_node->next = NULL;
+		*head = new_node;
+	}
 }
+/* expect(); */
 
-t_ast	*parse(t_token **current_token, t_data *d)
+/* t_ast	*parse(t_token **current_token, t_data *d) */
+t_ast_list	*parse(t_token **current_token, t_data *d)
 {
 	t_ast	*ast;
 	t_token	*token;
+	t_ast_list **head;
+	t_ast_list *list_node;
 
 	token = *current_token;
-	ast = ast_make_ast(&token, d);
-	if (token != NULL)
+	while(token)
+	{
+		if(token != *current_token)
+			ast_list_expect(&token,d);
+		else
+			*head = ast_list_init_node(token->tk_type);
+		if(d->syntax_flag)
+			break;
+		list_node = ast_list_init_node(token->tk_type);
+		list_node->ast = ast_make_ast(&token, d);
+		ast_list_addback(head,list_node);
+	}
+	/* if (token != NULL || expext()) */
+	if (token != NULL )
 	{
 		ast_syntax_error(d, token);
 		ast = ast_free_all_nodes(ast);
 	}
-	return (ast);
+	return (*head);
 }

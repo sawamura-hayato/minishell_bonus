@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/07 22:08:35 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:14:06 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ typedef enum e_ast_node_type
 	PS_LOGICAL_OR,
 	PS_COMMAND,
 }							t_ast_node_type;
+
+typedef enum e_ast_list_type
+{
+	AST_LOGICAL_AND,
+	AST_ROOT,
+	AST_LOGICAL_OR
+} 							t_ast_list_type;
 
 typedef struct s_word_list
 {
@@ -75,8 +82,15 @@ typedef struct s_ast
 	struct s_ast			*right_hand;
 }							t_ast;
 
+typedef struct s_ast_list
+{
+	t_ast			 		*ast;
+	t_ast_list_type         type;
+	struct s_ast_list		*next;
+}							t_ast_list;
+
 // t_ast関連
-t_ast			*parse(t_token **current_token, t_data *d);
+t_ast_list			*parse(t_token **current_token, t_data *d);
 t_ast			*ast_make_ast(t_token **current_token, t_data *d);
 t_ast			*ast_command_node(t_token **current_token, t_data *d);
 t_ast			*ast_command_list(t_ast *ast_command_node,
@@ -113,6 +127,8 @@ void			ast_expect(t_token_type expecting_type,
 					t_token **current_token, t_data *d);
 void			ast_expect_word(t_token **current_token,
 					t_data *d);
+void			ast_list_expect(t_token **current_token,
+					t_data *d);
 t_token			*token_next(t_token **current_token, t_data *d);
 void			ast_syntax_error(t_data *d, t_token *token);
 t_ast_node_type	set_ast_node_type(t_token *token);
@@ -120,5 +136,6 @@ void			*ast_free_node(t_ast *node);
 void			*ast_free_right_left_nodes(t_ast *left_node,
 					t_ast *right_node);
 void			debug_print_ast(t_ast *node);
+void 			debug_print_ast_list(t_ast_list *root);
 
 #endif

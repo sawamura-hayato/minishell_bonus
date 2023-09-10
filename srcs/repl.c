@@ -6,7 +6,7 @@
 /*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 01:07:05 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/09 18:50:56 by tyamauch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
 	t_token	*token;
-	t_ast	*ast;
+	t_ast_list	*ast_list;
 
 	rl_outstream = stderr;
 	while (true)
@@ -83,13 +83,14 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		ast = parse(&token, d);
-		if (d->syntax_flag == false && heredoc(ast, d))
-		{
-			expansion(ast, d);
-			exec_command(ast, EXEC_START, d);
-		}
-		free_all_data(token, ast);
+		ast_list = parse(&token, d);
+		debug_print_ast_list(ast_list);
+		/* if (d->syntax_flag == false && heredoc(ast, d)) */
+		/* { */
+		/* 	expansion(ast, d); */
+		/* 	exec_command(ast, EXEC_START, d); */
+		/* } */
+		/* free_all_data(token, ast); */
 		end_command(line, d);
 	}
 }
