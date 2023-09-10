@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 15:06:35 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 17:09:00 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/09 19:17:13 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	cd_oldpwd(t_data *d)
 
 	if (d->oldpwd == NULL)
 	{
+		d->exit_status = EXIT_FAILURE;
 		msg = "cd: OLDPWD not set\n";
 		try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
 		return ;

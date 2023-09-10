@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:02:01 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 19:19:13 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:04:17 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include "builtins.h"
-#define SIGINT_EXITSTATUS 130
-#define SIGQUIT_EXITSTATUS 131
-
-void	put_sigquit_line(t_data *d);
+#include <signal.h>
 
 /**
  * @brief この関数は、コマンドがbuiltinか判定する
@@ -65,31 +62,6 @@ static t_operator	get_right_operator(t_operator operator)
 		return (operator);
 }
 
-static void	exec_child_node(t_ast *node, t_operator operator, t_data *d)
-{
-	if (node->left_hand != NULL)
-		exec_command(node->left_hand, get_left_operator(node->type), d);
-	if (node->type == PS_LOGICAL_AND)
-	{
-		exec_wait_child_process(node->left_hand, d);
-		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
-		if (d->exit_status == EXIT_SUCCESS)
-			exec_command(node->right_hand, get_right_operator(operator), d);
-	}
-	else if (node->type == PS_LOGICAL_OR)
-	{
-		exec_wait_child_process(node->left_hand, d);
-		if (d->exit_status == SIGQUIT_EXITSTATUS)
-			put_sigquit_line(d);
-		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
-		if (d->exit_status != EXIT_SUCCESS
-			&& d->exit_status != SIGINT_EXITSTATUS)
-			exec_command(node->right_hand, get_right_operator(operator), d);
-	}
-	else if (node->right_hand != NULL)
-		exec_command(node->right_hand, get_right_operator(operator), d);
-}
-
 /**
  * @brief この関数はコマンドを実行する
  *
@@ -108,7 +80,10 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 {
 	bool	rd_success;
 
-	exec_child_node(node, operator, d);
+	if (node->left_hand != NULL)
+		exec_command(node->left_hand, get_left_operator(node->type), d);
+	if (node->right_hand != NULL)
+		exec_command(node->right_hand, get_right_operator(operator), d);
 	if (node->type == PS_COMMAND)
 	{
 		node->command_list->redirect_success = exec_do_redirection(node, d);
@@ -117,16 +92,37 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 			exec_pipe(node, d);
 		else if (!rd_success && operator == EXEC_START && exec_is_builtin(node))
 			return ;
-		else if ((operator == EXEC_START || operator == EXEC_LOGICAL_AND \
-					|| operator == EXEC_LOGICAL_OR) && exec_is_builtin(node))
+		else if (operator == EXEC_START || exec_is_builtin(node))
 			return (builtin(node, NULL, true, d));
 		else
 			exec_fork(node, d);
 	}
 	if (operator == EXEC_START)
-	{
 		exec_wait_child_process(node, d);
-		if (d->exit_status == SIGQUIT_EXITSTATUS)
-			put_sigquit_line(d);
+}
+
+/**
+ * @brief この関数はastの線形リストをそれぞれ実行する
+ * @param node astの線形リストnode
+ * @param d 環境変数と終了ステータス
+ */
+void	command_execution(t_ast_list *node, t_data *d)
+{
+	while (node != NULL)
+	{
+		if (node->type == AST_ROOT)
+			exec_command(node->ast, EXEC_START, d);
+		if ((node->type == AST_LOGICAL_AND && d->exit_status == EXIT_SUCCESS)
+			|| (node->type == AST_LOGICAL_OR && d->exit_status != EXIT_SUCCESS))
+		{
+			if (g_signal_num == SIGINT)
+			{
+				d->exit_status = SIGINT_EXITSTATUS;
+				break ;
+			}
+			exec_command(node->ast, EXEC_START, d);
+		}
+		node = node->next;
+		try_dup2(d->dupped_stdinfd, STDIN_FILENO, d);
 	}
 }
