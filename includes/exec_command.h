@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:26 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:28:40 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 15:20:50 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ enum e_exit_status
 	SIGQUIT_EXITSTATUS = 131,
 };
 
-void	command_execution(t_ast_list *node, t_data *d);
+void	command_execution(t_ast_l1 *node, t_data *d);
 
 /**
  * @brief この関数はコマンドを実行する
