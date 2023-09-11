@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 19:05:41 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:17:47 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 
 // expansion.c
-void			expansion(t_ast *node, t_data *d);
+void			expansion(t_ast_l1 *node, t_data *d);
 
 // expand_variable
 void			expand_variable(t_ast *node, t_data *d);

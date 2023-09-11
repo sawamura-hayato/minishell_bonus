@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/09 20:04:37 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:19:01 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  * @return true すべてheredocに成功した場合（heredocがない場合も含む）、trueを返す
  * @return false heredocに失敗もしくはシグナルを受け取りheredocを終了した場合、falseを返す
  */
-bool	heredoc(t_ast *node, t_data *d);
+bool	heredoc(t_ast_l1 *node, t_data *d);
 
 /**
  * @brief この関数は、線形リストのredirect_listのnodeを一つずつheredocか確認する。
@@ -83,7 +83,7 @@ bool	heredoc_get_str(t_redirect_list *node, t_data *d);
 
 bool	heredoc_redirect_list(t_command *command, t_data *d);
 
-bool	heredoc(t_ast *node, t_data *d);
+bool	heredoc(t_ast_l1 *node, t_data *d);
 
 void	all_free(char *s1, char *s2);
 #endif
