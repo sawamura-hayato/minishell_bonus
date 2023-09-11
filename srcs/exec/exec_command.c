@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 13:37:25 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/11 13:37:42 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 15:22:33 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	exec_command(t_ast *node, t_operator operator, t_data *d)
 			exec_pipe(node, d);
 		else if (!rd_success && operator == EXEC_START && exec_is_builtin(node))
 			return ;
-		else if (operator == EXEC_START || exec_is_builtin(node))
+		else if (operator == EXEC_START && exec_is_builtin(node))
 			return (builtin(node, NULL, true, d));
 		else
 			exec_fork(node, d);

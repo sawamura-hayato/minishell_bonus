@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/11 14:24:45 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 15:30:43 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	read_eval_print_loop(t_data *d)
 		}
 		token = tokenize(line);
 		ast_l1 = parse(token, d);
-		debug_print_ast_l1(ast_l1);
+		// debug_print_ast_l1(ast_l1);
 		// if (d->syntax_flag == false && heredoc(ast, d))
 		// {
 		// 	expansion(ast, d);
