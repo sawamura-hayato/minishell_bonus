@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast_l1_layer1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:54:28 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/11 00:13:47 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/11 16:26:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
 
 bool	ast_l1_is_logical_operator(t_token *token)
 {
