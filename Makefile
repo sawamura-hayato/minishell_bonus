@@ -25,6 +25,7 @@ ifeq ($(UNAME), Linux)
 	RL_FLAGS = -lreadline
 else
 	RL_FLAGS = -L$(RL_DIR)/lib -lreadline
+endif
 
 CFLAGS += -I$(RL_DIR)/include
 
