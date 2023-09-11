@@ -15,9 +15,19 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address -g
 
-RL_DIR = $(shell brew --prefix readline)
-CFLAGS += -I$(READLINE_DIR)/include
-RL_FLAGS = -L$(RL_DIR)/lib -lreadline
+ifeq ($(UNAME), Linux)
+	RL_DIR = /usr/include
+else
+	RL_DIR = $(shell brew --prefix readline)
+endif
+
+ifeq ($(UNAME), Linux)
+	RL_FLAGS = -lreadline
+else
+	RL_FLAGS = -L$(RL_DIR)/lib -lreadline
+endif
+
+CFLAGS += -I$(RL_DIR)/include
 
 SRCS_DIR = srcs
 SRCS = $(SRCS_DIR)/main.c \

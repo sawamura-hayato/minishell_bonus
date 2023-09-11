@@ -1,0 +1,32 @@
+# action.yml
+# name: 'Hello World'
+# description: 'Greet someone and record the time'
+# inputs:
+#   who-to-greet:  # id of input
+#     description: 'Who to greet'
+#     required: true
+#     default: 'World'
+# outputs:
+#   time: # id of output
+#     description: 'The time we greeted you'
+# runs:
+#   using: 'docker'
+#   image: 'Dockerfile'
+#   args:
+#     - ${{ inputs.who-to-greet }}
+
+name: '42 test'
+description: 'valgrind test'
+inputs:
+  flags:
+    description: 'Flags passed'
+    required: true
+    default: '.'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  entrypoint: /bin/bash
+  args:
+    - -c 
+    - ${{ inputs.flags }}
