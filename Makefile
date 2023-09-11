@@ -6,13 +6,13 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/10 20:43:16 by tterao           ###   ########.fr        #
+#    Updated: 2023/09/11 14:18:32 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -fsanitize=address -g
 
 RL_DIR = $(shell brew --prefix readline)
@@ -92,6 +92,7 @@ SRCS += $(SRCS_DIR)/$(EXPANSION_DIR)/$(EXPANSION_DELETE_QUOTE)/expand_delete_quo
 
 EXEC_DIR = exec
 SRCS += $(SRCS_DIR)/$(EXEC_DIR)/exec.c \
+	    $(SRCS_DIR)/$(EXEC_DIR)/exec_command.c	\
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_make_filepath.c	\
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_get_filepath.c	\
 	    $(SRCS_DIR)/$(EXEC_DIR)/exec_child_process.c	\

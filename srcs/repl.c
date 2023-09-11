@@ -68,8 +68,8 @@ static void	free_all_data(t_token *token, t_ast_l1 *ast_l1)
 
 void	read_eval_print_loop(t_data *d)
 {
-	char	*line;
-	t_token	*token;
+	char		*line;
+	t_token		*token;
 	t_ast_l1	*ast_l1;
 
 	rl_outstream = stderr;
@@ -87,7 +87,7 @@ void	read_eval_print_loop(t_data *d)
 		if (d->syntax_flag == false && heredoc(ast_l1, d))
 		{
 			expansion(ast_l1, d);
-			// exec_command(ast_l1, EXEC_START, d);
+			command_execution(ast_l1, d);
 		}
 		free_all_data(token, ast_l1);
 		end_command(line, d);
