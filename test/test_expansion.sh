@@ -10,8 +10,8 @@ assert() {
     echo -n -e "$1" | bash
     expected=$?
 
-    echo -n -e "$1" | ../minishell >out | exec >&-
-    echo -n -e "$1" | ../minishell
+    echo -n -e "$1" | ./minishell >out | exec >&-
+    echo -n -e "$1" | ./minishell
     actual=$?
 
     diff cmp out >/dev/null && echo -n -e '  diff \033[0;32mOK\033[0;37m' || echo -n -e '  diff \033[0;31mNG\033[0;37m'
