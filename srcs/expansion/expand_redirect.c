@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 19:51:17 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:13:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 			expand_get_joined_str_to_dollar(&join_word, &join_type, \
 												&tmp, &tmp_type);
 	}
-	all_free(*token, *type);
+	heredoc_all_free(*token, *type);
 	*token = join_word;
 	*type = join_type;
 }

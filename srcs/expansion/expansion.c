@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:20:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/11 15:17:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:12:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	expansion(t_ast_l1 *node, t_data *d)
 	if (node->right_hand != NULL)
 		expansion(node->right_hand, d);
 	if (node->ast != NULL)
-		expansion_ast_l2(node, d);
+		expansion_ast_l2(node->ast, d);
 }

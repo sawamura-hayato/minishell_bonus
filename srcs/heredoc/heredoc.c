@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/11 15:24:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:14:11 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ void	get_signal_num(t_data *d);
 void	set_signal_heredoc(t_data *d);
 void	ignore_signal(t_data *d);
 void	expand_delete_quotation_redirect(t_redirect_list *redirect);
-
-void	all_free(char *s1, char *s2)
-{
-	free(s1);
-	free(s2);
-}
 
 bool	heredoc_get_str(t_redirect_list *node, t_data *d)
 {
@@ -102,7 +96,5 @@ bool	heredoc(t_ast_l1 *node, t_data *d)
 		return (false);
 	if (node->type == AST_COMMAND)
 		result = heredoc_l2(node->ast, d);
-	if (result == false)
-		heredoc_signal_newline(d);
 	return (result);
 }

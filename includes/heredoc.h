@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 14:26:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/11 15:19:01 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:13:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ bool	heredoc_redirect_list(t_command *command, t_data *d);
 
 bool	heredoc(t_ast_l1 *node, t_data *d);
 
-void	all_free(char *s1, char *s2);
+void	heredoc_all_free(char *s1, char *s2);
 #endif

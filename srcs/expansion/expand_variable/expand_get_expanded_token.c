@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_get_expanded_token.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:30:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:13:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void	all_free(char *s1, char *s2);
+void	heredoc_all_free(char *s1, char *s2);
 
 static void	promote_type_pointer(char **type, char *s_word, char *e_word)
 {
@@ -94,7 +94,7 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 			expand_get_joined_str_to_dollar(&join_word, &join_type, \
 												&tmp, &tmp_type);
 	}
-	all_free(*token, *type);
+	heredoc_all_free(*token, *type);
 	*token = join_word;
 	*type = join_type;
 }

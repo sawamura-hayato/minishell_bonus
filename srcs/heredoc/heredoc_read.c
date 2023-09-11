@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/08 17:58:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:13:59 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #define HEREDOC_PROMPT "> "
-
-void			all_free(char *s1, char *s2);
 
 static void	heredoc_put_warning(char *buff, const char *delimiter, t_data *d)
 {
@@ -77,14 +75,14 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 		buff = readline(HEREDOC_PROMPT);
 		if (buff == NULL && g_signal_num != 0)
 		{
-			all_free(buff, delimiter->word);
+			heredoc_all_free(buff, delimiter->word);
 			delimiter->word = str;
 			return (false);
 		}
 		if (buff == NULL || ft_strcmp(buff, delimiter->word) == 0)
 		{
 			heredoc_put_warning(buff, delimiter->word, d);
-			all_free(buff, delimiter->word);
+			heredoc_all_free(buff, delimiter->word);
 			get_delimiter_word_and_type(delimiter, str, is_start);
 			break ;
 		}
