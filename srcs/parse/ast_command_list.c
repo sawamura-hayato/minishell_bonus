@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 22:19:14 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 22:05:20 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:46:27 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_ast	*ast_command_node(t_token **current_token, t_data *d)
 	if (token->tk_type == TK_OPEN_PARENTHESIS)
 	{
 		token = token->next;
-		node = ast_make_ast(&token, d);
+		node = ast_layer2(&token, d);
 		ast_expect(TK_CLOSE_PARENTHESIS, &token, d);
 		if (token != NULL)
 			token = token->next;

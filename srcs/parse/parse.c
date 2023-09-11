@@ -6,75 +6,48 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:44:42 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/07 21:09:22 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/10 21:11:08 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-t_ast	*ast_init_node(t_ast_node_type type)
-{
-	t_ast	*node;
-
-	node = try_calloc(1, sizeof(t_ast));
-	node->type = type;
-	return (node);
-}
-
-t_ast_node_type	set_ast_node_type(t_token *token)
-{
-	t_ast_node_type	type;
-
-	type = PS_COMMAND;
-	if (token->tk_type == TK_PIPE)
-		type = PS_PIPE;
-	else if (token->tk_type == TK_LOGICAL_AND)
-		type = PS_LOGICAL_AND;
-	else if (token->tk_type == TK_LOGICAL_OR)
-		type = PS_LOGICAL_OR;
-	return (type);
-}
-
-t_ast	*ast_make_ast(t_token **current_token, t_data *d)
+t_ast_l1	*ast_l1_layer1(t_token **current_token, t_data *d)
 {
 	t_token			*token;
-	t_ast			*left_node;
-	t_ast			*right_node;
-	t_ast_node_type	type;
+	t_ast_l1		*left_node;
+	t_ast_l1		*right_node;
+	t_ast_l1_type	type;
 
 	token = *current_token;
-	left_node = ast_command_node(&token, d);
+	left_node = ast_l1_node(&token, d);
 	if (d->syntax_flag)
-		return (ast_free_all_nodes(left_node));
+		return (ast_l1_free(left_node));
 	while (true)
 	{
-		if (token == NULL || !ast_is_opereter(token->tk_type))
+		if (token == NULL || !ast_l1_is_logical_operator(token))
 			break ;
-		type = set_ast_node_type(token);
+		type = ast_l1_set_node_type(token);
 		token_next(&token, d);
-		if (type == PS_LOGICAL_AND || type == PS_LOGICAL_OR)
-			right_node = ast_make_ast(&token, d);
-		else
-			right_node = ast_command_node(&token, d);
-		left_node = ast_operator_node(type, left_node, right_node, d);
+		right_node = ast_l1_node(&token, d);
+		left_node = ast_l1_operator_node(type, left_node, right_node, d);
 		if (d->syntax_flag)
-			return (ast_free_all_nodes(left_node));
+			return (ast_l1_free(left_node));
 	}
 	*current_token = token;
 	return (left_node);
 }
 
-t_ast	*parse(t_token **current_token, t_data *d)
+t_ast_l1	*parse(t_token *tk_head, t_data *d)
 {
-	t_ast	*ast;
-	t_token	*token;
+	t_token		*token;
+	t_ast_l1	*ast_l1;
 
-	token = *current_token;
-	ast = ast_make_ast(&token, d);
+	token = tk_head;
+	ast_l1 = ast_l1_layer1(&token, d);
 	if (token != NULL)
-	{
 		ast_syntax_error(d, token);
-		ast = ast_free_all_nodes(ast);
-	}
-	return (ast);
+	if (d->syntax_flag)
+		ast_l1 = ast_l1_free(ast_l1);
+	return (ast_l1);
 }

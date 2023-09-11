@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:20 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/07 22:08:35 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/11 00:08:44 by tatyu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ typedef enum e_ast_node_type
 	PS_LOGICAL_OR,
 	PS_COMMAND,
 }							t_ast_node_type;
+
+typedef enum e_ast_l1_type
+{
+	AST_COMMAND,
+	AST_LOGICAL_AND,
+	AST_LOGICAL_OR,
+}							t_ast_l1_type;
 
 typedef struct s_word_list
 {
@@ -75,9 +82,17 @@ typedef struct s_ast
 	struct s_ast			*right_hand;
 }							t_ast;
 
+typedef struct s_ast_l1
+{
+	t_ast				*ast;
+	t_ast_l1_type		type;
+	struct s_ast_l1		*left_hand;
+	struct s_ast_l1		*right_hand;
+}							t_ast_l1;
+
 // t_ast関連
-t_ast			*parse(t_token **current_token, t_data *d);
-t_ast			*ast_make_ast(t_token **current_token, t_data *d);
+t_ast_l1		*parse(t_token *tk_head, t_data *d);
+t_ast			*ast_layer2(t_token **current_token, t_data *d);
 t_ast			*ast_command_node(t_token **current_token, t_data *d);
 t_ast			*ast_command_list(t_ast *ast_command_node,
 					t_token **current_token, t_data *d);
@@ -86,8 +101,16 @@ t_ast			*ast_operator_node(t_ast_node_type type, t_ast *left_hand,
 t_ast			*ast_init_node(t_ast_node_type type);
 void			ast_addback(t_ast **head, t_ast *new_node);
 void			*ast_free_all_nodes(t_ast *node);
-
 void			debug_print_ast(t_ast *node);
+
+// t_ast_l1
+t_ast_l1		*ast_l1_layer1(t_token **current_token, t_data *d);
+t_ast_l1		*ast_l1_node(t_token **current_token, t_data *d);
+t_ast_l1		*ast_l1_operator_node(t_ast_l1_type type, t_ast_l1 *left,
+					t_ast_l1 *right, t_data *d);
+t_ast_l1_type	ast_l1_set_node_type(t_token *token);
+bool			ast_l1_is_logical_operator(t_token *token);
+
 // t_command関連
 void			command_word_list(t_word_list **word_list,
 					t_token **current_token, t_data *d);
@@ -113,12 +136,16 @@ void			ast_expect(t_token_type expecting_type,
 					t_token **current_token, t_data *d);
 void			ast_expect_word(t_token **current_token,
 					t_data *d);
+void			ast_l1_expect(t_token **current_token,
+					t_data *d);
 t_token			*token_next(t_token **current_token, t_data *d);
 void			ast_syntax_error(t_data *d, t_token *token);
 t_ast_node_type	set_ast_node_type(t_token *token);
+void			*ast_l1_free(t_ast_l1 *node);
 void			*ast_free_node(t_ast *node);
 void			*ast_free_right_left_nodes(t_ast *left_node,
 					t_ast *right_node);
 void			debug_print_ast(t_ast *node);
+void			debug_print_ast_l1(t_ast_l1 *node);
 
 #endif

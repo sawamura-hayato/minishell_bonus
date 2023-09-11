@@ -60,18 +60,17 @@ static char	*_readline(t_data *d)
 	return (line);
 }
 
-static void	free_all_data(t_token *token, t_ast *ast)
+static void	free_all_data(t_token *token, t_ast_l1 *ast_l1)
 {
 	token_free_all_tokens(token);
-	if (ast != NULL)
-		ast_free_all_nodes(ast);
+	ast_l1_free(ast_l1);
 }
 
 void	read_eval_print_loop(t_data *d)
 {
 	char	*line;
 	t_token	*token;
-	t_ast	*ast;
+	t_ast_l1	*ast_l1;
 
 	rl_outstream = stderr;
 	while (true)
@@ -83,13 +82,14 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		ast = parse(&token, d);
-		if (d->syntax_flag == false && heredoc(ast, d))
-		{
-			expansion(ast, d);
-			command_execution(ast, d);
-		}
-		free_all_data(token, ast);
+		ast_l1 = parse(token, d);
+		debug_print_ast_l1(ast_l1);
+		// if (d->syntax_flag == false && heredoc(ast, d))
+		// {
+		// 	expansion(ast, d);
+		// 	exec_command(ast, EXEC_START, d);
+		// }
+		free_all_data(token, ast_l1);
 		end_command(line, d);
 	}
 }
