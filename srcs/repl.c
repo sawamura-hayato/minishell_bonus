@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/11 15:30:43 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 15:23:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,11 @@ void	read_eval_print_loop(t_data *d)
 		token = tokenize(line);
 		ast_l1 = parse(token, d);
 		// debug_print_ast_l1(ast_l1);
-		// if (d->syntax_flag == false && heredoc(ast, d))
-		// {
-		// 	expansion(ast, d);
+		if (d->syntax_flag == false && heredoc(ast_l1, d))
+		{
+			expansion(ast_l1, d);
 			command_execution(ast_l1, d);
-		// }
+		}
 		free_all_data(token, ast_l1);
 		end_command(line, d);
 	}

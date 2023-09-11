@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:47:46 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/09 19:59:49 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:24:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,25 @@ static void	heredoc_signal_newline(t_data *d)
 	try_write(STDERR_FILENO, "\n", 1, d);
 }
 
-bool	heredoc(t_ast *node, t_data *d)
+bool	heredoc_l2(t_ast *node, t_data *d)
+{
+	bool	result;
+
+	result = true;
+	if (node->left_hand != NULL)
+		result = heredoc_l2(node->left_hand, d);
+	if (result && node->right_hand != NULL)
+		result = heredoc_l2(node->right_hand, d);
+	if (result == false)
+		return (false);
+	if (node->type == PS_COMMAND)
+		result = heredoc_redirect_list(node->command_list, d);
+	if (result == false)
+		heredoc_signal_newline(d);
+	return (result);
+}
+
+bool	heredoc(t_ast_l1 *node, t_data *d)
 {
 	bool	result;
 
@@ -82,8 +100,8 @@ bool	heredoc(t_ast *node, t_data *d)
 		result = heredoc(node->right_hand, d);
 	if (result == false)
 		return (false);
-	if (node->type == PS_COMMAND)
-		result = heredoc_redirect_list(node->command_list, d);
+	if (node->type == AST_COMMAND)
+		result = heredoc_l2(node->ast, d);
 	if (result == false)
 		heredoc_signal_newline(d);
 	return (result);
