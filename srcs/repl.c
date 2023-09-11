@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:43:53 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/11 14:24:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static void	free_all_data(t_token *token, t_ast_l1 *ast_l1)
 
 void	read_eval_print_loop(t_data *d)
 {
-	char	*line;
-	t_token	*token;
+	char		*line;
+	t_token		*token;
 	t_ast_l1	*ast_l1;
 
 	rl_outstream = stderr;
@@ -87,7 +87,7 @@ void	read_eval_print_loop(t_data *d)
 		// if (d->syntax_flag == false && heredoc(ast, d))
 		// {
 		// 	expansion(ast, d);
-		// 	exec_command(ast, EXEC_START, d);
+			command_execution(ast_l1, d);
 		// }
 		free_all_data(token, ast_l1);
 		end_command(line, d);
