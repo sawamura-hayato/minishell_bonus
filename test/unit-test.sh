@@ -10,7 +10,7 @@ BLUE="\033[34m"
 MAGENTA="\033[35m"
 
 # SHELL=../minishell_test
-SHELL=./minishell
+SHELL=minishell
 MINISHELL_LOG_DIR=minishell
 TEST_SHELL=bash
 OUTPUT_FILE=RESULT_LOG
