@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 19:05:54 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:22:12 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, \
 										t_data *d, char *ifs)
 {
 	char	*word;
+	char	*type;
 
 	word = try_strdup(redirect_list->word);
+	type = try_strdup(redirect_list->type);
 	if (expand_is_variable_word(redirect_list->word, redirect_list->type))
 	{
 		expand_get_expanded_token(&(redirect_list->word), \
@@ -76,9 +78,15 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, \
 									redirect_list->type, ifs))
 		{
 			redirect_list->is_ambiguous_error = true;
+			free(redirect_list->word);
+			free(redirect_list->type);
 			redirect_list->word = word;
+			redirect_list->type = type;
 		}
 		else
+		{
 			free(word);
+			free(type);
+		}
 	}
 }
