@@ -13,8 +13,8 @@ jobs:
       - name: test
         run: |
           make
-          chmod +x test/test2.sh
-          test/test2.sh
+          chmod +x test/unit-test.sh
+          test/unit-test.sh
       #   uses: ./ # Uses an action in the root directory
       #   id: hello
       #   with:
