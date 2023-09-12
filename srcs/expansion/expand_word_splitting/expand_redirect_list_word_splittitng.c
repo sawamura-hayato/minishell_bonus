@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redirect_list_word_splittitng.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 17:38:53 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:15:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 bool	expand_is_all_ifs(char *word, char *type, char *ifs);
 
-t_redirect_list	*expand_new_redirect_list(t_redirect_list *node,
-											size_t i,
+t_redirect_list	*expand_new_redirect_list(t_redirect_list *node, size_t i,
 											t_redirect_list *next_node,
 											char *ifs)
 {
@@ -70,6 +69,7 @@ static void	expand_can_get_word_splitting_redirect(t_redirect_list **redirect,
 	if (i == 0)
 	{
 		while (word[i] != '\0' && \
+				type[i] == IS_SUBSTITUTED && \
 				expand_is_str_in_char(ifs, word[i]))
 			i++;
 		(*redirect)->word = try_strdup(&(word[i]));
