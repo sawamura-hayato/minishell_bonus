@@ -29,3 +29,7 @@ assert() {
 assert "ls"
 assert "ls -l"
 assert "cat Makefile"
+
+#exit
+assert "exit"
+assert "exit | exit"
