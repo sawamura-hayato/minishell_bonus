@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:41:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/11 15:29:37 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/12 19:18:40 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ static void	exec_wait(t_ast *node, t_data *d)
 		if (try_waitpid(node->command_list->pid, &status, 0, d) == -1)
 			return ;
 		if (WIFSIGNALED(status))
-		{
 			d->exit_status = SIGNAL_EXITSTATUS + WTERMSIG(status);
-			g_signal_num = WTERMSIG(status);
-		}
 		else if (WIFEXITED(status))
 			d->exit_status = WEXITSTATUS(status);
 	}
