@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:11:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/29 17:10:37 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/13 21:57:07 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	exec_is_error(const char *argv, const char *filepath, t_data *d)
 		exec_put_error_is_dir(argv, d);
 	if (is_path(argv) && is_file(argv) && access(argv, X_OK) != 0)
 		exec_put_error_no_permission(argv, d);
-	if (envs_get_node("PATH", d->envs_hashmap) == NULL
-		&& !is_path(argv) && filepath == NULL)
+	if ((is_path(argv) && !is_file(argv))
+		|| (envs_get_node("PATH", d->envs_hashmap) == NULL
+			&& !is_path(argv) && filepath == NULL))
 		exec_put_error_no_file(argv, d);
 }
