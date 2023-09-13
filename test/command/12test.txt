@@ -1,0 +1,10 @@
+ls &&& ls ( a
+ls < | ls
+ls < || ls
+ls < && ls
+ls << | ls
+ls << || ls
+ls << && ls
+ls > | ls
+ls > || ls
+ls > && ls
