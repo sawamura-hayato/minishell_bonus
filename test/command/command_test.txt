@@ -1,0 +1,105 @@
+| ls
+|| ls
+||| ls
+& ls
+&& ls
+&&& ls
+(
+()
+(()
+(())
+)
+))
+( ls
+(ls))
+(ls)
+((ls)
+((ls))
+) ls
+)) ls
+echo | ls
+echo | ls
+echo || ls
+echo ||| ls
+echo & ls
+echo && ls
+echo &&& ls
+<
+>
+<<
+>>
+< file
+> file
+<< file
+>> file
+<<< file
+<Makefile
+>Makefile
+<<Makefile
+>>Makefile
+cat < file
+cat > file
+cat << file
+cat >> file
+cat <<< file
+cat <Makefile
+cat >Makefile
+cat <<Makefile
+cat >>Makefile
+cat < file | cat
+cat > file | cat
+cat << file | cat
+cat >> file | cat
+cat <<< file | cat
+cat <Makefile | cat
+cat >Makefile | cat
+cat <<Makefile | cat
+cat >>Makefile | cat
+echo 1 && echo 2 || echo 3
+echo 1 || echo 2 || echo 3
+echo 1 && echo 2 && echo 3
+echo 1 || echo 2 && echo 3
+echo 1 <infile && echo 2 || echo 3
+echo 1 <infile || echo 2 || echo 3
+echo 1 <infile && echo 2 && echo 3
+echo 1 <infile || echo 2 && echo 3
+(echo 1 && (echo 2 && echo 3)) && echo 4 && echo 5
+(echo 1 || (echo 2 && echo 3)) && echo 4 && echo 5
+(echo 1 && (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 && (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 && (echo 2 && echo 3)) && echo 4 || echo 5
+(echo 1 && (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 || (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 || (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 && (echo 2 || echo 3)) || echo 4 && echo 5
+(echo 1 && (echo 2 || echo 3)) && echo 4 || echo 5
+(echo 1 && (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 || (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 && (echo 2 || echo 3)) || echo 4 && echo 5
+(echo 1 || (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 && (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 && (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 || (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 && (echo 2 || echo 3)) || echo 4 || echo 5
+(echo 1 || (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 && (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) && echo 4 && echo 5
+(echo 1 <nonexit || (echo 2 && echo 3)) && echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) && echo 4 || echo 5
+(echo 1 <nonexit && (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 <nonexit || (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 <nonexit || (echo 2 || echo 3)) && echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 || echo 3)) || echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 || echo 3)) && echo 4 || echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 <nonexit || (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 || echo 3)) || echo 4 && echo 5
+(echo 1 <nonexit || (echo 2 && echo 3)) || echo 4 && echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 <nonexit || (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 <nonexit && (echo 2 || echo 3)) || echo 4 || echo 5
+(echo 1 <nonexit || (echo 2 && echo 3)) || echo 4 || echo 5
+(echo 1 <nonexit && (echo 2 && echo 3)) || echo 4 || echo 5
