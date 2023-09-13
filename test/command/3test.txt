@@ -1,0 +1,10 @@
+echo || ls
+echo ||| ls
+echo & ls
+echo && ls
+echo &&& ls
+<
+>
+<<
+>>
+< file
