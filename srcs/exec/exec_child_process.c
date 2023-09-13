@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 16:10:08 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/12 18:42:35 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 void	exec_is_error(const char *argv, const char *filepath, t_data *d);
 void	exec_put_error_cmd_not_found(const char *command, t_data *d);
-void	set_signal_exec(t_data *d);
+void	set_child_signal_exec(t_data *d);
 
 static size_t	exec_get_argv_size(t_word_list *word_list)
 {
@@ -92,7 +92,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	char	**argv;
 	char	*filepath;
 
-	set_signal_exec(d);
+	set_child_signal_exec(d);
 	if (exec_is_builtin(node))
 		return (builtin(node, pipefd, false, d));
 	argv = exec_make_argv(node);
