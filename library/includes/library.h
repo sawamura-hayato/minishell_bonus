@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/05 16:10:22 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/12 17:04:23 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void			try_closedir(DIR *dirp, t_data *d);
 // ft
 char			*ft_strchr(const char *s, int c);
 size_t			ft_strlen(const char *str);
-char			*ft_substr(char const *s, unsigned int start, size_t len);
-char			*ft_strtrim(char const *s1, char const *set);
 bool			ft_is_operator(char c);
 int				ft_isspace(char c);
 bool			ft_is_special_char(char c);
