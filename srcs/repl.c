@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 17:35:51 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/11 15:23:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:05:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ static char	*_readline(t_data *d)
 	return (line);
 }
 
-static void	free_all_data(t_token *token, t_ast_l1 *ast_l1)
+static void	free_all_data(t_token *token, t_ast_l1 *ast)
 {
 	token_free_all_tokens(token);
-	ast_l1_free(ast_l1);
+	ast_l1_free(ast);
 }
 
 void	read_eval_print_loop(t_data *d)
 {
 	char		*line;
 	t_token		*token;
-	t_ast_l1	*ast_l1;
+	t_ast_l1	*ast;
 
 	rl_outstream = stderr;
 	while (true)
@@ -82,14 +82,13 @@ void	read_eval_print_loop(t_data *d)
 			continue ;
 		}
 		token = tokenize(line);
-		ast_l1 = parse(token, d);
-		// debug_print_ast_l1(ast_l1);
-		if (d->syntax_flag == false && heredoc(ast_l1, d))
+		ast = parse(token, d);
+		if (d->syntax_flag == false && heredoc(ast, d))
 		{
-			expansion(ast_l1, d);
-			command_execution(ast_l1, d);
+			expansion(ast, d);
+			command_execution(ast, d);
 		}
-		free_all_data(token, ast_l1);
+		free_all_data(token, ast);
 		end_command(line, d);
 	}
 }
