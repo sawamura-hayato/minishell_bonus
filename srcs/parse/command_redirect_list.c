@@ -77,8 +77,10 @@ void	command_redirect_list(t_redirect_list **head,
 	if (token_is_quotation_closed(token) == false)
 		ast_syntax_error(d, token);
 	node = redirect_init_node(head, token, redirect_flag);
-	if (redirect_flag == false && token->next == NULL)
+	if (redirect_flag == false && token->next == NULL) 
 		ast_syntax_error(d, NULL);
+	else if (redirect_flag == false && ast_is_opereter(token->next->tk_type))
+		ast_syntax_error(d, token->next);
 	else if (redirect_flag == true && node->re_type == (t_redirect_type)(-1))
 		ast_syntax_error(d, token);
 	redirect_list_addback(head, node);
