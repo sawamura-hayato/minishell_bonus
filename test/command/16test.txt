@@ -13,3 +13,5 @@ unset PATH
 ./srcs
 unset PATH
 srcs/
+unset PATH
+srcs/
