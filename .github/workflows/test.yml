@@ -1,4 +1,4 @@
-name: Test
+name: Test_unit
 on: [push,pull_request]
 
 jobs:
@@ -10,11 +10,14 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
-      - name: test
+      - name: test_unit
         run: |
+          sudo apt update
+          sudo apt install valgrind
           make
-          chmod +x test/test2.sh
-          test/test2.sh
+          chmod +x test/unit-test.sh
+          cd test
+          ./unit-test.sh
       #   uses: ./ # Uses an action in the root directory
       #   id: hello
       #   with:
