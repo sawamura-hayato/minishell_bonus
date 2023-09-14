@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/06 14:09:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:08:42 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ static size_t	expand_get_str_to_dollar_size(char *word, char *type)
 					return (i);
 			}
 		}
-		else
-			i++;
+		i++;
 	}
 	return (i);
 }

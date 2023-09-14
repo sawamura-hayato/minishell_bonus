@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/03 19:47:18 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:34:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@
 #define TAB '\t'
 #define NEW_LINE '\n'
 
-bool	expand_is_word_splitting(char *word, char *type, char *ifs)
+bool	expand_is_word_splitting(char *word, char *type, char *ifs, size_t i)
 {
-	size_t	i;
 	size_t	j;
 
-	i = 0;
 	j = 0;
 	if (type == NULL || ifs == NULL)
 		return (false);
-	while (type[i] != '\0')
+	while (type[i] != '\0' && IS_SUBSTITUTED == type[i])
 	{
 		while (ifs[j] != '\0')
 		{
@@ -51,13 +49,15 @@ bool	expand_is_word_splitting_word(char *word, char *type, char *ifs)
 	{
 		if (IS_DOUBLE_QUOTED == type[i])
 		{
-			i++;
-			while (IS_DOUBLE_QUOTED != type[i])
-				i++;
+			while (IS_DOUBLE_QUOTED != type[++i])
+			{
+				if (type[i] == '\0')
+					return (false);
+			}
 		}
 		else
 		{
-			if (expand_is_word_splitting(word, type, ifs))
+			if (expand_is_word_splitting(word, type, ifs, i))
 				return (true);
 		}
 		i++;
