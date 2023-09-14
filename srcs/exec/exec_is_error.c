@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:11:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/13 21:57:07 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/14 16:07:29 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,24 @@ void	exec_put_error_no_file(const char *command, t_data *d);
 void	exec_put_error_no_permission(const char *command, t_data *d);
 bool	is_path(const char *command);
 
+static bool	have_slash(const char *command)
+{
+	while (*command != '\0')
+	{
+		if (*command == '/')
+			return (true);
+		command++;
+	}
+	return (false);
+}
+
 bool	is_path(const char *command)
 {
 	return (
 		ft_strncmp(command, CURDIR, ft_strlen(CURDIR)) == 0
 		|| ft_strncmp(command, PREDIR, ft_strlen(PREDIR)) == 0
 		|| *command == '/'
+		|| have_slash(command)
 	);
 }
 
@@ -53,7 +65,10 @@ void	exec_is_error(const char *argv, const char *filepath, t_data *d)
 {
 	if (is_path(argv) && is_dir(argv))
 		exec_put_error_is_dir(argv, d);
-	if (is_path(argv) && is_file(argv) && access(argv, X_OK) != 0)
+	if (((is_path(argv) && is_file(argv))
+			|| (envs_get_node("PATH", d->envs_hashmap) == NULL
+				&& is_file(argv)))
+		&& access(argv, X_OK) != 0)
 		exec_put_error_no_permission(argv, d);
 	if ((is_path(argv) && !is_file(argv))
 		|| (envs_get_node("PATH", d->envs_hashmap) == NULL
