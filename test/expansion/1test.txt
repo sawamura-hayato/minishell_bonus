@@ -3,7 +3,7 @@ echo $"test"
 echo /Users/tterao
 echo '/Users/tterao'
 echo "/Users/tterao"
-echo 
+echo
 echo ''
 echo ""
 echo test "" test
@@ -24,6 +24,11 @@ echo ''""""''""
 echo '""""""""'
 echo '""tterao'
 echo ""test"''test"
-'
+''
 ""
-
+< $UNEXITS
+echo "$HOME"test
+echo "$HOME""$USER"
+echo "$HOME"'$USER'test
+echo "$USER+test"
+echo < "'"'"'"'"$NO'"'
