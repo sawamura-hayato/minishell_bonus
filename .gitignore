@@ -1,4 +1,24 @@
-*.sh
-*.a
+# executable file
+a.out
 minishell
+*.a
+
+# search directory
+search/
+
+# .txt file
+*.txt
+*test*
+
+# objs file
 *.o
+
+# sh file
+*.sh
+
+# other directory or file
+.DS_Store
+.DS_Store?
+*.dSYM
+**/.vscode
+**/.history
