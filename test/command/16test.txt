@@ -6,4 +6,4 @@ srcs/
 ../
 ..
 unset PATH
-ls
+srcs
