@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expand_redirect_list_word_splittitng.c             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/12 16:15:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:41:08 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "library.h"
 
-bool	expand_is_all_ifs(char *word, char *type, char *ifs);
+bool	expand_is_all_ifs(char *word, char *ifs);
 
 t_redirect_list	*expand_new_redirect_list(t_redirect_list *node, size_t i,
 											t_redirect_list *next_node,
@@ -27,7 +27,7 @@ t_redirect_list	*expand_new_redirect_list(t_redirect_list *node, size_t i,
 	i++;
 	next_word = try_strdup(&(node->word[i]));
 	next_type = try_strdup(&(node->type[i]));
-	if (expand_is_all_ifs(next_word, next_type, ifs))
+	if (expand_is_all_ifs(next_word, ifs))
 	{
 		new_redirect_list->word = NULL;
 		new_redirect_list->type = NULL;

@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:16:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/14 13:38:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:34:02 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ bool	expand_is_word_splitting_word(char *word, char *type, char *ifs)
 	i = 0;
 	if (type == NULL)
 		return (false);
-	printf("word_splittingtype %s\n", word);
-	printf("word_splittingtype %s\n", type);
 	while (type[i] != '\0')
 	{
 		if (IS_DOUBLE_QUOTED == type[i])
