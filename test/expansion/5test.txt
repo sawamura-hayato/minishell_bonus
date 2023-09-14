@@ -1,3 +1,8 @@
+echo ''"$USER"''
+cat < '$USER'
+cat < '$'U'S'E'R'
+echo test='aaaaaaa'$USER'AAAAAAAA' | cat -e
+echo test='aaaaaaa'$USER'AAAAAAAA' | cat -e
 cat < '$'U'S'E'R'
 echo "$ $ $ $" | cat -e
 export sp=" 1 2  3  " | cat -e

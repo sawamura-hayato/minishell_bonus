@@ -1,10 +1,10 @@
-echo < ''"""" abc
-echo "'$'"
-echo $""$
-echo "a""b""c"
-echo "$ $ $ $"
-echo ''"tterao"''
-cat < 'tterao'
-cat < '$'U'S'E'R'
-echo test='aaaaaaa'tterao'AAAAAAAA' | cat -e
-echo test='aaaaaaa'tterao'AAAAAAAA' | cat -e
+echo test''test''test
+echo $HOME$NONEXIT$HOME
+echo "$HOME"test
+echo '$HOME'test
+echo "$HOME""$USER"
+echo "$HOME"'$USER'test
+echo "$USER;test"
+echo ''
+echo ""
+echo '"'

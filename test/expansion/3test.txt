@@ -1,15 +1,10 @@
-echo /Users/tterao/Users/tterao
-echo "/Users/tterao"test
-echo '/Users/tterao'test
-echo "/Users/tterao""tterao"
-echo "/Users/tterao"'tterao'test
-echo "tterao;test"
-echo ''
-echo ""
-echo '"'
 echo '"'"'"
 echo "'''''''''''"
 echo ''""""''""
 echo '""""""""'
-echo '""tterao'
+echo '"$test"$USER'
 echo ""test"''test"
+''
+""
+$NONEXITS
+< $UNEXITS

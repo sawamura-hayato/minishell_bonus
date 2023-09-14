@@ -1,11 +1,10 @@
 echo $'test'
 echo $"test"
-echo /Users/tterao
-echo '/Users/tterao'
-echo "/Users/tterao"
-echo
-echo ''
-echo ""
-echo test "" test
-echo test  test
-echo test''test''test
+echo $HOME
+echo '$HOME'
+echo "$HOME"
+echo $NONEXITS
+echo '$NONEXITS'
+echo "$NONEXITS"
+echo test "$NONEXITS" test
+echo test $NONEXITS test
