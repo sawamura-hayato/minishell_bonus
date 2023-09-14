@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/12 16:22:12 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:59:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	expand_is_str_in_char(char *str, char c)
 
 bool	expand_is_variable_word(char *word, char *type)
 {
-	char	f_quote;
 	size_t	i;
 
 	i = 0;
@@ -35,8 +34,7 @@ bool	expand_is_variable_word(char *word, char *type)
 		return (false);
 	while (type[i] != '\0')
 	{
-		f_quote = type[i];
-		if (IS_SINGLE_QUOTED == f_quote)
+		if (IS_SINGLE_QUOTED == type[i])
 		{
 			while (IS_SINGLE_QUOTED != (type[++i]))
 			{
@@ -58,6 +56,9 @@ void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 {
 	if (expand_is_variable_word(word_list->word, word_list->type))
 	{
+		while (expand_is_delete_dollar_quote(word_list->word, word_list->type))
+			expand_get_delete_dollar_quote(&(word_list->word), \
+												&(word_list->type));
 		expand_get_expanded_token(&(word_list->word), &(word_list->type), d);
 	}
 }

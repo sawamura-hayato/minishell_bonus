@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:01:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 19:13:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:14:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,11 @@ static bool	expand_is_amb_error_unil(char *word, char *type, \
 
 static size_t	get_not_quote_index(char *type, size_t i)
 {
-	if (token_set_flag_quote(type[i]) == DOUBLE_QUOTE_FLAG)
+	if (IS_DOUBLE_QUOTED == type[i])
 	{
-		while (token_set_flag_quote(type[++i]) \
-				!= DOUBLE_QUOTE_FLAG)
-			;
 		i++;
+		while (type[i] != '\0' && IS_DOUBLE_QUOTED != type[i])
+			i++;
 	}
 	return (i);
 }
@@ -59,10 +58,10 @@ bool	expand_is_ambiguous_error(char *redirect_word, \
 	i = 0;
 	while (redirect_word[i] != '\0')
 	{
-		i = get_not_quote_index(redirect_word, i);
+		i = get_not_quote_index(redirect_type, i);
 		if (expand_is_amb_error_unil(redirect_word, redirect_type, i, ifs))
 			return (true);
-		if (redirect_word[i] == '\0')
+		if (redirect_type[i] == '\0')
 			break ;
 		i++;
 	}
