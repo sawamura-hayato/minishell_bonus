@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/14 13:31:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:58:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ bool	expand_is_delete_dollar_quote(char *word, char *type)
 
 static size_t	get_size_delete_dollar_quote(char *word, char *type)
 {
-	
 	size_t	i;
 
 	i = 0;
@@ -72,7 +71,7 @@ static char	*get_delete_dollar_quote_word(char *word, size_t index_dollar)
 	new_word = try_strjoin(s_dollar_word, e_dollar_word);
 	free(s_dollar_word);
 	free(e_dollar_word);
-	return(new_word);
+	return (new_word);
 }
 
 static char	*get_delete_dollar_quote_type(char *type, size_t index_dollar)
@@ -86,7 +85,7 @@ static char	*get_delete_dollar_quote_type(char *type, size_t index_dollar)
 	new_type = try_strjoin(s_dollar_type, e_dollar_type);
 	free(s_dollar_type);
 	free(e_dollar_type);
-	return(new_type);
+	return (new_type);
 }
 
 void	expand_get_delete_dollar_quote(char **word, char **type)
