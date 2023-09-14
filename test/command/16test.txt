@@ -1,0 +1,15 @@
+./minishell.bnf
+/
+srcs
+srcs/
+./
+../
+..
+unset PATH
+ls
+unset PATH
+srcs
+unset PATH
+./srcs
+unset PATH
+srcs/

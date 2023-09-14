@@ -1,0 +1,10 @@
+cat << file | cat
+cat >> file | cat
+cat <<< file | cat
+cat <Makefile | cat
+cat >Makefile | cat
+cat <<Makefile | cat
+cat >>Makefile | cat
+echo 1 && echo 2 || echo 3
+echo 1 || echo 2 || echo 3
+echo 1 && echo 2 && echo 3

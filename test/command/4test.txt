@@ -1,0 +1,10 @@
+> file
+<< file
+>> file
+<<< file
+<Makefile
+>Makefile
+<<Makefile
+>>Makefile
+cat < file
+cat > file

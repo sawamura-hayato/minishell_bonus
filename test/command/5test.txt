@@ -1,0 +1,9 @@
+cat << file
+cat >> file
+cat <<< file
+cat <Makefile
+cat >Makefile
+cat <<Makefile
+cat >>Makefile
+cat < file | cat
+cat > file | cat

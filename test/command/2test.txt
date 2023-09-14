@@ -1,0 +1,7 @@
+)
+))
+(ls))
+(ls)
+) ls
+)) ls
+echo | ls
