@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expand_get_expanded_token.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/11 16:13:45 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/14 15:54:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
 void	heredoc_all_free(char *s1, char *s2);
+bool	export_is_symbol(char c);
 
 static void	promote_type_pointer(char **type, char *s_word, char *e_word)
 {
@@ -52,16 +53,15 @@ char	*expand_convert_dollar_word(char **word, char **type, t_data *d)
 {
 	char	*expand_word;
 	char	*tmp_word;
-	t_quote	f_quote;
 
 	tmp_word = *word;
 	expand_word = *word;
 	(*word)++;
-	f_quote = token_set_flag_quote((*word)[0]);
-	if (**word == '\0' || **word == '$')
+	if (**word == '\0' || **word == ' ' || export_is_symbol(**word))
+	{
+		(*type)++;
 		return (try_strdup("$"));
-	if (f_quote == SINGLE_QUOTE_FLAG || f_quote == DOUBLE_QUOTE_FLAG)
-		expand_word = expand_get_delete_dollar_quote(word, f_quote);
+	}
 	else if (**word == '?')
 		expand_word = expand_get_exit_status(word, d->exit_status);
 	else

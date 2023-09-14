@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 15:20:02 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/06 13:24:56 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:54:03 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*try_substr(char const *s, size_t start, size_t len)
 	if (s == NULL)
 		return (NULL);
 	len_s = ft_strlen(s);
-	if (start > len_s)
+	if (start >= len_s)
 		return (try_strdup(""));
 	if (len > len_s)
 		len = len_s;

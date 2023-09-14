@@ -6,19 +6,19 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:09:23 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:57:56 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "library.h"
 
-bool	expand_is_all_ifs(char *word, char *type, char *ifs)
+bool	expand_is_all_ifs(char *word, char *ifs)
 {
 	size_t	i;
 
 	i = 0;
-	while (word[i] != '\0' && type[i] == IS_SUBSTITUTED)
+	while (word[i] != '\0')
 	{
 		if (!expand_is_str_in_char(ifs, word[i]))
 			return (false);
@@ -27,7 +27,7 @@ bool	expand_is_all_ifs(char *word, char *type, char *ifs)
 	return (true);
 }
 
-t_word_list	*expand_new_word_list(t_word_list *node, size_t i,
+t_word_list	*expand_new_word_list(t_word_list *node, size_t i, \
 									t_word_list *next_node, char *ifs)
 {
 	t_word_list	*new_word_list;
@@ -38,7 +38,7 @@ t_word_list	*expand_new_word_list(t_word_list *node, size_t i,
 	i++;
 	next_word = try_strdup(&(node->word[i]));
 	next_type = try_strdup(&(node->type[i]));
-	if (expand_is_all_ifs(next_word, next_type, ifs))
+	if (expand_is_all_ifs(next_word, ifs))
 	{
 		new_word_list->word = NULL;
 		new_word_list->type = NULL;
@@ -115,8 +115,7 @@ void	expand_word_splitting_word_list(t_word_list *node, char *ifs)
 		}
 		i++;
 	}
-	if (word_list != NULL && \
-		expand_is_word_splitting_word(word_list->word, \
+	if (expand_is_word_splitting_word(word_list->word, \
 										word_list->type, \
 										ifs))
 		expand_word_splitting_word_list(word_list, ifs);
