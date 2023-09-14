@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/12 18:42:35 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/14 16:56:24 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	exec_is_error(const char *argv, const char *filepath, t_data *d);
 void	exec_put_error_cmd_not_found(const char *command, t_data *d);
+void	exec_put_error_no_file(const char *command, t_data *d);
 void	set_child_signal_exec(t_data *d);
 
 static size_t	exec_get_argv_size(t_word_list *word_list)
@@ -107,5 +108,8 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 		exit(EXIT_SUCCESS);
 	exec_is_error(*argv, filepath, d);
 	execve(filepath, argv, envs_make_envp(d->envs_hashmap));
-	exec_put_error_cmd_not_found(*argv, d);
+	if (envs_get_node("PATH", d->envs_hashmap) != NULL)
+		exec_put_error_cmd_not_found(*argv, d);
+	else
+		exec_put_error_no_file(*argv, d);
 }
