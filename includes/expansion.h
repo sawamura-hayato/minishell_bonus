@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:49:23 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/11 15:17:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:38:40 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void			expand_variable_word_list(t_word_list *word_list, \
 void			expand_variable_redirect_list(t_redirect_list *head, \
 										t_data *d, char *ifs);
 void			expand_dollar_quote_string_word_list(t_word_list **head);
-char			*expand_get_delete_dollar_quote(char **word, t_quote f_quote);
+void			expand_get_delete_dollar_quote(char **word, char **type);
 bool			expand_is_variable_word(char *word, char *type);
 char			*expand_get_expand_word(char **word, t_envs **envs);
 
@@ -46,6 +46,7 @@ void			expand_get_joined(char **expand, char **join_word, \
 bool			expand_is_ambiguous_error(char *redirect_word, \
 								char *redirect_type, \
 								char *ifs);
+bool			expand_is_delete_dollar_quote(char *word, char *type);
 
 // new_word_list.c
 void			word_list_new_head(t_word_list **head, \
@@ -90,7 +91,8 @@ void			expand_get_joined_str_to_dollar(char **join_word, \
 // IFSを確認 クオテーションで囲まれていない && スペースがある場合、線形リストのトークンを分割
 void			expand_word_splitting(t_ast *node, t_data *d);
 
-bool			expand_is_word_splitting(char *word, char *type, char *ifs);
+bool			expand_is_word_splitting(char *word, char *type, \
+											char *ifs, size_t i);
 bool			expand_is_word_splitting_word(char *word, \
 												char *type, char *ifs);
 bool			expand_is_empty_ifs(char *ifs);

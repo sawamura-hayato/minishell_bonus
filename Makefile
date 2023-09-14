@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
+#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/11 16:19:04 by tterao           ###   ########.fr        #
+#    Updated: 2023/09/13 17:16:19 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -fsanitize=address -g
+CFLAGS += -fsanitize=address -g
 
 ifeq ($(UNAME), Linux)
 	RL_DIR = /usr/include

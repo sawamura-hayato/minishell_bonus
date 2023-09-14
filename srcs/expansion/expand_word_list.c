@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_word_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/12 16:17:10 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:22:15 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 	{
 		if (node->tk_type == WORD && ft_strchr(node->word, '$'))
 		{
+			printf("word %s\n", node->word);
+			printf("type %s\n", node->type);
 			expand_variable_word_list(node, d);
+			printf("word %s\n", node->word);
+			printf("type %s\n", node->type);
 			ifs = expand_get_ifs(d->envs_hashmap);
-			if (!expand_is_empty_ifs(ifs) && \
-				expand_is_word_splitting_word(node->word, node->type, ifs))
+			if (expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_word_list(node, ifs);
 			free(ifs);
+			printf("word %s\n", node->word);
+			printf("type %s\n", node->type);
 		}
 		if (node->tk_type == WORD && \
 			expand_is_delete_quotation_word(node->type))

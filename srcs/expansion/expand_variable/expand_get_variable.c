@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:36:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/09 18:29:38 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:21:49 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	expand_get_joined_str_to_dollar(char **join_word,
 	char	*type;
 
 	expand_word = expand_get_str_to_dollar(tmp, *tmp_type);
+	// printf("type d %s\n", *tmp_type);
 	type = get_type_str_to_dollar(expand_word, tmp_type);
+	// printf("word d %s\n", expand_word);
+	// printf("type d %s\n", type);
 	*join_word = try_strjoin_free(*join_word, expand_word);
 	*join_type = try_strjoin_free(*join_type, type);
 	free(expand_word);
