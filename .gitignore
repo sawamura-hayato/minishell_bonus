@@ -1,0 +1,4 @@
+*.sh
+*.a
+minishell
+*.o
