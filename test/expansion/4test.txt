@@ -1,0 +1,8 @@
+''
+""
+< $UNEXITS
+echo "$HOME"test
+echo "$HOME""$USER"
+echo "$HOME"'$USER'test
+echo "$USER+test"
+echo < "'"'"'"'"$NO'"'

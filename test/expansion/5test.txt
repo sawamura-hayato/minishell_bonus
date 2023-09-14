@@ -1,0 +1,9 @@
+cat < '$'U'S'E'R'
+echo "$ $ $ $" | cat -e
+export sp=" 1 2  3  " | cat -e
+echo < ''$MO"""$NO" abc
+echo "$SP"$sp'$sp' | cat -e
+echo "$ $ $ $"
+echo ''"$USER"'' | cat -e
+cat < '$USER'
+cat < '$'U'S'E'R'

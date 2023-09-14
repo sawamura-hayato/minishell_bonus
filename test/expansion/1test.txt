@@ -9,26 +9,3 @@ echo ""
 echo test "" test
 echo test  test
 echo test''test''test
-echo /Users/tterao/Users/tterao
-echo "/Users/tterao"test
-echo '/Users/tterao'test
-echo "/Users/tterao""tterao"
-echo "/Users/tterao"'tterao'test
-echo "tterao;test"
-echo ''
-echo ""
-echo '"'
-echo '"'"'"
-echo "'''''''''''"
-echo ''""""''""
-echo '""""""""'
-echo '""tterao'
-echo ""test"''test"
-''
-""
-< $UNEXITS
-echo "$HOME"test
-echo "$HOME""$USER"
-echo "$HOME"'$USER'test
-echo "$USER+test"
-echo < "'"'"'"'"$NO'"'
