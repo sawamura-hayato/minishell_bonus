@@ -71,7 +71,7 @@ test_infile() {
 		# 出力が期待通りであることを確認
 		df=$(diff -q ${output_file_minishell} ${output_file_bash})
 		df_err=$(diff -q ${stderr_file_minishell} ${stderr_file_bash})
-		
+
 		if [ "$df" = "" ] && ( [ "$1" = "command" ] || [ "$df_err" = "" ] ) && [[ ${ret1} -eq ${ret2} ]]; then
 			print_ok
 		else
@@ -129,7 +129,7 @@ test_redirect() {
 
 		# 出力が期待通りであることを確認
 		df=$(diff -q ${OUT_FILE_MINISHELL} ${OUT_FILE_BASH})
-		
+
 		echo "exit status : " $ret1 $ret2
 
 		if [ "$df" = "" ] && [[ ${ret1} -eq ${ret2} ]]; then
@@ -163,7 +163,7 @@ test_leak_infile() {
 
 		RANDOM=$$
 		test_num=$threshold
-		
+
 		for i in $(seq 1 ${test_num})
 		do
 			input_file=${1}/$(( RANDOM % file_count + 1 ))test.txt
@@ -187,7 +187,7 @@ test_leak_infile() {
 			printf "\n\n"
 		done
 	else
-		
+
 		for i in $(seq 1 ${file_count})
 		do
 			input_file=${1}/${i}test.txt
@@ -297,7 +297,7 @@ main() {
 			return 1
 		fi
 	done
-	
+
 	# test_redirect関数を各テストタイプに対して実行
 	for test in "${redirect_tests[@]}"; do
 		test_redirect "$test"
@@ -348,6 +348,6 @@ main "$@"
 
 # 相談事項
 #	outputredirectのテストの仕方、ファイルは固定になるためテストケースを書くファイルも気を付ける必要がある
-#	
+#
 
 #TODO:orderのディレクトリを作成しサンプルを置く
