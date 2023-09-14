@@ -1,0 +1,7 @@
+'ls ' '&&'
+ls <unexit <<eof > out >>out
+ls <<eof > out >>out <unexit
+/bin/abc
+echo | < Makefile | < n
+cat | < Makefile | < no
+< no || < no |  <no
