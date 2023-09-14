@@ -5,3 +5,7 @@ ls <<eof > out >>out <unexit
 echo | < Makefile | < n
 cat | < Makefile | < no
 < no || < no |  <no
+< no || < no | la <no
+./ls
+export PATH=:$PATH
+minishell.bnf
