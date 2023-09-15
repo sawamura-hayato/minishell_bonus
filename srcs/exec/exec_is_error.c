@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:11:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/14 16:31:58 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/15 14:54:42 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,14 @@ static bool	is_file(const char *path)
 	return (access(path, F_OK) == 0);
 }
 
-void	exec_is_error(const char *argv, const char *filepath, t_data *d)
+void	exec_is_error(const char *argv, const char *filepath,
+						bool filepath_exist, t_data *d)
 {
 	if ((is_path(argv) || envs_get_node("PATH", d->envs_hashmap) == NULL)
 		&& is_dir(argv))
 		exec_put_error_is_dir(argv, d);
-	if (((is_path(argv) && is_file(argv))
-			|| (envs_get_node("PATH", d->envs_hashmap) == NULL
-				&& is_file(argv)))
-		&& access(argv, X_OK) != 0)
+	if ((is_path(argv) && is_file(argv) && access(argv, X_OK) != 0)
+		|| (filepath_exist && filepath == NULL))
 		exec_put_error_no_permission(argv, d);
 	if ((is_path(argv) && !is_file(argv))
 		|| (envs_get_node("PATH", d->envs_hashmap) == NULL

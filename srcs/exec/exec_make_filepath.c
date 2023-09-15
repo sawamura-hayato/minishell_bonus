@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:17:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/30 16:10:57 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/15 15:11:27 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 #define DOT_COMP "./"
 #define DOTDOT_COMP "../"
 
-char	*exec_get_filepath(char *path, char *command, char *last_colon);
-bool	exec_is_commnad_with_permission(char *filepath);
+char	*exec_get_filepath(char *path, char *command,
+			bool *filepath_exist, char *last_colon);
+bool	exec_is_commnad_with_permission(char *filepath, bool *filepath_exist);
 
 static char	*add_currentpath_double_colon(char *path)
 {
@@ -50,7 +51,7 @@ static char	*add_currentpath_single_colon(char *path)
 	return (path);
 }
 
-static bool	is_absolute_path_with_permission(t_ast *node)
+static bool	is_absolute_path_with_permission(t_ast *node, bool *filepath_exist)
 {
 	const char	*cmd = node->command_list->word_list->word;
 
@@ -58,18 +59,19 @@ static bool	is_absolute_path_with_permission(t_ast *node)
 		&& ft_strncmp(cmd, DOTDOT_COMP, ft_strlen(DOTDOT_COMP)) != 0)
 		return (false);
 	return (
-		exec_is_commnad_with_permission(node->command_list->word_list->word)
+		exec_is_commnad_with_permission(node->command_list->word_list->word,
+			filepath_exist)
 	);
 }
 
-char	*exec_make_filepath(t_ast *node, t_data *d)
+char	*exec_make_filepath(t_ast *node, bool *filepath_exist, t_data *d)
 {
 	char	*path;
 
 	if (node->command_list->word_list == NULL
 		|| node->command_list->word_list->word == NULL)
 		return (NULL);
-	if (is_absolute_path_with_permission(node))
+	if (is_absolute_path_with_permission(node, filepath_exist))
 		return (try_strdup(node->command_list->word_list->word));
 	path = envs_get_value("PATH", d->envs_hashmap);
 	if (path == NULL || *path == '\0')
@@ -82,6 +84,7 @@ char	*exec_make_filepath(t_ast *node, t_data *d)
 		path = add_currentpath_double_colon(path);
 		path = add_currentpath_single_colon(path);
 	}
-	path = exec_get_filepath(path, node->command_list->word_list->word, path);
+	path = exec_get_filepath(path, node->command_list->word_list->word,
+			filepath_exist, path);
 	return (path);
 }
