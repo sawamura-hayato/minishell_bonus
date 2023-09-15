@@ -1,15 +1,38 @@
-./minishell.bnf
+touch test_file
+mkdir test_dir
+chmod  -x test
+
+./test_file
+test_file
 /
-srcs
-srcs/
+./test_dir
+test_dir
+test_dir/
 ./
 ../
 ..
+
+export PATH=:$PATH
+./test_file
+test_file
+/
+./test_dir
+test_dir
+test_dir/
+./
+../
+..
+
 unset PATH
-ls
-unset PATH
-srcs
-unset PATH
-./srcs
-unset PATH
-srcs/
+./test_file
+test_file
+/
+./test_dir
+test_dir
+test_dir/
+./
+../
+..
+
+rm test
+rm -rf test_dir
