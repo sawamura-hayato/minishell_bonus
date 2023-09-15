@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/14 15:54:11 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:56:20 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ char	*expand_convert_dollar_word(char **word, char **type, t_data *d)
 	(*word)++;
 	if (**word == '\0' || **word == ' ' || export_is_symbol(**word))
 	{
-		(*type)++;
-		return (try_strdup("$"));
+		if (**word == '?')
+			expand_word = expand_get_exit_status(word, d->exit_status);
+		else
+			expand_word = try_strdup("$");
 	}
-	else if (**word == '?')
-		expand_word = expand_get_exit_status(word, d->exit_status);
 	else
 		expand_word = expand_get_expand_word(word, d->envs_hashmap);
 	promote_type_pointer(type, tmp_word, *word);
