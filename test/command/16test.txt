@@ -13,4 +13,3 @@ unset PATH
 ./srcs
 unset PATH
 srcs/
-echo &&& ls
