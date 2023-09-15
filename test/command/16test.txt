@@ -13,4 +13,4 @@ unset PATH
 ./srcs
 unset PATH
 srcs/
-cat '
+(
