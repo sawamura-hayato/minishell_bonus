@@ -6,13 +6,18 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 22:08:12 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/14 21:09:53 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/15 16:27:31 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "library.h"
 #include "exec_command.h"
 #include <stdlib.h>
+
+bool	is_path(const char *command);
+char	*exec_convert_filepath(t_data *d);
+char	*exec_get_filepath_for_error(char *path, char *command,
+			char *last_colon);
 
 void	exec_put_error_is_dir(const char *command, t_data *d)
 {
@@ -34,13 +39,22 @@ void	exec_put_error_no_file(const char *command, t_data *d)
 	exit(COMMAND_NOT_FOUND);
 }
 
-void	exec_put_error_no_permission(const char *command, t_data *d)
+void	exec_put_error_no_permission(char *command, t_data *d)
 {
-	char	*msg;
+	char	*path;
+	char	*tmp;
 
-	msg = try_strjoin(command, ": Permission denied\n");
-	try_write(STDERR_FILENO, msg, ft_strlen(msg), d);
-	free(msg);
+	path = exec_convert_filepath(d);
+	if (!is_path(command) && envs_get_node("PATH", d->envs_hashmap) != NULL)
+	{
+		tmp = command;
+		command = exec_get_filepath_for_error(path, command, path);
+		free(tmp);
+	}
+	free(path);
+	command = try_strjoin_free(command, ": Permission denied\n");
+	try_write(STDERR_FILENO, command, ft_strlen(command), d);
+	free(command);
 	exit(COMMAND_NOT_EXECUTABLE);
 }
 
