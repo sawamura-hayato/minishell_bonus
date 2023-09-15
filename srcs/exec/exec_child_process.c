@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 16:48:29 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/14 16:56:24 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/15 15:00:45 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "builtins.h"
 #include <stdlib.h>
 
-void	exec_is_error(const char *argv, const char *filepath, t_data *d);
+void	exec_is_error(const char *argv, const char *filepath,
+			bool filepath_exist, t_data *d);
 void	exec_put_error_cmd_not_found(const char *command, t_data *d);
 void	exec_put_error_no_file(const char *command, t_data *d);
 void	set_child_signal_exec(t_data *d);
@@ -92,12 +93,14 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 {
 	char	**argv;
 	char	*filepath;
+	bool	filepath_exist;
 
+	filepath_exist = false;
 	set_child_signal_exec(d);
 	if (exec_is_builtin(node))
 		return (builtin(node, pipefd, false, d));
 	argv = exec_make_argv(node);
-	filepath = exec_make_filepath(node, d);
+	filepath = exec_make_filepath(node, &filepath_exist, d);
 	if (node->command_list->fd != STDOUT_FILENO)
 	{
 		try_dup2(node->command_list->fd, STDOUT_FILENO, d);
@@ -106,7 +109,7 @@ void	exec_child_process(t_ast *node, int *pipefd, t_data *d)
 	exec_pipefd(node, pipefd, d);
 	if (argv == NULL)
 		exit(EXIT_SUCCESS);
-	exec_is_error(*argv, filepath, d);
+	exec_is_error(*argv, filepath, filepath_exist, d);
 	execve(filepath, argv, envs_make_envp(d->envs_hashmap));
 	if (envs_get_node("PATH", d->envs_hashmap) != NULL)
 		exec_put_error_cmd_not_found(*argv, d);
