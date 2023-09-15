@@ -1,6 +1,6 @@
 touch test_file
 mkdir test_dir
-chmod  -x test
+chmod  -x test_file
 
 ./test_file
 test_file
@@ -34,5 +34,5 @@ test_dir/
 ../
 ..
 
-rm test
+rm test_file
 rm -rf test_dir
