@@ -6,13 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 17:22:27 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/15 15:00:02 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/15 15:55:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec_command.h"
 #include <stdlib.h>
 #define COLON ":"
+
+bool	is_file(const char *path);
 
 static char	*join_path_command(char *command, char *path)
 {
@@ -64,4 +66,25 @@ char	*exec_get_filepath(char *path, char *command,
 	if (colon != NULL)
 		colon += ft_strlen(COLON);
 	return (exec_get_filepath(path, command, filepath_exist, colon));
+}
+
+char	*exec_get_filepath_for_error(char *path, char *command,
+			char *last_colon)
+{
+	char	*eachpath;
+	char	*colon;
+
+	if (last_colon == NULL || *last_colon == '\0')
+		return (NULL);
+	colon = ft_strstr(last_colon, COLON);
+	if (colon == NULL)
+		eachpath = join_path_command(command, try_strdup(last_colon));
+	else
+		eachpath = join_path_command(command,
+				try_substr(last_colon, 0, colon - last_colon));
+	if (is_file(eachpath))
+		return (eachpath);
+	if (colon != NULL)
+		colon += ft_strlen(COLON);
+	return (exec_get_filepath_for_error(path, command, colon));
 }

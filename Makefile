@@ -6,14 +6,14 @@
 #    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/15 15:13:18 by tterao           ###   ########.fr        #
+#    Updated: 2023/09/15 15:54:26 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# CFLAGS += -fsanitize=address -g
+CFLAGS += -fsanitize=address -g
 
 ifeq ($(UNAME), Linux)
 	RL_DIR = /usr/include

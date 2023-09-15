@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 14:17:42 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/15 15:11:27 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/15 16:10:02 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,14 @@ static char	*add_currentpath_double_colon(char *path)
 
 static char	*add_currentpath_single_colon(char *path)
 {
+	char	*tmp;
+
 	if (*path == ':')
+	{
+		tmp = path;
 		path = try_strjoin("./", path);
+		free(tmp);
+	}
 	if (path[ft_strlen(path) - 1] == ':')
 		path = try_strjoin_free(path, "./");
 	return (path);
@@ -64,15 +70,10 @@ static bool	is_absolute_path_with_permission(t_ast *node, bool *filepath_exist)
 	);
 }
 
-char	*exec_make_filepath(t_ast *node, bool *filepath_exist, t_data *d)
+char	*exec_convert_filepath(t_data *d)
 {
 	char	*path;
 
-	if (node->command_list->word_list == NULL
-		|| node->command_list->word_list->word == NULL)
-		return (NULL);
-	if (is_absolute_path_with_permission(node, filepath_exist))
-		return (try_strdup(node->command_list->word_list->word));
 	path = envs_get_value("PATH", d->envs_hashmap);
 	if (path == NULL || *path == '\0')
 	{
@@ -84,6 +85,19 @@ char	*exec_make_filepath(t_ast *node, bool *filepath_exist, t_data *d)
 		path = add_currentpath_double_colon(path);
 		path = add_currentpath_single_colon(path);
 	}
+	return (path);
+}
+
+char	*exec_make_filepath(t_ast *node, bool *filepath_exist, t_data *d)
+{
+	char	*path;
+
+	if (node->command_list->word_list == NULL
+		|| node->command_list->word_list->word == NULL)
+		return (NULL);
+	if (is_absolute_path_with_permission(node, filepath_exist))
+		return (try_strdup(node->command_list->word_list->word));
+	path = exec_convert_filepath(d);
 	path = exec_get_filepath(path, node->command_list->word_list->word,
 			filepath_exist, path);
 	return (path);

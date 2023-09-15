@@ -1,10 +1,10 @@
 export SP="a  b   "
 < $SP
-export sp=" 1 2  3  " ;
+export sp=" 1 2  3  "
 echo """$sp"''
 echo < ''$MO"""$NO" abc
 echo "'$'"
 echo $"$NONE"$
 echo "a"$SP"b"$SP"c"
-export SP=" " ;
+export SP=" "
 echo "$SP"$sp'$sp'
