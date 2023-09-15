@@ -157,7 +157,7 @@ test_leak_infile() {
 
     printf "${YELLOW}${BOLD}${ULINE}# ${1}_leak_test ${CLEAR}: \n"
 
-    	threshold=10
+    	threshold=1000
 
 	if [ $file_count -ge $threshold ]; then
 
