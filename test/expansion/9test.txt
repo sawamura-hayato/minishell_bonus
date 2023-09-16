@@ -1,2 +1,11 @@
-export sp="       1       2       3     ";
+export sp="       1       2       3     "
 echo a"$sp"
+echo $?
+echo "$?"
+echo '$?'
+echo "$?"$A'$A'
+export A="a        b  c "
+echo "$?"$A'$A'
+echo "$A""$?"$A
+echo $A$A$A$A$A$A$A$A$A$A$A$A$A$AA$A$A$A$A$A$A$A
+
