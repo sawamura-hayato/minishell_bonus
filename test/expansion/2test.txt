@@ -1,0 +1,10 @@
+echo test''test''test
+echo $HOME$NONEXIT$HOME
+echo "$HOME"test
+echo '$HOME'test
+echo "$HOME""$USER"
+echo "$HOME"'$USER'test
+echo "$USER;test"
+echo ''
+echo ""
+echo '"'

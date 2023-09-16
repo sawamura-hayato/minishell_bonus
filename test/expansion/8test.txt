@@ -9,3 +9,4 @@ echo "a"$SP"b"$SP"c"
 export SP=" "
 echo "$SP"$sp'$sp'
 
+

@@ -1,0 +1,10 @@
+echo '"'"'"
+echo "'''''''''''"
+echo ''""""''""
+echo '""""""""'
+echo '"$test"$USER'
+echo ""test"''test"
+''
+""
+$NONEXITS
+< $UNEXITS

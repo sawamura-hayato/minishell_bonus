@@ -1,0 +1,10 @@
+echo $'test'
+echo $"test"
+echo $HOME
+echo '$HOME'
+echo "$HOME"
+echo $NONEXITS
+echo '$NONEXITS'
+echo "$NONEXITS"
+echo test "$NONEXITS" test
+echo test $NONEXITS test

@@ -1,0 +1,10 @@
+echo "$HOME"test
+echo "$HOME""$USER"
+echo "$HOME"'$USER'test
+echo "$USER+test"
+echo < "'"'"'"'"$NO'"'
+echo < ''$MO"""$NO" abc
+echo "'$'"
+echo $"$NONE"$
+echo "a"$SP"b"$SP"c"
+echo "$ $ $ $"

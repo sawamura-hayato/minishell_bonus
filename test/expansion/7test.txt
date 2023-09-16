@@ -10,3 +10,4 @@ ls *txt*
 ls *txt*txt
 ls txt*txt*txt
 rm 'txt''.txt' '*.txt' '+txt' '_txt' 'file.txt' 'syn' 'test' 'testtxt' 'ttxt' 'txt' 'txt*' 'txt*.txt' 'txt.' 'txt.txt' 'txttxt.txt'
+
