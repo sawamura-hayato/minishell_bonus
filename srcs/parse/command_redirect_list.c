@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/09 19:55:58 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/16 12:46:58 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	command_redirect_list(t_redirect_list **head,
 	if (token_is_quotation_closed(token) == false)
 		ast_syntax_error(d, token);
 	node = redirect_init_node(head, token, redirect_flag);
-	if (redirect_flag == false && token->next == NULL) 
+	if (redirect_flag == false && token->next == NULL)
 		ast_syntax_error(d, NULL);
 	else if (redirect_flag == false && ast_is_opereter(token->next->tk_type))
 		ast_syntax_error(d, token->next);
