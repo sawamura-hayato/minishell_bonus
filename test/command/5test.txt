@@ -1,9 +1,10 @@
 cat << file
 cat >> file
 cat <<< file
-cat <Makefile
-cat >Makefile
-cat <<Makefile
-cat >>Makefile
+echo "this is test" > infile
+cat <infile
+cat >infile
+cat <<infile
+cat >>infile
 cat < file | cat
 cat > file | cat
