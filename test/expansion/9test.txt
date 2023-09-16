@@ -8,4 +8,6 @@ export A="a        b  c "
 echo "$?"$A'$A'
 echo "$A""$?"$A
 echo $A$A$A$A$A$A$A$A$A$A$A$A$A$AA$A$A$A$A$A$A$A
+export SP="a  b   "
+< $SP
 
