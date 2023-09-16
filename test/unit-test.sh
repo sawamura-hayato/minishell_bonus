@@ -72,7 +72,7 @@ test_infile() {
 		df=$(diff -q ${output_file_minishell} ${output_file_bash})
 		df_err=$(diff -q ${stderr_file_minishell} ${stderr_file_bash})
 
-		if [ "$df" = "" ] || [ "$df_err" = "" ]  && [[ ${ret1} -eq ${ret2} ]]; then
+		if [ "$df" = "" ] && [[ ${ret1} -eq ${ret2} ]]; then
 			print_ok
 		else
 			print_ko
@@ -157,7 +157,7 @@ test_leak_infile() {
 
     printf "${YELLOW}${BOLD}${ULINE}# ${1}_leak_test ${CLEAR}: \n"
 
-    	threshold=10
+    	threshold=1000
 
 	if [ $file_count -ge $threshold ]; then
 
