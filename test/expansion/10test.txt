@@ -9,3 +9,4 @@ echo "$'a'"$?"$A"
 echo $'a'"$?$A"
 echo ""$?$'a'"$?$A'$A'"
 echo "$A"'$A''$A''$A'$A
+

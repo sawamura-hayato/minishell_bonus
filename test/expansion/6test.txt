@@ -12,3 +12,4 @@ export QUOTE="   '   '      '    ' "
 echo "'$QUOTE' ' '" | cat -e
 export SP="a  b   "
 < $SP
+

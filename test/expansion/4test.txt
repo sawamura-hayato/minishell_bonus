@@ -8,3 +8,4 @@ echo "'$'"
 echo $"$NONE"$
 echo "a"$SP"b"$SP"c"
 echo "$ $ $ $"
+
