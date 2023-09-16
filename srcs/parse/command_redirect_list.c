@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   command_redirect_list.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 19:37:37 by tterao            #+#    #+#             */
 /*   Updated: 2023/09/16 12:46:58 by hsawamur         ###   ########.fr       */
