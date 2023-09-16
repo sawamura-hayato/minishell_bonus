@@ -1,12 +1,1 @@
-export A="a     b    c   "
-export $A=z
-export $A='a " b'
-echo $A
-echo "$A"
-echo $"a"'$?'$A
-echo $"$?"'$?'$A
-echo "$'a'"$?"$A"
-echo $'a'"$?$A"
-echo ""$?$'a'"$?$A'$A'"
-echo "$A"'$A''$A''$A'$A
 

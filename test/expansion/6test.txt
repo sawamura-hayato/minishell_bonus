@@ -1,15 +1,1 @@
-export SP="a  b    c   "
-echo $SP | cat -e
-export QUOTE="' '  ' "
-echo $QUOTE | cat -e
-export QUOTE='" "   "  '
-echo $QUOTE | cat -e
-export QUOTE='" "   '
-echo $QUOTE | cat -e
-export QUOTE="   '   '      '    ' "
-echo $QUOTE | cat -e
-export QUOTE="   '   '      '    ' "
-echo "'$QUOTE' ' '" | cat -e
-export SP="a  b   "
-< $SP
 
