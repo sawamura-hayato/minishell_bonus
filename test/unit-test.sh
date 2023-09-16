@@ -72,7 +72,7 @@ test_infile() {
 		df=$(diff -q ${output_file_minishell} ${output_file_bash})
 		df_err=$(diff -q ${stderr_file_minishell} ${stderr_file_bash})
 
-		if [ "$df" = "" ] && ( [ "$1" = "command1" ] || [ "$df_err" = "" ] ) && [[ ${ret1} -eq ${ret2} ]]; then
+		if [ "$df" = "" ] && ( [ "$1" = "command" ] || [ "$df_err" = "" ] ) && [[ ${ret1} -eq ${ret2} ]]; then
 			print_ok
 		else
 			print_ko
