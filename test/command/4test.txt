@@ -1,10 +1,13 @@
 > file
 << file
+file
 >> file
 <<< file
-<Makefile
->Makefile
-<<Makefile
->>Makefile
+echo "this is test" > infile
+<infile
+>infile
+<<infile
+infiile
+>>infile
 cat < file
 cat > file

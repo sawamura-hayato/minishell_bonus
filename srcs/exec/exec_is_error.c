@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 21:11:54 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/15 16:20:18 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/16 15:16:39 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ bool	is_file(const char *path)
 void	exec_is_error(const char *argv, const char *filepath,
 						bool filepath_exist, t_data *d)
 {
+	if (*argv == '\0')
+		return ;
 	if ((is_path(argv) || envs_get_node("PATH", d->envs_hashmap) == NULL)
 		&& is_dir(argv))
 		exec_put_error_is_dir(argv, d);
