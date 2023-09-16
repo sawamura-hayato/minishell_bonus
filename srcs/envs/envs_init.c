@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/08 17:15:47 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/16 22:35:46 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ static void	init_three_envs(t_data *d)
 	{
 		perror(
 			"shell-init: error retrieving current directory: "
-			"getcwd: cannot access parent directories");
-		perror("sh_makepath: error retrieving current directory: "
 			"getcwd: cannot access parent directories");
 	}
 	if (envs_get_node("OLDPWD", d->envs_hashmap) == NULL)
