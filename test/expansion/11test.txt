@@ -1,0 +1,36 @@
+<< eof cat
+'$USER'$""USER""
+eof
+
+<< eof cat
+'""$HOME""' '$HOME
+eof
+
+<< eof cat
+'$NONEXIT'
+eof
+
+export QUOTE="'   ' '  '  "
+<< eof cat
+$QUOTE
+eof
+
+export QUOTE="'   '   '  "
+ << eof cat
+'$QUOTE'
+eof
+
+export QUOTE="'   '   '  "
+<<eof cat
+$QUOTE
+eof
+
+<< eof cat
+'$USER'$"USER"
+eof
+
+export QUOTE="'   '   '  "
+<< eof cat
+'$QUOTE'
+eof
+
