@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/14 15:59:22 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/16 12:54:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	expand_variable_redirect_list(t_redirect_list *redirect_list, \
 	char	*word;
 	char	*type;
 
-	word = try_strdup(redirect_list->word);
-	type = try_strdup(redirect_list->type);
 	if (expand_is_variable_word(redirect_list->word, redirect_list->type))
 	{
+		word = try_strdup(redirect_list->word);
+		type = try_strdup(redirect_list->type);
 		expand_get_expanded_token(&(redirect_list->word), \
 									&(redirect_list->type), d);
 		if (expand_is_ambiguous_error(redirect_list->word, \
