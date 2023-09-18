@@ -6,17 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:51:29 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/14 15:58:48 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:56:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-bool	expand_is_delete_dollar_quote(char *word, char *type)
+bool	expand_is_delete_dollar_quote(char *word, char *type, size_t i)
 {
-	size_t	i;
-
-	i = 0;
 	if (type == NULL)
 		return (false);
 	while (word[i] != '\0')
@@ -88,7 +85,7 @@ static char	*get_delete_dollar_quote_type(char *type, size_t index_dollar)
 	return (new_type);
 }
 
-void	expand_get_delete_dollar_quote(char **word, char **type)
+size_t	expand_get_delete_dollar_quote(char **word, char **type)
 {
 	char	*new_word;
 	char	*new_type;
@@ -101,4 +98,5 @@ void	expand_get_delete_dollar_quote(char **word, char **type)
 	*word = new_word;
 	free(*type);
 	*type = new_type;
+	return (index_dollar + 1);
 }
