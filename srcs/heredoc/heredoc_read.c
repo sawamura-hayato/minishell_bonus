@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_read.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:48:59 by tyamauch          #+#    #+#             */
-/*   Updated: 2023/09/11 16:13:59 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/20 05:13:53 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ bool	heredoc_read_loop(t_redirect_list *delimiter, t_data *d)
 		buff = readline(HEREDOC_PROMPT);
 		if (buff == NULL && g_signal_num != 0)
 		{
-			heredoc_all_free(buff, delimiter->word);
+			all_free(buff, delimiter->word, NULL, NULL);
 			delimiter->word = str;
 			return (false);
 		}
 		if (buff == NULL || ft_strcmp(buff, delimiter->word) == 0)
 		{
 			heredoc_put_warning(buff, delimiter->word, d);
-			heredoc_all_free(buff, delimiter->word);
+			all_free(buff, delimiter->word, NULL, NULL);
 			get_delimiter_word_and_type(delimiter, str, is_start);
 			break ;
 		}

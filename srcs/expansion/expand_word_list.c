@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:32:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/19 21:38:36 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 05:26:22 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 	t_word_list	*pre_node;
 	t_word_list	*node;
 	char		*ifs;
-	char		*word;
-	char		*type;
 
 	pre_node = NULL;
 	node = *word_list;
@@ -29,13 +27,8 @@ void	expand_word_list(t_word_list **word_list, t_data *d)
 			expand_variable_word_list(node, d);
 			ifs = expand_get_ifs(d->envs_hashmap);
 			if (expand_is_all_ifs(node->word, ifs))
-			{
-				word = node->word;
-				type = node->type;
-				expand_word_splitting_not_ifs_default(&node, &pre_node, word_list, ifs);
-				free(word);
-				free(type);
-			}
+				expand_word_splitting_not_ifs_default(&node, &pre_node,
+					word_list, ifs);
 			else if (expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_word_list(node, pre_node, word_list, ifs);
 			free(ifs);

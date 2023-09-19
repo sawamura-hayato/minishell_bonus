@@ -6,11 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 18:01:25 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/13 18:14:15 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 05:38:57 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
+
+bool	ft_is_str_in_c(char *str, char c);
 
 static bool	expand_is_amb_error_unil(char *word, char *type, \
 										size_t i, char *ifs)
@@ -21,13 +23,13 @@ static bool	expand_is_amb_error_unil(char *word, char *type, \
 	while (word[i] != '\0' && type[i] == '1')
 	{
 		while (word[i] != '\0' && type[i] == '1' && \
-			expand_is_str_in_char(ifs, word[i]))
+			ft_is_str_in_c(ifs, word[i]))
 			i++ ;
 		while (word[i] != '\0' && type[i] == '1')
 		{
 			if (flag)
 				return (true);
-			if (expand_is_str_in_char(ifs, word[i]))
+			if (ft_is_str_in_c(ifs, word[i]))
 				break ;
 			i++;
 		}

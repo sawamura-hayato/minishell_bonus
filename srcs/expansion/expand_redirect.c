@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/16 12:55:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 05:12:45 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 			expand_get_joined_str_to_dollar(&join_word, &join_type, \
 												&tmp, &tmp_type);
 	}
-	heredoc_all_free(*token, *type);
+	all_free(*token, *type, NULL, NULL);
 	*token = join_word;
 	*type = join_type;
 }
