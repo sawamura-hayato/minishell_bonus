@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:21:54 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/16 12:54:27 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/18 13:54:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,13 @@ bool	expand_is_variable_word(char *word, char *type)
 
 void	expand_variable_word_list(t_word_list *word_list, t_data *d)
 {
+	size_t	i;
+
+	i = 0;
 	if (expand_is_variable_word(word_list->word, word_list->type))
 	{
-		while (expand_is_delete_dollar_quote(word_list->word, word_list->type))
-			expand_get_delete_dollar_quote(&(word_list->word), \
+		while (expand_is_delete_dollar_quote(word_list->word, word_list->type, i))
+			i = expand_get_delete_dollar_quote(&(word_list->word), \
 												&(word_list->type));
 		expand_get_expanded_token(&(word_list->word), &(word_list->type), d);
 	}
