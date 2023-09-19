@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_pathname_wordlist.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 16:10:48 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:35:19 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ bool	expand_only_stars(t_word_list *node)
 }
 
 t_word_list	*expand_pathname_wordlist(t_word_list **head, t_word_list *node,
-									t_data *d)
+									t_word_list **pre_node, t_data *d)
 {
 	DIR				*dirp;
 	struct dirent	*entry;
 	t_word_list		*star_node;
 
+	*pre_node = node;
 	if (!expand_have_star_wordlist(node))
 		return (node->next);
 	dirp = try_opendir(".", d);
@@ -71,5 +72,6 @@ t_word_list	*expand_pathname_wordlist(t_word_list **head, t_word_list *node,
 	try_closedir(dirp, d);
 	if (star_node != node)
 		word_list_delete_target(head, star_node);
+	*pre_node = node;
 	return (node->next);
 }
