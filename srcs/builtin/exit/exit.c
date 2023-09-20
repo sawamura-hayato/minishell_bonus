@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tatyu <tatyu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 16:49:11 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/09 01:15:01 by tatyu            ###   ########.fr       */
+/*   Updated: 2023/09/20 18:32:37 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include <stdlib.h>
 
 bool	exit_is_overflow(char *str);
-void	exit_put_error_numeric(t_data *d, char *str);
-void	exit_put_error_too_many_args(t_data *d);
+void	exit_put_error_numeric(t_data *d, bool is_parent_process, char *str);
+void	exit_put_error_too_many_args(bool is_parent_process, t_data *d);
 bool	exit_isspace(char c);
 
 static bool	is_non_digit_arg(char *str)
@@ -51,11 +51,11 @@ void	builtin_exit(char **argv, bool is_parent_process, t_data *d)
 	if (argv[1] == NULL)
 		_exit_(is_parent_process, d);
 	if (is_non_digit_arg(argv[1]))
-		exit_put_error_numeric(d, argv[1]);
+		exit_put_error_numeric(d, is_parent_process, argv[1]);
 	if (exit_is_overflow(argv[1]))
-		exit_put_error_numeric(d, argv[1]);
+		exit_put_error_numeric(d, is_parent_process, argv[1]);
 	if (argv[2] != NULL)
-		return (exit_put_error_too_many_args(d));
+		return (exit_put_error_too_many_args(is_parent_process, d));
 	d->exit_status = (int)(unsigned char)ft_atol(argv[1]);
 	_exit_(is_parent_process, d);
 }
