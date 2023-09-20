@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/17 15:40:01 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/20 15:00:38 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #define SHLVL_MAX_VALUE 999
+
+bool	envs_is_invalid_key(const char *str);
 
 static char	*get_key(const char *str)
 {
@@ -76,11 +78,15 @@ void	envs_init(const char **environ, t_data *d)
 	d->envs_hashmap = try_calloc(HASHMAP_SIZE, sizeof(t_envs *));
 	while (*environ != NULL)
 	{
-		key = get_key(*environ);
-		value = get_value(*environ);
-		if (ft_strcmp(key, "SHLVL") == 0)
-			value = get_shlvl_value(value, d);
-		envs_newnode(key, value, d->envs_hashmap);
+		if (ft_memchr(*environ, '=', ft_strlen(*environ)) != NULL
+			&& !envs_is_invalid_key(*environ))
+		{
+			key = get_key(*environ);
+			value = get_value(*environ);
+			if (ft_strcmp(key, "SHLVL") == 0)
+				value = get_shlvl_value(value, d);
+			envs_newnode(key, value, d->envs_hashmap);
+		}
 		environ++;
 	}
 	init_three_envs(d);

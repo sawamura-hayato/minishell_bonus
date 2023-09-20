@@ -6,13 +6,15 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:13:29 by tatyu             #+#    #+#             */
-/*   Updated: 2023/08/13 16:33:56 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/20 15:00:47 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "library.h"
 #include <stdlib.h>
+
+bool	export_is_symbol(char c);
 
 static size_t	get_envs_num(t_envs **envs_hashmap)
 {
@@ -45,6 +47,19 @@ static char	*make_str_with_keyvalue(t_envs *node)
 	key_value = try_strjoin(tmp, node->value);
 	free(tmp);
 	return (key_value);
+}
+
+bool	envs_is_invalid_key(const char *str)
+{
+	if (ft_isdigit(*str) || *str == '+' || *str == '=')
+		return (true);
+	while (*str != '=' && *str != '\0')
+	{
+		if (export_is_symbol(*str))
+			return (true);
+		str++;
+	}
+	return (false);
 }
 
 char	**envs_make_envp(t_envs **envs_hashmap)
