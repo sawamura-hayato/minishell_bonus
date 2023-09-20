@@ -2,7 +2,6 @@ export
 export test=test a=abc
 export _A _B test+= a+= *fea b a
 export +=test  op========= o+===== c d e f g
-unset test &*# unexistenv PWD
 env
 pwd
 echo -n ''
