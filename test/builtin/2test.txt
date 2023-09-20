@@ -1,0 +1,13 @@
+cd
+cd / ''
+cd ../../../../../
+cd ../../../../
+cd //////..//////../../////
+cd //////////
+cd //Users/../
+cd /Users/../
+cd /Users/../..
+cd /Users/../Users/..
+cd /bin/cat/../
+cd ./test/../
+
