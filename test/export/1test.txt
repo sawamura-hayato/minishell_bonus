@@ -1,0 +1,6 @@
+export IFS=a
+export hogehoge=abaca
+echo $hogehoe
+
+export hogehoge=aaaa
+echo $hogehoe
