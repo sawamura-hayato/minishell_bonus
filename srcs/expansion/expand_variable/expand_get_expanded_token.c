@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:02:21 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/15 13:56:20 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:35:48 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-void	heredoc_all_free(char *s1, char *s2);
+void	ft_all_free(char *s1, char *s2, char *s3, char *s4);
 bool	export_is_symbol(char c);
 
 static void	promote_type_pointer(char **type, char *s_word, char *e_word)
@@ -94,7 +94,7 @@ void	expand_get_expanded_token(char **token, char **type, t_data *d)
 			expand_get_joined_str_to_dollar(&join_word, &join_type, \
 												&tmp, &tmp_type);
 	}
-	heredoc_all_free(*token, *type);
+	ft_all_free(*token, *type, NULL, NULL);
 	*token = join_word;
 	*type = join_type;
 }

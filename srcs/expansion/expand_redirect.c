@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 14:35:33 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/16 12:55:26 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:43:11 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	expand_get_expanded_word_delimiter(char **token, \
 			expand_get_joined_str_to_dollar(&join_word, &join_type, \
 												&tmp, &tmp_type);
 	}
-	heredoc_all_free(*token, *type);
+	ft_all_free(*token, *type, NULL, NULL);
 	*token = join_word;
 	*type = join_type;
 }
@@ -70,9 +70,8 @@ void	expand_redirect_list(t_redirect_list **redirect_list, t_data *d)
 		{
 			ifs = expand_get_ifs(d->envs_hashmap);
 			expand_variable_redirect_list(node, d, ifs);
-			if (!node->is_ambiguous_error && \
-				!expand_is_empty_ifs(ifs) && \
-				expand_is_word_splitting_word(node->word, node->type, ifs))
+			if (!node->is_ambiguous_error
+				&& expand_is_word_splitting_word(node->word, node->type, ifs))
 				expand_word_splitting_redirect_list(node, ifs);
 			free(ifs);
 		}

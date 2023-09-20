@@ -7,8 +7,9 @@ minishell
 search/
 
 # .txt file
-*.txt
-*test*
+# *.txt
+# *test*
+RESULT_LOG*
 
 # objs file
 *.o

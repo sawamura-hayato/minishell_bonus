@@ -5,17 +5,18 @@ export B="dadaadaa"
 export C="dadaadaa   "
 export D="  aa  adadaad aa   "
 export E="  aa  aa  "
-rm $A
-rm $B
-rm $C
-rm $D
-rm $E
-rm $Z
+
+export >$A
+export >$B
+export >$C
+export >$D
+export >$E
+export >$Z
 
 export IFS="a "
-rm $A
-rm $B
-rm $C
-rm $D
-rm $E
-rm $Z
+export >$A
+export >$B
+export >$C
+export >$D
+export >$E
+export >$Z
