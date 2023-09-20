@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:30:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 05:39:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:34:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-bool	ft_is_str_in_c(char *str, char c);
+bool	ft_is_c_in_str(char *str, char c);
 
 bool	expand_is_quoted(char *type, size_t size)
 {
@@ -37,7 +37,7 @@ bool	expand_have_ifs(char *word, char *ifs)
 	i = 0;
 	if (word == NULL)
 		return (false);
-	while (word[i] != '\0' && !ft_is_str_in_c(ifs, word[i]))
+	while (word[i] != '\0' && !ft_is_c_in_str(ifs, word[i]))
 		i++;
 	if (word[i] == '\0')
 		return (false);

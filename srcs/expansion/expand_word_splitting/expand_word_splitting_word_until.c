@@ -6,13 +6,13 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 05:45:36 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 06:03:46 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:35:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 
-bool		ft_is_str_in_c(char *str, char c);
+bool		ft_is_c_in_str(char *str, char c);
 
 bool	expand_is_all_ifs(char *word, char *ifs)
 {
@@ -23,7 +23,7 @@ bool	expand_is_all_ifs(char *word, char *ifs)
 		return (false);
 	while (word[i] != '\0')
 	{
-		if (!ft_is_str_in_c(ifs, word[i]))
+		if (!ft_is_c_in_str(ifs, word[i]))
 			return (false);
 		i++;
 	}
@@ -74,13 +74,13 @@ void	expand_word_splitting_not_ifs_default(t_word_list **n, t_word_list **p,
 	de_ifs = expand_check_ifs_default_char(ifs);
 	w = (*n)->word;
 	t = (*n)->type;
-	while (w[i] != '\0' && t[i] == IS_SUBSTITUTED && ft_is_str_in_c(ifs, w[i]))
+	while (w[i] != '\0' && t[i] == IS_SUBSTITUTED && ft_is_c_in_str(ifs, w[i]))
 	{
-		if (!ft_is_str_in_c(de_ifs, w[i]))
+		if (!ft_is_c_in_str(de_ifs, w[i]))
 			expand_word_splitting_not_ifs_default_until(n, p, head);
 		i++;
 	}
-	all_free(w, t, de_ifs, NULL);
+	ft_all_free(w, t, de_ifs, NULL);
 }
 
 size_t	expand_get_index_word_splitting(t_word_list **n,
@@ -92,9 +92,9 @@ size_t	expand_get_index_word_splitting(t_word_list **n,
 	i = 0;
 	de_ifs = expand_check_ifs_default_char(ifs);
 	while ((*n)->word[i] != '\0' && (*n)->type[i] == IS_SUBSTITUTED
-		&& ft_is_str_in_c(ifs, (*n)->word[i]))
+		&& ft_is_c_in_str(ifs, (*n)->word[i]))
 	{
-		if (!ft_is_str_in_c(de_ifs, (*n)->word[i]))
+		if (!ft_is_c_in_str(de_ifs, (*n)->word[i]))
 		{
 			if ((*p) == NULL)
 			{

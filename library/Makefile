@@ -6,7 +6,7 @@
 #    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/11 13:32:50 by hsawamur          #+#    #+#              #
-#    Updated: 2023/09/20 05:34:06 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/20 11:37:45 by hsawamur         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ SRCS += $(SRCS_DIR)/$(FT_DIR)/ft_strlen.c \
 			$(SRCS_DIR)/$(FT_DIR)/ft_atol.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_isdigit.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strstr.c	\
-			$(SRCS_DIR)/$(FT_DIR)/ft_is_str_in_c.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_all_free.c	\
+			$(SRCS_DIR)/$(FT_DIR)/ft_is_c_in_str.c	\
 			$(SRCS_DIR)/$(FT_DIR)/ft_strrchr.c
 
 TRY_DIR = try

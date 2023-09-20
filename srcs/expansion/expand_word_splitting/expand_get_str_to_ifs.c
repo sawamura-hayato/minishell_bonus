@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:37:08 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 05:39:02 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:34:18 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "library.h"
 
 bool	export_is_symbol(char c);
-bool	ft_is_str_in_c(char *str, char c);
+bool	ft_is_c_in_str(char *str, char c);
 
 static size_t	expand_get_string_to_dollar_or_symbol_size(char *word)
 {
@@ -52,7 +52,7 @@ static size_t	expand_get_size_str_to_ifs(char *word, char *ifs)
 	size_t	i;
 
 	i = 0;
-	while (word[i] != '\0' && ft_is_str_in_c(ifs, word[i]))
+	while (word[i] != '\0' && ft_is_c_in_str(ifs, word[i]))
 	{
 		if (word[i] == '\'')
 		{

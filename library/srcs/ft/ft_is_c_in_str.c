@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_str_in_c.c                                   :+:      :+:    :+:   */
+/*   ft_is_c_in_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 05:31:18 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 05:38:45 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:37:30 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdlib.h>
 
-bool	ft_is_str_in_c(char *str, char c)
+bool	ft_is_c_in_str(char *str, char c)
 {
 	if (str == NULL)
 		return (false);

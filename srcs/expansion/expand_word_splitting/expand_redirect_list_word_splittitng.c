@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:18:05 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 05:39:08 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:34:27 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "library.h"
 
 bool	expand_is_all_ifs(char *word, char *ifs);
-bool	ft_is_str_in_c(char *str, char c);
+bool	ft_is_c_in_str(char *str, char c);
 
 t_redirect_list	*expand_new_redirect_list(t_redirect_list *node, size_t i,
 											t_redirect_list *next_node,
@@ -71,7 +71,7 @@ static void	expand_can_get_word_splitting_redirect(t_redirect_list **redirect,
 	{
 		while (word[i] != '\0' && \
 				type[i] == IS_SUBSTITUTED && \
-				ft_is_str_in_c(ifs, word[i]))
+				ft_is_c_in_str(ifs, word[i]))
 			i++;
 		(*redirect)->word = try_strdup(&(word[i]));
 		(*redirect)->type = try_strdup(&(type[i]));
@@ -96,7 +96,7 @@ void	expand_word_splitting_redirect_list(t_redirect_list *node, char *ifs)
 	redirect_list = node;
 	while (redirect_list->word[i] != '\0')
 	{
-		if (ft_is_str_in_c(ifs, redirect_list->word[i]) && \
+		if (ft_is_c_in_str(ifs, redirect_list->word[i]) && \
 			!expand_is_quoted(redirect_list->type, i) && \
 			IS_SUBSTITUTED == redirect_list->type[i])
 		{

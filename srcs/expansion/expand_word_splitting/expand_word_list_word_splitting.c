@@ -6,14 +6,14 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 23:22:43 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 05:57:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:34:36 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expansion.h"
 #include "library.h"
 
-bool	ft_is_str_in_c(char *str, char c);
+bool	ft_is_c_in_str(char *str, char c);
 bool	expand_is_all_ifs(char *word, char *ifs);
 void	expand_word_splitting_not_ifs_default(t_word_list **n, t_word_list **p,
 			t_word_list **head, char *ifs);
@@ -28,9 +28,9 @@ static size_t	expand_check_index_not_ifs_default(t_word_list *node,
 	de_ifs = expand_check_ifs_default_char(ifs);
 	while (node->word[i] != '\0' && \
 			node->type[i] == IS_SUBSTITUTED && \
-			ft_is_str_in_c(ifs, node->word[i]))
+			ft_is_c_in_str(ifs, node->word[i]))
 	{
-		if (!ft_is_str_in_c(de_ifs, node->word[i]))
+		if (!ft_is_c_in_str(de_ifs, node->word[i]))
 		{
 			i++;
 			free(de_ifs);
@@ -103,7 +103,7 @@ void	expand_word_splitting_word_list(t_word_list *n, t_word_list *p,
 	i = 0;
 	while (n->word[i] != '\0')
 	{
-		if (ft_is_str_in_c(ifs, n->word[i]) && !expand_is_quoted(n->type, i)
+		if (ft_is_c_in_str(ifs, n->word[i]) && !expand_is_quoted(n->type, i)
 			&& IS_SUBSTITUTED == n->type[i])
 		{
 			if (i == 0)

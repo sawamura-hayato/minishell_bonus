@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 14:52:38 by hsawamur          #+#    #+#             */
-/*   Updated: 2023/09/20 05:30:52 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:36:54 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ struct dirent	*try_readdir(DIR *dirp, t_data *d);
 void			try_closedir(DIR *dirp, t_data *d);
 
 // ft
-bool			ft_is_str_in_c(char *str, char c);
+void			ft_all_free(char *s1, char *s2, char *s3, char *s4);
+bool			ft_is_c_in_str(char *str, char c);
 char			*ft_strchr(const char *s, int c);
 size_t			ft_strlen(const char *str);
 bool			ft_is_operator(char c);
