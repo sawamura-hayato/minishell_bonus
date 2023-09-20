@@ -1,0 +1,22 @@
+export IFS="a"
+export Z=" aaa"
+export A="aaa"
+export B="dadaadaa"
+export C="dadaadaa   "
+export D="  aa  adadaad aa   "
+export E="  aa  aa  "
+
+export >$A
+export >$B
+export >$C
+export >$D
+export >$E
+export >$Z
+
+export IFS="a "
+export >$A
+export >$B
+export >$C
+export >$D
+export >$E
+export >$Z

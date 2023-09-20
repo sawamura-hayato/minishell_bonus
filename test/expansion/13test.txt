@@ -1,0 +1,15 @@
+export FOO="echo hello"
+$FOO
+export FOO="a       b"
+echo "hello"$FOO"world"
+export IFS=": "
+export FOO=": : :hello: : :world: : :"
+echo hello"$FOO"world
+export FOO=" : : : hello : : : world : : : "
+echo hello"$FOO"world
+rm $FOO
+export IFS=":"
+export FOO="hello:world"
+echo $FOO
+rm $FOO
+export FOO="echo:hello"
