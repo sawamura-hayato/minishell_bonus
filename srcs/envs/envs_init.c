@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:06:19 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/20 15:00:38 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/20 17:20:57 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,24 @@ static char	*get_value(const char *str)
 
 static char	*get_shlvl_value(char *value, t_data *d)
 {
-	const char	*msg = "warning: shell level (1000) too high, resetting to 1\n";
-	int			shlvl;
+	char	*msg;
+	long	shlvl;
 
-	shlvl = ft_atoi(value);
-	free(value);
-	if (shlvl == SHLVL_MAX_VALUE)
+	shlvl = ft_atol(value);
+	if (shlvl >= SHLVL_MAX_VALUE)
 	{
+		msg = try_strjoin("warning: shell level (", value);
+		msg = try_strjoin_free(msg, ") too high, resetting to 1\n");
 		try_write(STDOUT_FILENO, msg, ft_strlen(msg), d);
+		free(msg);
+		free(value);
 		return (try_itoa(1));
 	}
+	free(value);
+	if (shlvl < 0)
+		return (try_itoa(0));
 	else
-		return (try_itoa(++shlvl));
+		return (try_itoa((int)++shlvl));
 }
 
 static void	init_three_envs(t_data *d)
