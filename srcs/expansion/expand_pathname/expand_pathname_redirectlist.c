@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:02:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/26 14:32:21 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:52:28 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_redirect_list	*expand_star_redirectlist(t_redirect_list *star_node,
 					t_redirect_list *node, char *file);
+bool			expand_is_dot_dir(char *dirname);
+
 
 static bool	expand_have_star_redirectlist(t_redirect_list *node)
 {
@@ -43,7 +45,8 @@ static bool	expand_eachfile(DIR *dirp, struct dirent *entry,
 	while (entry != NULL)
 	{
 		tmp = node;
-		if (*(entry->d_name) != '.')
+		if (!expand_is_dot_dir(entry->d_name)
+			&& (*(star_node->word) == '.' || *(entry->d_name) != '.'))
 			node = expand_star_redirectlist(star_node, node, entry->d_name);
 		if (tmp != node)
 			expand_cnt++;

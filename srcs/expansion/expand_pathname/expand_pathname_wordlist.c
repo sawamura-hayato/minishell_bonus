@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_pathname_wordlist.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:21:07 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/19 17:35:19 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:52:25 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ bool	expand_only_stars(t_word_list *node)
 	return (true);
 }
 
+bool	expand_is_dot_dir(char *dirname)
+{
+	return ((ft_strcmp(dirname, ".") == 0 || ft_strcmp(dirname, "..") == 0));
+}
+
 t_word_list	*expand_pathname_wordlist(t_word_list **head, t_word_list *node,
 									t_word_list **pre_node, t_data *d)
 {
@@ -65,7 +70,8 @@ t_word_list	*expand_pathname_wordlist(t_word_list **head, t_word_list *node,
 	star_node = node;
 	while (entry != NULL)
 	{
-		if (*(entry->d_name) != '.')
+		if (!expand_is_dot_dir(entry->d_name)
+			&& (*(star_node->word) == '.' || *(entry->d_name) != '.'))
 			node = expand_star_wordlist(star_node, node, entry->d_name);
 		entry = try_readdir(dirp, d);
 	}
