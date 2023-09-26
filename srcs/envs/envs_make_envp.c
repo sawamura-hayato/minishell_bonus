@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envs_make_envp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 16:13:29 by tatyu             #+#    #+#             */
-/*   Updated: 2023/09/20 15:00:47 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:06:39 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	envs_is_invalid_key(const char *str)
 		return (true);
 	while (*str != '=' && *str != '\0')
 	{
-		if (export_is_symbol(*str))
+		if (export_is_symbol(*str) || ft_isspace(*str))
 			return (true);
 		str++;
 	}

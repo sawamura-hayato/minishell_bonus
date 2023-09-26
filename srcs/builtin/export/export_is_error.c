@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_is_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:27:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/08/15 17:13:51 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:04:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,22 @@ bool	export_is_symbol(char c)
 
 static bool	export_is_invalid_key(char *str, t_data *d)
 {
-	if (ft_isdigit(*str) || *str == '+' || *str == '=')
+	size_t	i;
+
+	i = 0;
+	if (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '=')
 	{
 		export_invalid_identifier(str, d);
 		return (true);
 	}
-	while (*str != '=' && *str != '+' && *str != '\0')
+	while (str[i] != '=' && str[i] != '+' && str[i] != '\0')
 	{
-		if (export_is_symbol(*str))
+		if (export_is_symbol(str[i]) || ft_isspace(str[i]))
 		{
 			export_invalid_identifier(str, d);
 			return (true);
 		}
-		str++;
+		i++;
 	}
 	return (false);
 }
