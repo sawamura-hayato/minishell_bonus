@@ -1,0 +1,9 @@
+export test=test a=abc
+export _A _B test+= a+= *fea b a
+export +=test  op========= o+===== c d e f g
+pwd
+echo -n ''
+echo -n
+echo -nnnnnn
+echo -n '' '' ''
+echo -n '' ''
