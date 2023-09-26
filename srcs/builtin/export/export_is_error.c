@@ -6,7 +6,7 @@
 /*   By: hsawamur <hsawamur@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:27:37 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/26 13:14:24 by hsawamur         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:04:38 by hsawamur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	export_is_invalid_key(char *str, t_data *d)
 	}
 	while (str[i] != '=' && str[i] != '+' && str[i] != '\0')
 	{
-		if (export_is_symbol(str[i]) || str[i] == ' ' || str[i] == '	')
+		if (export_is_symbol(str[i]) || ft_isspace(str[i]))
 		{
 			export_invalid_identifier(str, d);
 			return (true);
