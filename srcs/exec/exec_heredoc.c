@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 21:27:57 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/07 19:08:16 by tyamauch         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:48:31 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ void	*exec_delete_file_free(char *file, t_data *d);
 static char	*get_heredoc_tmpfile(void)
 {
 	char	*file;
+	char	*tmp;
 	int		i;
 
 	i = 0;
 	while (true)
 	{
 		file = try_itoa(i);
-		file = try_strjoin_free(file, "_thtshell_tmp.txt");
+		tmp = file;
+		file = try_strjoin("/tmp/thtshell_tmp", file);
+		free(tmp);
 		if (access(file, F_OK) != 0)
 			break ;
 		free(file);
