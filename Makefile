@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hsawamur <hsawamur@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tterao <tterao@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:09:44 by tyamauch          #+#    #+#              #
-#    Updated: 2023/09/20 06:12:38 by hsawamur         ###   ########.fr        #
+#    Updated: 2023/09/27 15:12:25 by tterao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,6 +167,8 @@ OBJS = $(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(SRCS))
 INCLUDES_DIR = includes
 INCLUDES = -I$(INCLUDES_DIR) -I$(LIBRARY_DIR)/$(INCLUDES_DIR) -I$(RL_DIR)/include
 
+all: $(NAME)
+
 $(NAME): $(OBJS) $(LIBRARY_AFILE)
 	$(CC) $(CFLAGS) -o $@ $^ $(RL_FLAGS)
 
@@ -176,8 +178,6 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 
 $(LIBRARY_AFILE):
 	$(MAKE) -C $(LIBRARY_DIR)
-
-all: $(NAME)
 
 clean:
 	$(RM) $(OBJS_DIR) $(LIBRARY_DIR)/$(OBJS_DIR)
