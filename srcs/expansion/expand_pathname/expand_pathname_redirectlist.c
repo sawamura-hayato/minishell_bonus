@@ -6,7 +6,7 @@
 /*   By: tterao <tterao@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 14:02:30 by tterao            #+#    #+#             */
-/*   Updated: 2023/09/05 16:11:49 by tterao           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:52:28 by tterao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 t_redirect_list	*expand_star_redirectlist(t_redirect_list *star_node,
 					t_redirect_list *node, char *file);
+bool			expand_is_dot_dir(char *dirname);
+
 
 static bool	expand_have_star_redirectlist(t_redirect_list *node)
 {
@@ -43,7 +45,8 @@ static bool	expand_eachfile(DIR *dirp, struct dirent *entry,
 	while (entry != NULL)
 	{
 		tmp = node;
-		if (*(entry->d_name) != '.')
+		if (!expand_is_dot_dir(entry->d_name)
+			&& (*(star_node->word) == '.' || *(entry->d_name) != '.'))
 			node = expand_star_redirectlist(star_node, node, entry->d_name);
 		if (tmp != node)
 			expand_cnt++;
@@ -51,7 +54,7 @@ static bool	expand_eachfile(DIR *dirp, struct dirent *entry,
 			return (false);
 		entry = try_readdir(dirp, d);
 	}
-	return (true);
+	return (expand_cnt > 0);
 }
 
 static void	delete_expanded_nodes(t_redirect_list **head, t_redirect_list *node)
@@ -74,13 +77,13 @@ t_redirect_list	*expand_pathname_redirectlist(t_redirect_list **head,
 	if (dirp == NULL)
 		return (node->next);
 	entry = try_readdir(dirp, d);
-	if (expand_eachfile(dirp, entry, node, d))
+	if (entry != NULL && expand_eachfile(dirp, entry, node, d))
 	{
 		tmp = node->next;
 		redirect_delete_target(head, node);
 		node = tmp;
 	}
-	else
+	else if (entry != NULL)
 		delete_expanded_nodes(head, node);
 	try_closedir(dirp, d);
 	return (node->next);
